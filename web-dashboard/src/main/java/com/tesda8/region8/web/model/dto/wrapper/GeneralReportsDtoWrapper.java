@@ -1,0 +1,19 @@
+package com.tesda8.region8.web.model.dto.wrapper;
+
+import com.tesda8.region8.web.model.dto.GeneralReportDto;
+import com.tesda8.region8.util.enums.Month;
+import lombok.Data;
+
+import java.util.List;
+
+@Data
+public class GeneralReportsDtoWrapper {
+
+    private List<GeneralReportDto> poReports;
+    private List<GeneralReportDto> institutionBasedReports;
+    private List<GeneralReportDto> enterpriseBasedGSReports;
+    private List<GeneralReportDto> enterpriseBasedT2Reports;
+    private List<GeneralReportDto> communityBasedReports;
+    private List<GeneralReportDto> ttiReports;
+    private Month month;
+}
