@@ -1,1 +1,1 @@
- web java -Dserver.port=$PORT $JAVA_OPTS -jar target/tesda8app-0.0.1-SNAPSHOT.jar
+ web java -Dserver.port=$PORT $JAVA_OPTS -jar web-dashboard/target/web-dashboard-0.0.1-SNAPSHOT.jar
