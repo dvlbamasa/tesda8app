@@ -1,8 +1,6 @@
 package com.tesda8.region8.web.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,8 +11,6 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
-//@ComponentScan( basePackages = "com.tesda8.region8.util")
-//@EntityScan(basePackages = "com.tesda8.region8.util")
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -65,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/dashboard", "/monthly", "/monthlyReport/**", "/table/**", "/operatingUnit/**", "/graph/**", "/tableData/**", "/allCertificationReports", "/com/tesda8/region8/web/**", "/home", "/favicon.ico").permitAll()
+                .antMatchers("/", "/dashboard", "/monthly", "/institution/**", "/monthlyReport/**", "/table/**", "/operatingUnit/**", "/graph/**", "/tableData/**", "/allCertificationReports", "/reports/**", "/home", "/favicon.ico").permitAll()
                 .antMatchers("/planning/**").hasAnyRole("ADMIN", "PLANNING")
                 .antMatchers("/certification/**").hasAnyRole("CERTIFICATION", "ADMIN")
                 .antMatchers("/monthlyReports/**", "/dailyReports/**").hasAnyRole("ADMIN", "PLANNING", "CERTIFICATION")

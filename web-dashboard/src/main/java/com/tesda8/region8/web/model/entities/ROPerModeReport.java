@@ -2,6 +2,7 @@ package com.tesda8.region8.web.model.entities;
 
 import com.tesda8.region8.util.enums.DeliveryMode;
 import com.tesda8.region8.util.enums.ReportSourceType;
+import com.tesda8.region8.util.model.GeneralData;
 import lombok.Data;
 
 import javax.persistence.*;

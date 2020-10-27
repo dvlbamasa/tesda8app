@@ -35,7 +35,7 @@
                                 <label for="month" class="col-sm-2 col-form-label">Select a Month</label>
                                 <div class="col-sm-4">
                                     <select class="form-control" th:field="*{month}" id="month">
-                                        <option th:each="month : ${T(com.tesda.region8.Month).values()}"
+                                        <option th:each="month : ${T(com.tesda8.region8.util.enums.Month).values()}"
                                                 th:value="${month}"
                                                 th:text="${month.label}">
                                         </option>
@@ -55,7 +55,7 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="report, itemstat : *{poReports}">
-                                    <div th:if="${report.egacDataDto.egacType == T(com.tesda.region8.EgacType).ENROLLED}">
+                                    <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).ENROLLED}">
                                         <th scope="row"><span th:text="${report.operatingUnitType.label}"></span></th>
                                         <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control" th:field="*{poReports[__${itemstat.index}__].egacDataDto.target}" required/></td>
                                         <td>
@@ -82,7 +82,7 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="report, itemstat : *{poReports}">
-                                    <div th:if="${report.egacDataDto.egacType == T(com.tesda.region8.EgacType).GRADUATED}">
+                                    <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).GRADUATED}">
                                         <th scope="row"><span th:text="${report.operatingUnitType.label}"></span></th>
                                         <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control" th:field="*{poReports[__${itemstat.index}__].egacDataDto.target}" required/></td>
                                         <td>
@@ -110,7 +110,7 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="report, itemstat : *{poReports}">
-                                    <div th:if="${report.egacDataDto.egacType == T(com.tesda.region8.EgacType).ASSESSED}">
+                                    <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).ASSESSED}">
                                         <th scope="row"><span th:text="${report.operatingUnitType.label}"></span></th>
                                         <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control" th:field="*{poReports[__${itemstat.index}__].egacDataDto.target}" required/></td>
                                         <td>
@@ -137,7 +137,7 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="report, itemstat : *{poReports}">
-                                    <div th:if="${report.egacDataDto.egacType == T(com.tesda.region8.EgacType).CERTIFIED}">
+                                    <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).CERTIFIED}">
                                         <th scope="row"><span th:text="${report.operatingUnitType.label}"></span></th>
                                         <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control" th:field="*{poReports[__${itemstat.index}__].egacDataDto.target}" required/></td>
                                         <td>

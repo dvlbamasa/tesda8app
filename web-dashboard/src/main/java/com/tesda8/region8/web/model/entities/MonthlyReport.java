@@ -2,6 +2,7 @@ package com.tesda8.region8.web.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.tesda8.region8.util.enums.Month;
+import com.tesda8.region8.util.model.GeneralData;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -16,11 +17,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 @Entity
 @Data
 @Table(name = "MONTHLY_REPORT")
-public class MonthlyReport extends GeneralData{
+public class MonthlyReport extends GeneralData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

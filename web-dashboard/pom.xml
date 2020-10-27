@@ -16,9 +16,10 @@
     <dependencies>
         <dependency>
             <groupId>com.tesda.region8</groupId>
-            <artifactId>util</artifactId>
+            <artifactId>program-registration</artifactId>
             <version>1.0</version>
         </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

@@ -20,7 +20,7 @@ public class QOperatingUnit extends EntityPathBase<OperatingUnit> {
 
     public static final QOperatingUnit operatingUnit = new QOperatingUnit("operatingUnit");
 
-    public final QGeneralData _super = new QGeneralData(this);
+    public final com.tesda8.region8.util.model.QGeneralData _super = new com.tesda8.region8.util.model.QGeneralData(this);
 
     //inherited
     public final StringPath createdBy = _super.createdBy;

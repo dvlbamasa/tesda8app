@@ -22,7 +22,7 @@ public class QMonthlyReport extends EntityPathBase<MonthlyReport> {
 
     public static final QMonthlyReport monthlyReport = new QMonthlyReport("monthlyReport");
 
-    public final QGeneralData _super = new QGeneralData(this);
+    public final com.tesda8.region8.util.model.QGeneralData _super = new com.tesda8.region8.util.model.QGeneralData(this);
 
     //inherited
     public final StringPath createdBy = _super.createdBy;

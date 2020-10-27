@@ -1,4 +1,4 @@
-package com.tesda8.region8.web.model.entities;
+package com.tesda8.region8.util.model;
 
 import lombok.Data;
 

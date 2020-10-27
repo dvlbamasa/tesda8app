@@ -22,7 +22,7 @@ public class QGeneralReport extends EntityPathBase<GeneralReport> {
 
     public static final QGeneralReport generalReport = new QGeneralReport("generalReport");
 
-    public final QGeneralData _super = new QGeneralData(this);
+    public final com.tesda8.region8.util.model.QGeneralData _super = new com.tesda8.region8.util.model.QGeneralData(this);
 
     //inherited
     public final StringPath createdBy = _super.createdBy;
