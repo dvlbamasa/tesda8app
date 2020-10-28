@@ -11,6 +11,8 @@ import com.tesda8.region8.program.registration.repository.InstitutionRepository;
 import com.tesda8.region8.program.registration.service.InstitutionService;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.Sector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class InstitutionServiceImpl implements InstitutionService {
+
+    private static Logger logger = LoggerFactory.getLogger(InstitutionServiceImpl.class);
+
 
     private InstitutionRepository institutionRepository;
     private ProgramRegistrationMapper programRegistrationMapper;
@@ -62,8 +67,11 @@ public class InstitutionServiceImpl implements InstitutionService {
     }
 
     @Override
-    public List<InstitutionDto> getAllInstitutionByOperatingUnitAndSector(OperatingUnitType operatingUnitType, Sector sector) {
-        List<Institution> institutions = institutionRepository.findAllByOperatingUnitType(operatingUnitType);
+    public List<InstitutionDto> getAllInstitutionByOperatingUnitAndSectorAndCourseName(OperatingUnitType operatingUnitType,
+                                                                                       Sector sector,
+                                                                                       String courseName) {
+        List<Institution> institutions = operatingUnitType.equals(OperatingUnitType.TOTAL)  ?
+                institutionRepository.findAll() : institutionRepository.findAllByOperatingUnitType(operatingUnitType);
         List<InstitutionDto> institutionDtos = institutions
                 .stream()
                 .map(institution -> programRegistrationMapper.institutionToDto(institution))
@@ -74,6 +82,7 @@ public class InstitutionServiceImpl implements InstitutionService {
                             institutionDto.getRegisteredPrograms()
                                     .stream()
                                     .filter(programDto -> programDto.getSector().equals(sector))
+                                    .filter(programDto -> programDto.getName().toLowerCase().contains(courseName.toLowerCase()))
                                     .collect(Collectors.toList())
                     );
                 }

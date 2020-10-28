@@ -4,8 +4,11 @@ import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
 import com.tesda8.region8.program.registration.model.wrapper.ProgramRegistrationWrapper;
 import com.tesda8.region8.program.registration.model.wrapper.RegisteredProgramRequest;
 import com.tesda8.region8.program.registration.service.InstitutionService;
+import com.tesda8.region8.program.registration.service.impl.InstitutionServiceImpl;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.Sector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +23,9 @@ import java.util.List;
 
 @Controller
 public class ProgramRegistrationController {
+
+    private static Logger logger = LoggerFactory.getLogger(ProgramRegistrationController.class);
+
 
     private InstitutionService institutionService;
 
@@ -52,12 +58,13 @@ public class ProgramRegistrationController {
         if (bindingResult.hasErrors()) {
             //errors processing
         }
-        List<InstitutionDto> institutionDtoList = registeredProgramRequest.getOperatingUnitType().equals(OperatingUnitType.TOTAL) ?
-                institutionService.getAllInstitutionByCourseSector(registeredProgramRequest.getSector()) :
-                institutionService.getAllInstitutionByOperatingUnitAndSector(registeredProgramRequest.getOperatingUnitType(),
-                        registeredProgramRequest.getSector());
+        logger.info("courseName from controller: {}", registeredProgramRequest.getCourseName() );
+        List<InstitutionDto> institutionDtoList =
+                institutionService.getAllInstitutionByOperatingUnitAndSectorAndCourseName(registeredProgramRequest.getOperatingUnitType(),
+                        registeredProgramRequest.getSector(), registeredProgramRequest.getCourseName());
         model.addAttribute("operatingUnitType", registeredProgramRequest.getOperatingUnitType());
         model.addAttribute("sectorValue", registeredProgramRequest.getSector());
+        model.addAttribute("courseNameValue", registeredProgramRequest.getCourseName());
         model.addAttribute("registeredProgramRequest", new RegisteredProgramRequest());
         model.addAttribute("institutions", institutionDtoList);
         return "program_registration/prog_reg_list";

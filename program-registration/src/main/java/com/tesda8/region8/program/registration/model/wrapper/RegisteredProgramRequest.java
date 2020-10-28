@@ -9,4 +9,5 @@ public class RegisteredProgramRequest {
 
     private OperatingUnitType operatingUnitType;
     private Sector sector;
+    private String courseName;
 }

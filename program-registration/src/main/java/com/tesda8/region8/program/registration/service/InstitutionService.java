@@ -13,7 +13,8 @@ public interface InstitutionService {
 
     List<InstitutionDto> getAllInstitutionByCourseSector(Sector sector);
 
-    List<InstitutionDto> getAllInstitutionByOperatingUnitAndSector(OperatingUnitType operatingUnitType, Sector sector);
+    List<InstitutionDto> getAllInstitutionByOperatingUnitAndSectorAndCourseName(OperatingUnitType operatingUnitType,
+                                                                                Sector sector, String courseName);
 
     ProgramRegistrationWrapper getCourseCountPerInstitution();
 }

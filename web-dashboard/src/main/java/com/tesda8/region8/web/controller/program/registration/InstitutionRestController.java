@@ -1,7 +1,6 @@
 package com.tesda8.region8.web.controller.program.registration;
 
 import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
-import com.tesda8.region8.program.registration.model.wrapper.InstitutionWrapper;
 import com.tesda8.region8.program.registration.model.wrapper.ProgramRegistrationWrapper;
 import com.tesda8.region8.program.registration.service.InstitutionService;
 import com.tesda8.region8.util.enums.OperatingUnitType;
@@ -35,10 +34,11 @@ public class InstitutionRestController {
         return institutionService.getAllInstitutionByCourseSector(sector);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{operatingUnitType}/operatingUnit/{sector}/sector")
+    @RequestMapping(method = RequestMethod.GET, value = "/{operatingUnitType}/operatingUnit/{sector}/sector/{courseName}/courseName")
     public List<InstitutionDto> getAllInstitutionByOperatingUnitTypeCourseSector(@PathVariable("operatingUnitType") OperatingUnitType operatingUnitType,
-                                                                @PathVariable("sector")Sector sector) {
-        return institutionService.getAllInstitutionByOperatingUnitAndSector(operatingUnitType, sector);
+                                                                @PathVariable("sector")Sector sector,
+                                                                 @PathVariable("courseName") String courseName) {
+        return institutionService.getAllInstitutionByOperatingUnitAndSectorAndCourseName(operatingUnitType, sector, courseName);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/count")
