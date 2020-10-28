@@ -485,11 +485,11 @@ INSERT INTO institution (id, created_date, updated_date, created_by, updated_by,
 
 /* initial data Southern Leyte TTI */
 
-INSERT INTO institution (id, created_date, updated_date, created_by, updated_by, name, short_name, operating_unit_type, institution_type, institution_classification, contact_number, address, congressional_district) VALUES (6, now(), now(), 'SYSTEM', 'SYSTEM', 'Southern Leyte Provincial Training Center  ', 'PTC', 'SOUTHERN_LEYTE', 'PUBLIC', 'TESDA', 'DEFAULT', 'DEFAULT', 'LONE');
+INSERT INTO institution (id, created_date, updated_date, created_by, updated_by, name, short_name, operating_unit_type, institution_type, institution_classification, contact_number, address, congressional_district) VALUES (6, now(), now(), 'SYSTEM', 'SYSTEM', 'Southern Leyte Provincial Training Center', 'PTC', 'SOUTHERN_LEYTE', 'PUBLIC', 'TESDA', 'DEFAULT', 'DEFAULT', 'LONE');
 
 /* initial data Samar TTI */
 
-INSERT INTO institution (id, created_date, updated_date, created_by, updated_by, name, short_name, operating_unit_type, institution_type, institution_classification, contact_number, address, congressional_district) VALUES (7, now(), now(), 'SYSTEM', 'SYSTEM', 'Samar Provincial Training Center  ', 'PTC', 'SAMAR', 'PUBLIC', 'TESDA', 'DEFAULT', 'DEFAULT', 'FIRST');
+INSERT INTO institution (id, created_date, updated_date, created_by, updated_by, name, short_name, operating_unit_type, institution_type, institution_classification, contact_number, address, congressional_district) VALUES (7, now(), now(), 'SYSTEM', 'SYSTEM', 'Samar Provincial Training Center', 'PTC', 'SAMAR', 'PUBLIC', 'TESDA', 'DEFAULT', 'DEFAULT', 'FIRST');
 
 /* initial data Eastern Samar TTI */
 

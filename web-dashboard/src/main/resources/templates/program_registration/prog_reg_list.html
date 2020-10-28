@@ -35,13 +35,14 @@
                         </div>
                         <div class="container mt-5 mb-5">
                             <div class="form-group row">
-                                <label for="operatingUnitType" class="col-sm-2 col-form-label">Select Province</label>
+                                <label for="institutionName" class="col-sm-2 col-form-label">Select TTI</label>
                                 <div class="col-sm-4">
-                                    <select class="form-control" id="operatingUnitType" name="operatingUnitType">
-                                        <option th:each="operatingUnit : ${T(com.tesda8.region8.util.enums.OperatingUnitType).values()}"
-                                                th:value="${operatingUnit}"
-                                                th:text="${operatingUnit.label}"
-                                        th:selected="${operatingUnitType} == ${operatingUnit}">
+                                    <select class="form-control" id="institutionName" name="institutionName">
+                                        <option value="" text="All">All</option>
+                                        <option th:each="institution : ${ttiList}"
+                                                th:text="${institution.name} + ' (' + ${institution.shortName} + ') - ' + ${institution.operatingUnitType.label}"
+                                                th:value="${institution.name}"
+                                        th:selected="${institution.name} == ${institutionNameValue}">
                                         </option>
                                     </select>
                                 </div>
@@ -67,6 +68,9 @@
                         </div>
                     </fieldset>
                 </form>
+                <p class="lead text-black-50">Total Registered Programs:
+                    <span class="lead text-black" th:text="${total.totalRegisteredPrograms}"></span>
+                </p>
                 <table class="table table-bordered table-striped table-sm">
                     <thead class="thead-dark">
                     <tr>

@@ -5,10 +5,12 @@ import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
 import com.tesda8.region8.program.registration.model.entities.Institution;
 import com.tesda8.region8.program.registration.model.mapper.ProgramRegistrationMapper;
 import com.tesda8.region8.program.registration.model.wrapper.CourseCount;
+import com.tesda8.region8.program.registration.model.wrapper.InstitutionProgramRegCounter;
 import com.tesda8.region8.program.registration.model.wrapper.InstitutionWrapper;
 import com.tesda8.region8.program.registration.model.wrapper.ProgramRegistrationWrapper;
 import com.tesda8.region8.program.registration.repository.InstitutionRepository;
 import com.tesda8.region8.program.registration.service.InstitutionService;
+import com.tesda8.region8.util.enums.InstitutionType;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.Sector;
 import org.slf4j.Logger;
@@ -47,6 +49,15 @@ public class InstitutionServiceImpl implements InstitutionService {
     }
 
     @Override
+    public List<InstitutionDto> getAllInstitutionByInstitutionType(InstitutionType institutionType) {
+        List<Institution> institutions = institutionRepository.findAllByInstitutionType(institutionType);
+        return institutions
+                .stream()
+                .map(institution -> programRegistrationMapper.institutionToDto(institution))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<InstitutionDto> getAllInstitutionByCourseSector(Sector sector) {
         List<Institution> institutions = institutionRepository.findAll();
         List<InstitutionDto> institutionDtos = institutions
@@ -67,13 +78,13 @@ public class InstitutionServiceImpl implements InstitutionService {
     }
 
     @Override
-    public List<InstitutionDto> getAllInstitutionByOperatingUnitAndSectorAndCourseName(OperatingUnitType operatingUnitType,
-                                                                                       Sector sector,
-                                                                                       String courseName) {
-        List<Institution> institutions = operatingUnitType.equals(OperatingUnitType.TOTAL)  ?
-                institutionRepository.findAll() : institutionRepository.findAllByOperatingUnitType(operatingUnitType);
+    public List<InstitutionDto> getAllInstitutionByNameAndSectorAndCourseName(String institutionName,
+                                                                              Sector sector,
+                                                                              String courseName) {
+        List<Institution> institutions = institutionRepository.findAll();
         List<InstitutionDto> institutionDtos = institutions
                 .stream()
+                .filter(institution -> institutionName.equals("") || institution.getName().equalsIgnoreCase(institutionName))
                 .map(institution -> programRegistrationMapper.institutionToDto(institution))
                 .collect(Collectors.toList());
         institutionDtos.forEach(
@@ -88,6 +99,18 @@ public class InstitutionServiceImpl implements InstitutionService {
                 }
         );
         return institutionDtos;
+    }
+
+    public InstitutionProgramRegCounter getTotalCountOfRegisteredPrograms(List<InstitutionDto> institutionDtoList) {
+        InstitutionProgramRegCounter institutionProgramRegCounter = new InstitutionProgramRegCounter();
+        institutionDtoList.forEach(
+                institutionDto -> {
+                     institutionProgramRegCounter.setTotalRegisteredPrograms(institutionDto.getRegisteredPrograms().size() +
+                             institutionProgramRegCounter.getTotalRegisteredPrograms());
+                }
+        );
+        institutionProgramRegCounter.setTotalInstitutions(institutionDtoList.size());
+        return institutionProgramRegCounter;
     }
 
     @Override

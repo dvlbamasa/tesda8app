@@ -1,10 +1,11 @@
 package com.tesda8.region8.web.controller.program.registration;
 
 import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
+import com.tesda8.region8.program.registration.model.wrapper.InstitutionProgramRegCounter;
 import com.tesda8.region8.program.registration.model.wrapper.ProgramRegistrationWrapper;
 import com.tesda8.region8.program.registration.model.wrapper.RegisteredProgramRequest;
 import com.tesda8.region8.program.registration.service.InstitutionService;
-import com.tesda8.region8.program.registration.service.impl.InstitutionServiceImpl;
+import com.tesda8.region8.util.enums.InstitutionType;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.Sector;
 import org.slf4j.Logger;
@@ -44,10 +45,13 @@ public class ProgramRegistrationController {
     @RequestMapping(method = RequestMethod.GET, value = "/institutions/{sectorType}/sector")
     public String getCoursesPerSector(@PathVariable("sectorType") Sector sector, Model model) {
         List<InstitutionDto> institutionDtoList = institutionService.getAllInstitutionByCourseSector(sector);
-        model.addAttribute("operatingUnitType", OperatingUnitType.TOTAL);
+        List<InstitutionDto> ttiList = institutionService.getAllInstitutionByInstitutionType(InstitutionType.PUBLIC);
+        InstitutionProgramRegCounter institutionProgramRegCounter = institutionService.getTotalCountOfRegisteredPrograms(institutionDtoList);
         model.addAttribute("sectorValue", sector);
         model.addAttribute("registeredProgramRequest", new RegisteredProgramRequest());
         model.addAttribute("institutions", institutionDtoList);
+        model.addAttribute("ttiList", ttiList);
+        model.addAttribute("total", institutionProgramRegCounter);
         return "program_registration/prog_reg_list";
     }
 
@@ -58,15 +62,19 @@ public class ProgramRegistrationController {
         if (bindingResult.hasErrors()) {
             //errors processing
         }
-        logger.info("courseName from controller: {}", registeredProgramRequest.getCourseName() );
+        logger.info("institutionName from controller: {}", registeredProgramRequest.getInstitutionName() );
         List<InstitutionDto> institutionDtoList =
-                institutionService.getAllInstitutionByOperatingUnitAndSectorAndCourseName(registeredProgramRequest.getOperatingUnitType(),
+                institutionService.getAllInstitutionByNameAndSectorAndCourseName(registeredProgramRequest.getInstitutionName(),
                         registeredProgramRequest.getSector(), registeredProgramRequest.getCourseName());
-        model.addAttribute("operatingUnitType", registeredProgramRequest.getOperatingUnitType());
+        List<InstitutionDto> ttiList = institutionService.getAllInstitutionByInstitutionType(InstitutionType.PUBLIC);
+        InstitutionProgramRegCounter institutionProgramRegCounter = institutionService.getTotalCountOfRegisteredPrograms(institutionDtoList);
+        model.addAttribute("institutionNameValue", registeredProgramRequest.getInstitutionName());
         model.addAttribute("sectorValue", registeredProgramRequest.getSector());
         model.addAttribute("courseNameValue", registeredProgramRequest.getCourseName());
         model.addAttribute("registeredProgramRequest", new RegisteredProgramRequest());
         model.addAttribute("institutions", institutionDtoList);
+        model.addAttribute("ttiList", ttiList);
+        model.addAttribute("total", institutionProgramRegCounter);
         return "program_registration/prog_reg_list";
     }
 
