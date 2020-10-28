@@ -1,0 +1,225 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>TESDA Region VIII Internal Application</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+
+<div id="page-container">
+    <div id = "content-wrap">
+        <header class="bg-primary py-5 mb-5">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <div class="col-lg-12">
+                        <h1 class="display-4 text-white mt-5 mb-2">Registered Programs</h1>
+                        <p class="lead text-white-50">Summary of total course/registered program per institution.</p>
+                        <div class="btn-group mr-2 float-right" role="group">
+                            <a th:href="@{/dashboard}" class="btn btn-info btn-lg" role="button" aria-pressed="true">Back to Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div>
+            <fieldset>
+                <table class="table table-bordered table-sm">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col"> Operating Unit</th>
+                            <th scope="col"> Institutions</th>
+                            <th th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
+                                <a th:text="${sector.label}" th:href="@{/institutions/{sectorType}/sector(sectorType=${sector})}"></a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th th:rowspan="3" th:scope="rowgroup">Leyte</th>
+                            <th:block th:each="institution : ${institutionsList.leyteInstitutionWrapperList}">
+                                <th:block th:if="${institution.institutionShortName == 'RTC'}">
+                                    <th scope="row"><span th:text="${institution.institutionShortName}"></span></th>
+                                    <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
+                                        <th:block th:each="course : ${institution.courseCountList}">
+                                            <td th:if="${sector == course.sector}">
+                                                <span th:text="${course.count}"></span>
+                                            </td>
+                                        </th:block>
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+                        </tr>
+                        <th:block th:each="institution : ${institutionsList.leyteInstitutionWrapperList}">
+                            <th:block th:if="${institution.institutionShortName != 'RTC'}">
+                                <tr>
+                                    <th scope="row"><span th:text="${institution.institutionShortName}"></span></th>
+                                    <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
+                                        <th:block th:each="course : ${institution.courseCountList}">
+                                            <td th:if="${sector == course.sector}">
+                                                <span th:text="${course.count}"></span>
+                                            </td>
+                                        </th:block>
+                                    </th:block>
+                                </tr>
+                            </th:block>
+                        </th:block>
+                    </tbody>
+
+                    <tbody>
+                        <tr>
+                            <th th:rowspan="2" th:scope="rowgroup">Biliran</th>
+                            <th:block th:each="institution : ${institutionsList.biliranInstitutionWrapperList}">
+                                <th:block th:if="${institution.institutionShortName == 'CNSAT'}">
+                                    <th scope="row"><span th:text="${institution.institutionShortName}"></span></th>
+                                    <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
+                                        <th:block th:each="course : ${institution.courseCountList}">
+                                            <td th:if="${sector == course.sector}">
+                                                <span th:text="${course.count}"></span>
+                                            </td>
+                                        </th:block>
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+                        </tr>
+                        <th:block th:each="institution : ${institutionsList.biliranInstitutionWrapperList}">
+                            <th:block th:if="${institution.institutionShortName != 'CNSAT'}">
+                                <tr>
+                                    <th scope="row"><span th:text="${institution.institutionShortName}"></span></th>
+                                    <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
+                                        <th:block th:each="course : ${institution.courseCountList}">
+                                            <td th:if="${sector == course.sector}">
+                                                <span th:text="${course.count}"></span>
+                                            </td>
+                                        </th:block>
+                                    </th:block>
+                                </tr>
+                            </th:block>
+                        </th:block>
+                    </tbody>
+
+                    <tbody>
+                        <tr>
+                            <th th:rowspan="1" th:scope="rowgroup">Southern Leyte</th>
+                            <th:block th:each="institution : ${institutionsList.southernLeyteInstitutionWrapperList}">
+                                <th scope="row"><span th:text="${institution.institutionShortName}"></span></th>
+                                <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
+                                    <th:block th:each="course : ${institution.courseCountList}">
+                                        <td th:if="${sector == course.sector}">
+                                            <span th:text="${course.count}"></span>
+                                        </td>
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+                        </tr>
+                    </tbody>
+
+                    <tbody>
+                        <tr>
+                            <th th:rowspan="1" th:scope="rowgroup">Samar</th>
+                            <th:block th:each="institution : ${institutionsList.samarInstitutionWrapperList}">
+                                <th scope="row"><span th:text="${institution.institutionShortName}"></span></th>
+                                <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
+                                    <th:block th:each="course : ${institution.courseCountList}">
+                                        <td th:if="${sector == course.sector}">
+                                            <span th:text="${course.count}"></span>
+                                        </td>
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+                        </tr>
+                    </tbody>
+
+                    <tbody>
+                        <tr>
+                            <th th:rowspan="5" th:scope="rowgroup">Eastern Samar</th>
+                            <th:block th:each="institution : ${institutionsList.easternSamarInstitutionWrapperList}">
+                                <th:block th:if="${institution.institutionShortName == 'PTC'}">
+                                    <th scope="row"><span th:text="${institution.institutionShortName}"></span></th>
+                                    <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
+                                        <th:block th:each="course : ${institution.courseCountList}">
+                                            <td th:if="${sector == course.sector}">
+                                                <span th:text="${course.count}"></span>
+                                            </td>
+                                        </th:block>
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+                        </tr>
+                        <th:block th:each="institution : ${institutionsList.easternSamarInstitutionWrapperList}">
+                            <th:block th:if="${institution.institutionShortName != 'PTC'}">
+                                <tr>
+                                    <th scope="row"><span th:text="${institution.institutionShortName}"></span></th>
+                                    <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
+                                        <th:block th:each="course : ${institution.courseCountList}">
+                                            <td th:if="${sector == course.sector}">
+                                                <span th:text="${course.count}"></span>
+                                            </td>
+                                        </th:block>
+                                    </th:block>
+                                </tr>
+                            </th:block>
+                        </th:block>
+                    </tbody>
+
+                    <tbody>
+                    <tr>
+                        <th th:rowspan="3" th:scope="rowgroup">Northern Samar</th>
+                        <th:block th:each="institution : ${institutionsList.northernSamarInstitutionWrapperList}">
+                            <th:block th:if="${institution.institutionShortName == 'PTC'}">
+                                <th scope="row"><span th:text="${institution.institutionShortName}"></span></th>
+                                <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
+                                    <th:block th:each="course : ${institution.courseCountList}">
+                                        <td th:if="${sector == course.sector}">
+                                            <span th:text="${course.count}"></span>
+                                        </td>
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+                        </th:block>
+                    </tr>
+                    <th:block th:each="institution : ${institutionsList.northernSamarInstitutionWrapperList}">
+                        <th:block th:if="${institution.institutionShortName != 'PTC'}">
+                            <tr>
+                                <th scope="row"><span th:text="${institution.institutionShortName}"></span></th>
+                                <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
+                                    <th:block th:each="course : ${institution.courseCountList}">
+                                        <td th:if="${sector == course.sector}">
+                                            <span th:text="${course.count}"></span>
+                                        </td>
+                                    </th:block>
+                                </th:block>
+                            </tr>
+                        </th:block>
+                    </th:block>
+                    </tbody>
+
+                    <tbody>
+                    <tr class="table-success">
+                        <th th:rowspan="1" th:scope="rowgroup">Region 8</th>
+                        <th:block th:each="institution : ${institutionsList.totalInstitutionWrapperList}">
+                            <th scope="row"><span th:text="${institution.institutionShortName}"></span></th>
+                            <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
+                                <th:block th:each="course : ${institution.courseCountList}">
+                                    <th scope="row" th:if="${sector == course.sector}"
+                                        th:text="${course.count}">
+                                    </th>
+                                </th:block>
+                            </th:block>
+                        </th:block>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </fieldset>
+        </div>
+    </div>
+</div>
+<!-- /.container -->
+
+
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

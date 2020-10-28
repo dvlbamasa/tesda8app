@@ -11,9 +11,9 @@ public enum Sector {
     HVAC("HVACR"),
     ICT("ICT"),
     METALS("Metals and Engineering"),
-    LSI("Others (LSI)"),
+    LSI("Others (FL/LSI)"),
     PROCESSED_FOODS("Processed foods and beverages"),
-    SOCIAL("Social Community Development and Other Servies"),
+    SOCIAL("Social Community Development and Other Services"),
     TOURISM("Tourism"),
     TVET("TVET");
 

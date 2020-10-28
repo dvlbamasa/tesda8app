@@ -152,3 +152,31 @@ body {
 .nav-pills .nav-link.active {
     background-color: #002761 !important;
 }
+
+tbody:hover td[rowspan], tr:hover td {
+    background: #5098d5;
+}
+
+a:link {
+    color: #ffffff;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #ffffff;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #bcc4ff;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+a:active {
+    color: #7388ff;
+    background-color: transparent;
+    text-decoration: underline;
+}

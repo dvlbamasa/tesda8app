@@ -8,7 +8,7 @@ public enum OperatingUnitType {
     EASTERN_SAMAR("Eastern Samar"),
     NORTHERN_SAMAR("Northern Samar"),
 
-    TOTAL("Total");
+    TOTAL("Region 8");
 
     public final String label;
 
