@@ -65,8 +65,8 @@
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col"> Province</th>
-                        <th scope="col"> Institution Name</th>
                         <th scope="col"> TTI</th>
+                        <th scope="col"> Institution Name</th>
                         <th scope="col"> Qualification Title</th>
                     </tr>
                     </thead>
@@ -75,8 +75,8 @@
                             <th:block th:each="registeredProgram : ${institution.registeredPrograms}">
                                 <tr>
                                     <th scope="row"><span th:text="${institution.operatingUnitType.label}"></span></th>
-                                    <td><span th:text="${institution.name}"></span></td>
                                     <td><span th:text="${institution.shortName}"></span></td>
+                                    <td><span th:text="${institution.name}"></span></td>
                                     <td><span th:text="${registeredProgram.name}"></span></td>
                                 </tr>
                             </th:block>
