@@ -40,7 +40,7 @@
                                     <select class="form-control" id="institutionName" name="institutionName">
                                         <option value="" text="All">All</option>
                                         <option th:each="institution : ${ttiList}"
-                                                th:text="${institution.name} + ' (' + ${institution.shortName} + ') - ' + ${institution.operatingUnitType.label}"
+                                                th:text="${institution.operatingUnitType.label} + ' - ' + ${institution.shortName} + ' (' + ${institution.name} + ')'"
                                                 th:value="${institution.name}"
                                         th:selected="${institution.name} == ${institutionNameValue}">
                                         </option>
@@ -68,19 +68,30 @@
                         </div>
                     </fieldset>
                 </form>
-                <p class="lead text-black-50">Total Registered Programs:
-                    <span class="lead text-black" th:text="${total.totalRegisteredPrograms}"></span>
-                </p>
-                <table class="table table-bordered table-striped table-sm">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col"> Province</th>
-                        <th scope="col"> TTI</th>
-                        <th scope="col"> Institution Name</th>
-                        <th scope="col"> Qualification Title</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+            </div>
+        </div>
+        <div>
+            <div>
+                <div class="container">
+                    <p class="lead text-black-50">Total Registered Programs:
+                        <span class="lead text-black" th:text="${total.totalRegisteredPrograms}"></span>
+                    </p>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-sm">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col"> Province</th>
+                            <th scope="col"> TTI</th>
+                            <th scope="col"> Institution Name</th>
+                            <th scope="col"> Qualification Title</th>
+                            <th scope="col"> Duration</th>
+                            <th scope="col"> Program Reg. No.</th>
+                            <th scope="col"> Date Issued</th>
+                            <th scope="col"> Number of Trainer</th>
+                        </tr>
+                        </thead>
+                        <tbody>
                         <th:block th:each="institution : ${institutions}">
                             <th:block th:each="registeredProgram : ${institution.registeredPrograms}">
                                 <tr>
@@ -88,11 +99,16 @@
                                     <td><span th:text="${institution.shortName}"></span></td>
                                     <td><span th:text="${institution.name}"></span></td>
                                     <td><span th:text="${registeredProgram.name}"></span></td>
+                                    <td><span th:text="${registeredProgram.duration} + ' hours'"></span></td>
+                                    <td><span th:text="${registeredProgram.programRegistrationNumber}"></span></td>
+                                    <td><span th:text="${#temporals.format(registeredProgram.dateIssued, 'yyyy/MM/dd')}"></span></td>
+                                    <td><span th:text="${registeredProgram.numberOfTeachers}"></span></td>
                                 </tr>
                             </th:block>
                         </th:block>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

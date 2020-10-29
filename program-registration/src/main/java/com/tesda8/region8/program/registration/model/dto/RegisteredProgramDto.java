@@ -16,4 +16,5 @@ public class RegisteredProgramDto {
     private LocalDateTime dateIssued;
     private CourseStatus courseStatus;
     private Sector sector;
+    private Long numberOfTeachers;
 }

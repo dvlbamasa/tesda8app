@@ -6,7 +6,6 @@ import com.tesda8.region8.program.registration.model.wrapper.ProgramRegistration
 import com.tesda8.region8.program.registration.model.wrapper.RegisteredProgramRequest;
 import com.tesda8.region8.program.registration.service.InstitutionService;
 import com.tesda8.region8.util.enums.InstitutionType;
-import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.Sector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

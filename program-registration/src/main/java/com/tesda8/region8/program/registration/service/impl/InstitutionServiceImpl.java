@@ -1,8 +1,10 @@
 package com.tesda8.region8.program.registration.service.impl;
 
 import com.google.common.collect.Lists;
+import com.querydsl.core.BooleanBuilder;
 import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
 import com.tesda8.region8.program.registration.model.entities.Institution;
+import com.tesda8.region8.program.registration.model.entities.QInstitution;
 import com.tesda8.region8.program.registration.model.mapper.ProgramRegistrationMapper;
 import com.tesda8.region8.program.registration.model.wrapper.CourseCount;
 import com.tesda8.region8.program.registration.model.wrapper.InstitutionProgramRegCounter;

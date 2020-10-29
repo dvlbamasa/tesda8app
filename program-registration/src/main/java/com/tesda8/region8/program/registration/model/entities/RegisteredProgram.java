@@ -44,4 +44,7 @@ public class RegisteredProgram  extends GeneralData {
     @JoinColumn(name = "institution_id", nullable = false)
     @JsonBackReference
     private Institution institution;
+
+    @Column(name = "NUMBER_OF_TEACHERS")
+    private Long numberOfTeachers;
 }
