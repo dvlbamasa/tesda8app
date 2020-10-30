@@ -196,11 +196,35 @@ function generateGraph(urlTarget, chartName, title, legend1, legend2) {
     });
 }
 
+
 $("#downloadGraphButton").click(function(){
-    html2canvas(document.querySelector("#graphContainer"), { height: 1800, width: window.innerWidth * 2, scale: 1 }).then(canvas => {
-        var dataURL = canvas.toDataURL();
-        var pdf = new jsPDF('p', 'pt', 'letter');
-        pdf.addImage(dataURL, 'JPEG', 20, 20, 170, 120); //addImage(image, format, x-coordinate, y-coordinate, width, height)
-        pdf.save("CanvasJS Charts.pdf");
+    var HTML_Width = $(".canvas_div_pdf").width();
+    var HTML_Height = $(".canvas_div_pdf").height();
+    var top_left_margin = 15;
+    var PDF_Width = HTML_Width+(top_left_margin*2);
+    var PDF_Height = (PDF_Width*1.5);
+    var canvas_image_width = HTML_Width;
+    var canvas_image_height = HTML_Height;
+
+    var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
+
+
+    html2canvas($(".canvas_div_pdf")[0],{allowTaint:true}).then(function(canvas) {
+        canvas.getContext('2d');
+
+        console.log(canvas.height+"  "+canvas.width);
+
+
+        var imgData = canvas.toDataURL("image/jpeg", 1.0);
+        var pdf = new jsPDF('p', 'pt',  [PDF_Width, PDF_Height]);
+        pdf.addImage(imgData, 'JPG', top_left_margin, 30,canvas_image_width,canvas_image_height);
+
+
+        for (var i = 1; i <= totalPDFPages; i++) {
+            pdf.addPage(PDF_Width, PDF_Height);
+            pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+        }
+
+        pdf.save("TESDA-Monthly-Comparative-Reports.pdf");
     });
 });

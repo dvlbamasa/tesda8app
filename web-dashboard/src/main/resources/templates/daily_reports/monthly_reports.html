@@ -4,7 +4,7 @@
     <title>TESDA Region VIII Internal Application</title>
     <div th:replace="fragments/header :: header-css"/>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.1.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
     <script src="http://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
 <body>
@@ -27,94 +27,101 @@
                 </div>
             </div>
         </header>
-
         <div class="container">
+            <div class="btn-group mr-2" role="group">
+                <button class="btn btn-primary btn-lg" id="downloadGraphButton" type="button">Export as PDF ⬇</button>
+            </div>
+        </div>
+
+        <div class="container canvas_div_pdf">
             <div class="col text-center ">
                 <h1 class="display-3 text-black-50 mt-5 mb-2">Leyte Province</h1>
             </div>
 
             <div id="leyteGraphContainer">
-                <div id="leyteEnrolledGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
-                <div id="leyteGraduatedGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
-                <div id="leyteAssessedGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
-                <div id="leyteCertifiedGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
+                <div class="row">
+                    <div id="leyteEnrolledGraph" class="mb-5 mt-5" style="height: 300px; width: 100%;"></div>
+                    <div id="leyteGraduatedGraph" class="mb-5 mt-5" style="height: 300px; width: 100%;"></div>
+                    <div id="leyteAssessedGraph" class="mb-5 mt-5" style="height: 300px; width: 100%;"></div>
+                    <div id="leyteCertifiedGraph" class="mb-5 mt-5" style="height: 300px; width: 100%;"></div>
+                </div>
             </div>
 
             <div class="col text-center ">
-                <h1 class="display-3 text-black-50 mt-5 mb-2">Southern Leyte Province</h1>
+                <h1 class="display-3 text-black-50 mt-3 mb-2">Southern Leyte Province</h1>
             </div>
 
             <div id="southern-leyteGraphContainer">
                 <div class="row">
-                    <div id="southernLeyteEnrolledGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
-                    <div id="southernLeyteGraduatedGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
-                    <div id="southernLeyteAssessedGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
-                    <div id="southernLeyteCertifiedGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
+                    <div id="southernLeyteEnrolledGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                    <div id="southernLeyteGraduatedGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                    <div id="southernLeyteAssessedGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                    <div id="southernLeyteCertifiedGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
                 </div>
             </div>
 
             <div class="col text-center ">
-                <h1 class="display-3 text-black-50 mt-5 mb-2">Biliran Province</h1>
+                <h1 class="display-3 text-black-50 mt-3 mb-2">Biliran Province</h1>
             </div>
 
             <div id="biliranGraphContainer">
                 <div class="row">
-                    <div id="biliranEnrolledGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
-                    <div id="biliranGraduatedGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
-                    <div id="biliranAssessedGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
-                    <div id="biliranCertifiedGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
+                    <div id="biliranEnrolledGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                    <div id="biliranGraduatedGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                    <div id="biliranAssessedGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                    <div id="biliranCertifiedGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
                 </div>
             </div>
 
             <div class="col text-center ">
-                <h1 class="display-3 text-black-50 mt-5 mb-2">Samar Province</h1>
+                <h1 class="display-3 text-black-50 mt-3 mb-2">Samar Province</h1>
             </div>
 
             <div id="samarGraphContainer">
                 <div class="row">
-                    <div id="samarEnrolledGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
-                    <div id="samarGraduatedGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
-                    <div id="samarAssessedGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
-                    <div id="samarCertifiedGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
+                    <div id="samarEnrolledGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                    <div id="samarGraduatedGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                    <div id="samarAssessedGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                    <div id="samarCertifiedGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
                 </div>
             </div>
 
             <div class="col text-center ">
-                <h1 class="display-3 text-black-50 mt-5 mb-2">Eastern Samar Province</h1>
+                <h1 class="display-3 text-black-50 mt-3 mb-2">Eastern Samar Province</h1>
             </div>
 
             <div id="easternSamarGraphContainer">
                 <div class="row">
-                    <div id="easternSamarEnrolledGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
-                    <div id="easternSamarGraduatedGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
-                    <div id="easternSamarAssessedGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
-                    <div id="easternSamarCertifiedGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
+                    <div id="easternSamarEnrolledGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                    <div id="easternSamarGraduatedGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                    <div id="easternSamarAssessedGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                    <div id="easternSamarCertifiedGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
                 </div>
             </div>
 
             <div class="col text-center ">
-                <h1 class="display-3 text-black-50 mt-5 mb-2">Northern Samar Province</h1>
+                <h1 class="display-3 text-black-50 mt-3 mb-2">Northern Samar Province</h1>
             </div>
 
             <div id="northernSamarGraphContainer">
                 <div class="row">
-                    <div id="northernSamarEnrolledGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
-                    <div id="northernSamarGraduatedGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
-                    <div id="northernSamarAssessedGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
-                    <div id="northernSamarCertifiedGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
+                    <div id="northernSamarEnrolledGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                    <div id="northernSamarGraduatedGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                    <div id="northernSamarAssessedGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                    <div id="northernSamarCertifiedGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
                 </div>
             </div>
 
             <div class="col text-center ">
-                <h1 class="display-3 text-black-50 mt-5 mb-2">Region VIII Total</h1>
+                <h1 class="display-3 text-black-50 mt-3 mb-2">Region VIII Total</h1>
             </div>
 
             <div id="regionGraphContainer">
                 <div class="row">
-                    <div id="regionEnrolledGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
-                    <div id="regionGraduatedGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
-                    <div id="regionAssessedGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
-                    <div id="regionCertifiedGraph" class="mb-5 mt-5" style="height: 370px; width: 100%;"></div>
+                    <div id="regionEnrolledGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                    <div id="regionGraduatedGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                    <div id="regionAssessedGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                    <div id="regionCertifiedGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
                 </div>
             </div>
         </div>

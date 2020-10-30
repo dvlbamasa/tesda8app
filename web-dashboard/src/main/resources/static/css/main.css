@@ -180,3 +180,5 @@ a:active {
     background-color: transparent;
     text-decoration: underline;
 }
+
+.graphContainer { width: 3000px !important; height: 3000px !important; }

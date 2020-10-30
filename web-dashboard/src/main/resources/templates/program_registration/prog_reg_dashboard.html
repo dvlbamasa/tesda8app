@@ -23,9 +23,12 @@
                 </div>
             </div>
         </header>
+        <div class="container mb-5">
+            <button onclick="exportTableToExcel('prog-reg-dashboard-table', 'prog-reg-summary')" class="btn btn-primary btn-lg" id="downloadTable" type="button">Export as Excel ⬇</button>
+        </div>
         <div class="table-responsive">
             <fieldset>
-                <table class="table table-bordered table-sm">
+                <table class="table table-bordered table-sm" id="prog-reg-dashboard-table">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col"> Operating Unit</th>
@@ -218,6 +221,7 @@
 </div>
 <!-- /.container -->
 
+<script type='text/javascript' src="../../static/js/table_to_excel.js" th:src="@{/js/table_to_excel.js}"></script>
 
 <div th:replace="fragments/footer :: footer"/>
 
