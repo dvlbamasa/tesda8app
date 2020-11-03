@@ -3,6 +3,7 @@ package com.tesda8.region8.web.service.impl;
 import com.google.common.collect.Lists;
 import com.tesda8.region8.util.model.DataPoints;
 import com.tesda8.region8.util.service.ReportUtil;
+import com.tesda8.region8.web.model.dto.TTIReportDto;
 import com.tesda8.region8.web.model.dto.graph.GraphData;
 import com.tesda8.region8.web.model.dto.graph.GraphDataList;
 import com.tesda8.region8.web.model.dto.CertificationRateReportDto;
@@ -21,6 +22,7 @@ import com.tesda8.region8.web.service.GeneralReportService;
 import com.tesda8.region8.web.service.GraphDataFetcherService;
 import com.tesda8.region8.web.service.OperatingUnitService;
 import com.tesda8.region8.web.service.ROPerModeReportService;
+import com.tesda8.region8.web.service.TTIReportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,16 +41,19 @@ public class GraphDataFetcherServiceImpl implements GraphDataFetcherService {
     private ROPerModeReportService roPerModeReportService;
     private GeneralReportService generalReportService;
     private OperatingUnitService operatingUnitService;
+    private TTIReportService ttiReportService;
 
     @Autowired
     public GraphDataFetcherServiceImpl(CertificationRateReportService certificationRateReportService,
                                        ROPerModeReportService roPerModeReportService,
                                        GeneralReportService generalReportService,
-                                       OperatingUnitService operatingUnitService) {
+                                       OperatingUnitService operatingUnitService,
+                                       TTIReportService ttiReportService) {
         this.certificationRateReportService = certificationRateReportService;
         this.roPerModeReportService = roPerModeReportService;
         this.generalReportService = generalReportService;
         this.operatingUnitService = operatingUnitService;
+        this.ttiReportService = ttiReportService;
     }
 
     @Override
@@ -83,6 +88,45 @@ public class GraphDataFetcherServiceImpl implements GraphDataFetcherService {
         );
         if (dataPointType.equals(DataPointType.RATE)) {
             total.setValue(Math.round(total.getValue()/6));
+        }
+        dataPoints.add(total);
+        return dataPoints;
+    }
+
+    @Override
+    public List<DataPoints> fetchTTIReportsData(DataPointType dataPointType, EgacType egacType) {
+        List<DataPoints> dataPoints = Lists.newArrayList();
+        List<TTIReportDto> ttiReports = ttiReportService.getAllTTIReportByEgacType(egacType);
+        DataPoints total = ReportUtil.initializeTotalDataPoints();
+        RateData rateData = new RateData();
+        ttiReports.forEach(
+                ttiReportDto -> {
+                    if (ttiReportDto.getEgacDataDto().getTarget() != 0) {
+                        DataPoints newDataPoints = new DataPoints();
+                        newDataPoints.setLabel(ttiReportDto.getTtiType().label);
+                        switch (dataPointType) {
+                            case TARGET:
+                                newDataPoints.setValue(ttiReportDto.getEgacDataDto().getTarget());
+                                total.setValue(total.getValue()+ttiReportDto.getEgacDataDto().getTarget());
+                                break;
+                            case OUTPUT:
+                                newDataPoints.setValue(ttiReportDto.getEgacDataDto().getOutput());
+                                total.setValue(total.getValue()+ttiReportDto.getEgacDataDto().getOutput());
+                                break;
+                            case RATE:
+                                newDataPoints.setValue(Double.valueOf(ttiReportDto.getEgacDataDto().getRate()).longValue());
+                                rateData.setOutputs(rateData.getOutputs()+ttiReportDto.getEgacDataDto().getOutput());
+                                rateData.setTargets(rateData.getTargets()+ttiReportDto.getEgacDataDto().getTarget());
+                                break;
+                            default:
+                                break;
+                        }
+                        dataPoints.add(newDataPoints);
+                    }
+                }
+        );
+        if (dataPointType.equals(DataPointType.RATE)) {
+            total.setValue(Double.valueOf(ReportUtil.calculateRate(rateData.getTargets(), rateData.getOutputs())).longValue());
         }
         dataPoints.add(total);
         return dataPoints;
@@ -234,6 +278,22 @@ public class GraphDataFetcherServiceImpl implements GraphDataFetcherService {
         graphDataList.setRateData(rateData);
         return graphDataList;
     }
+
+    @Override
+    public GraphDataList fetchTTIReportDataList(EgacType egacType) {
+        GraphDataList graphDataList = new GraphDataList();
+        GraphData targetData = new GraphData();
+        GraphData outputData = new GraphData();
+        GraphData rateData = new GraphData();
+        targetData.setDataPoints(fetchTTIReportsData(DataPointType.TARGET, egacType));
+        outputData.setDataPoints(fetchTTIReportsData(DataPointType.OUTPUT, egacType));
+        rateData.setDataPoints(fetchTTIReportsData(DataPointType.RATE, egacType));
+        graphDataList.setOutputData(outputData);
+        graphDataList.setTargetData(targetData);
+        graphDataList.setRateData(rateData);
+        return graphDataList;
+    }
+
 
     @Override
     public GraphDataList fetchROPerModeReportsDataList(EgacType egacType, ReportSourceType reportSourceType) {

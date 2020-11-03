@@ -2,6 +2,7 @@ package com.tesda8.region8.web.model.dto.wrapper;
 
 import com.tesda8.region8.web.model.dto.GeneralReportDto;
 import com.tesda8.region8.util.enums.Month;
+import com.tesda8.region8.web.model.dto.TTIReportDto;
 import lombok.Data;
 
 import java.util.List;
@@ -15,5 +16,6 @@ public class GeneralReportsDtoWrapper {
     private List<GeneralReportDto> enterpriseBasedT2Reports;
     private List<GeneralReportDto> communityBasedReports;
     private List<GeneralReportDto> ttiReports;
+    private List<TTIReportDto> ttiReportsAC;
     private Month month;
 }

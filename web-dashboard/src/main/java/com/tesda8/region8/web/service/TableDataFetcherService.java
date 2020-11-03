@@ -6,6 +6,7 @@ import com.tesda8.region8.web.model.dto.ROPerModeReportDto;
 import com.tesda8.region8.util.enums.DailyReportType;
 import com.tesda8.region8.util.enums.EgacType;
 import com.tesda8.region8.util.enums.ReportSourceType;
+import com.tesda8.region8.web.model.dto.TTIReportDto;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface TableDataFetcherService {
     List<CertificationRateReportDto> fetchCertificationRateTableData();
 
     List<ROPerModeReportDto> fetchROPerModeTableData(ReportSourceType reportSourceType, EgacType egacType);
+
+    List<TTIReportDto> fetchTTIReportTableData(EgacType egacType);
 }

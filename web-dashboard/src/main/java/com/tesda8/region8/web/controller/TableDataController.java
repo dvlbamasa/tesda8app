@@ -54,6 +54,9 @@ public class TableDataController {
         generalReportsDtoWrapper.getTtiReports().addAll(tableDataFetcherService.fetchGeneralReportTableData(DailyReportType.TTI_REPORT, ReportSourceType.T2MIS, EgacType.ASSESSED));
         generalReportsDtoWrapper.getTtiReports().addAll(tableDataFetcherService.fetchGeneralReportTableData(DailyReportType.TTI_REPORT, ReportSourceType.T2MIS, EgacType.CERTIFIED));
 
+        generalReportsDtoWrapper.setTtiReportsAC(tableDataFetcherService.fetchTTIReportTableData(EgacType.ASSESSED));
+        generalReportsDtoWrapper.getTtiReportsAC().addAll(tableDataFetcherService.fetchTTIReportTableData(EgacType.CERTIFIED));
+
         roPerModeReportWrapper.setRoPerModeT2Reports(tableDataFetcherService.fetchROPerModeTableData(ReportSourceType.T2MIS, EgacType.ENROLLED));
         roPerModeReportWrapper.getRoPerModeT2Reports().addAll(tableDataFetcherService.fetchROPerModeTableData(ReportSourceType.T2MIS, EgacType.GRADUATED));
 

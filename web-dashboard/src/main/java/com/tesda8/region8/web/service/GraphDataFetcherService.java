@@ -14,6 +14,8 @@ public interface GraphDataFetcherService {
 
     List<DataPoints> fetchCertificationRateData(DataPointType dataPointType);
 
+    List<DataPoints> fetchTTIReportsData(DataPointType dataPointType, EgacType egacType);
+
     List<DataPoints> fetchROPerModeReportsData(DataPointType dataPointType, EgacType egacType, ReportSourceType reportSourceType);
 
     List<DataPoints> fetchGeneralReportsData(DataPointType dataPointType, EgacType egacType, ReportSourceType reportSourceType,
@@ -26,6 +28,8 @@ public interface GraphDataFetcherService {
                                        DailyReportType dailyReportType);
 
     GraphDataList fetchCertificationRateDataList();
+
+    GraphDataList fetchTTIReportDataList(EgacType egacType);
 
     GraphDataList fetchROPerModeReportsDataList(EgacType egacType, ReportSourceType reportSourceType);
 

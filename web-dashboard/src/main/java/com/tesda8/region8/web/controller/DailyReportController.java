@@ -8,6 +8,7 @@ import com.tesda8.region8.util.enums.ReportSourceType;
 import com.tesda8.region8.web.service.CertificationRateReportService;
 import com.tesda8.region8.web.service.GeneralReportService;
 import com.tesda8.region8.web.service.ROPerModeReportService;
+import com.tesda8.region8.web.service.TTIReportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +28,17 @@ public class DailyReportController {
     private GeneralReportService generalReportService;
     private CertificationRateReportService certificationRateReportService;
     private ROPerModeReportService roPerModeReportService;
+    private TTIReportService ttiReportService;
 
     @Autowired
     public DailyReportController(GeneralReportService generalReportService,
                                  CertificationRateReportService certificationRateReportService,
-                                 ROPerModeReportService roPerModeReportService) {
+                                 ROPerModeReportService roPerModeReportService,
+                                 TTIReportService ttiReportService) {
         this.generalReportService = generalReportService;
         this.certificationRateReportService = certificationRateReportService;
         this.roPerModeReportService = roPerModeReportService;
+        this.ttiReportService = ttiReportService;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/dailyReports")
@@ -73,6 +77,9 @@ public class DailyReportController {
 
         generalReportsDtoWrapper.setTtiReports(
                 generalReportService.findAllGeneralReportByDailyReportType(DailyReportType.TTI_REPORT));
+
+        generalReportsDtoWrapper.setTtiReportsAC(
+                ttiReportService.getAllTTIReport());
 
         model.addAttribute("reports", generalReportsDtoWrapper);
         model.addAttribute("certificationReports", certificationRateReportWrapper);
@@ -144,6 +151,18 @@ public class DailyReportController {
         } else {
             roPerModeReportService.updateROPerModeReports(roPerModeReportWrapper.getRoPerModeT2Reports());
         }
+        return "redirect:/dashboard";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/dailyReports/ttiReport/update")
+    public String updateTTIReports(
+            @ModelAttribute GeneralReportsDtoWrapper generalReportsDtoWrapper,
+            BindingResult bindingResult,
+            Model model) {
+        if (bindingResult.hasErrors()) {
+            //errors processing
+        }
+        ttiReportService.updateTTIReports(generalReportsDtoWrapper.getTtiReportsAC());
         return "redirect:/dashboard";
     }
 }

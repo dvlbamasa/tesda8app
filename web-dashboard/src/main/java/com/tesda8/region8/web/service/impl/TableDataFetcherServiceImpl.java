@@ -1,5 +1,6 @@
 package com.tesda8.region8.web.service.impl;
 
+import com.tesda8.region8.util.enums.TTIType;
 import com.tesda8.region8.util.service.ReportUtil;
 import com.tesda8.region8.web.model.dto.CertificationRateReportDto;
 import com.tesda8.region8.web.model.dto.EgacDataDto;
@@ -10,9 +11,11 @@ import com.tesda8.region8.util.enums.DeliveryMode;
 import com.tesda8.region8.util.enums.EgacType;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.ReportSourceType;
+import com.tesda8.region8.web.model.dto.TTIReportDto;
 import com.tesda8.region8.web.service.CertificationRateReportService;
 import com.tesda8.region8.web.service.GeneralReportService;
 import com.tesda8.region8.web.service.ROPerModeReportService;
+import com.tesda8.region8.web.service.TTIReportService;
 import com.tesda8.region8.web.service.TableDataFetcherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,14 +28,17 @@ public class TableDataFetcherServiceImpl implements TableDataFetcherService {
     private CertificationRateReportService certificationRateReportService;
     private ROPerModeReportService roPerModeReportService;
     private GeneralReportService generalReportService;
+    private TTIReportService ttiReportService;
 
     @Autowired
     public TableDataFetcherServiceImpl(CertificationRateReportService certificationRateReportService,
                                        ROPerModeReportService roPerModeReportService,
-                                       GeneralReportService generalReportService) {
+                                       GeneralReportService generalReportService,
+                                       TTIReportService ttiReportService) {
         this.certificationRateReportService = certificationRateReportService;
         this.roPerModeReportService = roPerModeReportService;
         this.generalReportService = generalReportService;
+        this.ttiReportService = ttiReportService;
     }
 
 
@@ -90,5 +96,23 @@ public class TableDataFetcherServiceImpl implements TableDataFetcherService {
         total.getEgacDataDto().setRate(ReportUtil.calculateRate(total.getEgacDataDto().getTarget(), total.getEgacDataDto().getOutput()));
         roPerModeReportDtos.add(total);
         return roPerModeReportDtos;
+    }
+
+    @Override
+    public List<TTIReportDto> fetchTTIReportTableData(EgacType egacType) {
+        List<TTIReportDto> ttiReports = ttiReportService.getAllTTIReportByEgacType(egacType);
+        TTIReportDto total = new TTIReportDto();
+        total.setEgacDataDto(new EgacDataDto());
+        ttiReports.forEach(
+                ttiReportDto -> {
+                    total.getEgacDataDto().setOutput(ttiReportDto.getEgacDataDto().getOutput() + total.getEgacDataDto().getOutput());
+                    total.getEgacDataDto().setTarget(ttiReportDto.getEgacDataDto().getTarget() + total.getEgacDataDto().getTarget());
+                }
+        );
+        total.setTtiType(TTIType.TOTAL);
+        total.getEgacDataDto().setEgacType(egacType);
+        total.getEgacDataDto().setRate(ReportUtil.calculateRate(total.getEgacDataDto().getTarget(), total.getEgacDataDto().getOutput()));
+        ttiReports.add(total);
+        return ttiReports;
     }
 }

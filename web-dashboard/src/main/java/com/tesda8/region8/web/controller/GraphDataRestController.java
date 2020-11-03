@@ -1,6 +1,7 @@
 package com.tesda8.region8.web.controller;
 
 import com.tesda8.region8.util.model.DataPoints;
+import com.tesda8.region8.web.model.dto.graph.GraphData;
 import com.tesda8.region8.web.model.dto.graph.GraphDataList;
 import com.tesda8.region8.util.enums.DailyReportType;
 import com.tesda8.region8.util.enums.DataPointType;
@@ -66,6 +67,12 @@ public class GraphDataRestController {
                                                     @PathVariable("reportSourceType")ReportSourceType reportSourceType,
                                                     @PathVariable("dailyReportType")DailyReportType dailyReportType) {
         return graphDataFetcherService.fetchGeneralDataList(egacType, reportSourceType, dailyReportType);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/ttiReport/{egacType}/egacType")
+    @ResponseBody
+    public GraphDataList fetchTTIReportDataList(@PathVariable("egacType") EgacType egacType) {
+        return graphDataFetcherService.fetchTTIReportDataList(egacType);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/monthlyReports/{operatingUnitType}/operatingUnitType/{egacType}/egacType")

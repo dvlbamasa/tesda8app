@@ -138,6 +138,38 @@ INSERT INTO general_report (id, created_date, updated_date, created_by, updated_
 INSERT INTO general_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, operating_unit, egac_type, daily_report_type, report_source_type) VALUES (96, now(), now(), 'SYSTEM', 'SYSTEM', 3250, 2651, 82.00, 'NORTHERN_SAMAR', 'CERTIFIED', 'TTI_REPORT', 'T2MIS');
 
 
+/* Initial Data for TTI REPORT */
+
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (1, now(), now(), 'SYSTEM', 'SYSTEM', 920, 662, 72.00, 'CNVS', 'ASSESSED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (2, now(), now(), 'SYSTEM', 'SYSTEM', 1240, 1800, 145.00, 'CNSAT', 'ASSESSED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (3, now(), now(), 'SYSTEM', 'SYSTEM', 1240, 1237, 100.00, 'ANAS', 'ASSESSED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (4, now(), now(), 'SYSTEM', 'SYSTEM', 595, 548, 92.00, 'BNAS', 'ASSESSED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (5, now(), now(), 'SYSTEM', 'SYSTEM', 1202, 1150, 96.00, 'SNSAT', 'ASSESSED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (6, now(), now(), 'SYSTEM', 'SYSTEM', 1381, 915, 66.00, 'BCAT', 'ASSESSED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (7, now(), now(), 'SYSTEM', 'SYSTEM', 943, 963, 102.00, 'LNAIS', 'ASSESSED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (8, now(), now(), 'SYSTEM', 'SYSTEM', 480, 458, 95.00, 'PTC_NORTHERN_SAMAR', 'ASSESSED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (9, now(), now(), 'SYSTEM', 'SYSTEM', 994, 719, 72.00, 'RTC', 'ASSESSED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (10, now(), now(), 'SYSTEM', 'SYSTEM', 0, 0, 0.00, 'PTC_LEYTE', 'ASSESSED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (11, now(), now(), 'SYSTEM', 'SYSTEM', 0, 0, 0.00, 'PTC_SOUTHERN_LEYTE', 'ASSESSED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (12, now(), now(), 'SYSTEM', 'SYSTEM', 0, 0, 0.00, 'PTC_BILIRAN', 'ASSESSED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (13, now(), now(), 'SYSTEM', 'SYSTEM', 0, 0, 0.00, 'PTC_SAMAR', 'ASSESSED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (14, now(), now(), 'SYSTEM', 'SYSTEM', 0, 0, 0.00, 'PTC_EASTERN_SAMAR', 'ASSESSED', 'T2MIS');
+
+
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (15, now(), now(), 'SYSTEM', 'SYSTEM', 846, 645, 76.00, 'CNVS', 'CERTIFIED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (16, now(), now(), 'SYSTEM', 'SYSTEM', 1141, 1794, 157.00, 'CNSAT', 'CERTIFIED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (17, now(), now(), 'SYSTEM', 'SYSTEM', 1141, 1223, 107.00, 'ANAS', 'CERTIFIED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (18, now(), now(), 'SYSTEM', 'SYSTEM', 547, 542, 99.00, 'BNAS', 'CERTIFIED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (19, now(), now(), 'SYSTEM', 'SYSTEM', 1106, 1087, 98.00, 'SNSAT', 'CERTIFIED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (20, now(), now(), 'SYSTEM', 'SYSTEM', 1271, 906, 71.00, 'BCAT', 'CERTIFIED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (21, now(), now(), 'SYSTEM', 'SYSTEM', 868, 929, 107.00, 'LNAIS', 'CERTIFIED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (22, now(), now(), 'SYSTEM', 'SYSTEM', 442, 437, 99.00, 'PTC_NORTHERN_SAMAR', 'CERTIFIED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (23, now(), now(), 'SYSTEM', 'SYSTEM', 914, 703, 77.00, 'RTC', 'CERTIFIED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (24, now(), now(), 'SYSTEM', 'SYSTEM', 0, 0, 0.00, 'PTC_LEYTE', 'CERTIFIED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (25, now(), now(), 'SYSTEM', 'SYSTEM', 0, 0, 0.00, 'PTC_SOUTHERN_LEYTE', 'CERTIFIED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (26, now(), now(), 'SYSTEM', 'SYSTEM', 0, 0, 0.00, 'PTC_BILIRAN', 'CERTIFIED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (27, now(), now(), 'SYSTEM', 'SYSTEM', 0, 0, 0.00, 'PTC_SAMAR', 'CERTIFIED', 'T2MIS');
+INSERT INTO tti_report (id, created_date, updated_date, created_by, updated_by, target, output, rate, tti_type, egac_type, report_source_type) VALUES (28, now(), now(), 'SYSTEM', 'SYSTEM', 0, 0, 0.00, 'PTC_EASTERN_SAMAR', 'CERTIFIED', 'T2MIS');
 
 /* Initial Data for RO Per Mode Report GS */
 

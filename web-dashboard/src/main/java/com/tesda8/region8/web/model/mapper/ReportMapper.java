@@ -1,5 +1,6 @@
 package com.tesda8.region8.web.model.mapper;
 
+import com.tesda8.region8.web.model.dto.TTIReportDto;
 import com.tesda8.region8.web.model.entities.CertificationRateReport;
 import com.tesda8.region8.web.model.entities.EgacData;
 import com.tesda8.region8.web.model.entities.GeneralReport;
@@ -12,6 +13,7 @@ import com.tesda8.region8.web.model.dto.GeneralReportDto;
 import com.tesda8.region8.web.model.dto.MonthlyReportDto;
 import com.tesda8.region8.web.model.dto.OperatingUnitDto;
 import com.tesda8.region8.web.model.dto.ROPerModeReportDto;
+import com.tesda8.region8.web.model.entities.TTIReport;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -34,6 +36,10 @@ public interface ReportMapper {
     @Mapping(source = "roPerModeReport.egacData", target = "egacDataDto")
     ROPerModeReportDto roPerModeReportToDto(ROPerModeReport roPerModeReport);
     ROPerModeReport roPerModeReportToEntity(ROPerModeReportDto roPerModeReportDto);
+
+    @Mapping(source = "ttiReport.egacData", target = "egacDataDto")
+    TTIReportDto ttiReportToDto(TTIReport ttiReport);
+    TTIReport ttiReportToEntity(TTIReportDto ttiReportDto);
 
     OperatingUnitDto operatingUnitToDto(OperatingUnit operatingUnit);
     OperatingUnit operatingUnitToEntity(OperatingUnitDto operatingUnitDto);

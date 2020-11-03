@@ -76,11 +76,11 @@ window.onload = function () {
         "ttiGraduatedGraph", "Graduated per TTI", "Target", "Output");
 
     // TTI ASSESSED GRAPH
-    generateGraph("/graph/generalReport/ASSESSED/egacType/T2MIS/reportSource/TTI_REPORT/reportType",
+    generateGraph("/graph/ttiReport/ASSESSED/egacType",
         "ttiAssessedGraph", "Assessed per TTI", "Target", "Output");
 
     // TTI CERTIFIED GRAPH
-    generateGraph("/graph/generalReport/CERTIFIED/egacType/T2MIS/reportSource/TTI_REPORT/reportType",
+    generateGraph("/graph/ttiReport/CERTIFIED/egacType",
         "ttiCertifiedGraph", "Certified per TTI", "Target", "Output");
 }
 
