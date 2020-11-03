@@ -34,7 +34,7 @@
                             <th scope="col"> Operating Unit</th>
                             <th scope="col"> Institutions</th>
                             <th th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
-                                <a th:text="${sector.label}" th:href="@{/institutions/{sectorType}/sector(sectorType=${sector})}"></a>
+                                <a th:text="${sector.label}" th:href="@{/registeredPrograms/{sectorType}/sector(sectorType=${sector})}"></a>
                             </th>
                         </tr>
                     </thead>

@@ -41,7 +41,7 @@ public class TTIReportServiceImpl implements TTIReportService {
 
     @Override
     public List<TTIReportDto> getAllTTIReportByEgacType(EgacType egacType) {
-        List<TTIReport> ttiReports = ttiReportRepository.findAllByEgacData_EgacType(egacType);
+        List<TTIReport> ttiReports = ttiReportRepository.findAllByEgacData_EgacTypeOrderById(egacType);
         return ttiReports
                 .stream()
                 .map(ttiReport -> reportMapper.ttiReportToDto(ttiReport))

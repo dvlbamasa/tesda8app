@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface TTIReportRepository extends JpaRepository<TTIReport, Long> {
 
-    List<TTIReport> findAllByEgacData_EgacType(EgacType egacType);
+    List<TTIReport> findAllByEgacData_EgacTypeOrderById(EgacType egacType);
 
 }

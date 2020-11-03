@@ -16,7 +16,7 @@ public interface InstitutionService {
 
     List<InstitutionDto> getAllInstitutionByCourseSector(Sector sector);
 
-    List<InstitutionDto> getAllInstitutionByNameAndSectorAndCourseName(String institutionName,
+    List<InstitutionDto> getAllInstitutionByNameAndSectorAndCourseName(String[] institutionName,
                                                                                 Sector sector, String courseName);
 
     InstitutionProgramRegCounter getTotalCountOfRegisteredPrograms(List<InstitutionDto> institutionDtoList);

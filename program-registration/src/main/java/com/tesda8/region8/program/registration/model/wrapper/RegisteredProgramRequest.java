@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class RegisteredProgramRequest {
 
-    private String institutionName;
+    private String[] institutionNames;
     private Sector sector;
     private String courseName;
 }

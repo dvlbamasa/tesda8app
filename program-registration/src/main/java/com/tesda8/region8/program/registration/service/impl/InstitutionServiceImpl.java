@@ -1,10 +1,8 @@
 package com.tesda8.region8.program.registration.service.impl;
 
 import com.google.common.collect.Lists;
-import com.querydsl.core.BooleanBuilder;
 import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
 import com.tesda8.region8.program.registration.model.entities.Institution;
-import com.tesda8.region8.program.registration.model.entities.QInstitution;
 import com.tesda8.region8.program.registration.model.mapper.ProgramRegistrationMapper;
 import com.tesda8.region8.program.registration.model.wrapper.CourseCount;
 import com.tesda8.region8.program.registration.model.wrapper.InstitutionProgramRegCounter;
@@ -28,6 +26,7 @@ import java.util.stream.Collectors;
 public class InstitutionServiceImpl implements InstitutionService {
 
     private static Logger logger = LoggerFactory.getLogger(InstitutionServiceImpl.class);
+    private static final String ALL = "ALL";
 
 
     private InstitutionRepository institutionRepository;
@@ -80,15 +79,21 @@ public class InstitutionServiceImpl implements InstitutionService {
     }
 
     @Override
-    public List<InstitutionDto> getAllInstitutionByNameAndSectorAndCourseName(String institutionName,
+    public List<InstitutionDto> getAllInstitutionByNameAndSectorAndCourseName(String[] institutionNames,
                                                                               Sector sector,
                                                                               String courseName) {
         List<Institution> institutions = institutionRepository.findAll();
-        List<InstitutionDto> institutionDtos = institutions
-                .stream()
-                .filter(institution -> institutionName.equals("") || institution.getName().equalsIgnoreCase(institutionName))
-                .map(institution -> programRegistrationMapper.institutionToDto(institution))
-                .collect(Collectors.toList());
+        List<InstitutionDto> institutionDtos = Lists.newArrayList();
+        Arrays.stream(institutionNames).forEach(
+                institutionName -> {
+                    List<InstitutionDto> institutionList = institutions
+                            .stream()
+                            .filter(institution -> institutionName.equals(ALL) || institution.getName().equalsIgnoreCase(institutionName))
+                            .map(institution -> programRegistrationMapper.institutionToDto(institution))
+                            .collect(Collectors.toList());
+                    institutionDtos.addAll(institutionList);
+                }
+        );
         institutionDtos.forEach(
                 institutionDto -> {
                     institutionDto.setRegisteredPrograms(

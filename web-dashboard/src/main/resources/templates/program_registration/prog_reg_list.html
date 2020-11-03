@@ -3,6 +3,9 @@
 <head>
     <title>TESDA Region VIII Internal Application</title>
     <div th:replace="fragments/header :: header-css"/>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
 </head>
 <body>
 
@@ -20,7 +23,7 @@
                             <span class="lead text-white" th:value="${sectorValue.label}" th:text="${sectorValue.label}"></span>
                         </p>
                         <div class="btn-group mr-2 float-right" role="group">
-                            <a th:href="@{/institutions}" class="btn btn-info btn-lg" role="button" aria-pressed="true">Back to Registered Programs Summary</a>
+                            <a th:href="@{/registeredPrograms}" class="btn btn-info btn-lg" role="button" aria-pressed="true">Back to Registered Programs Summary</a>
                         </div>
                     </div>
                 </div>
@@ -28,7 +31,7 @@
         </header>
         <div>
             <div class="container mb-5">
-                <form th:action="@{/institutions/search}" th:object="${registeredProgramRequest}" method="post">
+                <form th:action="@{/registeredPrograms/search}" th:object="${registeredProgramRequest}" method="post">
                     <fieldset>
                         <div class="container mb-5">
                             <div class="btn-group float-right" role="group">
@@ -38,14 +41,13 @@
                         </div>
                         <div class="container">
                             <div class="form-group row">
-                                <label for="institutionName" class="col-sm-2 col-form-label">Select TTI</label>
+                                <label for="institutionNames" class="col-sm-2 col-form-label">Select TTI</label>
                                 <div class="col-sm-4">
-                                    <select class="form-control" id="institutionName" name="institutionName">
-                                        <option value="" text="All">All</option>
+                                    <select class="form-control selectpicker" id="institutionNames" name="institutionNames" multiple required>
+                                        <option value="ALL" text="All">All</option>
                                         <option th:each="institution : ${ttiList}"
                                                 th:text="${institution.operatingUnitType.label} + ' - ' + ${institution.shortName} + ' (' + ${institution.name} + ')'"
-                                                th:value="${institution.name}"
-                                        th:selected="${institution.name} == ${institutionNameValue}">
+                                                th:value="${institution.name}">
                                         </option>
                                     </select>
                                 </div>
@@ -122,6 +124,9 @@
 
 
 <div th:replace="fragments/footer :: footer"/>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
 
 </body>
 </html>

@@ -25,7 +25,7 @@ import java.util.List;
 public class ProgramRegistrationController {
 
     private static Logger logger = LoggerFactory.getLogger(ProgramRegistrationController.class);
-
+    private static final String ALL = "ALL";
 
     private InstitutionService institutionService;
 
@@ -34,14 +34,14 @@ public class ProgramRegistrationController {
         this.institutionService = institutionService;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/institutions")
+    @RequestMapping(method = RequestMethod.GET, value = "/registeredPrograms")
     public String showInstitutionsProgRegCount(Model model) {
         ProgramRegistrationWrapper programRegistrationWrapper = institutionService.getCourseCountPerInstitution();
         model.addAttribute("institutionsList", programRegistrationWrapper);
         return "program_registration/prog_reg_dashboard";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/institutions/{sectorType}/sector")
+    @RequestMapping(method = RequestMethod.GET, value = "/registeredPrograms/{sectorType}/sector")
     public String getCoursesPerSector(@PathVariable("sectorType") Sector sector, Model model) {
         List<InstitutionDto> institutionDtoList = institutionService.getAllInstitutionByCourseSector(sector);
         List<InstitutionDto> ttiList = institutionService.getAllInstitutionByInstitutionType(InstitutionType.PUBLIC);
@@ -54,20 +54,22 @@ public class ProgramRegistrationController {
         return "program_registration/prog_reg_list";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/institutions/search")
+    @RequestMapping(method = RequestMethod.POST, value = "/registeredPrograms/search")
     public String getInstitutions(@ModelAttribute RegisteredProgramRequest registeredProgramRequest,
                                   BindingResult bindingResult,
                                   Model model) {
         if (bindingResult.hasErrors()) {
             //errors processing
         }
-        logger.info("institutionName from controller: {}", registeredProgramRequest.getInstitutionName() );
+        // handles bootstrap select bug not including ALL option
+        if (registeredProgramRequest.getInstitutionNames().length == 0) {
+            registeredProgramRequest.setInstitutionNames(new String[] {ALL});
+        }
         List<InstitutionDto> institutionDtoList =
-                institutionService.getAllInstitutionByNameAndSectorAndCourseName(registeredProgramRequest.getInstitutionName(),
+                institutionService.getAllInstitutionByNameAndSectorAndCourseName(registeredProgramRequest.getInstitutionNames(),
                         registeredProgramRequest.getSector(), registeredProgramRequest.getCourseName());
         List<InstitutionDto> ttiList = institutionService.getAllInstitutionByInstitutionType(InstitutionType.PUBLIC);
         InstitutionProgramRegCounter institutionProgramRegCounter = institutionService.getTotalCountOfRegisteredPrograms(institutionDtoList);
-        model.addAttribute("institutionNameValue", registeredProgramRequest.getInstitutionName());
         model.addAttribute("sectorValue", registeredProgramRequest.getSector());
         model.addAttribute("courseNameValue", registeredProgramRequest.getCourseName());
         model.addAttribute("registeredProgramRequest", new RegisteredProgramRequest());

@@ -34,12 +34,15 @@ public class InstitutionRestController {
         return institutionService.getAllInstitutionByCourseSector(sector);
     }
 
+    /*
     @RequestMapping(method = RequestMethod.GET, value = "/{institutionName}/institutionName/{sector}/sector/{courseName}/courseName")
     public List<InstitutionDto> getAllInstitutionByOperatingUnitTypeCourseSector(@PathVariable("institutionName") String institutionName,
                                                                 @PathVariable("sector")Sector sector,
                                                                  @PathVariable("courseName") String courseName) {
         return institutionService.getAllInstitutionByNameAndSectorAndCourseName(institutionName, sector, courseName);
     }
+
+     */
 
     @RequestMapping(method = RequestMethod.GET, value = "/count")
     public ProgramRegistrationWrapper getCourseCountPerInstitution() {
