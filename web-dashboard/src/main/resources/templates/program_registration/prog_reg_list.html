@@ -56,10 +56,14 @@
                                 <label for="sector" class="col-sm-2 col-form-label">Select Sector</label>
                                 <div class="col-sm-4">
                                     <select class="form-control" id="sector" name="sector">
-                                        <option th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}"
-                                                th:value="${sector}"
-                                                th:text="${sector.label}"
-                                                th:selected="${sectorValue} == ${sector}">
+                                        <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
+                                            <th:block th:if="${sector.sectorType == 'TTI'}">
+                                                <option th:value="${sector}"
+                                                        th:text="${sector.label}"
+                                                        th:selected="${sectorValue} == ${sector}">
+                                            </th:block>
+                                        </th:block>
+
                                         </option>
                                     </select>
                                 </div>

@@ -10,6 +10,7 @@ import com.tesda8.region8.program.registration.model.wrapper.InstitutionWrapper;
 import com.tesda8.region8.program.registration.model.wrapper.ProgramRegistrationWrapper;
 import com.tesda8.region8.program.registration.repository.InstitutionRepository;
 import com.tesda8.region8.program.registration.service.InstitutionService;
+import com.tesda8.region8.util.enums.InstitutionClassification;
 import com.tesda8.region8.util.enums.InstitutionType;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.Sector;
@@ -59,8 +60,29 @@ public class InstitutionServiceImpl implements InstitutionService {
     }
 
     @Override
+    public List<InstitutionDto> getAllInstitutionByInstitutionTypeAndInstitutionClassification(InstitutionType institutionType, InstitutionClassification institutionClassification) {
+        List<Institution> institutions = institutionRepository
+                .findAllByInstitutionTypeAndInstitutionClassification(InstitutionType.PUBLIC, InstitutionClassification.TESDA);
+        return institutions
+                .stream()
+                .map(institution -> programRegistrationMapper.institutionToDto(institution))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<InstitutionDto> getAllInstitutionByCourseSector(Sector sector) {
         List<Institution> institutions = institutionRepository.findAll();
+        return getInstitutionDtos(sector, institutions);
+    }
+
+    @Override
+    public List<InstitutionDto> getAllInstitutionByCourseSectorAndInstitutionClassification(Sector sector, InstitutionClassification institutionClassification) {
+        List<Institution> institutions = institutionRepository
+                .findAllByInstitutionTypeAndInstitutionClassification(InstitutionType.PUBLIC, institutionClassification);
+        return getInstitutionDtos(sector, institutions);
+    }
+
+    private List<InstitutionDto> getInstitutionDtos(Sector sector, List<Institution> institutions) {
         List<InstitutionDto> institutionDtos = institutions
                 .stream()
                 .map(institution -> programRegistrationMapper.institutionToDto(institution))
@@ -122,7 +144,8 @@ public class InstitutionServiceImpl implements InstitutionService {
 
     @Override
     public ProgramRegistrationWrapper getCourseCountPerInstitution() {
-        List<Institution> institutions = institutionRepository.findAll();
+        List<Institution> institutions = institutionRepository
+                .findAllByInstitutionTypeAndInstitutionClassification(InstitutionType.PUBLIC, InstitutionClassification.TESDA);
         List<InstitutionDto> institutionDtos = institutions
                 .stream()
                 .map(institution -> programRegistrationMapper.institutionToDto(institution))
@@ -136,9 +159,11 @@ public class InstitutionServiceImpl implements InstitutionService {
         total.setInstitutionShortName("Total");
         total.setCourseCountList(totalCourseCounts);
         Arrays.asList(Sector.values()).forEach(sector -> {
-            CourseCount courseCount = new CourseCount();
-            courseCount.setSector(sector);
-            total.getCourseCountList().add(courseCount);
+            if (sector.sectorType.equals("TTI")) {
+                CourseCount courseCount = new CourseCount();
+                courseCount.setSector(sector);
+                total.getCourseCountList().add(courseCount);
+            }
         });
         //
 
@@ -150,24 +175,26 @@ public class InstitutionServiceImpl implements InstitutionService {
                     institutionWrapper.setInstitutionShortName(institutionDto.getShortName());
 
                     Arrays.asList(Sector.values()).forEach(sector -> {
-                        CourseCount courseCount = new CourseCount();
-                        courseCount.setSector(sector);
-                        institutionDto.getRegisteredPrograms()
-                                .forEach(programDto -> {
-                                    if (sector.equals(programDto.getSector())) {
-                                        courseCount.setCount(courseCount.getCount()+1);
-                                        // for total
-                                        total.getCourseCountList().forEach(
-                                                courseCount1 -> {
-                                                    if (courseCount1.getSector().equals(sector)) {
-                                                        courseCount1.setCount(courseCount1.getCount()+1);
+                        if (sector.sectorType.equals("TTI")) {
+                            CourseCount courseCount = new CourseCount();
+                            courseCount.setSector(sector);
+                            institutionDto.getRegisteredPrograms()
+                                    .forEach(programDto -> {
+                                        if (sector.equals(programDto.getSector())) {
+                                            courseCount.setCount(courseCount.getCount()+1);
+                                            // for total
+                                            total.getCourseCountList().forEach(
+                                                    courseCount1 -> {
+                                                        if (courseCount1.getSector().equals(sector)) {
+                                                            courseCount1.setCount(courseCount1.getCount()+1);
+                                                        }
                                                     }
-                                                }
-                                        );
-                                        //
-                                    }
-                                });
-                        institutionWrapper.getCourseCountList().add(courseCount);
+                                            );
+                                            //
+                                        }
+                                    });
+                            institutionWrapper.getCourseCountList().add(courseCount);
+                        }
                     });
                     institutionWrappers.add(institutionWrapper);
                 }

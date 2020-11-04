@@ -5,6 +5,7 @@ import com.tesda8.region8.program.registration.model.wrapper.InstitutionProgramR
 import com.tesda8.region8.program.registration.model.wrapper.ProgramRegistrationWrapper;
 import com.tesda8.region8.program.registration.model.wrapper.RegisteredProgramRequest;
 import com.tesda8.region8.program.registration.service.InstitutionService;
+import com.tesda8.region8.util.enums.InstitutionClassification;
 import com.tesda8.region8.util.enums.InstitutionType;
 import com.tesda8.region8.util.enums.Sector;
 import org.slf4j.Logger;
@@ -43,8 +44,8 @@ public class ProgramRegistrationController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/registeredPrograms/{sectorType}/sector")
     public String getCoursesPerSector(@PathVariable("sectorType") Sector sector, Model model) {
-        List<InstitutionDto> institutionDtoList = institutionService.getAllInstitutionByCourseSector(sector);
-        List<InstitutionDto> ttiList = institutionService.getAllInstitutionByInstitutionType(InstitutionType.PUBLIC);
+        List<InstitutionDto> institutionDtoList = institutionService.getAllInstitutionByCourseSectorAndInstitutionClassification(sector, InstitutionClassification.TESDA);
+        List<InstitutionDto> ttiList = institutionService.getAllInstitutionByInstitutionTypeAndInstitutionClassification(InstitutionType.PUBLIC, InstitutionClassification.TESDA);
         InstitutionProgramRegCounter institutionProgramRegCounter = institutionService.getTotalCountOfRegisteredPrograms(institutionDtoList);
         model.addAttribute("sectorValue", sector);
         model.addAttribute("registeredProgramRequest", new RegisteredProgramRequest());
@@ -68,7 +69,7 @@ public class ProgramRegistrationController {
         List<InstitutionDto> institutionDtoList =
                 institutionService.getAllInstitutionByNameAndSectorAndCourseName(registeredProgramRequest.getInstitutionNames(),
                         registeredProgramRequest.getSector(), registeredProgramRequest.getCourseName());
-        List<InstitutionDto> ttiList = institutionService.getAllInstitutionByInstitutionType(InstitutionType.PUBLIC);
+        List<InstitutionDto> ttiList = institutionService.getAllInstitutionByInstitutionTypeAndInstitutionClassification(InstitutionType.PUBLIC, InstitutionClassification.TESDA);
         InstitutionProgramRegCounter institutionProgramRegCounter = institutionService.getTotalCountOfRegisteredPrograms(institutionDtoList);
         model.addAttribute("sectorValue", registeredProgramRequest.getSector());
         model.addAttribute("courseNameValue", registeredProgramRequest.getCourseName());
