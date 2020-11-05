@@ -5,6 +5,7 @@ import com.tesda8.region8.util.enums.CourseStatus;
 import com.tesda8.region8.util.enums.Sector;
 import com.tesda8.region8.util.model.GeneralData;
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,4 +48,8 @@ public class RegisteredProgram  extends GeneralData {
 
     @Column(name = "NUMBER_OF_TEACHERS")
     private Long numberOfTeachers;
+
+    @Column(name = "IS_CLOSED")
+    @Type(type = "yes_no")
+    private boolean isClosed = false;
 }

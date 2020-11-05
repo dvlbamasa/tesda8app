@@ -82,7 +82,6 @@ INSERT INTO registered_program (id, created_date, updated_date, created_by, upda
 /* initial data for registered program, agriculture samar*/
 
 INSERT INTO registered_program (id, created_date, updated_date, created_by, updated_by, name, course_status, date_issued, program_registration_number, duration, sector, number_of_teachers, institution_id) VALUES (nextval('hibernate_sequence'), now(), now(), 'SYSTEM', 'SYSTEM', 'Produce Organic Vegetables Leading to Organic Agriculture Production NC II', 'WTR_COC', '2019-08-09', '20190860AFFOAP212OAP212CC2002', 120, 'AGRICULTURE', 1, 7);
-INSERT INTO registered_program (id, created_date, updated_date, created_by, updated_by, name, course_status, date_issued, program_registration_number, duration, sector, number_of_teachers, institution_id) VALUES (nextval('hibernate_sequence'), now(), now(), 'SYSTEM', 'SYSTEM', 'Produce Organic Fertilizer Leading to Organic Agriculture Production NC II', 'WTR_COC', '2019-08-09', '20190860AFFOAP212OAP212CC3003', 120, 'AGRICULTURE', 1, 7);
 INSERT INTO registered_program (id, created_date, updated_date, created_by, updated_by, name, course_status, date_issued, program_registration_number, duration, sector, number_of_teachers, institution_id) VALUES (nextval('hibernate_sequence'), now(), now(), 'SYSTEM', 'SYSTEM', 'Organic Agriculture Production NC II', 'WTR', '2020-09-25', '20200860AFFOAP212064', 232, 'AGRICULTURE', 1, 7);
 
 /* initial data for registered program, agriculture southern leyte*/
@@ -138,7 +137,6 @@ INSERT INTO registered_program (id, created_date, updated_date, created_by, upda
 INSERT INTO registered_program (id, created_date, updated_date, created_by, updated_by, name, course_status, date_issued, program_registration_number, duration, sector, number_of_teachers, institution_id) VALUES (nextval('hibernate_sequence'), now(), now(), 'SYSTEM', 'SYSTEM', 'Technical Drafting NC II', 'WTR', '2014-02-11', '201408042003', 222, 'CONSTRUCTION', 1, 13);
 
 /* initial data for registered program, construction samar */
-INSERT INTO registered_program (id, created_date, updated_date, created_by, updated_by, name, course_status, date_issued, program_registration_number, duration, sector, number_of_teachers, institution_id) VALUES (nextval('hibernate_sequence'), now(), now(), 'SYSTEM', 'SYSTEM', 'Install door and window assembly; install ceiling and wall system; and fabricate and install wooden cabinet Leading to Carpentry NC II', 'WTR_COC', '2019-11-20', '20190860CONCAR218CAR218CC2006', 146, 'CONSTRUCTION', 1, 7);
 
 
 
@@ -168,7 +166,6 @@ INSERT INTO registered_program (id, created_date, updated_date, created_by, upda
 INSERT INTO registered_program (id, created_date, updated_date, created_by, updated_by, name, course_status, date_issued, program_registration_number, duration, sector, number_of_teachers, institution_id) VALUES (nextval('hibernate_sequence'), now(), now(), 'SYSTEM', 'SYSTEM', 'Contact Tracing Level II', 'NTR', '2020-01-01', '202008480023', 120, 'HEALTH', 1, 14);
 INSERT INTO registered_program (id, created_date, updated_date, created_by, updated_by, name, course_status, date_issued, program_registration_number, duration, sector, number_of_teachers, institution_id) VALUES (nextval('hibernate_sequence'), now(), now(), 'SYSTEM', 'SYSTEM', 'Contact Tracing Level II', 'WTR', '2020-01-01', '202008480025', 120, 'HEALTH', 3, 13);
 INSERT INTO registered_program (id, created_date, updated_date, created_by, updated_by, name, course_status, date_issued, program_registration_number, duration, sector, number_of_teachers, institution_id) VALUES (nextval('hibernate_sequence'), now(), now(), 'SYSTEM', 'SYSTEM', 'Contact Tracing Level II', 'WTR', '2020-01-01', '202008480024', 120, 'HEALTH', 2, 15);
-INSERT INTO registered_program (id, created_date, updated_date, created_by, updated_by, name, course_status, date_issued, program_registration_number, duration, sector, number_of_teachers, institution_id) VALUES (nextval('hibernate_sequence'), now(), now(), 'SYSTEM', 'SYSTEM', 'Massage Therapy NC II', 'WTR', '2019-10-15', '20190848HHCMAT217069', 700, 'HEALTH', 1, 15);
 
 /* initial data for registered program, Health eastern samar */
 
@@ -635,4 +632,25 @@ INSERT INTO registered_program (id, created_date, updated_date, created_by, upda
 INSERT INTO registered_program (id, created_date, updated_date, created_by, updated_by, sector, name, duration, program_registration_number, date_issued, course_status, number_of_teachers, institution_id)  VALUES (nextval('hibernate_sequence'), now(), now(), 'SYSTEM', 'SYSTEM', 'TVET', 'Trainers Methodology Level I', 264, '1208041007 ', '2012-03-27', 'WTR', 2, 14);
 INSERT INTO registered_program (id, created_date, updated_date, created_by, updated_by, sector, name, duration, program_registration_number, date_issued, course_status, number_of_teachers, institution_id)  VALUES (nextval('hibernate_sequence'), now(), now(), 'SYSTEM', 'SYSTEM', 'TVET', 'Trainers Methodology Level I', 264, '201408041018 ', '2014-05-15', 'WTR', 1, 15);
 INSERT INTO registered_program (id, created_date, updated_date, created_by, updated_by, sector, name, duration, program_registration_number, date_issued, course_status, number_of_teachers, institution_id)  VALUES (nextval('hibernate_sequence'), now(), now(), 'SYSTEM', 'SYSTEM', 'TVET', 'Trainers Methodology Level I', 264, '1208041040 ', '2012-10-30', 'WTR', 2, 13);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
