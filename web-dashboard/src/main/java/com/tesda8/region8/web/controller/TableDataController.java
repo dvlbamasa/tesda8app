@@ -6,7 +6,7 @@ import com.tesda8.region8.web.model.dto.wrapper.ROPerModeReportWrapper;
 import com.tesda8.region8.util.enums.DailyReportType;
 import com.tesda8.region8.util.enums.EgacType;
 import com.tesda8.region8.util.enums.ReportSourceType;
-import com.tesda8.region8.web.service.TableDataFetcherService;
+import com.tesda8.region8.reports.service.TableDataFetcherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

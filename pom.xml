@@ -6,7 +6,9 @@
     <modules>
         <module>web-dashboard</module>
         <module>util</module>
+        <module>planning</module>
         <module>program-registration</module>
+        <module>reports</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>com.tesda.region8</groupId>
-            <artifactId>program-registration</artifactId>
+            <artifactId>reports</artifactId>
             <version>1.0</version>
         </dependency>
 

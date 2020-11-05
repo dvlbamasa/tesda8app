@@ -1,7 +1,7 @@
 package com.tesda8.region8.web.controller;
 
-import com.tesda8.region8.web.model.entities.DailyReportInfo;
-import com.tesda8.region8.web.service.DailyReportInfoService;
+import com.tesda8.region8.reports.model.entities.DailyReportInfo;
+import com.tesda8.region8.reports.service.DailyReportInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

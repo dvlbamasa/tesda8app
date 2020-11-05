@@ -2,8 +2,8 @@ package com.tesda8.region8.web.controller;
 
 import com.tesda8.region8.web.model.dto.wrapper.GeneralReportsDtoWrapper;
 import com.tesda8.region8.util.enums.DailyReportType;
-import com.tesda8.region8.web.service.GeneralReportService;
-import com.tesda8.region8.web.service.MonthlyReportService;
+import com.tesda8.region8.reports.service.GeneralReportService;
+import com.tesda8.region8.reports.service.MonthlyReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

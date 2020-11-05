@@ -1,8 +1,8 @@
 package com.tesda8.region8.web.model.dto.wrapper;
 
-import com.tesda8.region8.web.model.dto.GeneralReportDto;
+import com.tesda8.region8.reports.model.dto.GeneralReportDto;
 import com.tesda8.region8.util.enums.Month;
-import com.tesda8.region8.web.model.dto.TTIReportDto;
+import com.tesda8.region8.reports.model.dto.TTIReportDto;
 import lombok.Data;
 
 import java.util.List;
