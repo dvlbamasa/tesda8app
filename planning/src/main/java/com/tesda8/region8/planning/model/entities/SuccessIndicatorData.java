@@ -8,6 +8,9 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -17,17 +20,25 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "SUCCESS_INDICATOR_DATA")
-public class SuccessIndicatorData extends GeneralData {
+public class SuccessIndicatorData {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
     @Column(name = "TARGET")
-    private int target;
+    private Integer target;
 
     @Column(name = "MEASURES")
     private String measures;
 
     @Column(name = "IS_ACCUMULATED")
     @Type(type = "yes_no")
-    private boolean isAccumulated = false;
+    private Boolean isAccumulated = true;
+
+    @Column(name = "IS_PERCENTAGE")
+    @Type(type = "yes_no")
+    private Boolean isPercentage = false;
 
     @OneToMany(mappedBy = "successIndicatorData")
     @JsonManagedReference

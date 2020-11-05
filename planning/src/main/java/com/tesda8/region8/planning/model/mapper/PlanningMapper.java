@@ -7,6 +7,7 @@ import com.tesda8.region8.planning.model.entities.OperatingUnitData;
 import com.tesda8.region8.planning.model.entities.PapData;
 import com.tesda8.region8.planning.model.entities.SuccessIndicatorData;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")

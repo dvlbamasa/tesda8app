@@ -51,5 +51,5 @@ public class RegisteredProgram  extends GeneralData {
 
     @Column(name = "IS_CLOSED")
     @Type(type = "yes_no")
-    private boolean isClosed = false;
+    private Boolean isClosed = false;
 }

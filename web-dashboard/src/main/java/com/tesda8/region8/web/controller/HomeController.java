@@ -42,11 +42,6 @@ public class HomeController {
         return "daily_reports/monthly_reports";
     }
 
-    @GetMapping("/planning")
-    public String admin() {
-        return "planning/planning";
-    }
-
     @GetMapping("/program_registration")
     public String programRegistration() {
         return "program_registration/program_registration";
