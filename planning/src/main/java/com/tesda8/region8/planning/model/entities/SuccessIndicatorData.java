@@ -40,6 +40,10 @@ public class SuccessIndicatorData {
     @Type(type = "yes_no")
     private Boolean isPercentage = false;
 
+    @Column(name = "IS_DELETED")
+    @Type(type = "yes_no")
+    private Boolean isDeleted = false;
+
     @OneToMany(mappedBy = "successIndicatorData")
     @JsonManagedReference
     List<OperatingUnitData> operatingUnitDataList;

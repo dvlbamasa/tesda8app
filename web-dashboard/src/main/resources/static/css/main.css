@@ -182,3 +182,15 @@ a:active {
 }
 
 .graphContainer { width: 3000px !important; height: 3000px !important; }
+
+.delete-col {
+    background-color: #ff9e9e;
+}
+
+.total-col {
+    background-color: #b3ffc4;
+}
+
+.col-striped {
+    background-color: #ffffad;
+}

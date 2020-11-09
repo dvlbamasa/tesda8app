@@ -11,7 +11,8 @@ public class SuccessIndicatorDataDto {
     private long id;
     private int target;
     private String measures;
-    private boolean isAccumulated;
-    private boolean isPercentage;
-    private List<OperatingUnitData> operatingUnitDataList;
+    private Boolean isAccumulated;
+    private Boolean isPercentage;
+    private Boolean isDeleted;
+    private List<OperatingUnitDataDto> operatingUnitDataList;
 }

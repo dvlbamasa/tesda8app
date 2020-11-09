@@ -12,5 +12,5 @@ public class PapDataDto {
     private long id;
     private String name;
     private PapGroupType papGroupType;
-    List<SuccessIndicatorData> successIndicatorDataList;
+    List<SuccessIndicatorDataDto> successIndicatorDataList;
 }
