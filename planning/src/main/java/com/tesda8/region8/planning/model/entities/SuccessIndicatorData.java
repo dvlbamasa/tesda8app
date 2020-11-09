@@ -6,6 +6,7 @@ import com.tesda8.region8.util.model.GeneralData;
 import lombok.Data;
 import org.hibernate.annotations.Type;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,9 +45,9 @@ public class SuccessIndicatorData {
     @Type(type = "yes_no")
     private Boolean isDeleted = false;
 
-    @OneToMany(mappedBy = "successIndicatorData")
+    @OneToMany(mappedBy = "successIndicatorData", cascade = CascadeType.ALL)
     @JsonManagedReference
-    List<OperatingUnitData> operatingUnitDataList;
+    private List<OperatingUnitData> operatingUnitDataList;
 
     @ManyToOne
     @JoinColumn(name = "pap_data_id", nullable = false)

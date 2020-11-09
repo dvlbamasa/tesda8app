@@ -1,6 +1,7 @@
 package com.tesda8.region8.planning.service;
 
 import com.tesda8.region8.planning.model.dto.PapDataDto;
+import com.tesda8.region8.planning.model.dto.SuccessIndicatorDataDto;
 import com.tesda8.region8.util.enums.PapGroupType;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface PapDataService {
     void updatePapData(List<PapDataDto> papDataDtoList);
 
     void updateSuccessIndicators(List<PapDataDto> papDataDtoList);
+
+    void createSuccessIndicator(SuccessIndicatorDataDto successIndicatorDataDto);
 }

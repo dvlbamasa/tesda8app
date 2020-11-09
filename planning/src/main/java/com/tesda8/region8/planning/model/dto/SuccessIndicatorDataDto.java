@@ -9,6 +9,7 @@ import java.util.List;
 public class SuccessIndicatorDataDto {
 
     private long id;
+    private long papDataId;
     private int target;
     private String measures;
     private Boolean isAccumulated;

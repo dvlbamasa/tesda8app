@@ -105,13 +105,13 @@
                                 <th:block th:each="pap, itemstat : ${papData.tesdppData}">
                                     <th:block th:each="successIndicator, itemstat2 : ${pap.successIndicatorDataList}">
                                         <tr>
-                                            <th th:text="${pap.name}"></th>
-                                            <th>
+                                            <td th:text="${pap.name}"></td>
+                                            <td>
                                                 <span th:text="${successIndicator.target}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
                                                     <span>&#37;</span>
                                                 </th:block>
-                                            </th>
+                                            </td>
                                             <td th:text="${successIndicator.measures}"></td>
                                             <th:block th:each="operatingUnitData, itemstat3 : ${successIndicator.operatingUnitDataList}">
                                                 <th:block th:if="${operatingUnitData.operatingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
@@ -210,13 +210,13 @@
                                 <th:block th:each="pap, itemstat : ${papData.tesdrpData}">
                                     <th:block th:each="successIndicator, itemstat2 : ${pap.successIndicatorDataList}">
                                         <tr>
-                                            <th th:text="${pap.name}"></th>
-                                            <th>
+                                            <td th:text="${pap.name}"></td>
+                                            <td>
                                                 <span th:text="${successIndicator.target}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
                                                     <span>&#37;</span>
                                                 </th:block>
-                                            </th>
+                                            </td>
                                             <td th:text="${successIndicator.measures}"></td>
                                             <th:block th:each="operatingUnitData, itemstat3 : ${successIndicator.operatingUnitDataList}">
                                                 <th:block th:if="${operatingUnitData.operatingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
@@ -315,13 +315,13 @@
                                 <th:block th:each="pap, itemstat : ${papData.tesdpData}">
                                     <th:block th:each="successIndicator, itemstat2 : ${pap.successIndicatorDataList}">
                                         <tr>
-                                            <th th:text="${pap.name}"></th>
-                                            <th>
+                                            <td th:text="${pap.name}"></td>
+                                            <td>
                                                 <span th:text="${successIndicator.target}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
                                                     <span>&#37;</span>
                                                 </th:block>
-                                            </th>
+                                            </td>
                                             <td th:text="${successIndicator.measures}"></td>
                                             <th:block th:each="operatingUnitData, itemstat3 : ${successIndicator.operatingUnitDataList}">
                                                 <th:block th:if="${operatingUnitData.operatingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
@@ -420,13 +420,13 @@
                                 <th:block th:each="pap, itemstat : ${papData.stoData}">
                                     <th:block th:each="successIndicator, itemstat2 : ${pap.successIndicatorDataList}">
                                         <tr>
-                                            <th th:text="${pap.name}"></th>
-                                            <th>
+                                            <td th:text="${pap.name}"></td>
+                                            <td>
                                                 <span th:text="${successIndicator.target}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
                                                     <span>&#37;</span>
                                                 </th:block>
-                                            </th>
+                                            </td>
                                             <td th:text="${successIndicator.measures}"></td>
                                             <th:block th:each="operatingUnitData, itemstat3 : ${successIndicator.operatingUnitDataList}">
                                                 <th:block th:if="${operatingUnitData.operatingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
@@ -525,13 +525,13 @@
                                 <th:block th:each="pap, itemstat : ${papData.gassData}">
                                     <th:block th:each="successIndicator, itemstat2 : ${pap.successIndicatorDataList}">
                                         <tr>
-                                            <th th:text="${pap.name}"></th>
-                                            <th>
+                                            <td th:text="${pap.name}"></td>
+                                            <td>
                                                 <span th:text="${successIndicator.target}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
                                                     <span>&#37;</span>
                                                 </th:block>
-                                            </th>
+                                            </td>
                                             <td th:text="${successIndicator.measures}"></td>
                                             <th:block th:each="operatingUnitData, itemstat3 : ${successIndicator.operatingUnitDataList}">
                                                 <th:block th:if="${operatingUnitData.operatingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
@@ -580,7 +580,6 @@
                                                                         .successIndicatorDataList[__${itemstat2.index}__].id}" />
                                     </th:block>
                                     <input type="hidden" th:field="*{gassData[__${itemstat.index}__].id}" />
-
                                 </th:block>
                                 </tbody>
                             </table>

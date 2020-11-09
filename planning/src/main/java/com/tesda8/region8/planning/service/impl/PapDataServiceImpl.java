@@ -1,5 +1,6 @@
 package com.tesda8.region8.planning.service.impl;
 
+import com.google.common.collect.Lists;
 import com.tesda8.region8.planning.model.dto.OperatingUnitDataDto;
 import com.tesda8.region8.planning.model.dto.PapDataDto;
 import com.tesda8.region8.planning.model.dto.SuccessIndicatorDataDto;
@@ -19,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -161,6 +163,7 @@ public class PapDataServiceImpl implements PapDataService {
     }
 
     @Override
+    @Transactional
     public void updateSuccessIndicators(List<PapDataDto> papDataDtoList) {
         papDataDtoList.forEach(
                 papDataDto -> {
@@ -181,6 +184,42 @@ public class PapDataServiceImpl implements PapDataService {
                     );
                 }
         );
+    }
+
+    @Override
+    @Transactional
+    public void createSuccessIndicator(SuccessIndicatorDataDto successIndicatorDataDto) {
+        PapData papData = papDataRepository.getOne(successIndicatorDataDto.getPapDataId());
+        SuccessIndicatorData successIndicatorData = planningMapper.successIndicatorToEntity(successIndicatorDataDto);
+        successIndicatorData.setPapData(papData);
+        successIndicatorData.setOperatingUnitDataList(null);
+        successIndicatorData.setIsDeleted(false);
+
+        //total initialize
+        OperatingUnitData oldTotal = new OperatingUnitData();
+        oldTotal.setTarget(Long.valueOf(successIndicatorData.getTarget()));
+        oldTotal.setOutput(0L);
+        oldTotal.setOperatingUnitType(OperatingUnitPOType.TOTAL);
+        oldTotal.setSuccessIndicatorData(successIndicatorData);
+
+        List<OperatingUnitData> operatingUnitDataList = Lists.newArrayList();
+
+        successIndicatorDataDto.getOperatingUnitDataList().forEach(
+                operatingUnitDataDto -> {
+                    operatingUnitDataDto.setRate(ReportUtil.calculateRate(operatingUnitDataDto.getTarget(), operatingUnitDataDto.getOutput()));
+                    OperatingUnitData operatingUnitData = planningMapper.operatingUnitDataToEntity(operatingUnitDataDto);
+                    operatingUnitData.setSuccessIndicatorData(successIndicatorData);
+                    oldTotal.setOutput(operatingUnitDataDto.getOutput() + oldTotal.getOutput());
+                    operatingUnitDataList.add(operatingUnitData);
+                }
+        );
+        if (!successIndicatorData.getIsAccumulated()) {
+            oldTotal.setOutput(oldTotal.getOutput()/7);
+        }
+        oldTotal.setRate(ReportUtil.calculateRate(oldTotal.getTarget(), oldTotal.getOutput()));
+        operatingUnitDataList.add(oldTotal);
+        successIndicatorData.setOperatingUnitDataList(operatingUnitDataList);
+        successIndicatorDataRepository.save(successIndicatorData);
     }
 
     private void setValues(SuccessIndicatorData successIndicatorData, SuccessIndicatorDataDto successIndicatorDataDto) {

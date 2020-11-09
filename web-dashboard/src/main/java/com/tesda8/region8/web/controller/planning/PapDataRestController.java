@@ -1,6 +1,8 @@
 package com.tesda8.region8.web.controller.planning;
 
 import com.tesda8.region8.planning.model.dto.PapDataDto;
+import com.tesda8.region8.planning.model.dto.SuccessIndicatorDataDto;
+import com.tesda8.region8.planning.model.entities.SuccessIndicatorData;
 import com.tesda8.region8.planning.service.PapDataService;
 import com.tesda8.region8.util.enums.PapGroupType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,11 @@ public class PapDataRestController {
     @RequestMapping(method = RequestMethod.POST, value = "/papData/update")
     public void updatePapData(@RequestBody  List<PapDataDto> papDataDtoList) {
         papDataService.updatePapData(papDataDtoList);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/papData/successIndicator/create")
+    public void createSuccessIndicator(@RequestBody SuccessIndicatorDataDto successIndicatorDataDto) {
+        papDataService.createSuccessIndicator(successIndicatorDataDto);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/papData/successIndicator/update")

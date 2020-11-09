@@ -1,8 +1,13 @@
 package com.tesda8.region8.web.controller.planning;
 
+import com.google.common.collect.Lists;
+import com.tesda8.region8.planning.model.dto.OperatingUnitDataDto;
+import com.tesda8.region8.planning.model.dto.SuccessIndicatorDataDto;
+import com.tesda8.region8.planning.model.entities.SuccessIndicatorData;
 import com.tesda8.region8.planning.model.wrapper.PapDataFilterRequest;
 import com.tesda8.region8.planning.model.wrapper.PapDataWrapper;
 import com.tesda8.region8.planning.service.PapDataService;
+import com.tesda8.region8.util.enums.OperatingUnitPOType;
 import com.tesda8.region8.util.enums.PapGroupType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +17,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.Arrays;
 
 
 @Controller
@@ -42,6 +49,13 @@ public class PlanningController {
         return "planning/update_success_indicator";
     }
 
+    @GetMapping("/planning/successIndicator/create")
+    public String createSuccessIndicator(Model model) {
+        model.addAttribute("successIndicator", initializeSuccessIndicatorDto());
+        model.addAttribute("papDataList", papDataService.getAllPapData());
+        return "planning/create_success_indicator";
+    }
+
     @RequestMapping(method = RequestMethod.POST, value = "/planning/opcr/update/filter",
             consumes = "application/x-www-form-urlencoded")
     public String updateOpcrWithFilter(PapDataFilterRequest papDataFilterRequest,
@@ -63,6 +77,18 @@ public class PlanningController {
     public String filterOpcr(PapDataFilterRequest papDataFilterRequest,
                              BindingResult bindingResult, Model model) {
         setModelAttributesWithFilter(papDataFilterRequest, bindingResult, model);
+        return "planning/planning";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/planning/successIndicators/create/save",
+            consumes = "application/x-www-form-urlencoded")
+    public String saveNewSuccessIndicator(SuccessIndicatorDataDto successIndicatorDataDto,
+                                        BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            //errors processing
+        }
+        papDataService.createSuccessIndicator(successIndicatorDataDto);
+        setModelInitialAtributes(model);
         return "planning/planning";
     }
 
@@ -161,5 +187,24 @@ public class PlanningController {
         model.addAttribute("papNameValue", papDataFilterRequest.getPapName());
         model.addAttribute("successIndicatorMeasureValue", papDataFilterRequest.getSuccessIndicatorMeasure());
         model.addAttribute("papData", papDataWrapper);
+    }
+
+    private SuccessIndicatorDataDto initializeSuccessIndicatorDto() {
+        SuccessIndicatorDataDto successIndicatorDataDto = new SuccessIndicatorDataDto();
+        successIndicatorDataDto.setIsAccumulated(true);
+        successIndicatorDataDto.setIsPercentage(false);
+        successIndicatorDataDto.setIsDeleted(false);
+        successIndicatorDataDto.setOperatingUnitDataList(Lists.newArrayList());
+        Arrays.asList(OperatingUnitPOType.values()).forEach(
+                operatingUnitPOType -> {
+                    OperatingUnitDataDto operatingUnitDataDto = new OperatingUnitDataDto();
+                    operatingUnitDataDto.setOperatingUnitType(operatingUnitPOType);
+                    operatingUnitDataDto.setTarget(0);
+                    operatingUnitDataDto.setOutput(0);
+                    operatingUnitDataDto.setRate(0);
+                    successIndicatorDataDto.getOperatingUnitDataList().add(operatingUnitDataDto);
+                }
+        );
+        return successIndicatorDataDto;
     }
 }
