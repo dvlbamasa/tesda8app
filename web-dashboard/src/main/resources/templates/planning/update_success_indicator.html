@@ -9,14 +9,14 @@
 
 <div id="page-container">
     <div id = "content-wrap">
-        <header class="bg-primary py-5 mb-3">
+        <header class="bg-primary py-5 mb-5">
             <div class="container h-100">
                 <div class="row h-100 align-items-center">
                     <div class="col-lg-12">
                         <h1 class="display-4 text-white mt-5 mb-2">Edit Success Indicators</h1>
                         <p class="lead mb-5 text-white-50">Edit target and measure values for success indicators</p>
                         <div class="btn-group mr-2 float-right" role="group">
-                            <a th:href="@{/planning}" class="btn btn-success btn-lg" role="button" aria-pressed="true">View OPCR Summary</a>
+                            <a th:href="@{/planning}" class="btn btn-success btn-lg" role="button" aria-pressed="true">Back to OPCR Summary</a>
                             <a th:href="@{/planning/successIndicator/create}" class="btn btn-success btn-lg" role="button" aria-pressed="true">Add Success Indicator</a>
 
                         </div>
@@ -25,9 +25,9 @@
             </div>
         </header>
         <form th:object="${papFilter}" th:action="@{/planning/successIndicator/update/filter}" method="post">
-            <div class="container mb-3">
+            <div class="container mb-5">
                 <div class="btn-group" role="group">
-                    <button class="btn btn-primary btn-lg" type="submit" id="submitButton2" th:value="Update">Search</button>
+                    <button class="btn btn-primary btn-lg" type="submit" id="submitButton2" th:value="Update">Search Success Indicators</button>
                 </div>
             </div>
             <div class="container mb-5">
@@ -45,6 +45,9 @@
                 </div>
             </div>
         </form>
+        <div class="container">
+            <hr class="border"/>
+        </div>
         <div class="container">
             <ul class="nav nav-pills justify-content-center mb-5" id="pills-tab" role="tablist">
                 <li class="nav-item">
@@ -374,7 +377,7 @@
 
     </div>
 </div>
-
+<script  type='text/javascript' src="../../static/js/main.js" th:src="@{js/main.js}"></script>
 <div th:replace="fragments/footer :: footer"/>
 
 </body>

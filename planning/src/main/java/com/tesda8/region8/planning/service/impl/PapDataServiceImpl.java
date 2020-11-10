@@ -62,6 +62,7 @@ public class PapDataServiceImpl implements PapDataService {
         );
         return papDataList
                 .stream()
+                .filter(papData -> !papData.getIsDeleted())
                 .map(papData -> planningMapper.papDataToDto(papData))
                 .collect(Collectors.toList());
     }
@@ -80,6 +81,7 @@ public class PapDataServiceImpl implements PapDataService {
         );
         return papDataList
                 .stream()
+                .filter(papData -> !papData.getIsDeleted())
                 .map(papData -> planningMapper.papDataToDto(papData))
                 .collect(Collectors.toList());
     }
@@ -91,7 +93,6 @@ public class PapDataServiceImpl implements PapDataService {
 
     @Override
     public List<PapDataDto> getAllPapDataByPapGroupTypeAndMeasureAndPapName(PapGroupType papGroupType, String measureFilter, String papName) {
-        logger.info("Measure: {}, PAP NAME: {}", measureFilter, papName);
         List<PapData> papDataList = papDataRepository.findAllByPapGroupType(papGroupType);
         papDataList.forEach(
                 papData -> {
@@ -119,6 +120,7 @@ public class PapDataServiceImpl implements PapDataService {
                 .collect(Collectors.toList());
         return finalPapDataList
                 .stream()
+                .filter(papData -> !papData.getIsDeleted())
                 .map(papData -> planningMapper.papDataToDto(papData))
                 .collect(Collectors.toList());
     }
@@ -220,6 +222,22 @@ public class PapDataServiceImpl implements PapDataService {
         operatingUnitDataList.add(oldTotal);
         successIndicatorData.setOperatingUnitDataList(operatingUnitDataList);
         successIndicatorDataRepository.save(successIndicatorData);
+    }
+
+    @Override
+    @Transactional
+    public void createPapData(PapDataDto papDataDto) {
+        PapData papData = planningMapper.papDataToEntity(papDataDto);
+        papData.setSuccessIndicatorDataList(Lists.newArrayList());
+        papData.setIsDeleted(false);
+        papDataRepository.save(papData);
+    }
+
+    @Override
+    public void deletePapData(PapDataDto papDataDto) {
+        PapData papData = papDataRepository.getOne(papDataDto.getId());
+        papData.setIsDeleted(true);
+        papDataRepository.save(papData);
     }
 
     private void setValues(SuccessIndicatorData successIndicatorData, SuccessIndicatorDataDto successIndicatorDataDto) {

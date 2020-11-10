@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tesda8.region8.util.enums.PapGroupType;
 import com.tesda8.region8.util.model.GeneralData;
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,4 +29,8 @@ public class PapData extends GeneralData {
     @Column(name = "PAP_GROUP_TYPE")
     @Enumerated(EnumType.STRING)
     private PapGroupType papGroupType;
+
+    @Column(name = "IS_DELETED")
+    @Type(type = "yes_no")
+    private Boolean isDeleted = false;
 }

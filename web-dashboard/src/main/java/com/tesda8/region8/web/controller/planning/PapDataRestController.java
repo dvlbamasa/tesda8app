@@ -57,4 +57,14 @@ public class PapDataRestController {
         papDataService.updateSuccessIndicators(papDataDtoList);
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/papData/create")
+    public void createPapData(@RequestBody PapDataDto papDataDto) {
+        papDataService.createPapData(papDataDto);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/papData/delete")
+    public void deletePapData(@RequestBody PapDataDto papDataDto) {
+        papDataService.deletePapData(papDataDto);
+    }
+
 }

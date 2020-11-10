@@ -2555,6 +2555,9 @@ INSERT INTO operating_unit_data (id,  target, output, rate, operating_unit_type,
 UPDATE success_indicator_data SET is_deleted = 'N';
 
 
+UPDATE pap_data SET is_deleted = 'N';
+
+
 
 
 

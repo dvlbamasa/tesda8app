@@ -2,8 +2,8 @@ package com.tesda8.region8.web.controller.planning;
 
 import com.google.common.collect.Lists;
 import com.tesda8.region8.planning.model.dto.OperatingUnitDataDto;
+import com.tesda8.region8.planning.model.dto.PapDataDto;
 import com.tesda8.region8.planning.model.dto.SuccessIndicatorDataDto;
-import com.tesda8.region8.planning.model.entities.SuccessIndicatorData;
 import com.tesda8.region8.planning.model.wrapper.PapDataFilterRequest;
 import com.tesda8.region8.planning.model.wrapper.PapDataWrapper;
 import com.tesda8.region8.planning.service.PapDataService;
@@ -56,6 +56,13 @@ public class PlanningController {
         return "planning/create_success_indicator";
     }
 
+    @GetMapping("/planning/pap/manage")
+    public String managePap(Model model) {
+        model.addAttribute("papData", new PapDataDto());
+        model.addAttribute("papDataList", papDataService.getAllPapData());
+        return "planning/manage_pap";
+    }
+
     @RequestMapping(method = RequestMethod.POST, value = "/planning/opcr/update/filter",
             consumes = "application/x-www-form-urlencoded")
     public String updateOpcrWithFilter(PapDataFilterRequest papDataFilterRequest,
@@ -91,6 +98,33 @@ public class PlanningController {
         setModelInitialAtributes(model);
         return "planning/planning";
     }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/planning/papData/create/save",
+            consumes = "application/x-www-form-urlencoded")
+    public String saveNewPapData(PapDataDto papDataDto,
+                                          BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            //errors processing
+        }
+        papDataService.createPapData(papDataDto);
+        model.addAttribute("successIndicator", initializeSuccessIndicatorDto());
+        model.addAttribute("papDataList", papDataService.getAllPapData());
+        return "planning/create_success_indicator";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/planning/papData/delete",
+            consumes = "application/x-www-form-urlencoded")
+    public String deletePapData(PapDataDto papDataDto,
+                                 BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            //errors processing
+        }
+        papDataService.deletePapData(papDataDto);
+        model.addAttribute("successIndicator", initializeSuccessIndicatorDto());
+        model.addAttribute("papDataList", papDataService.getAllPapData());
+        return "planning/create_success_indicator";
+    }
+
 
     @RequestMapping(method = RequestMethod.POST, value = "/planning/successIndicators/{papGroup}/papGroup/save",
             consumes = "application/x-www-form-urlencoded")

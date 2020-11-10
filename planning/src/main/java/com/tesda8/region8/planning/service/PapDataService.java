@@ -19,4 +19,8 @@ public interface PapDataService {
     void updateSuccessIndicators(List<PapDataDto> papDataDtoList);
 
     void createSuccessIndicator(SuccessIndicatorDataDto successIndicatorDataDto);
+
+    void createPapData(PapDataDto papDataDto);
+
+    void deletePapData(PapDataDto papDataDto);
 }
