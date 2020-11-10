@@ -42,11 +42,6 @@ public class HomeController {
         return "daily_reports/monthly_reports";
     }
 
-    @GetMapping("/program_registration")
-    public String programRegistration() {
-        return "program_registration/program_registration";
-    }
-
     @GetMapping("/certification")
     public String certification() {
         return "certification/certification";

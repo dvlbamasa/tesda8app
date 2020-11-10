@@ -17,7 +17,9 @@ public enum Sector {
     TVET("TVET", "TTI"),
     VISUAL_ARTS("Visual Arts", "NON-TTI"),
     MARITIME("Maritime", "NON-TTI"),
-    CONSTRUCTION_METALS("Construction and Metals and Engineering", "NON-TTI");
+    CONSTRUCTION_METALS("Construction and Metals and Engineering", "NON-TTI"),
+
+    ALL("ALL SECTORS", "TTI");
 
 
 

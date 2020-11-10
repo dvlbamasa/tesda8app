@@ -3,7 +3,8 @@ package com.tesda8.region8.util.enums;
 public enum InstitutionType {
 
     PUBLIC("Public"),
-    PRIVATE("Private");
+    PRIVATE("Private"),
+    ALL("All");
 
     public final String label;
 

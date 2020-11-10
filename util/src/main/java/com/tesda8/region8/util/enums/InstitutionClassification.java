@@ -9,7 +9,9 @@ public enum  InstitutionClassification {
     SUC("SUC"),
     TESDA("TESDA Technology Institution"),
     TVI("TVI"),
-    TVI_NGO("TVI-NGO/Foundation");
+    TVI_NGO("TVI-NGO/Foundation"),
+
+    ALL("All");
 
     public final String label;
 

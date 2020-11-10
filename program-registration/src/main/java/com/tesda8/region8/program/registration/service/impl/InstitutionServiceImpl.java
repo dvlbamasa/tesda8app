@@ -2,6 +2,9 @@ package com.tesda8.region8.program.registration.service.impl;
 
 import com.google.common.collect.Lists;
 import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
+import com.tesda8.region8.program.registration.model.dto.InstitutionFilter;
+import com.tesda8.region8.program.registration.model.dto.RegisteredProgramDto;
+import com.tesda8.region8.program.registration.model.dto.RegisteredProgramFilter;
 import com.tesda8.region8.program.registration.model.entities.Institution;
 import com.tesda8.region8.program.registration.model.mapper.ProgramRegistrationMapper;
 import com.tesda8.region8.program.registration.model.wrapper.CourseCount;
@@ -19,7 +22,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,6 +62,55 @@ public class InstitutionServiceImpl implements InstitutionService {
         List<Institution> institutions = institutionRepository.findAllByInstitutionType(institutionType);
         return institutions
                 .stream()
+                .map(institution -> programRegistrationMapper.institutionToDto(institution))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<InstitutionDto> getAllInstitutionWithFilter(InstitutionFilter institutionFilter) {
+        logger.info("outype: {}, institutionName: {}, institutiontype: {}, classification: {}, address: {}, contact: {}",
+                institutionFilter.getOperatingUnitType(), institutionFilter.getInstitutionName(),
+                institutionFilter.getInstitutionType(), institutionFilter.getInstitutionClassification(), institutionFilter.getAddress(),
+                institutionFilter.getContactNumber());
+        List<Institution> institutions = institutionRepository.findAll();
+        List<Institution> filteredInstitutions = Lists.newArrayList();
+
+        Arrays.asList(institutionFilter.getOperatingUnitType())
+                .forEach(operatingUnitType -> {
+                    List<Institution> newInstitutionList = institutions
+                            .stream()
+                            .filter(institution -> operatingUnitType.equals(OperatingUnitType.TOTAL) || institution.getOperatingUnitType().equals(operatingUnitType))
+                            .collect(Collectors.toList());
+                    filteredInstitutions.addAll(newInstitutionList);
+                });
+
+        List<Institution> filteredInstitutionsType = Lists.newArrayList();
+
+        Arrays.asList(institutionFilter.getInstitutionType())
+                .forEach(institutionType -> {
+                    List<Institution> newInstitutionList = filteredInstitutions
+                            .stream()
+                            .filter(institution -> institutionType.equals(InstitutionType.ALL) || institution.getInstitutionType().equals(institutionType))
+                            .collect(Collectors.toList());
+                    filteredInstitutionsType.addAll(newInstitutionList);
+                });
+
+        List<Institution> filteredInstitutionsClassification = Lists.newArrayList();
+
+        Arrays.asList(institutionFilter.getInstitutionClassification())
+                .forEach(institutionClassification -> {
+                    List<Institution> newInstitutionList = filteredInstitutionsType
+                            .stream()
+                            .filter(institution -> institutionClassification.equals(InstitutionClassification.ALL) || institution.getInstitutionClassification().equals(institutionClassification))
+                            .collect(Collectors.toList());
+                    filteredInstitutionsClassification.addAll(newInstitutionList);
+                });
+
+        return filteredInstitutionsClassification
+                .stream()
+                .filter(institution -> institution.getName().toLowerCase().trim().contains(institutionFilter.getInstitutionName().toLowerCase().trim()))
+                .filter(institution -> institution.getAddress().toLowerCase().trim().contains(institutionFilter.getAddress().toLowerCase().trim()))
+                .filter(institution -> institution.getContactNumber().trim().contains(institutionFilter.getContactNumber().trim()))
                 .map(institution -> programRegistrationMapper.institutionToDto(institution))
                 .collect(Collectors.toList());
     }
@@ -121,13 +177,105 @@ public class InstitutionServiceImpl implements InstitutionService {
                     institutionDto.setRegisteredPrograms(
                             institutionDto.getRegisteredPrograms()
                                     .stream()
-                                    .filter(programDto -> programDto.getSector().equals(sector))
+                                    .filter(programDto -> sector.equals(Sector.ALL) ||  programDto.getSector().equals(sector))
                                     .filter(programDto -> programDto.getName().toLowerCase().contains(courseName.toLowerCase()))
                                     .collect(Collectors.toList())
                     );
                 }
         );
         return institutionDtos;
+    }
+
+    @Override
+    public List<InstitutionDto> getAllRegisteredProgramsWithFilter(RegisteredProgramFilter registeredProgramFilter) {
+        logger.info("from: {}, to: {}",
+                registeredProgramFilter.getDateIssuedFrom(), registeredProgramFilter.getDateIssuedTo());
+        List<Institution> institutions = institutionRepository.findAll();
+        List<Institution> filteredInstitutions = Lists.newArrayList();
+
+        Arrays.asList(registeredProgramFilter.getOperatingUnitType())
+                .forEach(operatingUnitType -> {
+                    List<Institution> newInstitutionList = institutions
+                            .stream()
+                            .filter(institution -> operatingUnitType.equals(OperatingUnitType.TOTAL) || institution.getOperatingUnitType().equals(operatingUnitType))
+                            .collect(Collectors.toList());
+                    filteredInstitutions.addAll(newInstitutionList);
+                });
+
+        List<Institution> filteredInstitutionsClassification = Lists.newArrayList();
+
+        Arrays.asList(registeredProgramFilter.getInstitutionClassification())
+                .forEach(institutionClassification -> {
+                    List<Institution> newInstitutionList = filteredInstitutions
+                            .stream()
+                            .filter(institution -> institutionClassification.equals(InstitutionClassification.ALL) || institution.getInstitutionClassification().equals(institutionClassification))
+                            .collect(Collectors.toList());
+                    filteredInstitutionsClassification.addAll(newInstitutionList);
+                });
+
+        List<InstitutionDto> institutionDtos = Lists.newArrayList();
+        Arrays.stream(registeredProgramFilter.getInstitutionNames()).forEach(
+                institutionName -> {
+                    List<InstitutionDto> institutionList = filteredInstitutionsClassification
+                            .stream()
+                            .filter(institution -> institutionName.equals(ALL) || institution.getName().equalsIgnoreCase(institutionName))
+                            .map(institution -> programRegistrationMapper.institutionToDto(institution))
+                            .collect(Collectors.toList());
+                    institutionDtos.addAll(institutionList);
+                }
+        );
+
+        institutionDtos.forEach(
+                institutionDto -> {
+                    institutionDto.setRegisteredPrograms(
+                            institutionDto.getRegisteredPrograms()
+                                    .stream()
+                                    .filter(programDto -> registeredProgramFilter.getSector().equals(Sector.ALL) || programDto.getSector().equals(registeredProgramFilter.getSector()))
+                                    .filter(programDto -> programDto.getName().toLowerCase().contains(registeredProgramFilter.getCourseName().toLowerCase()))
+                                    .collect(Collectors.toList())
+                    );
+                }
+        );
+
+        if (registeredProgramFilter.getDateIssuedFrom() != null) {
+            institutionDtos.forEach(
+                    institutionDto -> {
+                        institutionDto.setRegisteredPrograms(
+                                institutionDto.getRegisteredPrograms()
+                                        .stream()
+                                        .filter(programDto -> programDto.getDateIssued().isAfter(convertToLocalDateTimeViaInstant(registeredProgramFilter.getDateIssuedFrom())))
+                                        .collect(Collectors.toList())
+                        );
+                    }
+            );
+        }
+
+        if (registeredProgramFilter.getDateIssuedTo() != null) {
+            institutionDtos.forEach(
+                    institutionDto -> {
+                        institutionDto.setRegisteredPrograms(
+                                institutionDto.getRegisteredPrograms()
+                                        .stream()
+                                        .filter(programDto -> programDto.getDateIssued().isBefore(convertToLocalDateTimeViaInstant(registeredProgramFilter.getDateIssuedTo())))
+                                        .collect(Collectors.toList())
+                        );
+                    }
+            );
+        }
+        return institutionDtos.stream()
+                .map(this::sortDateAsc)
+                .collect(Collectors.toList());
+    }
+
+    public LocalDateTime convertToLocalDateTimeViaInstant(Date dateToConvert) {
+        return dateToConvert.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+    }
+
+    private InstitutionDto sortDateAsc(InstitutionDto institutionDto) {
+        institutionDto.getRegisteredPrograms().sort(Comparator.comparing(RegisteredProgramDto::getDateIssued));
+        return institutionDto;
     }
 
     public InstitutionProgramRegCounter getTotalCountOfRegisteredPrograms(List<InstitutionDto> institutionDtoList) {

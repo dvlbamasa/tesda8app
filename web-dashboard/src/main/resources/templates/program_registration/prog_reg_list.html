@@ -62,7 +62,7 @@
                             <div class="form-group row">
                                 <label for="sector" class="col-sm-2 col-form-label">Select Sector</label>
                                 <div class="col-sm-10">
-                                    <select class="form-control" id="sector" name="sector">
+                                    <select class="form-control selectpicker" id="sector" name="sector">
                                         <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
                                             <th:block th:if="${sector.sectorType == 'TTI'}">
                                                 <option th:value="${sector}"

@@ -1,12 +1,15 @@
 package com.tesda8.region8.web.controller.program.registration;
 
 import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
+import com.tesda8.region8.program.registration.model.dto.InstitutionFilter;
+import com.tesda8.region8.program.registration.model.dto.RegisteredProgramFilter;
 import com.tesda8.region8.program.registration.model.wrapper.ProgramRegistrationWrapper;
 import com.tesda8.region8.program.registration.service.InstitutionService;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.Sector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,18 +37,18 @@ public class InstitutionRestController {
         return institutionService.getAllInstitutionByCourseSector(sector);
     }
 
-    /*
-    @RequestMapping(method = RequestMethod.GET, value = "/{institutionName}/institutionName/{sector}/sector/{courseName}/courseName")
-    public List<InstitutionDto> getAllInstitutionByOperatingUnitTypeCourseSector(@PathVariable("institutionName") String institutionName,
-                                                                @PathVariable("sector")Sector sector,
-                                                                 @PathVariable("courseName") String courseName) {
-        return institutionService.getAllInstitutionByNameAndSectorAndCourseName(institutionName, sector, courseName);
-    }
-
-     */
-
     @RequestMapping(method = RequestMethod.GET, value = "/count")
     public ProgramRegistrationWrapper getCourseCountPerInstitution() {
         return institutionService.getCourseCountPerInstitution();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/filter")
+    public List<InstitutionDto> getAllInstitutions(@RequestBody InstitutionFilter institutionFilter) {
+        return institutionService.getAllInstitutionWithFilter(institutionFilter);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/registeredPrograms/filter")
+    public List<InstitutionDto> getAllregisteredProgramWithFilter(@RequestBody RegisteredProgramFilter registeredProgramFilter) {
+        return institutionService.getAllRegisteredProgramsWithFilter(registeredProgramFilter);
     }
 }
