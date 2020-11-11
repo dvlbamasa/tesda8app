@@ -315,7 +315,7 @@ public class InstitutionServiceImpl implements InstitutionService {
         total.setInstitutionShortName("Total");
         total.setCourseCountList(totalCourseCounts);
         Arrays.asList(Sector.values()).forEach(sector -> {
-            if (sector.sectorType.equals("TTI")) {
+            if (sector.sectorType.equals("TTI")  && sector != Sector.ALL) {
                 CourseCount courseCount = new CourseCount();
                 courseCount.setSector(sector);
                 total.getCourseCountList().add(courseCount);
@@ -331,7 +331,7 @@ public class InstitutionServiceImpl implements InstitutionService {
                     institutionWrapper.setInstitutionShortName(institutionDto.getShortName());
 
                     Arrays.asList(Sector.values()).forEach(sector -> {
-                        if (sector.sectorType.equals("TTI")) {
+                        if (sector.sectorType.equals("TTI") && sector != Sector.ALL) {
                             CourseCount courseCount = new CourseCount();
                             courseCount.setSector(sector);
                             institutionDto.getRegisteredPrograms()

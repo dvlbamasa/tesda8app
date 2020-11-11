@@ -37,12 +37,11 @@
                                 <label for="operatingUnitType" class="col-sm-2 col-form-label">Select Province</label>
                                 <div class="col-sm-10">
                                     <select class="form-control selectpicker" id="operatingUnitType" name="operatingUnitType" multiple required>
-                                        <th:block th:each="operatingUnit : ${T(com.tesda8.region8.util.enums.OperatingUnitType).values()}">
-                                            <option th:value="${operatingUnit}"
-                                                    th:text="${operatingUnit.label}"
-                                                    th:selected="${operatingUnit == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL}">
-                                            </option>
-                                        </th:block>
+                                        <option th:each="operatingUnit : ${T(com.tesda8.region8.util.enums.OperatingUnitType).values()}"
+                                                th:value="${operatingUnit}"
+                                                th:text="${operatingUnit.label}"
+                                                th:selected="${operatingUnit == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL}">
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -51,8 +50,8 @@
                                 <div class="col-sm-10">
                                     <select class="form-control selectpicker" data-live-search="true" id="institutionNames" name="institutionNames" multiple required>
                                         <option value="ALL" text="All" selected>ALL INSTITUTIONS</option>
-                                        <th:block th:each="operatingUnit : ${T(com.tesda8.region8.util.enums.OperatingUnitType).values()}">
-                                            <optgroup th:label="${operatingUnit.label}">
+                                            <optgroup th:each="operatingUnit : ${T(com.tesda8.region8.util.enums.OperatingUnitType).values()}"
+                                                    th:label="${operatingUnit.label}">
                                                 <th:block th:each="institution : ${ttiList}">
                                                     <th:block th:if="${institution.operatingUnitType == operatingUnit}">
                                                         <option th:value="${institution.name}"
@@ -61,7 +60,6 @@
                                                     </th:block>
                                                 </th:block>
                                             </optgroup>
-                                        </th:block>
                                     </select>
                                 </div>
                             </div>
@@ -69,12 +67,11 @@
                                 <label for="institutionClassification" class="col-sm-2 col-form-label">Select Classification of Institution</label>
                                 <div class="col-sm-10">
                                     <select class="form-control selectpicker" id="institutionClassification" name="institutionClassification" multiple required>
-                                        <th:block th:each="institutionClassification : ${T(com.tesda8.region8.util.enums.InstitutionClassification).values()}">
-                                            <option th:value="${institutionClassification}"
-                                                    th:text="${institutionClassification.label}"
-                                                    th:selected="${institutionClassification == T(com.tesda8.region8.util.enums.InstitutionClassification).ALL}">
-                                            </option>
-                                        </th:block>
+                                        <option th:each="institutionClassification : ${T(com.tesda8.region8.util.enums.InstitutionClassification).values()}"
+                                                th:value="${institutionClassification}"
+                                                th:text="${institutionClassification.label}"
+                                                th:selected="${institutionClassification == T(com.tesda8.region8.util.enums.InstitutionClassification).ALL}">
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -82,12 +79,10 @@
                                 <label for="sector" class="col-sm-2 col-form-label">Select Course Sector</label>
                                 <div class="col-sm-10">
                                     <select class="form-control selectpicker" data-live-search="true"  id="sector" name="sector">
-                                        <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
-                                                <option th:value="${sector}"
-                                                        th:text="${sector.label}"
-                                                        th:selected="${sector == T(com.tesda8.region8.util.enums.Sector).ALL}">
-                                        </th:block>
-
+                                        <option th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}"
+                                                th:value="${sector}"
+                                                th:text="${sector.label}"
+                                                th:selected="${sector == T(com.tesda8.region8.util.enums.Sector).ALL}">
                                         </option>
                                     </select>
                                 </div>
