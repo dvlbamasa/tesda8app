@@ -2,6 +2,7 @@ package com.tesda8.region8.program.registration.model.mapper;
 
 import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramDto;
+import com.tesda8.region8.program.registration.model.dto.RegisteredProgramRequestDto;
 import com.tesda8.region8.program.registration.model.entities.Institution;
 import com.tesda8.region8.program.registration.model.entities.RegisteredProgram;
 import org.mapstruct.Mapper;
@@ -12,6 +13,7 @@ public interface ProgramRegistrationMapper {
     ProgramRegistrationMapper INSTANCE = Mappers.getMapper(ProgramRegistrationMapper.class);
 
     RegisteredProgram registeredProgramToEntity(RegisteredProgramDto programDto);
+    RegisteredProgram registeredProgramToEntity(RegisteredProgramRequestDto registeredProgramRequestDto);
     RegisteredProgramDto registeredProgramToDto(RegisteredProgram registeredProgram);
 
     Institution institutionToEntity(InstitutionDto institutionDto);

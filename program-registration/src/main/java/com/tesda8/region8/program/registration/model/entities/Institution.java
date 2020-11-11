@@ -8,6 +8,7 @@ import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.model.GeneralData;
 import lombok.Data;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -21,7 +22,7 @@ import java.util.List;
 @Table(name = "INSTITUTION")
 public class Institution extends GeneralData {
 
-    @OneToMany(mappedBy = "institution")
+    @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<RegisteredProgram> registeredPrograms;
 

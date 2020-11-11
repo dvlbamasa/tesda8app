@@ -25,12 +25,8 @@
             </div>
         </header>
         <form th:object="${papFilter}" th:action="@{/planning/successIndicator/update/filter}" method="post">
-            <div class="container mb-5">
-                <div class="btn-group" role="group">
-                    <button class="btn btn-primary btn-lg" type="submit" id="submitButton2" th:value="Update">Search Success Indicators</button>
-                </div>
-            </div>
-            <div class="container mb-5">
+            <div class="container">
+                <h1 class="display-5 text-black-50 mb-5">Search Success Indicators</h1>
                 <div class="form-group row">
                     <label for="papName" class="col-sm-2 col-form-label">P/A/P</label>
                     <div class="col-sm-10">
@@ -42,6 +38,11 @@
                     <div class="col-sm-10">
                         <input class="form-control" placeholder="Enter measure" id="successIndicatorMeasure" name="successIndicatorMeasure" type="text" th:value="${successIndicatorMeasureValue}" />
                     </div>
+                </div>
+            </div>
+            <div class="container mt-5">
+                <div class="btn-group" role="group">
+                    <button class="btn btn-primary btn-lg" type="submit" id="submitButton2" th:value="Update">Search</button>
                 </div>
             </div>
         </form>

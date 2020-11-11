@@ -2,7 +2,9 @@ package com.tesda8.region8.web.controller.program.registration;
 
 import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
 import com.tesda8.region8.program.registration.model.dto.InstitutionFilter;
+import com.tesda8.region8.program.registration.model.dto.RegisteredProgramDto;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramFilter;
+import com.tesda8.region8.program.registration.model.dto.RegisteredProgramRequestDto;
 import com.tesda8.region8.program.registration.model.wrapper.ProgramRegistrationWrapper;
 import com.tesda8.region8.program.registration.service.InstitutionService;
 import com.tesda8.region8.util.enums.OperatingUnitType;
@@ -50,5 +52,15 @@ public class InstitutionRestController {
     @RequestMapping(method = RequestMethod.GET, value = "/registeredPrograms/filter")
     public List<InstitutionDto> getAllregisteredProgramWithFilter(@RequestBody RegisteredProgramFilter registeredProgramFilter) {
         return institutionService.getAllRegisteredProgramsWithFilter(registeredProgramFilter);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/registeredProgram/create")
+    public void createRegisteredProgram(@RequestBody RegisteredProgramRequestDto registeredProgramDto) {
+        institutionService.createRegisteredProgram(registeredProgramDto);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/create")
+    public void createInstitution(@RequestBody InstitutionDto institutionDto) {
+        institutionService.createInstitution(institutionDto);
     }
 }

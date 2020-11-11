@@ -24,12 +24,8 @@
             </div>
         </header>
         <form th:object="${papFilter}" th:action="@{/planning/opcr/filter}" method="post">
-            <div class="container mb-5">
-                <div class="btn-group ml-auto" role="group">
-                    <button class="btn btn-primary btn-lg" type="submit" id="submitButton" th:value="Update">Search Success Indicators</button>
-                </div>
-            </div>
-            <div class="container mb-5">
+            <div class="container">
+                <h1 class="display-5 text-black-50 mb-5">Search Success Indicators</h1>
                 <div class="form-group row">
                     <label for="papName" class="col-sm-2 col-form-label">P/A/P</label>
                     <div class="col-sm-10">
@@ -41,6 +37,11 @@
                     <div class="col-sm-10">
                         <input class="form-control" placeholder="Enter measure" id="successIndicatorMeasure" name="successIndicatorMeasure" type="text" th:value="${successIndicatorMeasureValue}" />
                     </div>
+                </div>
+            </div>
+            <div class="container mt-5">
+                <div class="btn-group ml-auto" role="group">
+                    <button class="btn btn-primary btn-lg" type="submit" id="submitButton" th:value="Update">Search</button>
                 </div>
             </div>
         </form>
@@ -69,7 +70,7 @@
         <div class="tab-content" id="pills-tabContent-tesdpp">
             <div class="tab-pane fade show active" id="tesdpp" role="tabpanel" aria-labelledby="tesdpp-tab">
                 <div class="container mb-5">
-                    <button onclick="exportTableToExcel('tesdpp-table', 'OPCR - Technical Education and Skills Development Policy Program')" class="btn btn-primary btn-lg" id="downloadTable1" type="button">Export as Excel ⬇</button>
+                    <button onclick="exportTableToExcel('tesdpp-table', 'OPCR - Technical Education and Skills Development Policy Program')" class="btn btn-success btn-lg" id="downloadTable1" type="button">Export as Excel ⬇</button>
                 </div>
                 <form th:object="${papData}" method="post">
                     <fieldset>
@@ -166,7 +167,7 @@
             </div>
             <div class="tab-pane fade" id="tesdrp" role="tabpanel" aria-labelledby="tesdrp-tab">
                 <div class="container mb-5">
-                    <button onclick="exportTableToExcel('tesdrp-table', 'OPCR - Technical Education and Skills Development Regulatory Program')" class="btn btn-primary btn-lg" id="downloadTable2" type="button">Export as Excel ⬇</button>
+                    <button onclick="exportTableToExcel('tesdrp-table', 'OPCR - Technical Education and Skills Development Regulatory Program')" class="btn btn-success btn-lg" id="downloadTable2" type="button">Export as Excel ⬇</button>
                 </div>
                 <form th:object="${papData}" method="post">
                     <fieldset>
@@ -263,7 +264,7 @@
             </div>
             <div class="tab-pane fade" id="tesdp" role="tabpanel" aria-labelledby="tesdp-tab">
                 <div class="container mb-5">
-                    <button onclick="exportTableToExcel('tesdp-table', 'OPCR - Technical Education and Skills Development Program')" class="btn btn-primary btn-lg" id="downloadTable3" type="button">Export as Excel ⬇</button>
+                    <button onclick="exportTableToExcel('tesdp-table', 'OPCR - Technical Education and Skills Development Program')" class="btn btn-success btn-lg" id="downloadTable3" type="button">Export as Excel ⬇</button>
                 </div>
                 <form th:object="${papData}" method="post">
                     <fieldset>
@@ -360,7 +361,7 @@
             </div>
             <div class="tab-pane fade" id="sto" role="tabpanel" aria-labelledby="sto-tab">
                 <div class="container mb-5">
-                    <button onclick="exportTableToExcel('sto-table', 'OPCR - Support to Operations')" class="btn btn-primary btn-lg" id="downloadTable4" type="button">Export as Excel ⬇</button>
+                    <button onclick="exportTableToExcel('sto-table', 'OPCR - Support to Operations')" class="btn btn-success btn-lg" id="downloadTable4" type="button">Export as Excel ⬇</button>
                 </div>
                 <form th:object="${papData}" method="post">
                     <fieldset>
@@ -457,7 +458,7 @@
             </div>
             <div class="tab-pane fade" id="gass" role="tabpanel" aria-labelledby="gass-tab">
                 <div class="container mb-5">
-                    <button onclick="exportTableToExcel('gass-table', 'OPCR - General Administrative Support Servies')" class="btn btn-primary btn-lg" id="downloadTable5" type="button">Export as Excel ⬇</button>
+                    <button onclick="exportTableToExcel('gass-table', 'OPCR - General Administrative Support Servies')" class="btn btn-success btn-lg" id="downloadTable5" type="button">Export as Excel ⬇</button>
                 </div>
                 <form th:object="${papData}" method="post">
                     <fieldset>

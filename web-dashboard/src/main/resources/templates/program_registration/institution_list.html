@@ -19,6 +19,7 @@
                         <p class="lead text-white-50">Detailed information for Institutions on Region 8</p>
                         <div class="btn-group mr-2 float-right" role="group">
                             <a th:href="@{/program_registration}" class="btn btn-info btn-lg" role="button" aria-pressed="true">Back to Compendium</a>
+                            <a th:href="@{/program_registration/institution/create}" class="btn btn-info btn-lg" role="button" aria-pressed="true">Add Institution</a>
                         </div>
                     </div>
                 </div>
@@ -26,13 +27,8 @@
         </header>
         <form th:action="@{/program_registration/institutions/filter}" th:object="${institutionFilter}" method="post">
             <fieldset>
-                <div class="container mb-5">
-                    <div class="btn-group" role="group">
-                        <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton" th:value="Update">Search Institutions</button>
-                        <button onclick="exportTableToExcel('institution-table', 'Institutions')"  class="btn btn-primary btn-lg" id="downloadTable" type="button">Export as Excel ⬇</button>
-                    </div>
-                </div>
                 <div class="container">
+                    <h1 class="display-5 text-black-50 mb-5">Search Institutions</h1>
                     <div class="form-group row">
                         <label for="operatingUnitType" class="col-sm-2 col-form-label">Select Province</label>
                         <div class="col-sm-10">
@@ -47,9 +43,22 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="institutionName" class="col-sm-2 col-form-label">Name of Institution</label>
+                        <label for="institutionNames" class="col-sm-2 col-form-label">Select Institution</label>
                         <div class="col-sm-10">
-                            <input class="form-control" placeholder="Enter Institution Name" id="institutionName" name="institutionName" type="text" th:value="${institutionName}" />
+                            <select class="form-control selectpicker" data-live-search="true" id="institutionNames" name="institutionNames" multiple required>
+                                <option value="ALL" text="All" selected>ALL INSTITUTIONS</option>
+                                <th:block th:each="operatingUnit : ${T(com.tesda8.region8.util.enums.OperatingUnitType).values()}">
+                                    <optgroup th:label="${operatingUnit.label}">
+                                        <th:block th:each="institution : ${ttiList}">
+                                            <th:block th:if="${institution.operatingUnitType == operatingUnit}">
+                                                <option th:value="${institution.name}"
+                                                        th:text="${institution.name}">
+                                                </option>
+                                            </th:block>
+                                        </th:block>
+                                    </optgroup>
+                                </th:block>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -89,6 +98,12 @@
                         <div class="col-sm-10">
                             <input class="form-control" placeholder="Enter Contact Number" id="contactNumber" name="contactNumber" type="text" th:value="${contactNumber}" />
                         </div>
+                    </div>
+                </div>
+                <div class="container mt-5">
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton" th:value="Update">Search</button>
+                        <button onclick="exportTableToExcel('institution-table', 'Institutions')"  class="btn btn-success btn-lg" id="downloadTable" type="button">Export as Excel ⬇</button>
                     </div>
                 </div>
             </fieldset>

@@ -15,7 +15,8 @@ public class RegisteredProgramFilter {
     private Sector sector;
     private String courseName;
     private OperatingUnitType [] operatingUnitType;
-    private InstitutionClassification institutionClassification;
+    private InstitutionClassification [] institutionClassification;
+    private String registeredProgramNumber;
     @DateTimeFormat(pattern = "MM/dd/yyyy")
     private Date dateIssuedFrom;
     @DateTimeFormat(pattern = "MM/dd/yyyy")

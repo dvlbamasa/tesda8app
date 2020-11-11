@@ -5,7 +5,9 @@ import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
 import com.tesda8.region8.program.registration.model.dto.InstitutionFilter;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramDto;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramFilter;
+import com.tesda8.region8.program.registration.model.dto.RegisteredProgramRequestDto;
 import com.tesda8.region8.program.registration.model.entities.Institution;
+import com.tesda8.region8.program.registration.model.entities.RegisteredProgram;
 import com.tesda8.region8.program.registration.model.mapper.ProgramRegistrationMapper;
 import com.tesda8.region8.program.registration.model.wrapper.CourseCount;
 import com.tesda8.region8.program.registration.model.wrapper.InstitutionProgramRegCounter;
@@ -22,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Arrays;
@@ -68,10 +71,6 @@ public class InstitutionServiceImpl implements InstitutionService {
 
     @Override
     public List<InstitutionDto> getAllInstitutionWithFilter(InstitutionFilter institutionFilter) {
-        logger.info("outype: {}, institutionName: {}, institutiontype: {}, classification: {}, address: {}, contact: {}",
-                institutionFilter.getOperatingUnitType(), institutionFilter.getInstitutionName(),
-                institutionFilter.getInstitutionType(), institutionFilter.getInstitutionClassification(), institutionFilter.getAddress(),
-                institutionFilter.getContactNumber());
         List<Institution> institutions = institutionRepository.findAll();
         List<Institution> filteredInstitutions = Lists.newArrayList();
 
@@ -106,9 +105,19 @@ public class InstitutionServiceImpl implements InstitutionService {
                     filteredInstitutionsClassification.addAll(newInstitutionList);
                 });
 
-        return filteredInstitutionsClassification
+        List<Institution> filteredInstitutionsName = Lists.newArrayList();
+
+        Arrays.asList(institutionFilter.getInstitutionNames())
+                .forEach(institutionName -> {
+                    List<Institution> newInstitutionList = filteredInstitutionsClassification
+                            .stream()
+                            .filter(institution -> institutionName.equals(ALL) || institution.getName().equalsIgnoreCase(institutionName))
+                            .collect(Collectors.toList());
+                    filteredInstitutionsName.addAll(newInstitutionList);
+                });
+
+        return filteredInstitutionsName
                 .stream()
-                .filter(institution -> institution.getName().toLowerCase().trim().contains(institutionFilter.getInstitutionName().toLowerCase().trim()))
                 .filter(institution -> institution.getAddress().toLowerCase().trim().contains(institutionFilter.getAddress().toLowerCase().trim()))
                 .filter(institution -> institution.getContactNumber().trim().contains(institutionFilter.getContactNumber().trim()))
                 .map(institution -> programRegistrationMapper.institutionToDto(institution))
@@ -188,8 +197,6 @@ public class InstitutionServiceImpl implements InstitutionService {
 
     @Override
     public List<InstitutionDto> getAllRegisteredProgramsWithFilter(RegisteredProgramFilter registeredProgramFilter) {
-        logger.info("from: {}, to: {}",
-                registeredProgramFilter.getDateIssuedFrom(), registeredProgramFilter.getDateIssuedTo());
         List<Institution> institutions = institutionRepository.findAll();
         List<Institution> filteredInstitutions = Lists.newArrayList();
 
@@ -231,7 +238,8 @@ public class InstitutionServiceImpl implements InstitutionService {
                             institutionDto.getRegisteredPrograms()
                                     .stream()
                                     .filter(programDto -> registeredProgramFilter.getSector().equals(Sector.ALL) || programDto.getSector().equals(registeredProgramFilter.getSector()))
-                                    .filter(programDto -> programDto.getName().toLowerCase().contains(registeredProgramFilter.getCourseName().toLowerCase()))
+                                    .filter(programDto -> programDto.getProgramRegistrationNumber().toLowerCase().trim().contains(registeredProgramFilter.getRegisteredProgramNumber().toLowerCase().trim()))
+                                    .filter(programDto -> programDto.getName().toLowerCase().trim().contains(registeredProgramFilter.getCourseName().toLowerCase()))
                                     .collect(Collectors.toList())
                     );
                 }
@@ -382,5 +390,25 @@ public class InstitutionServiceImpl implements InstitutionService {
 
 
         return programRegistrationWrapper;
+    }
+
+    @Override
+    @Transactional
+    public void createRegisteredProgram(RegisteredProgramRequestDto registeredProgramDto) {
+        Institution institution = institutionRepository.getOne(registeredProgramDto.getInstitutionId());
+        RegisteredProgram registeredProgram = programRegistrationMapper.registeredProgramToEntity(registeredProgramDto);
+        registeredProgram.setInstitution(institution);
+        registeredProgram.setIsClosed(false);
+        registeredProgram.setDateIssued(convertToLocalDateTimeViaInstant(registeredProgramDto.getDateIssued()));
+        institution.getRegisteredPrograms().add(registeredProgram);
+        institutionRepository.save(institution);
+    }
+
+    @Override
+    @Transactional
+    public void createInstitution(InstitutionDto institutionDto) {
+        Institution institution = programRegistrationMapper.institutionToEntity(institutionDto);
+        institution.setRegisteredPrograms(Lists.newArrayList());
+        institutionRepository.save(institution);
     }
 }

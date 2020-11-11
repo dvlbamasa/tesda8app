@@ -27,12 +27,8 @@
         </header>
         <div class="container mb-5">
             <form th:object="${papData}" th:action="@{/planning/papData/create/save}" method="post">
-                <div class="container mb-5">
-                    <div class="btn-group ml-auto" role="group">
-                        <button class="btn btn-primary btn-lg" type="submit" id="submitButton" th:value="Update">Create New P/A/P</button>
-                    </div>
-                </div>
-                <div class="container mb-5">
+                <div class="container">
+                    <h1 class="display-5 text-black-50 mb-5">Add New P/A/P</h1>
                     <div class="form-group row">
                         <label for="papGroupType" class="col-sm-2 col-form-label">Select P/A/P Group</label>
                         <div class="col-sm-10">
@@ -52,6 +48,11 @@
                         </div>
                     </div>
                 </div>
+                <div class="container mt-5">
+                    <div class="btn-group ml-auto" role="group">
+                        <button class="btn btn-primary btn-lg" type="submit" id="submitButton" th:value="Update">Create New P/A/P</button>
+                    </div>
+                </div>
             </form>
         </div>
         <div class="container">
@@ -59,12 +60,8 @@
         </div>
         <div class="container mt-5 mb-5">
             <form th:object="${papData}" th:action="@{/planning/papData/delete}" method="post">
-                <div class="container mb-5">
-                    <div class="btn-group ml-auto" role="group">
-                        <button class="btn btn-danger btn-lg" type="submit" id="submitButton2" th:value="Update">Delete P/A/P</button>
-                    </div>
-                </div>
-                <div class="container mb-5">
+                <div class="container">
+                    <h1 class="display-5 text-black-50 mb-5">Delete P/A/P</h1>
                     <div class="form-group row">
                         <label for="id" class="col-sm-2 col-form-label">Select P/A/P to be Deleted</label>
                         <div class="col-sm-10">
@@ -81,6 +78,11 @@
                                 </th:block>
                             </select>
                         </div>
+                    </div>
+                </div>
+                <div class="container mt-5">
+                    <div class="btn-group ml-auto" role="group">
+                        <button class="btn btn-danger btn-lg" type="submit" id="submitButton2" th:value="Update">Delete P/A/P</button>
                     </div>
                 </div>
             </form>

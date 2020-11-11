@@ -27,12 +27,8 @@
             </div>
         </header>
         <form th:object="${successIndicator}" th:action="@{/planning/successIndicators/create/save}" method="post">
-            <div class="container mb-5">
-                <div class="btn-group ml-auto" role="group">
-                    <button class="btn btn-primary btn-lg" type="submit" id="submitButton" th:value="Update">Create New Success Indicator</button>
-                </div>
-            </div>
-            <div class="container mb-5">
+            <div class="container">
+                <h1 class="display-5 text-black-50 mb-5">Create New Success Indicator</h1>
                 <div class="form-group row">
                     <label for="papDataId" class="col-sm-2 col-form-label">Select P/A/P</label>
                     <div class="col-sm-10">
@@ -139,6 +135,11 @@
                             </th:block>
                         </tbody>
                     </table>
+                </div>
+            </div>
+            <div class="container mt-5">
+                <div class="btn-group ml-auto" role="group">
+                    <button class="btn btn-primary btn-lg" type="submit" id="submitButton" th:value="Update">Create New Success Indicator</button>
                 </div>
             </div>
         </form>
