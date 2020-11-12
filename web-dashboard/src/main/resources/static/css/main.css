@@ -194,3 +194,68 @@ a:active {
 .col-striped {
     background-color: #ffffad;
 }
+
+.home {
+    background: linear-gradient(130deg, #0027b6, #9fafff);
+    background-size: 400% 400%;
+    -webkit-animation: gradient 16s ease infinite;
+    -moz-animation: gradient 16s ease infinite;
+    animation: gradient 16s ease infinite;
+}
+
+@-moz-keyframes gradient {
+    0% {
+        background-position: 5% 0%
+    }
+    50% {
+        background-position: 96% 100%
+    }
+    100% {
+        background-position: 5% 0%
+    }
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 5% 0%
+    }
+    50% {
+        background-position: 96% 100%
+    }
+    100% {
+        background-position: 5% 0%
+    }
+}
+
+
+.background {
+    background-image: url('../images/tesda_background2.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+}
+
+.blur {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    height: 100vh;
+    width: 100%;
+}
+
+/* Position text in the middle of the page/image */
+.bg-text {
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0, 0.6); /* Black w/opacity/see-through */
+    color: white;
+    font-weight: bold;
+    border: 10px solid #f1f1f1;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 80%;
+    padding: 40px;
+}
