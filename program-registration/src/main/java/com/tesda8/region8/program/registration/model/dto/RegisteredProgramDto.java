@@ -17,4 +17,5 @@ public class RegisteredProgramDto {
     private CourseStatus courseStatus;
     private Sector sector;
     private Long numberOfTeachers;
+    private Boolean isClosed;
 }

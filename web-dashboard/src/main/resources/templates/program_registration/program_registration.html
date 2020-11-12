@@ -170,6 +170,7 @@
                             <th scope="col"> Date Issued</th>
                             <th scope="col"> Status</th>
                             <th scope="col"> Number of Trainer</th>
+                            <th scope="col"> Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -186,6 +187,7 @@
                                     <td><span th:text="${#temporals.format(registeredProgram.dateIssued, 'yyyy/MM/dd')}"></span></td>
                                     <td><span th:text="${registeredProgram.courseStatus.label}"></span></td>
                                     <td><span th:text="${registeredProgram.numberOfTeachers}"></span></td>
+                                    <td><a th:href="@{/program_registration/registeredProgram/{id}/update(id=${registeredProgram.id})}"><button class="btn btn-primary">Update</button></a></td>
                                 </tr>
                             </th:block>
                         </th:block>

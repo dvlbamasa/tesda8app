@@ -14,6 +14,7 @@ import com.tesda8.region8.program.registration.model.wrapper.InstitutionProgramR
 import com.tesda8.region8.program.registration.model.wrapper.InstitutionWrapper;
 import com.tesda8.region8.program.registration.model.wrapper.ProgramRegistrationWrapper;
 import com.tesda8.region8.program.registration.repository.InstitutionRepository;
+import com.tesda8.region8.program.registration.repository.RegisteredProgramRepository;
 import com.tesda8.region8.program.registration.service.InstitutionService;
 import com.tesda8.region8.util.enums.InstitutionClassification;
 import com.tesda8.region8.util.enums.InstitutionType;
@@ -41,13 +42,16 @@ public class InstitutionServiceImpl implements InstitutionService {
 
 
     private InstitutionRepository institutionRepository;
+    private RegisteredProgramRepository registeredProgramRepository;
     private ProgramRegistrationMapper programRegistrationMapper;
 
     @Autowired
     public InstitutionServiceImpl(InstitutionRepository institutionRepository,
-                                  ProgramRegistrationMapper programRegistrationMapper) {
+                                  ProgramRegistrationMapper programRegistrationMapper,
+                                  RegisteredProgramRepository registeredProgramRepository) {
         this.institutionRepository = institutionRepository;
         this.programRegistrationMapper = programRegistrationMapper;
+        this.registeredProgramRepository = registeredProgramRepository;
     }
 
     @Override
@@ -410,5 +414,35 @@ public class InstitutionServiceImpl implements InstitutionService {
         Institution institution = programRegistrationMapper.institutionToEntity(institutionDto);
         institution.setRegisteredPrograms(Lists.newArrayList());
         institutionRepository.save(institution);
+    }
+
+    @Override
+    @Transactional
+    public void updateRegisteredProgram(RegisteredProgramRequestDto registeredProgramRequestDto) {
+        logger.info("dto: {}", registeredProgramRequestDto);
+        RegisteredProgram registeredProgram = registeredProgramRepository.getOne(registeredProgramRequestDto.getId());
+        registeredProgram = programRegistrationMapper.updatedRegisteredProgramToEntity(registeredProgramRequestDto, registeredProgram);
+        registeredProgram.setDateIssued(convertToLocalDateTimeViaInstant(registeredProgramRequestDto.getDateIssued()));
+        registeredProgramRepository.save(registeredProgram);
+    }
+
+    @Override
+    @Transactional
+    public void updateInstitution(InstitutionDto institutionDto) {
+        Institution institution = institutionRepository.getOne(institutionDto.getId());
+        institution = programRegistrationMapper.updatedInstitutionToEntity(institutionDto, institution);
+        institutionRepository.save(institution);
+    }
+
+    @Override
+    public RegisteredProgramRequestDto getRegisteredProgramDto(Long id) {
+        RegisteredProgram registeredProgram = registeredProgramRepository.getOne(id);
+        return programRegistrationMapper.registeredProgramToRequestDto(registeredProgram);
+    }
+
+    @Override
+    public InstitutionDto getInstitutionDto(Long id) {
+        Institution institution = institutionRepository.getOne(id);
+        return programRegistrationMapper.institutionToDto(institution);
     }
 }

@@ -40,4 +40,12 @@ public interface InstitutionService {
     void createRegisteredProgram(RegisteredProgramRequestDto registeredProgramDto);
 
     void createInstitution(InstitutionDto institutionDto);
+
+    void updateRegisteredProgram(RegisteredProgramRequestDto registeredProgramRequestDto);
+
+    void updateInstitution(InstitutionDto institutionDto);
+
+    RegisteredProgramRequestDto getRegisteredProgramDto(Long id);
+
+    InstitutionDto getInstitutionDto(Long id);
 }

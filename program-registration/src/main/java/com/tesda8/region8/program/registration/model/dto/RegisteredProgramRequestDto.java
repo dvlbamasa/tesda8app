@@ -10,6 +10,7 @@ import java.util.Date;
 @Data
 public class RegisteredProgramRequestDto {
 
+    private long id;
     private long institutionId;
     private String name;
     private int duration;
@@ -19,4 +20,5 @@ public class RegisteredProgramRequestDto {
     private CourseStatus courseStatus;
     private Sector sector;
     private Long numberOfTeachers;
+    private Boolean isClosed;
 }

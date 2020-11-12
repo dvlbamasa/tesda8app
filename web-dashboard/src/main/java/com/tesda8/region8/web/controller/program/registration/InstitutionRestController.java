@@ -5,6 +5,7 @@ import com.tesda8.region8.program.registration.model.dto.InstitutionFilter;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramDto;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramFilter;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramRequestDto;
+import com.tesda8.region8.program.registration.model.entities.Institution;
 import com.tesda8.region8.program.registration.model.wrapper.ProgramRegistrationWrapper;
 import com.tesda8.region8.program.registration.service.InstitutionService;
 import com.tesda8.region8.util.enums.OperatingUnitType;
@@ -63,4 +64,25 @@ public class InstitutionRestController {
     public void createInstitution(@RequestBody InstitutionDto institutionDto) {
         institutionService.createInstitution(institutionDto);
     }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/registeredProgram/update")
+    public void updateRegisteredProgram(@RequestBody RegisteredProgramRequestDto registeredProgramRequestDto) {
+        institutionService.updateRegisteredProgram(registeredProgramRequestDto);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/update")
+    public void updateInstitution(@RequestBody InstitutionDto institutionDto) {
+        institutionService.updateInstitution(institutionDto);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/registeredProgram/{id}/fetch")
+    public RegisteredProgramRequestDto getRegisteredProgram(@PathVariable("id") Long id) {
+        return institutionService.getRegisteredProgramDto(id);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}/fetch")
+    public InstitutionDto getInstitution(@PathVariable("id") Long id) {
+        return institutionService.getInstitutionDto(id);
+    }
+
 }

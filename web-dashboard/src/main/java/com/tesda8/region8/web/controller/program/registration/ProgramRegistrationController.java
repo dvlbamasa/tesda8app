@@ -2,20 +2,17 @@ package com.tesda8.region8.web.controller.program.registration;
 
 import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
 import com.tesda8.region8.program.registration.model.dto.InstitutionFilter;
-import com.tesda8.region8.program.registration.model.dto.RegisteredProgramDto;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramFilter;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramRequestDto;
 import com.tesda8.region8.program.registration.model.wrapper.InstitutionProgramRegCounter;
-import com.tesda8.region8.program.registration.model.wrapper.RegisteredProgramRequest;
 import com.tesda8.region8.program.registration.service.InstitutionService;
-import com.tesda8.region8.util.enums.InstitutionClassification;
-import com.tesda8.region8.util.enums.InstitutionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -104,6 +101,23 @@ public class ProgramRegistrationController {
         return "program_registration/add_institution";
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/program_registration/registeredProgram/{id}/update")
+    public String updateRegisteredProgram(@PathVariable("id") Long id, Model model) {
+        RegisteredProgramRequestDto registeredProgramRequestDto = institutionService.getRegisteredProgramDto(id);
+        List<InstitutionDto> ttiList = institutionService.getAllInstitution();
+        model.addAttribute("registeredProgram", registeredProgramRequestDto);
+        model.addAttribute("ttiList", ttiList);
+        return "program_registration/update_prog_reg";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/program_registration/institution/{id}/update")
+    public String updateInstitution(@PathVariable("id") Long id, Model model) {
+        InstitutionDto institutionDto = institutionService.getInstitutionDto(id);
+        model.addAttribute("institution", institutionDto);
+        return "program_registration/update_institution";
+    }
+
+
     @RequestMapping(method = RequestMethod.POST, value = "/program_registration/registeredProgram/create/save")
     public String saveRegisteredProgram(@ModelAttribute RegisteredProgramRequestDto registeredProgramRequestDto,
                                                BindingResult bindingResult,
@@ -122,6 +136,28 @@ public class ProgramRegistrationController {
             //errors processing
         }
         institutionService.createInstitution(institutionDto);
+        return initializeModelInstitutionPage(model);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/program_registration/registeredProgram/update/save")
+    public String saveUpdatedRegisteredProgram(@ModelAttribute RegisteredProgramRequestDto registeredProgramRequestDto,
+                                        BindingResult bindingResult,
+                                        Model model) {
+        if (bindingResult.hasErrors()) {
+            //errors processing
+        }
+        institutionService.updateRegisteredProgram(registeredProgramRequestDto);
+        return initializeModel(model);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/program_registration/institution/update/save")
+    public String saveUpdatedInstitution(@ModelAttribute InstitutionDto institutionDto,
+                                               BindingResult bindingResult,
+                                               Model model) {
+        if (bindingResult.hasErrors()) {
+            //errors processing
+        }
+        institutionService.updateInstitution(institutionDto);
         return initializeModelInstitutionPage(model);
     }
 
