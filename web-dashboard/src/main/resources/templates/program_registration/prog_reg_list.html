@@ -39,7 +39,7 @@
                                 <label for="institutionNames" class="col-sm-2 col-form-label">Select TTI</label>
                                 <div class="col-sm-10">
                                     <select class="form-control selectpicker" id="institutionNames" name="institutionNames" multiple required>
-                                        <option value="ALL" text="All">All Institutions</option>
+                                        <option value="ALL" text="All" selected>All Institutions</option>
                                         <th:block th:each="operatingUnit : ${T(com.tesda8.region8.util.enums.OperatingUnitType).values()}">
                                             <optgroup th:label="${operatingUnit.label}">
                                                 <th:block th:each="institution : ${ttiList}">
