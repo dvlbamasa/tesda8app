@@ -196,7 +196,7 @@ a:active {
 }
 
 .home {
-    background: linear-gradient(130deg, #0027b6, #9fafff);
+    background: linear-gradient(130deg, #ffffff, #ffffff);
     background-size: 400% 400%;
     -webkit-animation: gradient 16s ease infinite;
     -moz-animation: gradient 16s ease infinite;
@@ -252,7 +252,7 @@ a:active {
     font-weight: bold;
     border: 10px solid #f1f1f1;
     position: absolute;
-    top: 55%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
