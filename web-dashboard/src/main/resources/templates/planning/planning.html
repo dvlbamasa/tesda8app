@@ -76,7 +76,7 @@
                 </div>
                 <form th:object="${papData}" method="post">
                     <fieldset>
-                        <div class="table-responsive">
+                        <div class="table-responsive double-scroll">
                             <table class="table table-striped table-bordered table-sm" id="tesdpp-table">
                                 <thead class="thead-dark">
                                 <tr>
@@ -173,7 +173,7 @@
                 </div>
                 <form th:object="${papData}" method="post">
                     <fieldset>
-                        <div class="table-responsive">
+                        <div class="table-responsive double-scroll">
                             <table class="table table-striped table-bordered table-sm" id="tesdrp-table">
                                 <thead class="thead-dark">
                                 <tr>
@@ -270,7 +270,7 @@
                 </div>
                 <form th:object="${papData}" method="post">
                     <fieldset>
-                        <div class="table-responsive">
+                        <div class="table-responsive double-scroll">
                             <table class="table table-striped table-bordered table-sm" id="tesdp-table">
                                 <thead class="thead-dark">
                                 <tr>
@@ -367,7 +367,7 @@
                 </div>
                 <form th:object="${papData}" method="post">
                     <fieldset>
-                        <div class="table-responsive">
+                        <div class="table-responsive double-scroll">
                             <table class="table table-striped table-bordered table-sm" id="sto-table">
                                 <thead class="thead-dark">
                                 <tr>
@@ -464,7 +464,7 @@
                 </div>
                 <form th:object="${papData}" method="post">
                     <fieldset>
-                        <div class="table-responsive">
+                        <div class="table-responsive double-scroll">
                             <table class="table table-striped table-bordered table-sm" id="gass-table">
                                 <thead class="thead-dark">
                                 <tr>
@@ -558,12 +558,12 @@
         </div>
     </div>
 </div>
-<script type='text/javascript' src="../../static/js/table_to_excel.js" th:src="@{/js/table_to_excel.js}"></script>
-<script  type='text/javascript' src="../../static/js/doubleScroll/jquery.doubleScroll.js" th:src="@{js/doubleScroll/jquery.doubleScroll.js}"></script>
-<script  type='text/javascript' src="../../static/js/main.js" th:src="@{js/main.js}"></script>
-
 
 <div th:replace="fragments/footer :: footer"/>
+<script src="https://unpkg.com/sticky-table-headers"></script>
+<script type='text/javascript' src="../../static/js/table_to_excel.js" th:src="@{/js/table_to_excel.js}"></script>
+<script  type='text/javascript' src="../../static/js/doubleScroll/jquery.doubleScroll.js" th:src="@{/js/doubleScroll/jquery.doubleScroll.js}"></script>
+<script type='text/javascript' src="../../static/js/main.js" th:src="@{/js/main.js}"></script>
 
 </body>
 </html>
