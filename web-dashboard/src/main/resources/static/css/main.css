@@ -290,3 +290,7 @@ a:active {
         display: none;
     }
 }
+
+.nav-dropdown {
+    background-color: #353a3f;
+}

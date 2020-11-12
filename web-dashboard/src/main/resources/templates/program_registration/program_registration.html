@@ -138,8 +138,8 @@
                         </div>
                         <div class="container mt-5">
                             <div class="btn-group" role="group">
-                                <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton" th:value="Update">Search</button>
-                                <button onclick="exportTableToExcel('prog-reg-table', 'Registered Programs')"  class="btn btn-success btn-lg" id="downloadTable" type="button">Export as Excel ⬇</button>
+                                <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton" th:value="Update"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+                                <button onclick="exportTableToExcel('prog-reg-table', 'Registered Programs')"  class="btn btn-success btn-lg" id="downloadTable" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
                             </div>
                         </div>
                     </fieldset>
@@ -187,7 +187,7 @@
                                     <td><span th:text="${#temporals.format(registeredProgram.dateIssued, 'yyyy/MM/dd')}"></span></td>
                                     <td><span th:text="${registeredProgram.courseStatus.label}"></span></td>
                                     <td><span th:text="${registeredProgram.numberOfTeachers}"></span></td>
-                                    <td><a th:href="@{/program_registration/registeredProgram/{id}/update(id=${registeredProgram.id})}"><button class="btn btn-primary">Update</button></a></td>
+                                    <td><a th:href="@{/program_registration/registeredProgram/{id}/update(id=${registeredProgram.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
                                 </tr>
                             </th:block>
                         </th:block>

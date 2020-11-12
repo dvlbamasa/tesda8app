@@ -103,8 +103,8 @@
                 </div>
                 <div class="container mt-5">
                     <div class="btn-group" role="group">
-                        <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton" th:value="Update">Search</button>
-                        <button onclick="exportTableToExcel('institution-table', 'Institutions')"  class="btn btn-success btn-lg" id="downloadTable" type="button">Export as Excel ⬇</button>
+                        <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton" th:value="Update"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+                        <button onclick="exportTableToExcel('institution-table', 'Institutions')"  class="btn btn-success btn-lg" id="downloadTable" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel </button>
                     </div>
                 </div>
             </fieldset>
@@ -143,7 +143,7 @@
                                 <td><span th:text="${institution.institutionClassification.label}"></span></td>
                                 <td><span th:text="${institution.address}"></span></td>
                                 <td><span th:text="${institution.contactNumber}"></span></td>
-                                <td><a th:href="@{/program_registration/institution/{id}/update(id=${institution.id})}"><button class="btn btn-primary">Update</button></a></td>
+                                <td><a th:href="@{/program_registration/institution/{id}/update(id=${institution.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
                             </tr>
                         </th:block>
                         </tbody>

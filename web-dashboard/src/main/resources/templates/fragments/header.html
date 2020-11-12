@@ -37,17 +37,44 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/dashboard}">Dashboard</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" th:href="@{/dashboard}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dashboard
+                    </a>
+                    <div class="dropdown-menu nav-dropdown" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" th:href="@{/dashboard}">Daily As Of Reports</a>
+                        <a class="dropdown-item" th:href="@{/monthly}">Monthly Comparative</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" th:href="@{/registeredPrograms}">Monitor TTI Registered Programs</a>
+                    </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/planning}">Planning</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" th:href="@{/planning}" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Planning
+                    </a>
+                    <div class="dropdown-menu nav-dropdown" aria-labelledby="navbarDropdown3">
+                        <a class="dropdown-item" th:href="@{/planning}">OPCR Summary</a>
+                        <a class="dropdown-item" th:href="@{/planning/opcr/update}">Update OPCR</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" th:href="@{/planning/successIndicator/create}">Add Success Indicators</a>
+                        <a class="dropdown-item" th:href="@{/planning/successIndicator/update}">Update Success Indicators</a>
+                        <a class="dropdown-item" th:href="@{/planning/pap/manage}">Manage P/A/P</a>
+                    </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/program_registration}">Program Registration</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" th:href="@{/program_registration}" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Program Registration
+                    </a>
+                    <div class="dropdown-menu nav-dropdown" aria-labelledby="navbarDropdown2">
+                        <a class="dropdown-item" th:href="@{/program_registration}">Compendium of Registered Programs</a>
+                        <a class="dropdown-item" th:href="@{/program_registration/registeredProgram/create}">Add Registered Program</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" th:href="@{/program_registration/institutions}">Institution List</a>
+                        <a class="dropdown-item" th:href="@{/program_registration/institution/create}">Add Institution</a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/scholarship}">Scholarship</a>

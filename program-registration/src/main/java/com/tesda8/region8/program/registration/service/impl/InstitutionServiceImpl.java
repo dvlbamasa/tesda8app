@@ -255,7 +255,8 @@ public class InstitutionServiceImpl implements InstitutionService {
                         institutionDto.setRegisteredPrograms(
                                 institutionDto.getRegisteredPrograms()
                                         .stream()
-                                        .filter(programDto -> programDto.getDateIssued().isAfter(convertToLocalDateTimeViaInstant(registeredProgramFilter.getDateIssuedFrom())))
+                                        .filter(programDto -> programDto.getDateIssued().isEqual(convertToLocalDateTimeViaInstant(registeredProgramFilter.getDateIssuedFrom())) ||
+                                                              programDto.getDateIssued().isAfter(convertToLocalDateTimeViaInstant(registeredProgramFilter.getDateIssuedFrom())))
                                         .collect(Collectors.toList())
                         );
                     }
@@ -268,7 +269,8 @@ public class InstitutionServiceImpl implements InstitutionService {
                         institutionDto.setRegisteredPrograms(
                                 institutionDto.getRegisteredPrograms()
                                         .stream()
-                                        .filter(programDto -> programDto.getDateIssued().isBefore(convertToLocalDateTimeViaInstant(registeredProgramFilter.getDateIssuedTo())))
+                                        .filter(programDto -> programDto.getDateIssued().isEqual(convertToLocalDateTimeViaInstant(registeredProgramFilter.getDateIssuedTo())) ||
+                                                              programDto.getDateIssued().isBefore(convertToLocalDateTimeViaInstant(registeredProgramFilter.getDateIssuedTo())))
                                         .collect(Collectors.toList())
                         );
                     }
