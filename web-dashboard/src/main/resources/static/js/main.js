@@ -4,8 +4,3 @@ function isNumberKey(evt){
         return false;
     return true;
 }
-
-$(document).ready(function() {
-    $('.double-scroll').doubleScroll();
-    $('table').stickyTableHeaders({fixedOffset: $('.page-header')});
-});
