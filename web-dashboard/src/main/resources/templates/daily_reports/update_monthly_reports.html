@@ -3,6 +3,8 @@
 <head>
     <title>Dashboard - Create Monthly Reports</title>
     <div th:replace="fragments/header :: header-css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+
 </head>
 <body>
 
@@ -35,7 +37,7 @@
                             <div class="form-group row">
                                 <label for="month" class="col-sm-2 col-form-label">Select a Month</label>
                                 <div class="col-sm-4">
-                                    <select class="form-control" th:field="*{month}" id="month">
+                                    <select class="form-control selectpicker" th:field="*{month}" id="month">
                                         <option th:each="month : ${T(com.tesda8.region8.util.enums.Month).values()}"
                                                 th:value="${month}"
                                                 th:text="${month.label}">
@@ -163,6 +165,8 @@
 <script  type='text/javascript' src="../../static/js/main.js" th:src="@{js/main.js}"></script>
 
 <div th:replace="fragments/footer :: footer"/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+
 
 </body>
 </html>

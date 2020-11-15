@@ -41,7 +41,7 @@ INSERT INTO registered_program (id, created_date, updated_date, created_by, upda
 INSERT INTO institution (id, created_date, updated_date, created_by, updated_by, name, short_name, operating_unit_type, institution_type, institution_classification, contact_number, address, congressional_district) VALUES (24, now(), now(), 'SYSTEM', 'SYSTEM', 'Maryland Global College Foundation, Inc.', 'MGCFI', 'EASTERN_SAMAR', 'PRIVATE', 'TVI', '055-271-2633', 'San Nicolas St., Guian, Eastern Samar', 'LONE');
 
 INSERT INTO registered_program (id, created_date, updated_date, created_by, updated_by, sector, name, duration, program_registration_number, date_issued, course_status, number_of_teachers, institution_id)  VALUES (nextval('hibernate_sequence'), now(), now(), 'SYSTEM', 'SYSTEM', 'TOURISM', 'Food and Beverage Services NC II', 356, '201608022015', '2016-04-01', 'WTR', 2, 24);
-INSERT INTO registered_program (id, created_date, updated_date, created_by, updated_by, sector, name, duration, program_registration_number, date_issued, course_status, number_of_teachers, institution_id)  VALUES (nextval('hibernate_sequence'), now(), now(), 'SYSTEM', 'SYSTEM', 'ELECTRICAL', 'Food and Beverage Services NC II', 356, 'Computer Systems Servicing NC II', '2016-04-08', 'WTR', 1, 24);
+INSERT INTO registered_program (id, created_date, updated_date, created_by, updated_by, sector, name, duration, program_registration_number, date_issued, course_status, number_of_teachers, institution_id)  VALUES (nextval('hibernate_sequence'), now(), now(), 'SYSTEM', 'SYSTEM', 'ELECTRICAL', 'Computer Systems Servicing NC II', 356, '201608022020', '2016-04-08', 'WTR', 1, 24);
 
 INSERT INTO institution (id, created_date, updated_date, created_by, updated_by, name, short_name, operating_unit_type, institution_type, institution_classification, contact_number, address, congressional_district) VALUES (25, now(), now(), 'SYSTEM', 'SYSTEM', 'Visayas Center of Arts and Technology Incorporated', 'VCATI', 'EASTERN_SAMAR', 'PRIVATE', 'TVI', '09055996971', 'Real Street, Brgy. Songco, Borongan City, Eastern Samar', 'LONE');
 
@@ -956,3 +956,6 @@ INSERT INTO registered_program (id, created_date, updated_date, created_by, upda
 INSERT INTO registered_program (id, created_date, updated_date, created_by, updated_by, sector, name, duration, program_registration_number, date_issued, course_status, number_of_teachers, institution_id, is_closed)  VALUES (nextval('hibernate_sequence'), now(), now(), 'SYSTEM', 'SYSTEM', 'AGRICULTURE', 'Produce Organic Concoctions and Extracts Leading to Organic Agriculture Production NC II', 106, '20190848AFFOAP212OAP212CC4004', '2020-10-15', 'NTR', 2, 13, 'N');
 
 
+
+/***set is_deleted to N ***/
+UPDATE registered_program SET is_deleted = 'N';
