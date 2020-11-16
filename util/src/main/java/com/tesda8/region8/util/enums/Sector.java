@@ -19,7 +19,7 @@ public enum Sector {
     MARITIME("Maritime", "NON-TTI"),
     CONSTRUCTION_METALS("Construction and Metals and Engineering", "NON-TTI"),
 
-    ALL("ALL SECTORS", "TTI");
+    ALL("All Sectors", "TTI");
 
 
 

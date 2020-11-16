@@ -48,9 +48,7 @@ public class ProgramRegistrationController {
             //errors processing
         }
         // handles bootstrap select bug not including ALL option
-        if (institutionFilter.getInstitutionNames().length == 0) {
-            institutionFilter.setInstitutionNames(new String[] {ALL});
-        }
+
         List<InstitutionDto> institutionDtoList = institutionService.getAllInstitutionWithFilter(institutionFilter);
         List<InstitutionDto> ttiList = institutionService.getAllInstitution();
         InstitutionProgramRegCounter institutionProgramRegCounter = institutionService.getTotalCountOfRegisteredPrograms(institutionDtoList);
@@ -71,9 +69,7 @@ public class ProgramRegistrationController {
             //errors processing
         }
         // handles bootstrap select bug not including ALL option
-        if (registeredProgramFilter.getInstitutionNames().length == 0) {
-            registeredProgramFilter.setInstitutionNames(new String[] {ALL});
-        }
+
         List<InstitutionDto> institutionDtoList =
                 institutionService.getAllRegisteredProgramsWithFilter(registeredProgramFilter);
         List<InstitutionDto> ttiList = institutionService.getAllInstitution();
@@ -158,6 +154,19 @@ public class ProgramRegistrationController {
             //errors processing
         }
         institutionService.updateInstitution(institutionDto);
+        return initializeModelInstitutionPage(model);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/program_registration/registeredProgram/{id}/delete")
+    public String deleteRegisteredProgram(@PathVariable("id") Long id,
+                                          Model model) {
+        institutionService.deleteRegisteredProgram(id);
+        return initializeModel(model);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/program_registration/institution/{id}/delete")
+    public String deleteInstitution(@PathVariable("id") Long id, Model model) {
+        institutionService.deleteInstitution(id);
         return initializeModelInstitutionPage(model);
     }
 

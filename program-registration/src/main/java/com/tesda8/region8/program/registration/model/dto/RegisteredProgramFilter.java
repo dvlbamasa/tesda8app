@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 public class RegisteredProgramFilter {
 
-    private String [] institutionNames;
+    private Long [] institutionIds;
     private Sector sector;
     private String courseName;
     private OperatingUnitType [] operatingUnitType;
@@ -21,4 +21,5 @@ public class RegisteredProgramFilter {
     private Date dateIssuedFrom;
     @DateTimeFormat(pattern = "MM/dd/yyyy")
     private Date dateIssuedTo;
+    private Boolean isClosed;
 }

@@ -7,6 +7,7 @@ import com.tesda8.region8.util.enums.InstitutionType;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.model.GeneralData;
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -53,4 +54,8 @@ public class Institution extends GeneralData {
     @Column(name = "INSTITUTION_CLASSIFICATION")
     @Enumerated(EnumType.STRING)
     private InstitutionClassification institutionClassification;
+
+    @Column(name = "IS_DELETED")
+    @Type(type = "yes_no")
+    private Boolean isDeleted = false;
 }

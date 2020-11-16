@@ -4,7 +4,7 @@ public enum InstitutionType {
 
     PUBLIC("Public"),
     PRIVATE("Private"),
-    ALL("All");
+    ALL("All Types");
 
     public final String label;
 

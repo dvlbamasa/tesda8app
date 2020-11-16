@@ -959,3 +959,4 @@ INSERT INTO registered_program (id, created_date, updated_date, created_by, upda
 
 /***set is_deleted to N ***/
 UPDATE registered_program SET is_deleted = 'N';
+UPDATE institution SET is_deleted = 'N';

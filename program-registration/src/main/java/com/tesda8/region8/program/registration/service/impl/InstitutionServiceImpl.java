@@ -20,6 +20,7 @@ import com.tesda8.region8.util.enums.InstitutionClassification;
 import com.tesda8.region8.util.enums.InstitutionType;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.Sector;
+import com.tesda8.region8.util.service.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,25 +57,27 @@ public class InstitutionServiceImpl implements InstitutionService {
 
     @Override
     public List<InstitutionDto> getAllInstitution() {
-        List<Institution> institutions;
-        institutions = institutionRepository.findAll();
+        List<Institution> institutions = institutionRepository.findAll();
+        institutions.forEach(
+                institution -> {
+                    institution.setRegisteredPrograms(
+                            institution.getRegisteredPrograms()
+                            .stream()
+                            .filter(registeredProgram -> !registeredProgram.getIsDeleted())
+                            .collect(Collectors.toList())
+                    );
+                }
+        );
         return institutions
                 .stream()
-                .map(institution -> programRegistrationMapper.institutionToDto(institution))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<InstitutionDto> getAllInstitutionByInstitutionType(InstitutionType institutionType) {
-        List<Institution> institutions = institutionRepository.findAllByInstitutionType(institutionType);
-        return institutions
-                .stream()
+                .filter(institution -> !institution.getIsDeleted())
                 .map(institution -> programRegistrationMapper.institutionToDto(institution))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<InstitutionDto> getAllInstitutionWithFilter(InstitutionFilter institutionFilter) {
+        logger.info("Institutionfilter: {}", institutionFilter.toString());
         List<Institution> institutions = institutionRepository.findAll();
         List<Institution> filteredInstitutions = Lists.newArrayList();
 
@@ -111,17 +114,18 @@ public class InstitutionServiceImpl implements InstitutionService {
 
         List<Institution> filteredInstitutionsName = Lists.newArrayList();
 
-        Arrays.asList(institutionFilter.getInstitutionNames())
-                .forEach(institutionName -> {
+        Arrays.asList(institutionFilter.getInstitutionIds())
+                .forEach(id -> {
                     List<Institution> newInstitutionList = filteredInstitutionsClassification
                             .stream()
-                            .filter(institution -> institutionName.equals(ALL) || institution.getName().equalsIgnoreCase(institutionName))
+                            .filter(institution -> id == 0 || institution.getId().equals(id))
                             .collect(Collectors.toList());
                     filteredInstitutionsName.addAll(newInstitutionList);
                 });
 
         return filteredInstitutionsName
                 .stream()
+                .filter(institution -> !institution.getIsDeleted())
                 .filter(institution -> institution.getAddress().toLowerCase().trim().contains(institutionFilter.getAddress().toLowerCase().trim()))
                 .filter(institution -> institution.getContactNumber().trim().contains(institutionFilter.getContactNumber().trim()))
                 .map(institution -> programRegistrationMapper.institutionToDto(institution))
@@ -134,6 +138,7 @@ public class InstitutionServiceImpl implements InstitutionService {
                 .findAllByInstitutionTypeAndInstitutionClassification(InstitutionType.PUBLIC, InstitutionClassification.TESDA);
         return institutions
                 .stream()
+                .filter(institution -> !institution.getIsDeleted())
                 .map(institution -> programRegistrationMapper.institutionToDto(institution))
                 .collect(Collectors.toList());
     }
@@ -154,6 +159,7 @@ public class InstitutionServiceImpl implements InstitutionService {
     private List<InstitutionDto> getInstitutionDtos(Sector sector, List<Institution> institutions) {
         List<InstitutionDto> institutionDtos = institutions
                 .stream()
+                .filter(institution -> !institution.getIsDeleted())
                 .map(institution -> programRegistrationMapper.institutionToDto(institution))
                 .collect(Collectors.toList());
         institutionDtos.forEach(
@@ -161,6 +167,7 @@ public class InstitutionServiceImpl implements InstitutionService {
                     institutionDto.setRegisteredPrograms(
                             institutionDto.getRegisteredPrograms()
                                     .stream()
+                                    .filter(registeredProgramDto -> !registeredProgramDto.getIsDeleted())
                                     .filter(programDto -> programDto.getSector().equals(sector))
                                     .collect(Collectors.toList())
                     );
@@ -179,6 +186,7 @@ public class InstitutionServiceImpl implements InstitutionService {
                 institutionName -> {
                     List<InstitutionDto> institutionList = institutions
                             .stream()
+                            .filter(institution -> !institution.getIsDeleted())
                             .filter(institution -> institutionName.equals(ALL) || institution.getName().equalsIgnoreCase(institutionName))
                             .map(institution -> programRegistrationMapper.institutionToDto(institution))
                             .collect(Collectors.toList());
@@ -190,6 +198,7 @@ public class InstitutionServiceImpl implements InstitutionService {
                     institutionDto.setRegisteredPrograms(
                             institutionDto.getRegisteredPrograms()
                                     .stream()
+                                    .filter(programDto -> !programDto.getIsDeleted())
                                     .filter(programDto -> sector.equals(Sector.ALL) ||  programDto.getSector().equals(sector))
                                     .filter(programDto -> programDto.getName().toLowerCase().contains(courseName.toLowerCase()))
                                     .collect(Collectors.toList())
@@ -225,11 +234,11 @@ public class InstitutionServiceImpl implements InstitutionService {
                 });
 
         List<InstitutionDto> institutionDtos = Lists.newArrayList();
-        Arrays.stream(registeredProgramFilter.getInstitutionNames()).forEach(
-                institutionName -> {
+        Arrays.stream(registeredProgramFilter.getInstitutionIds()).forEach(
+                id -> {
                     List<InstitutionDto> institutionList = filteredInstitutionsClassification
                             .stream()
-                            .filter(institution -> institutionName.equals(ALL) || institution.getName().equalsIgnoreCase(institutionName))
+                            .filter(institution -> id == 0 || institution.getId().equals(id))
                             .map(institution -> programRegistrationMapper.institutionToDto(institution))
                             .collect(Collectors.toList());
                     institutionDtos.addAll(institutionList);
@@ -241,9 +250,11 @@ public class InstitutionServiceImpl implements InstitutionService {
                     institutionDto.setRegisteredPrograms(
                             institutionDto.getRegisteredPrograms()
                                     .stream()
+                                    .filter(programDto -> !programDto.getIsDeleted())
                                     .filter(programDto -> registeredProgramFilter.getSector().equals(Sector.ALL) || programDto.getSector().equals(registeredProgramFilter.getSector()))
                                     .filter(programDto -> programDto.getProgramRegistrationNumber().toLowerCase().trim().contains(registeredProgramFilter.getRegisteredProgramNumber().toLowerCase().trim()))
                                     .filter(programDto -> programDto.getName().toLowerCase().trim().contains(registeredProgramFilter.getCourseName().toLowerCase()))
+                                    .filter(programDto -> programDto.getIsClosed().equals(registeredProgramFilter.getIsClosed()))
                                     .collect(Collectors.toList())
                     );
                 }
@@ -310,6 +321,7 @@ public class InstitutionServiceImpl implements InstitutionService {
                 .findAllByInstitutionTypeAndInstitutionClassification(InstitutionType.PUBLIC, InstitutionClassification.TESDA);
         List<InstitutionDto> institutionDtos = institutions
                 .stream()
+                .filter(institution -> !institution.getIsDeleted())
                 .map(institution -> programRegistrationMapper.institutionToDto(institution))
                 .collect(Collectors.toList());
         List<InstitutionWrapper> institutionWrappers = Lists.newArrayList();
@@ -342,7 +354,9 @@ public class InstitutionServiceImpl implements InstitutionService {
                             courseCount.setSector(sector);
                             institutionDto.getRegisteredPrograms()
                                     .forEach(programDto -> {
-                                        if (sector.equals(programDto.getSector())) {
+                                        if (sector.equals(programDto.getSector()) &&
+                                                !programDto.getIsDeleted() &&
+                                                !programDto.getIsClosed()) {
                                             courseCount.setCount(courseCount.getCount()+1);
                                             // for total
                                             total.getCourseCountList().forEach(
@@ -446,5 +460,19 @@ public class InstitutionServiceImpl implements InstitutionService {
     public InstitutionDto getInstitutionDto(Long id) {
         Institution institution = institutionRepository.getOne(id);
         return programRegistrationMapper.institutionToDto(institution);
+    }
+
+    @Override
+    public void deleteRegisteredProgram(Long id) {
+        RegisteredProgram registeredProgram = registeredProgramRepository.getOne(id);
+        registeredProgram.setIsDeleted(true);
+        registeredProgramRepository.save(registeredProgram);
+    }
+
+    @Override
+    public void deleteInstitution(Long id) {
+        Institution institution = institutionRepository.getOne(id);
+        institution.setIsDeleted(true);
+        institutionRepository.save(institution);
     }
 }

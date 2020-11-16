@@ -11,7 +11,7 @@ public enum  InstitutionClassification {
     TVI("TVI"),
     TVI_NGO("TVI-NGO/Foundation"),
 
-    ALL("All");
+    ALL("All Classification");
 
     public final String label;
 

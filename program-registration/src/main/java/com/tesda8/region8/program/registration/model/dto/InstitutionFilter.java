@@ -9,7 +9,7 @@ import lombok.Data;
 public class InstitutionFilter {
 
     private OperatingUnitType [] operatingUnitType;
-    private String [] institutionNames;
+    private Long [] institutionIds;
     private InstitutionType [] institutionType;
     private InstitutionClassification [] institutionClassification;
     private String address;

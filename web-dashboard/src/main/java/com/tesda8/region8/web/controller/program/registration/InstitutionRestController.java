@@ -85,4 +85,13 @@ public class InstitutionRestController {
         return institutionService.getInstitutionDto(id);
     }
 
+    @RequestMapping(method = RequestMethod.DELETE, value = "/registeredProgram/{id}/delete")
+    public void deleteRegisteredProgram(@PathVariable("id") Long id) {
+        institutionService.deleteRegisteredProgram(id);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}/delete")
+    public void deleteInstitution(@PathVariable("id") Long id) {
+        institutionService.deleteInstitution(id);
+    }
 }

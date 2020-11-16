@@ -17,8 +17,6 @@ public interface InstitutionService {
 
     List<InstitutionDto> getAllInstitution();
 
-    List<InstitutionDto> getAllInstitutionByInstitutionType(InstitutionType institutionType);
-
     List<InstitutionDto> getAllInstitutionWithFilter(InstitutionFilter institutionFilter);
 
     List<InstitutionDto> getAllInstitutionByInstitutionTypeAndInstitutionClassification(InstitutionType institutionType,
@@ -48,4 +46,8 @@ public interface InstitutionService {
     RegisteredProgramRequestDto getRegisteredProgramDto(Long id);
 
     InstitutionDto getInstitutionDto(Long id);
+
+    void deleteRegisteredProgram(Long id);
+
+    void deleteInstitution(Long id);
 }

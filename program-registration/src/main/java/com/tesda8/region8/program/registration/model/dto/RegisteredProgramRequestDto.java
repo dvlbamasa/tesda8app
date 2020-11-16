@@ -21,4 +21,5 @@ public class RegisteredProgramRequestDto {
     private Sector sector;
     private Long numberOfTeachers;
     private Boolean isClosed;
+    private Boolean isDeleted;
 }

@@ -159,31 +159,31 @@ tbody:hover td[rowspan], tr:hover td {
 
 a:link {
     color: #ffffff;
-    background-color: transparent;
     text-decoration: none;
 }
 
 a:visited {
     color: #ffffff;
-    background-color: transparent;
     text-decoration: none;
 }
 
 a:hover {
     color: #bcc4ff;
-    background-color: transparent;
     text-decoration: underline;
 }
 
 a:active {
     color: #7388ff;
-    background-color: transparent;
     text-decoration: underline;
 }
 
 .graphContainer { width: 3000px !important; height: 3000px !important; }
 
-.delete-col {
+.delete-col{
+    background-color: #ff9e9e;
+}
+
+.closed-col {
     background-color: #ff9e9e;
 }
 
@@ -294,3 +294,4 @@ a:active {
 .nav-dropdown {
     background-color: #353a3f;
 }
+
