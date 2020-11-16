@@ -5,7 +5,9 @@ public enum CourseStatus {
     WTR("WTR"),
     BUNDLED_PROGRAM("Bundled Program"),
     NTR("NTR"),
-    WTR_COC("WTR (CoC)");
+    WTR_COC("WTR (CoC)"),
+
+    ALL("All Status");
 
     public final String label;
 

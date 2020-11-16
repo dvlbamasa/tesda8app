@@ -81,11 +81,29 @@
                                 <label for="sector" class="col-sm-2 col-form-label">Select Course Sector</label>
                                 <div class="col-sm-10">
                                     <select class="form-control selectpicker" data-live-search="true"  id="sector" name="sector">
-                                        <option th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}"
-                                                th:value="${sector}"
-                                                th:text="${sector.label}"
-                                                th:selected="${sector == T(com.tesda8.region8.util.enums.Sector).ALL}">
-                                        </option>
+                                        <optgroup label="All">
+                                            <option th:value="${T(com.tesda8.region8.util.enums.Sector).ALL}"
+                                                    selected>All Sectors
+                                            </option>
+                                        </optgroup>
+                                        <optgroup label="Non-Bundled Programs">
+                                            <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
+                                                <th:block th:if="${sector.sectorType != 'BUNDLED' and sector != T(com.tesda8.region8.util.enums.Sector).ALL}">
+                                                    <option th:value="${sector}"
+                                                            th:text="${sector.label}">
+                                                    </option>
+                                                </th:block>
+                                            </th:block>
+                                        </optgroup>
+                                        <optgroup label="Bundled Programs">
+                                            <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
+                                                <th:block th:if="${sector.sectorType == 'BUNDLED' and sector != T(com.tesda8.region8.util.enums.Sector).ALL}">
+                                                    <option th:value="${sector}"
+                                                            th:text="${sector.label}">
+                                                    </option>
+                                                </th:block>
+                                            </th:block>
+                                        </optgroup>
                                     </select>
                                 </div>
                             </div>
@@ -118,6 +136,18 @@
                                     <div class="input-group-append" data-target="#dateIssuedTo" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="courseStatus" class="col-sm-2 col-form-label">Select Course Status</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control selectpicker" data-live-search="true"  id="courseStatus" name="courseStatus">
+                                        <option th:each="courseStatus : ${T(com.tesda8.region8.util.enums.CourseStatus).values()}"
+                                                th:value="${courseStatus}"
+                                                th:text="${courseStatus.label}"
+                                                th:selected="${courseStatus == T(com.tesda8.region8.util.enums.CourseStatus).ALL}">
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">

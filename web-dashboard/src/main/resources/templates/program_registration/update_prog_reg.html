@@ -35,17 +35,29 @@
                             <input type="hidden" th:field="*{id}"/>
                             <input type="hidden" th:field="*{isDeleted}"/>
                             <div class="form-group row">
-                                <label for="sector" class="col-sm-2 col-form-label">Select Sector</label>
+                                <label for="sector" class="col-sm-2 col-form-label">Select Course Sector</label>
                                 <div class="col-sm-10">
-                                    <select class="form-control selectpicker" id="sector" name="sector" required>
-                                        <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
-                                            <th:block th:if="${sector != T(com.tesda8.region8.util.enums.Sector).ALL}">
-                                                <option th:value="${sector}"
-                                                        th:text="${sector.label}"
-                                                        th:selected="${sector == registeredProgram.sector}">
-                                                </option>
+                                    <select class="form-control selectpicker" data-live-search="true"  id="sector" name="sector" required>
+                                        <optgroup label="Non-Bundled Programs">
+                                            <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
+                                                <th:block th:if="${sector.sectorType != 'BUNDLED' and sector != T(com.tesda8.region8.util.enums.Sector).ALL}">
+                                                    <option th:value="${sector}"
+                                                            th:text="${sector.label}"
+                                                            th:selected="${sector == registeredProgram.sector}">
+                                                    </option>
+                                                </th:block>
                                             </th:block>
-                                        </th:block>
+                                        </optgroup>
+                                        <optgroup label="Bundled Programs">
+                                            <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
+                                                <th:block th:if="${sector.sectorType == 'BUNDLED' and sector != T(com.tesda8.region8.util.enums.Sector).ALL}">
+                                                    <option th:value="${sector}"
+                                                            th:text="${sector.label}"
+                                                            th:selected="${sector == registeredProgram.sector}">
+                                                    </option>
+                                                </th:block>
+                                            </th:block>
+                                        </optgroup>
                                     </select>
                                 </div>
                             </div>

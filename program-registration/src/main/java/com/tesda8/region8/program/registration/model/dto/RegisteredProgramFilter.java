@@ -1,5 +1,6 @@
 package com.tesda8.region8.program.registration.model.dto;
 
+import com.tesda8.region8.util.enums.CourseStatus;
 import com.tesda8.region8.util.enums.InstitutionClassification;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.Sector;
@@ -21,5 +22,6 @@ public class RegisteredProgramFilter {
     private Date dateIssuedFrom;
     @DateTimeFormat(pattern = "MM/dd/yyyy")
     private Date dateIssuedTo;
+    private CourseStatus courseStatus;
     private Boolean isClosed;
 }

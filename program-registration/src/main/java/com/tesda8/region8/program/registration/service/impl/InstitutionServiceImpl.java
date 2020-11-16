@@ -16,11 +16,11 @@ import com.tesda8.region8.program.registration.model.wrapper.ProgramRegistration
 import com.tesda8.region8.program.registration.repository.InstitutionRepository;
 import com.tesda8.region8.program.registration.repository.RegisteredProgramRepository;
 import com.tesda8.region8.program.registration.service.InstitutionService;
+import com.tesda8.region8.util.enums.CourseStatus;
 import com.tesda8.region8.util.enums.InstitutionClassification;
 import com.tesda8.region8.util.enums.InstitutionType;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.Sector;
-import com.tesda8.region8.util.service.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -254,6 +254,7 @@ public class InstitutionServiceImpl implements InstitutionService {
                                     .filter(programDto -> registeredProgramFilter.getSector().equals(Sector.ALL) || programDto.getSector().equals(registeredProgramFilter.getSector()))
                                     .filter(programDto -> programDto.getProgramRegistrationNumber().toLowerCase().trim().contains(registeredProgramFilter.getRegisteredProgramNumber().toLowerCase().trim()))
                                     .filter(programDto -> programDto.getName().toLowerCase().trim().contains(registeredProgramFilter.getCourseName().toLowerCase()))
+                                    .filter(programDto -> registeredProgramFilter.getCourseStatus().equals(CourseStatus.ALL) || programDto.getCourseStatus().equals(registeredProgramFilter.getCourseStatus()))
                                     .filter(programDto -> programDto.getIsClosed().equals(registeredProgramFilter.getIsClosed()))
                                     .collect(Collectors.toList())
                     );
@@ -419,6 +420,7 @@ public class InstitutionServiceImpl implements InstitutionService {
         RegisteredProgram registeredProgram = programRegistrationMapper.registeredProgramToEntity(registeredProgramDto);
         registeredProgram.setInstitution(institution);
         registeredProgram.setIsClosed(false);
+        registeredProgram.setIsDeleted(false);
         registeredProgram.setDateIssued(convertToLocalDateTimeViaInstant(registeredProgramDto.getDateIssued()));
         institution.getRegisteredPrograms().add(registeredProgram);
         institutionRepository.save(institution);
@@ -429,13 +431,13 @@ public class InstitutionServiceImpl implements InstitutionService {
     public void createInstitution(InstitutionDto institutionDto) {
         Institution institution = programRegistrationMapper.institutionToEntity(institutionDto);
         institution.setRegisteredPrograms(Lists.newArrayList());
+        institution.setIsDeleted(false);
         institutionRepository.save(institution);
     }
 
     @Override
     @Transactional
     public void updateRegisteredProgram(RegisteredProgramRequestDto registeredProgramRequestDto) {
-        logger.info("dto: {}", registeredProgramRequestDto);
         RegisteredProgram registeredProgram = registeredProgramRepository.getOne(registeredProgramRequestDto.getId());
         registeredProgram = programRegistrationMapper.updatedRegisteredProgramToEntity(registeredProgramRequestDto, registeredProgram);
         registeredProgram.setDateIssued(convertToLocalDateTimeViaInstant(registeredProgramRequestDto.getDateIssued()));
