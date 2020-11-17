@@ -168,6 +168,7 @@ public class InstitutionServiceImpl implements InstitutionService {
                             institutionDto.getRegisteredPrograms()
                                     .stream()
                                     .filter(registeredProgramDto -> !registeredProgramDto.getIsDeleted())
+                                    .filter(registeredProgramDto -> !registeredProgramDto.getCourseStatus().equals(CourseStatus.BUNDLED_PROGRAM))
                                     .filter(programDto -> programDto.getSector().equals(sector))
                                     .collect(Collectors.toList())
                     );
@@ -357,7 +358,8 @@ public class InstitutionServiceImpl implements InstitutionService {
                                     .forEach(programDto -> {
                                         if (sector.equals(programDto.getSector()) &&
                                                 !programDto.getIsDeleted() &&
-                                                !programDto.getIsClosed()) {
+                                                !programDto.getIsClosed() &&
+                                                !programDto.getCourseStatus().equals(CourseStatus.BUNDLED_PROGRAM)) {
                                             courseCount.setCount(courseCount.getCount()+1);
                                             // for total
                                             total.getCourseCountList().forEach(

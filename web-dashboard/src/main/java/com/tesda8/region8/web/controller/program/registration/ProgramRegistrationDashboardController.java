@@ -43,7 +43,7 @@ public class ProgramRegistrationDashboardController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/registeredPrograms/{sectorType}/sector")
-    public String getCoursesPerSector(@PathVariable("sectorType") Sector sector, Model model) {
+    public String getRegisteredProgramPerSector(@PathVariable("sectorType") Sector sector, Model model) {
         List<InstitutionDto> institutionDtoList = institutionService.getAllInstitutionByCourseSectorAndInstitutionClassification(sector, InstitutionClassification.TESDA);
         List<InstitutionDto> ttiList = institutionService.getAllInstitutionByInstitutionTypeAndInstitutionClassification(InstitutionType.PUBLIC, InstitutionClassification.TESDA);
         InstitutionProgramRegCounter institutionProgramRegCounter = institutionService.getTotalCountOfRegisteredPrograms(institutionDtoList);
@@ -56,7 +56,7 @@ public class ProgramRegistrationDashboardController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/registeredPrograms/search")
-    public String getInstitutions(@ModelAttribute RegisteredProgramRequest registeredProgramRequest,
+    public String getRegisteredProgramByFilter(@ModelAttribute RegisteredProgramRequest registeredProgramRequest,
                                   BindingResult bindingResult,
                                   Model model) {
         if (bindingResult.hasErrors()) {
