@@ -5,7 +5,7 @@ import com.tesda8.region8.util.enums.CongressionalDistrict;
 import com.tesda8.region8.util.enums.InstitutionClassification;
 import com.tesda8.region8.util.enums.InstitutionType;
 import com.tesda8.region8.util.enums.OperatingUnitType;
-import com.tesda8.region8.util.model.GeneralData;
+import com.tesda8.region8.util.model.Auditable;
 import lombok.Data;
 import org.hibernate.annotations.Type;
 
@@ -21,7 +21,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "INSTITUTION")
-public class Institution extends GeneralData {
+public class Institution extends Auditable<String> {
 
     @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL)
     @JsonManagedReference

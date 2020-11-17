@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -440,17 +441,19 @@ public class InstitutionServiceImpl implements InstitutionService {
     @Override
     @Transactional
     public void updateRegisteredProgram(RegisteredProgramRequestDto registeredProgramRequestDto) {
-        RegisteredProgram registeredProgram = registeredProgramRepository.getOne(registeredProgramRequestDto.getId());
+        RegisteredProgram registeredProgram = registeredProgramRepository.findById(registeredProgramRequestDto.getId()).orElseThrow(EntityNotFoundException::new);
         registeredProgram = programRegistrationMapper.updatedRegisteredProgramToEntity(registeredProgramRequestDto, registeredProgram);
         registeredProgram.setDateIssued(convertToLocalDateTimeViaInstant(registeredProgramRequestDto.getDateIssued()));
+        registeredProgram.setUpdatedDate(LocalDateTime.now());
         registeredProgramRepository.save(registeredProgram);
     }
 
     @Override
     @Transactional
     public void updateInstitution(InstitutionDto institutionDto) {
-        Institution institution = institutionRepository.getOne(institutionDto.getId());
+        Institution institution = institutionRepository.findById(institutionDto.getId()).orElseThrow(EntityNotFoundException::new);
         institution = programRegistrationMapper.updatedInstitutionToEntity(institutionDto, institution);
+        institution.setUpdatedDate(LocalDateTime.now());
         institutionRepository.save(institution);
     }
 

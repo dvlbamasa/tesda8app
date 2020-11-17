@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -246,12 +247,14 @@ public class PapDataServiceImpl implements PapDataService {
         successIndicatorData.setIsDeleted(successIndicatorDataDto.getIsDeleted());
         successIndicatorData.setMeasures(successIndicatorDataDto.getMeasures());
         successIndicatorData.setTarget(successIndicatorDataDto.getTarget());
+        successIndicatorData.setUpdatedDate(LocalDateTime.now());
     }
 
     private void setValues(OperatingUnitData operatingUnitData, OperatingUnitDataDto operatingUnitDataDto) {
         operatingUnitData.setTarget(operatingUnitDataDto.getTarget());
         operatingUnitData.setOutput(operatingUnitDataDto.getOutput());
         operatingUnitData.setRate(ReportUtil.calculateRate(operatingUnitDataDto.getTarget(), operatingUnitDataDto.getOutput()));
+        operatingUnitData.setUpdatedDate(LocalDateTime.now());
     }
 
     private void calculateTotal(OperatingUnitDataDto total, OperatingUnitDataDto operatingUnitDataDto) {

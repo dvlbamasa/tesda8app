@@ -1,7 +1,7 @@
 package com.tesda8.region8.reports.model.entities;
 
 import com.tesda8.region8.util.enums.OperatingUnitType;
-import com.tesda8.region8.util.model.GeneralData;
+import com.tesda8.region8.util.model.Auditable;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(name = "CERTIFICATION_RATE_REPORT")
-public class CertificationRateReport extends GeneralData {
+public class CertificationRateReport extends Auditable<String> {
 
     @Column(name = "OPERATING_UNIT")
     @Enumerated(EnumType.STRING)

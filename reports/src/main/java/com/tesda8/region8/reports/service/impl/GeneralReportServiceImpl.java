@@ -115,7 +115,6 @@ public class GeneralReportServiceImpl implements GeneralReportService {
                 generalReportDto.getEgacDataDto().getOutput()));
 
         generalReport.setEgacData(egacData);
-        generalReport.setUpdatedDate(LocalDateTime.now());
         generalReportRepository.save(generalReport);
     }
 }

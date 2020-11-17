@@ -3,7 +3,7 @@ package com.tesda8.region8.reports.model.entities;
 import com.tesda8.region8.util.enums.DailyReportType;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.ReportSourceType;
-import com.tesda8.region8.util.model.GeneralData;
+import com.tesda8.region8.util.model.Auditable;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(name = "GENERAL_REPORT")
-public class GeneralReport extends GeneralData {
+public class GeneralReport extends Auditable<String> {
 
     @Embedded
     private EgacData egacData;

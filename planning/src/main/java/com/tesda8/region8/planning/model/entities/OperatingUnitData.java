@@ -2,8 +2,7 @@ package com.tesda8.region8.planning.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.tesda8.region8.util.enums.OperatingUnitPOType;
-import com.tesda8.region8.util.enums.OperatingUnitType;
-import com.tesda8.region8.util.model.GeneralData;
+import com.tesda8.region8.util.model.Auditable;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -20,11 +19,7 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Table(name = "OperatingUnitData")
-public class OperatingUnitData {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+public class OperatingUnitData extends Auditable<String> {
 
     @Column(name = "OPERATING_UNIT_TYPE")
     @Enumerated(EnumType.STRING)

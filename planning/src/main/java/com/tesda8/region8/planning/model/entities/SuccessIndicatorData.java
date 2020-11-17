@@ -2,16 +2,13 @@ package com.tesda8.region8.planning.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.tesda8.region8.util.model.GeneralData;
+import com.tesda8.region8.util.model.Auditable;
 import lombok.Data;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -21,11 +18,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "SUCCESS_INDICATOR_DATA")
-public class SuccessIndicatorData {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+public class SuccessIndicatorData extends Auditable<String> {
 
     @Column(name = "TARGET")
     private Integer target;

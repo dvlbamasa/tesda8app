@@ -3,7 +3,7 @@ package com.tesda8.region8.program.registration.model.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.tesda8.region8.util.enums.CourseStatus;
 import com.tesda8.region8.util.enums.Sector;
-import com.tesda8.region8.util.model.GeneralData;
+import com.tesda8.region8.util.model.Auditable;
 import lombok.Data;
 import org.hibernate.annotations.Type;
 
@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "REGISTERED_PROGRAM")
-public class RegisteredProgram  extends GeneralData {
+public class RegisteredProgram  extends Auditable<String> {
 
     @Column(name = "NAME")
     private String name;
