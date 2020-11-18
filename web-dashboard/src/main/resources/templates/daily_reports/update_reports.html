@@ -60,7 +60,7 @@
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-ro-report" role="tabpanel" aria-labelledby="pills-ro-tab">
                     <div>
-                        <form th:action="@{/dailyReports/PO_REPORT/type/T2MIS/source/update}" th:object="${reports}" method="post">
+                        <form id="poForm" th:action="@{/dailyReports/PO_REPORT/type/T2MIS/source/update}" th:object="${reports}" method="post">
                             <fieldset>
                                 <div class="container">
                                     <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update PO Report</button>
@@ -171,7 +171,7 @@
                 </div>
                 <div class="tab-pane fade" id="pills-cert-report" role="tabpanel" aria-labelledby="pills-cert-tab">
                     <div>
-                        <form th:action="@{/dailyReports/certificationRate/update}" th:object="${certificationReports}" method="post">
+                        <form id="certificationRateForm" th:action="@{/dailyReports/certificationRate/update}" th:object="${certificationReports}" method="post">
                             <fieldset>
                                 <div class="container">
                                     <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton2" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update Certification Rate Report</button>
@@ -204,7 +204,7 @@
                 </div>
                 <div class="tab-pane fade" id="pills-ro-gs" role="tabpanel" aria-labelledby="pills-ro-gs-tab">
                     <div>
-                        <form th:action="@{/dailyReports/roPerMode/GS/type/update}" th:object="${roPerModeReports}" method="post">
+                        <form id="roGSForm" th:action="@{/dailyReports/roPerMode/GS/type/update}" th:object="${roPerModeReports}" method="post">
                             <fieldset>
                                 <div class="container">
                                     <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton3" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update RO Per Mode (GS) Report</button>
@@ -264,7 +264,7 @@
 
                 <div class="tab-pane fade" id="pills-ro-t2" role="tabpanel" aria-labelledby="pills-ro-t2-tab">
                     <div>
-                        <form th:action="@{/dailyReports/roPerMode/T2MIS/type/update}" th:object="${roPerModeReports}" method="post">
+                        <form id="roT2Form" th:action="@{/dailyReports/roPerMode/T2MIS/type/update}" th:object="${roPerModeReports}" method="post">
                             <fieldset>
                                 <div class="container">
                                     <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton4" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update RO Per Mode (T2) Report</button>
@@ -323,7 +323,7 @@
                 </div>
                 <div class="tab-pane fade" id="pills-institution-report" role="tabpanel" aria-labelledby="pills-institution-tab">
                     <div>
-                        <form th:action="@{/dailyReports/INSTITUTION_BASED_REPORT/type/T2MIS/source/update}" th:object="${reports}" method="post">
+                        <form id="institutionBasedForm" th:action="@{/dailyReports/INSTITUTION_BASED_REPORT/type/T2MIS/source/update}" th:object="${reports}" method="post">
                             <fieldset>
                                 <div class="container">
                                     <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton5" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update Institution Based Report</button>
@@ -385,7 +385,7 @@
                 </div>
                 <div class="tab-pane fade" id="pills-enterprise-gs-report" role="tabpanel" aria-labelledby="pills-enterprise-gs-tab">
                     <div>
-                        <form th:action="@{/dailyReports/ENTERPRISE_BASED_REPORT/type/GS/source/update}" th:object="${reports}" method="post">
+                        <form id="enterpriseBasedGSForm" th:action="@{/dailyReports/ENTERPRISE_BASED_REPORT/type/GS/source/update}" th:object="${reports}" method="post">
                             <fieldset>
                                 <div class="container">
                                     <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton6" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update Enterprise Based (GS) Report</button>
@@ -446,7 +446,7 @@
                 </div>
                 <div class="tab-pane fade" id="pills-enterprise-t2-report" role="tabpanel" aria-labelledby="pills-enterprise-t2-tab">
                     <div>
-                        <form th:action="@{/dailyReports/ENTERPRISE_BASED_REPORT/type/T2MIS/source/update}" th:object="${reports}" method="post">
+                        <form id="enterpriseBasedT2Form" th:action="@{/dailyReports/ENTERPRISE_BASED_REPORT/type/T2MIS/source/update}" th:object="${reports}" method="post">
                             <fieldset>
                                 <div class="container">
                                     <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton7" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update Enterprise Based (T2MIS) Report</button>
@@ -507,7 +507,7 @@
                 </div>
                 <div class="tab-pane fade" id="pills-community-report" role="tabpanel" aria-labelledby="pills-community-tab">
                     <div>
-                        <form th:action="@{/dailyReports/COMMUNITY_BASED_REPORT/type/T2MIS/source/update}" th:object="${reports}" method="post">
+                        <form id="communityBasedForm" th:action="@{/dailyReports/COMMUNITY_BASED_REPORT/type/T2MIS/source/update}" th:object="${reports}" method="post">
                             <fieldset>
                                 <div class="container">
                                     <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton8" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update Community Based Report</button>
@@ -568,7 +568,7 @@
                 </div>
                 <div class="tab-pane fade" id="pills-tti-report" role="tabpanel" aria-labelledby="pills-tti-tab">
                     <div>
-                        <form th:action="@{/dailyReports/TTI_REPORT/type/T2MIS/source/update}" th:object="${reports}" method="post">
+                        <form id="ttiReportEGForm" th:action="@{/dailyReports/TTI_REPORT/type/T2MIS/source/update}" th:object="${reports}" method="post">
                             <fieldset>
                                 <div class="container">
                                     <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton9" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update TTI (EG) Report</button>
@@ -630,7 +630,7 @@
                 </div>
                 <div class="tab-pane fade" id="pills-ttiAC-report" role="tabpanel" aria-labelledby="pills-tti-tab">
                     <div>
-                        <form th:action="@{/dailyReports/ttiReport/update}" th:object="${reports}" method="post">
+                        <form id="ttiReportACForm" th:action="@{/dailyReports/ttiReport/update}" th:object="${reports}" method="post">
                             <fieldset>
                                 <div class="container">
                                     <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton10" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update TTI (AC) Report</button>
@@ -692,9 +692,13 @@
     </div>
 </div>
 <!-- /.container -->
-<script  type='text/javascript' src="../../static/js/main.js" th:src="@{js/main.js}"></script>
+<script  type='text/javascript' src="../../static/js/main.js" th:src="@{/js/main.js}"></script>
 
 <div th:replace="fragments/footer :: footer"/>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script  type='text/javascript' th:src="@{/js/dashboard/update_daily.js}"></script>
 </body>
 </html>

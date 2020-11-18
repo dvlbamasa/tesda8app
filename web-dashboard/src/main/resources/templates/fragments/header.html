@@ -20,12 +20,28 @@
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 
         <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
-
     </div>
 </head>
 <body>
 <div th:fragment="header">
+    <style>
+        .navDropdown:hover .dropdown-menu{
+            display: block;
+        }
+        .dropdown-menu{
+            margin-top: 0;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            $(".navDropdown").hover(function(){
+                var dropdownMenu = $(this).children(".dropdown-menu");
+                if(dropdownMenu.is(":visible")){
+                    dropdownMenu.parent().toggleClass("open");
+                }
+            });
+        });
+    </script>
     <!-- this is header -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top page-header">
         <a class="navbar-brand" th:href="@{/}">
@@ -40,8 +56,8 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" th:href="@{/dashboard}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <li class="nav-item dropdown navDropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Dashboard
                     </a>
                     <div class="dropdown-menu nav-dropdown" aria-labelledby="navbarDropdown">
@@ -51,8 +67,8 @@
                         <a class="dropdown-item" th:href="@{/registeredPrograms}">Monitor TTI Registered Programs</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" th:href="@{/planning}" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <li class="nav-item dropdown navDropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Planning
                     </a>
                     <div class="dropdown-menu nav-dropdown" aria-labelledby="navbarDropdown3">
@@ -64,8 +80,8 @@
                         <a class="dropdown-item" th:href="@{/planning/pap/manage}">Manage P/A/P</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" th:href="@{/program_registration}" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <li class="nav-item dropdown navDropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Program Registration
                     </a>
                     <div class="dropdown-menu nav-dropdown" aria-labelledby="navbarDropdown2">

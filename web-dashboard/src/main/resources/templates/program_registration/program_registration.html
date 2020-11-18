@@ -141,7 +141,7 @@
                             <div class="form-group row">
                                 <label for="courseStatus" class="col-sm-2 col-form-label">Select Course Status</label>
                                 <div class="col-sm-10">
-                                    <select class="form-control selectpicker" data-live-search="true"  id="courseStatus" name="courseStatus">
+                                    <select class="form-control selectpicker" id="courseStatus" name="courseStatus">
                                         <option th:each="courseStatus : ${T(com.tesda8.region8.util.enums.CourseStatus).values()}"
                                                 th:value="${courseStatus}"
                                                 th:text="${courseStatus.label}"

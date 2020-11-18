@@ -299,3 +299,7 @@ a:active {
     background-color: #353a3f;
 }
 
+label.error {
+    color: red;
+    display: block;
+}

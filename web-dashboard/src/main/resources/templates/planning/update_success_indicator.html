@@ -43,7 +43,7 @@
             </div>
             <div class="container mt-5">
                 <div class="btn-group" role="group">
-                    <button class="btn btn-primary btn-lg" type="submit" id="submitButton2" th:value="Update"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+                    <button class="btn btn-primary btn-lg" type="submit" id="submitButton" th:value="Update"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
                 </div>
             </div>
         </form>
@@ -71,10 +71,10 @@
         </div>
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="tesdpp" role="tabpanel" aria-labelledby="tesdpp-tab">
-                <form th:action="@{/planning/successIndicators/TESDPP/papGroup/save}"  th:object="${papData}" method="post">
+                <form id="tesdppForm" th:action="@{/planning/successIndicators/TESDPP/papGroup/save}"  th:object="${papData}" method="post">
                     <fieldset>
                         <div class="container mb-5">
-                            <button class="btn btn-primary btn-lg" type="submit" id="submitButton" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Save Success Indicators</button>
+                            <button class="btn btn-primary btn-lg" type="submit" id="submitButton1" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Save Success Indicators</button>
                         </div>
                         <div class="table-responsive  mt-5">
                             <table class="table table-striped table-bordered table-sm">
@@ -132,10 +132,10 @@
                 </form>
             </div>
             <div class="tab-pane fade" id="tesdrp" role="tabpanel" aria-labelledby="tesdrp-tab">
-                <form th:action="@{/planning/successIndicators/TESDRP/papGroup/save}"  th:object="${papData}" method="post">
+                <form id="tesdrpForm" th:action="@{/planning/successIndicators/TESDRP/papGroup/save}"  th:object="${papData}" method="post">
                     <fieldset>
                         <div class="container mb-5">
-                            <button class="btn btn-primary btn-lg" type="submit" id="submitButton3" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Save Success Indicators</button>
+                            <button class="btn btn-primary btn-lg" type="submit" id="submitButton2" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Save Success Indicators</button>
                         </div>
                         <div class="table-responsive  mt-5">
                             <table class="table table-striped table-bordered table-sm">
@@ -193,10 +193,10 @@
                 </form>
             </div>
             <div class="tab-pane fade" id="tesdp" role="tabpanel" aria-labelledby="tesdp-tab">
-                <form th:action="@{/planning/successIndicators/TESDP/papGroup/save}"  th:object="${papData}" method="post">
+                <form id="tesdpForm" th:action="@{/planning/successIndicators/TESDP/papGroup/save}"  th:object="${papData}" method="post">
                     <fieldset>
                         <div class="container mb-5">
-                            <button class="btn btn-primary btn-lg" type="submit" id="submitButton4" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Save Success Indicators</button>
+                            <button class="btn btn-primary btn-lg" type="submit" id="submitButton3" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Save Success Indicators</button>
                         </div>
                         <div class="table-responsive  mt-5">
                             <table class="table table-striped table-bordered table-sm">
@@ -254,10 +254,10 @@
                 </form>
             </div>
             <div class="tab-pane fade" id="sto" role="tabpanel" aria-labelledby="sto-tab">
-                <form th:action="@{/planning/successIndicators/STO/papGroup/save}"  th:object="${papData}" method="post">
+                <form id="stoForm" th:action="@{/planning/successIndicators/STO/papGroup/save}"  th:object="${papData}" method="post">
                     <fieldset>
                         <div class="container mb-5">
-                            <button class="btn btn-primary btn-lg" type="submit" id="submitButton5" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Save Success Indicators</button>
+                            <button class="btn btn-primary btn-lg" type="submit" id="submitButton4" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Save Success Indicators</button>
                         </div>
                         <div class="table-responsive  mt-5">
                             <table class="table table-striped table-bordered table-sm">
@@ -315,10 +315,10 @@
                 </form>
             </div>
             <div class="tab-pane fade" id="gass" role="tabpanel" aria-labelledby="gass-tab">
-                <form th:action="@{/planning/successIndicators/GASS/papGroup/save}"  th:object="${papData}" method="post">
+                <form id="gassForm" th:action="@{/planning/successIndicators/GASS/papGroup/save}"  th:object="${papData}" method="post">
                     <fieldset>
                         <div class="container mb-5">
-                            <button class="btn btn-primary btn-lg" type="submit" id="submitButton6" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Save Success Indicators</button>
+                            <button class="btn btn-primary btn-lg" type="submit" id="submitButton5" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Save Success Indicators</button>
                         </div>
                         <div class="table-responsive  mt-5">
                             <table class="table table-striped table-bordered table-sm">
@@ -383,7 +383,12 @@
 <script  type='text/javascript' src="../../static/js/doubleScroll/jquery.doubleScroll.js" th:src="@{/js/doubleScroll/jquery.doubleScroll.js}"></script>
 <script src="https://unpkg.com/sticky-table-headers"></script>
 <script type='text/javascript' src="../../static/js/table_event_handlers.js" th:src="@{/js/table_event_handlers.js}"></script>
-<script  type='text/javascript' src="../../static/js/main.js" th:src="@{js/main.js}"></script>
+<script  type='text/javascript' src="../../static/js/main.js" th:src="@{/js/main.js}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script  type='text/javascript' th:src="@{/js/planning/update_success_indicator.js}"></script>
 
 </body>
 </html>
