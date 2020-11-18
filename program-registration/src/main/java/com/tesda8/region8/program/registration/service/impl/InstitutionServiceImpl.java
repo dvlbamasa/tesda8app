@@ -168,7 +168,8 @@ public class InstitutionServiceImpl implements InstitutionService {
                     institutionDto.setRegisteredPrograms(
                             institutionDto.getRegisteredPrograms()
                                     .stream()
-                                    .filter(registeredProgramDto -> !registeredProgramDto.getIsDeleted())
+                                    .filter(registeredProgramDto -> !registeredProgramDto.getIsDeleted())                                    .filter(registeredProgramDto -> !registeredProgramDto.getIsDeleted())
+                                    .filter(registeredProgramDto -> !registeredProgramDto.getIsClosed())
                                     .filter(registeredProgramDto -> !registeredProgramDto.getCourseStatus().equals(CourseStatus.BUNDLED_PROGRAM))
                                     .filter(programDto -> programDto.getSector().equals(sector))
                                     .collect(Collectors.toList())
@@ -190,6 +191,7 @@ public class InstitutionServiceImpl implements InstitutionService {
                             .stream()
                             .filter(institution -> !institution.getIsDeleted())
                             .filter(institution -> institutionName.equals(ALL) || institution.getName().equalsIgnoreCase(institutionName))
+                            .filter(institution -> institution.getInstitutionClassification().equals(InstitutionClassification.TESDA))
                             .map(institution -> programRegistrationMapper.institutionToDto(institution))
                             .collect(Collectors.toList());
                     institutionDtos.addAll(institutionList);
@@ -201,6 +203,8 @@ public class InstitutionServiceImpl implements InstitutionService {
                             institutionDto.getRegisteredPrograms()
                                     .stream()
                                     .filter(programDto -> !programDto.getIsDeleted())
+                                    .filter(programDto -> !programDto.getIsClosed())
+                                    .filter(programDto -> !programDto.getCourseStatus().equals(CourseStatus.BUNDLED_PROGRAM))
                                     .filter(programDto -> sector.equals(Sector.ALL) ||  programDto.getSector().equals(sector))
                                     .filter(programDto -> programDto.getName().toLowerCase().contains(courseName.toLowerCase()))
                                     .collect(Collectors.toList())
@@ -470,16 +474,20 @@ public class InstitutionServiceImpl implements InstitutionService {
     }
 
     @Override
+    @Transactional
     public void deleteRegisteredProgram(Long id) {
         RegisteredProgram registeredProgram = registeredProgramRepository.getOne(id);
         registeredProgram.setIsDeleted(true);
+        registeredProgram.setUpdatedDate(LocalDateTime.now());
         registeredProgramRepository.save(registeredProgram);
     }
 
     @Override
+    @Transactional
     public void deleteInstitution(Long id) {
         Institution institution = institutionRepository.getOne(id);
         institution.setIsDeleted(true);
+        institution.setUpdatedDate(LocalDateTime.now());
         institutionRepository.save(institution);
     }
 }
