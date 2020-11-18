@@ -27,10 +27,10 @@
                 </div>
             </div>
         </header>
+        <div class="container">
+            <button class="btn btn-danger btn-lg" id="downloadGraphButton" type="button"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Export as PDF</button>
+        </div>
         <div class="container canvas_div_pdf" id="graphContainer">
-            <input id="papGroupType" type="hidden" th:value="${papGroupType}"/>
-            <input id="papName" type="hidden" th:value="${papName}"/>
-            <input id="measure" type="hidden" th:value="${measure}"/>
             <div class="row">
                 <th:block th:if="${papDataList.empty}">
                     <div class="col text-center ">
@@ -39,11 +39,15 @@
                 </th:block>
                 <th:block th:each="papData : ${papDataList}">
                     <th:block th:each="successIndicator : ${papData.successIndicatorDataList}">
-                        <div th:id="'successIndicatorGraph' + ${successIndicator.id}" class="mb-5 mt-5" style="height: 320px; width: 100%;"></div>
+                        <div th:id="'successIndicatorGraph' + ${successIndicator.id}" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
                     </th:block>
                 </th:block>
             </div>
         </div>
+        <input id="papGroupType" type="hidden" th:value="${papGroupType}"/>
+        <input id="papName" type="hidden" th:value="${papName}"/>
+        <input id="measure" type="hidden" th:value="${measure}"/>
+        <input id="papGroupTypeLabel" type="hidden" th:value="${papGroupType.label}"/>
     </div>
 </div>
 

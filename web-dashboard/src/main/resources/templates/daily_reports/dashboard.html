@@ -32,7 +32,7 @@
             </div>
         </header>
         <div class="container">
-            <button class="btn btn-primary btn-lg" id="downloadGraphButton" type="button"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Export as PDF</button>
+            <button class="btn btn-danger btn-lg" id="downloadGraphButton" type="button"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Export as PDF</button>
             <p class="lead text-black-50 mt-5">Daily reports as of: <span class="text-black" th:text="${#temporals.format(dateTimeNow, 'dd/MM/yyyy hh:mm:ss a')}"></span></p>
         </div>
         <div class="container canvas_div_pdf" id="graphContainer">
