@@ -1,6 +1,5 @@
 package com.tesda8.region8.planning.model.dto;
 
-import com.tesda8.region8.planning.model.entities.SuccessIndicatorData;
 import com.tesda8.region8.util.enums.PapGroupType;
 import lombok.Data;
 

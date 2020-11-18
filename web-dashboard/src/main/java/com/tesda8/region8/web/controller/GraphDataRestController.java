@@ -9,6 +9,7 @@ import com.tesda8.region8.util.enums.EgacType;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.ReportSourceType;
 import com.tesda8.region8.web.service.GraphDataFetcherService;
+import com.tesda8.region8.web.service.OPCRGraphDataFetcherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,10 +20,13 @@ import java.util.List;
 public class GraphDataRestController {
 
     private GraphDataFetcherService graphDataFetcherService;
+    private OPCRGraphDataFetcherService opcrGraphDataFetcherService;
 
     @Autowired
-    public GraphDataRestController(GraphDataFetcherService graphDataFetcherService) {
+    public GraphDataRestController(GraphDataFetcherService graphDataFetcherService,
+                                   OPCRGraphDataFetcherService opcrGraphDataFetcherService) {
         this.graphDataFetcherService = graphDataFetcherService;
+        this.opcrGraphDataFetcherService = opcrGraphDataFetcherService;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/certificationRate/{dataPointType}/dataPointType")
@@ -82,5 +86,9 @@ public class GraphDataRestController {
         return graphDataFetcherService.fetchMonthlyReportDataList(egacType, operatingUnitType);
     }
 
-
+    @RequestMapping(method = RequestMethod.GET, value = "/successIndicator/{id}/dataPoints")
+    @ResponseBody
+    public GraphDataList fetchOPCRDataList(@PathVariable("id") Long id) {
+        return opcrGraphDataFetcherService.fetchOPCRDataList(id);
+    }
 }

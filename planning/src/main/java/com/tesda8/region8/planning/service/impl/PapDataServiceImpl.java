@@ -127,6 +127,13 @@ public class PapDataServiceImpl implements PapDataService {
     }
 
     @Override
+    public SuccessIndicatorDataDto getSuccessIndicatorData(Long id) {
+        SuccessIndicatorData successIndicatorData = successIndicatorDataRepository.getOne(id);
+        successIndicatorData = sortOperatingUnitData(successIndicatorData);
+        return planningMapper.successIndicatorToDto(successIndicatorData);
+    }
+
+    @Override
     public void updatePapData(List<PapDataDto> papDataDtoList) {
         papDataDtoList.forEach(
                 papDataDto -> {

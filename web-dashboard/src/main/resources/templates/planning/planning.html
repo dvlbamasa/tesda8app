@@ -73,6 +73,7 @@
             <div class="tab-pane fade show active" id="tesdpp" role="tabpanel" aria-labelledby="tesdpp-tab">
                 <div class="container mb-5">
                     <button onclick="exportTableToExcel('tesdpp-table', 'OPCR - Technical Education and Skills Development Policy Program')" class="btn btn-success btn-lg" id="downloadTable1" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
+                    <a th:href="@{/planning/graph/TESDPP/papGroup(papName=${papNameValue}, measure=${successIndicatorMeasureValue})}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                 </div>
                 <form th:object="${papData}" method="post">
                     <fieldset>
@@ -170,6 +171,7 @@
             <div class="tab-pane fade" id="tesdrp" role="tabpanel" aria-labelledby="tesdrp-tab">
                 <div class="container mb-5">
                     <button onclick="exportTableToExcel('tesdrp-table', 'OPCR - Technical Education and Skills Development Regulatory Program')" class="btn btn-success btn-lg" id="downloadTable2" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
+                    <a th:href="@{/planning/graph/TESDRP/papGroup(papName=${papNameValue}, measure=${successIndicatorMeasureValue})}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                 </div>
                 <form th:object="${papData}" method="post">
                     <fieldset>
@@ -267,6 +269,7 @@
             <div class="tab-pane fade" id="tesdp" role="tabpanel" aria-labelledby="tesdp-tab">
                 <div class="container mb-5">
                     <button onclick="exportTableToExcel('tesdp-table', 'OPCR - Technical Education and Skills Development Program')" class="btn btn-success btn-lg" id="downloadTable3" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
+                    <a th:href="@{/planning/graph/TESDP/papGroup(papName=${papNameValue}, measure=${successIndicatorMeasureValue})}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                 </div>
                 <form th:object="${papData}" method="post">
                     <fieldset>
@@ -364,6 +367,7 @@
             <div class="tab-pane fade" id="sto" role="tabpanel" aria-labelledby="sto-tab">
                 <div class="container mb-5">
                     <button onclick="exportTableToExcel('sto-table', 'OPCR - Support to Operations')" class="btn btn-success btn-lg" id="downloadTable4" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
+                    <a th:href="@{/planning/graph/STO/papGroup(papName=${papNameValue}, measure=${successIndicatorMeasureValue})}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                 </div>
                 <form th:object="${papData}" method="post">
                     <fieldset>
@@ -461,6 +465,7 @@
             <div class="tab-pane fade" id="gass" role="tabpanel" aria-labelledby="gass-tab">
                 <div class="container mb-5">
                     <button onclick="exportTableToExcel('gass-table', 'OPCR - General Administrative Support Servies')" class="btn btn-success btn-lg" id="downloadTable5" type="button"> <i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
+                    <a th:href="@{/planning/graph/GASS/papGroup(papName=${papNameValue}, measure=${successIndicatorMeasureValue})}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                 </div>
                 <form th:object="${papData}" method="post">
                     <fieldset>

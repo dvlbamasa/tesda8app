@@ -14,6 +14,8 @@ public interface PapDataService {
 
     List<PapDataDto> getAllPapDataByPapGroupTypeAndMeasureAndPapName(PapGroupType papGroupType, String measureFilter, String papName);
 
+    SuccessIndicatorDataDto getSuccessIndicatorData(Long id);
+
     void updatePapData(List<PapDataDto> papDataDtoList);
 
     void updateSuccessIndicators(List<PapDataDto> papDataDtoList);

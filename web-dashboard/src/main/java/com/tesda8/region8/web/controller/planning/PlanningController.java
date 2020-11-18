@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
+import java.util.List;
 
 
 @Controller
@@ -123,6 +125,38 @@ public class PlanningController {
         model.addAttribute("successIndicator", initializeSuccessIndicatorDto());
         model.addAttribute("papDataList", papDataService.getAllPapData());
         return "planning/create_success_indicator";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/planning/graph/{papGroup}/papGroup")
+    public String generateGraph(@PathVariable("papGroup") PapGroupType papGroupType,
+                                @RequestParam("papName") String papName,
+                                @RequestParam("measure") String measure,
+                                Model model) {
+        List<PapDataDto> papDataDtoList = Lists.newArrayList();
+        switch (papGroupType) {
+            case TESDPP:
+                papDataDtoList = papDataService.getAllPapDataByPapGroupTypeAndMeasureAndPapName(PapGroupType.TESDPP, measure, papName);
+                break;
+            case TESDRP:
+                papDataDtoList = papDataService.getAllPapDataByPapGroupTypeAndMeasureAndPapName(PapGroupType.TESDRP, measure, papName);
+                break;
+            case TESDP:
+                papDataDtoList = papDataService.getAllPapDataByPapGroupTypeAndMeasureAndPapName(PapGroupType.TESDP, measure, papName);
+                break;
+            case STO:
+                papDataDtoList = papDataService.getAllPapDataByPapGroupTypeAndMeasureAndPapName(PapGroupType.STO, measure, papName);
+                break;
+            case GASS:
+                papDataDtoList = papDataService.getAllPapDataByPapGroupTypeAndMeasureAndPapName(PapGroupType.GASS, measure, papName);
+                break;
+            default:
+                break;
+        }
+        model.addAttribute("papName", papName);
+        model.addAttribute("measure", measure);
+        model.addAttribute("papGroupType", papGroupType);
+        model.addAttribute("papDataList", papDataDtoList);
+        return "planning/opcr_graph";
     }
 
 
