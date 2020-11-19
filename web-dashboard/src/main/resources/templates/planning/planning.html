@@ -139,24 +139,9 @@
                                                         <th class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></th>
                                                     </th:block>
                                                     <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-
-                                                        <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).SOUTHERN_LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).EASTERN_SAMAR_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TESDA_RO} ">
-                                                            <td class="col-striped"><span th:text="${operatingUnitData.target}"></span></td>
-                                                            <td class="col-striped"><span th:text="${operatingUnitData.output}"></span></td>
-                                                            <td class="col-striped"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                                        </th:block>
-                                                        <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).SOUTHERN_LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).EASTERN_SAMAR_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TESDA_RO} ">
-                                                            <td><span th:text="${operatingUnitData.target}"></span></td>
-                                                            <td><span th:text="${operatingUnitData.output}"></span></td>
-                                                            <td><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                                        </th:block>
-
+                                                        <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
+                                                        <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
+                                                        <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
                                                     </th:block>
                                                 </th:block>
                                             </tr>
@@ -237,24 +222,9 @@
                                                     <th class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></th>
                                                 </th:block>
                                                 <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-
-                                                    <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).SOUTHERN_LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).EASTERN_SAMAR_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TESDA_RO} ">
-                                                        <td class="col-striped"><span th:text="${operatingUnitData.target}"></span></td>
-                                                        <td class="col-striped"><span th:text="${operatingUnitData.output}"></span></td>
-                                                        <td class="col-striped"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                                    </th:block>
-                                                    <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).SOUTHERN_LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).EASTERN_SAMAR_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TESDA_RO} ">
-                                                        <td><span th:text="${operatingUnitData.target}"></span></td>
-                                                        <td><span th:text="${operatingUnitData.output}"></span></td>
-                                                        <td><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                                    </th:block>
-
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
                                                 </th:block>
                                             </th:block>
                                         </tr>
@@ -335,24 +305,9 @@
                                                     <th class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></th>
                                                 </th:block>
                                                 <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-
-                                                    <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).SOUTHERN_LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).EASTERN_SAMAR_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TESDA_RO} ">
-                                                        <td class="col-striped"><span th:text="${operatingUnitData.target}"></span></td>
-                                                        <td class="col-striped"><span th:text="${operatingUnitData.output}"></span></td>
-                                                        <td class="col-striped"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                                    </th:block>
-                                                    <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).SOUTHERN_LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).EASTERN_SAMAR_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TESDA_RO} ">
-                                                        <td><span th:text="${operatingUnitData.target}"></span></td>
-                                                        <td><span th:text="${operatingUnitData.output}"></span></td>
-                                                        <td><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                                    </th:block>
-
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
                                                 </th:block>
                                             </th:block>
                                         </tr>
@@ -433,24 +388,9 @@
                                                     <th class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></th>
                                                 </th:block>
                                                 <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-
-                                                    <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).SOUTHERN_LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).EASTERN_SAMAR_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TESDA_RO} ">
-                                                        <td class="col-striped"><span th:text="${operatingUnitData.target}"></span></td>
-                                                        <td class="col-striped"><span th:text="${operatingUnitData.output}"></span></td>
-                                                        <td class="col-striped"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                                    </th:block>
-                                                    <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).SOUTHERN_LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).EASTERN_SAMAR_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TESDA_RO} ">
-                                                        <td><span th:text="${operatingUnitData.target}"></span></td>
-                                                        <td><span th:text="${operatingUnitData.output}"></span></td>
-                                                        <td><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                                    </th:block>
-
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
                                                 </th:block>
                                             </th:block>
                                         </tr>
@@ -531,24 +471,9 @@
                                                     <th class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></th>
                                                 </th:block>
                                                 <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-
-                                                    <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).SOUTHERN_LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).EASTERN_SAMAR_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TESDA_RO} ">
-                                                        <td class="col-striped"><span th:text="${operatingUnitData.target}"></span></td>
-                                                        <td class="col-striped"><span th:text="${operatingUnitData.output}"></span></td>
-                                                        <td class="col-striped"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                                    </th:block>
-                                                    <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).SOUTHERN_LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).EASTERN_SAMAR_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TESDA_RO} ">
-                                                        <td><span th:text="${operatingUnitData.target}"></span></td>
-                                                        <td><span th:text="${operatingUnitData.output}"></span></td>
-                                                        <td><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                                    </th:block>
-
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
                                                 </th:block>
                                             </th:block>
                                         </tr>

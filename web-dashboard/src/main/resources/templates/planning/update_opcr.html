@@ -120,44 +120,22 @@
                                             <td th:text="${successIndicator.measures}"></td>
                                             <th:block th:each="operatingUnitData, itemstat3 : ${successIndicator.operatingUnitDataList}">
                                                 <th:block th:if="${operatingUnitData.operatingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                                    <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).SOUTHERN_LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).EASTERN_SAMAR_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TESDA_RO} ">
-                                                        <td class="col-striped"><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                   th:field="*{tesdppData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .operatingUnitDataList[__${itemstat3.index}__]
-                                                               .target}" required/></td>
-                                                        <td class="col-striped"><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                   th:field="*{tesdppData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .operatingUnitDataList[__${itemstat3.index}__]
-                                                               .output}" required/></td>
-                                                        <input type="hidden" th:field="*{tesdppData[__${itemstat.index}__]
-                                                                        .successIndicatorDataList[__${itemstat2.index}__]
-                                                                        .operatingUnitDataList[__${itemstat3.index}__]
-                                                                        .id}" />
-                                                    </th:block>
-                                                    <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).SOUTHERN_LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).EASTERN_SAMAR_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TESDA_RO} ">
-                                                        <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                   th:field="*{tesdppData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .operatingUnitDataList[__${itemstat3.index}__]
-                                                               .target}" required/></td>
-                                                        <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                   th:field="*{tesdppData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .operatingUnitDataList[__${itemstat3.index}__]
-                                                               .output}" required/></td>
-                                                        <input type="hidden" th:field="*{tesdppData[__${itemstat.index}__]
-                                                                        .successIndicatorDataList[__${itemstat2.index}__]
-                                                                        .operatingUnitDataList[__${itemstat3.index}__]
-                                                                        .id}" />
-                                                    </th:block>
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
+                                                        <input type="number" onkeypress="return isNumberKey(event)" class="form-control"
+                                                               th:field="*{tesdppData[__${itemstat.index}__]
+                                                           .successIndicatorDataList[__${itemstat2.index}__]
+                                                           .operatingUnitDataList[__${itemstat3.index}__]
+                                                           .target}" required/></td>
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
+                                                        <input type="number" onkeypress="return isNumberKey(event)" class="form-control"
+                                                               th:field="*{tesdppData[__${itemstat.index}__]
+                                                           .successIndicatorDataList[__${itemstat2.index}__]
+                                                           .operatingUnitDataList[__${itemstat3.index}__]
+                                                           .output}" required/></td>
+                                                    <input type="hidden" th:field="*{tesdppData[__${itemstat.index}__]
+                                                                    .successIndicatorDataList[__${itemstat2.index}__]
+                                                                    .operatingUnitDataList[__${itemstat3.index}__]
+                                                                    .id}" />
                                                 </th:block>
                                             </th:block>
                                         </tr>
@@ -225,44 +203,22 @@
                                             <td th:text="${successIndicator.measures}"></td>
                                             <th:block th:each="operatingUnitData, itemstat3 : ${successIndicator.operatingUnitDataList}">
                                                 <th:block th:if="${operatingUnitData.operatingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                                    <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).SOUTHERN_LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).EASTERN_SAMAR_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TESDA_RO} ">
-                                                        <td class="col-striped"><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                                       th:field="*{tesdrpData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .operatingUnitDataList[__${itemstat3.index}__]
-                                                               .target}" required/></td>
-                                                        <td class="col-striped"><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                                       th:field="*{tesdrpData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .operatingUnitDataList[__${itemstat3.index}__]
-                                                               .output}" required/></td>
-                                                        <input type="hidden" th:field="*{tesdrpData[__${itemstat.index}__]
-                                                                        .successIndicatorDataList[__${itemstat2.index}__]
-                                                                        .operatingUnitDataList[__${itemstat3.index}__]
-                                                                        .id}" />
-                                                    </th:block>
-                                                    <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).SOUTHERN_LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).EASTERN_SAMAR_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TESDA_RO} ">
-                                                        <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                   th:field="*{tesdrpData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .operatingUnitDataList[__${itemstat3.index}__]
-                                                               .target}" required/></td>
-                                                        <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                   th:field="*{tesdrpData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .operatingUnitDataList[__${itemstat3.index}__]
-                                                               .output}" required/></td>
-                                                        <input type="hidden" th:field="*{tesdrpData[__${itemstat.index}__]
-                                                                        .successIndicatorDataList[__${itemstat2.index}__]
-                                                                        .operatingUnitDataList[__${itemstat3.index}__]
-                                                                        .id}" />
-                                                    </th:block>
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
+                                                        <input type="number" onkeypress="return isNumberKey(event)" class="form-control"
+                                                                                   th:field="*{tesdrpData[__${itemstat.index}__]
+                                                           .successIndicatorDataList[__${itemstat2.index}__]
+                                                           .operatingUnitDataList[__${itemstat3.index}__]
+                                                           .target}" required/></td>
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
+                                                        <input type="number" onkeypress="return isNumberKey(event)" class="form-control"
+                                                                                   th:field="*{tesdrpData[__${itemstat.index}__]
+                                                           .successIndicatorDataList[__${itemstat2.index}__]
+                                                           .operatingUnitDataList[__${itemstat3.index}__]
+                                                           .output}" required/></td>
+                                                    <input type="hidden" th:field="*{tesdrpData[__${itemstat.index}__]
+                                                                    .successIndicatorDataList[__${itemstat2.index}__]
+                                                                    .operatingUnitDataList[__${itemstat3.index}__]
+                                                                    .id}" />
                                                 </th:block>
                                             </th:block>
                                         </tr>
@@ -330,44 +286,20 @@
                                             <td th:text="${successIndicator.measures}"></td>
                                             <th:block th:each="operatingUnitData, itemstat3 : ${successIndicator.operatingUnitDataList}">
                                                 <th:block th:if="${operatingUnitData.operatingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                                    <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).SOUTHERN_LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).EASTERN_SAMAR_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TESDA_RO} ">
-                                                        <td class="col-striped"><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                                       th:field="*{tesdpData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .operatingUnitDataList[__${itemstat3.index}__]
-                                                               .target}" required/></td>
-                                                        <td class="col-striped"><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                                       th:field="*{tesdpData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .operatingUnitDataList[__${itemstat3.index}__]
-                                                               .output}" required/></td>
-                                                        <input type="hidden" th:field="*{tesdpData[__${itemstat.index}__]
-                                                                        .successIndicatorDataList[__${itemstat2.index}__]
-                                                                        .operatingUnitDataList[__${itemstat3.index}__]
-                                                                        .id}" />
-                                                    </th:block>
-                                                    <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).SOUTHERN_LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).EASTERN_SAMAR_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TESDA_RO} ">
-                                                        <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                   th:field="*{tesdpData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .operatingUnitDataList[__${itemstat3.index}__]
-                                                               .target}" required/></td>
-                                                        <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                   th:field="*{tesdpData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .operatingUnitDataList[__${itemstat3.index}__]
-                                                               .output}" required/></td>
-                                                        <input type="hidden" th:field="*{tesdpData[__${itemstat.index}__]
-                                                                        .successIndicatorDataList[__${itemstat2.index}__]
-                                                                        .operatingUnitDataList[__${itemstat3.index}__]
-                                                                        .id}" />
-                                                    </th:block>
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
+                                                                                   th:field="*{tesdpData[__${itemstat.index}__]
+                                                           .successIndicatorDataList[__${itemstat2.index}__]
+                                                           .operatingUnitDataList[__${itemstat3.index}__]
+                                                           .target}" required/></td>
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
+                                                                                   th:field="*{tesdpData[__${itemstat.index}__]
+                                                           .successIndicatorDataList[__${itemstat2.index}__]
+                                                           .operatingUnitDataList[__${itemstat3.index}__]
+                                                           .output}" required/></td>
+                                                    <input type="hidden" th:field="*{tesdpData[__${itemstat.index}__]
+                                                                    .successIndicatorDataList[__${itemstat2.index}__]
+                                                                    .operatingUnitDataList[__${itemstat3.index}__]
+                                                                    .id}" />
                                                 </th:block>
                                             </th:block>
                                         </tr>
@@ -435,44 +367,21 @@
                                             <td th:text="${successIndicator.measures}"></td>
                                             <th:block th:each="operatingUnitData, itemstat3 : ${successIndicator.operatingUnitDataList}">
                                                 <th:block th:if="${operatingUnitData.operatingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                                    <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).SOUTHERN_LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).EASTERN_SAMAR_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TESDA_RO} ">
-                                                        <td class="col-striped"><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                                       th:field="*{stoData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .operatingUnitDataList[__${itemstat3.index}__]
-                                                               .target}" required/></td>
-                                                        <td class="col-striped"><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                                       th:field="*{stoData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .operatingUnitDataList[__${itemstat3.index}__]
-                                                               .output}" required/></td>
-                                                        <input type="hidden" th:field="*{stoData[__${itemstat.index}__]
-                                                                        .successIndicatorDataList[__${itemstat2.index}__]
-                                                                        .operatingUnitDataList[__${itemstat3.index}__]
-                                                                        .id}" />
-                                                    </th:block>
-                                                    <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).SOUTHERN_LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).EASTERN_SAMAR_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TESDA_RO} ">
-                                                        <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                   th:field="*{stoData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .operatingUnitDataList[__${itemstat3.index}__]
-                                                               .target}" required/></td>
-                                                        <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                   th:field="*{stoData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .operatingUnitDataList[__${itemstat3.index}__]
-                                                               .output}" required/></td>
-                                                        <input type="hidden" th:field="*{stoData[__${itemstat.index}__]
-                                                                        .successIndicatorDataList[__${itemstat2.index}__]
-                                                                        .operatingUnitDataList[__${itemstat3.index}__]
-                                                                        .id}" />
-                                                    </th:block>
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
+                                                                                   th:field="*{stoData[__${itemstat.index}__]
+                                                           .successIndicatorDataList[__${itemstat2.index}__]
+                                                           .operatingUnitDataList[__${itemstat3.index}__]
+                                                           .target}" required/></td>
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
+                                                                                   th:field="*{stoData[__${itemstat.index}__]
+                                                           .successIndicatorDataList[__${itemstat2.index}__]
+                                                           .operatingUnitDataList[__${itemstat3.index}__]
+                                                           .output}" required/></td>
+                                                    <input type="hidden" th:field="*{stoData[__${itemstat.index}__]
+                                                                    .successIndicatorDataList[__${itemstat2.index}__]
+                                                                    .operatingUnitDataList[__${itemstat3.index}__]
+                                                                    .id}" />
+
                                                 </th:block>
                                             </th:block>
                                         </tr>
@@ -540,44 +449,20 @@
                                             <td th:text="${successIndicator.measures}"></td>
                                             <th:block th:each="operatingUnitData, itemstat3 : ${successIndicator.operatingUnitDataList}">
                                                 <th:block th:if="${operatingUnitData.operatingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                                    <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).SOUTHERN_LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).EASTERN_SAMAR_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TESDA_RO} ">
-                                                        <td class="col-striped"><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                                       th:field="*{gassData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .operatingUnitDataList[__${itemstat3.index}__]
-                                                               .target}" required/></td>
-                                                        <td class="col-striped"><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                                       th:field="*{gassData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .operatingUnitDataList[__${itemstat3.index}__]
-                                                               .output}" required/></td>
-                                                        <input type="hidden" th:field="*{gassData[__${itemstat.index}__]
-                                                                        .successIndicatorDataList[__${itemstat2.index}__]
-                                                                        .operatingUnitDataList[__${itemstat3.index}__]
-                                                                        .id}" />
-                                                    </th:block>
-                                                    <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).SOUTHERN_LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).EASTERN_SAMAR_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TESDA_RO} ">
-                                                        <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                   th:field="*{gassData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .operatingUnitDataList[__${itemstat3.index}__]
-                                                               .target}" required/></td>
-                                                        <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                   th:field="*{gassData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .operatingUnitDataList[__${itemstat3.index}__]
-                                                               .output}" required/></td>
-                                                        <input type="hidden" th:field="*{gassData[__${itemstat.index}__]
-                                                                        .successIndicatorDataList[__${itemstat2.index}__]
-                                                                        .operatingUnitDataList[__${itemstat3.index}__]
-                                                                        .id}" />
-                                                    </th:block>
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
+                                                                                   th:field="*{gassData[__${itemstat.index}__]
+                                                           .successIndicatorDataList[__${itemstat2.index}__]
+                                                           .operatingUnitDataList[__${itemstat3.index}__]
+                                                           .target}" required/></td>
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
+                                                                                   th:field="*{gassData[__${itemstat.index}__]
+                                                           .successIndicatorDataList[__${itemstat2.index}__]
+                                                           .operatingUnitDataList[__${itemstat3.index}__]
+                                                           .output}" required/></td>
+                                                    <input type="hidden" th:field="*{gassData[__${itemstat.index}__]
+                                                                    .successIndicatorDataList[__${itemstat2.index}__]
+                                                                    .operatingUnitDataList[__${itemstat3.index}__]
+                                                                    .id}" />
                                                 </th:block>
                                             </th:block>
                                         </tr>
