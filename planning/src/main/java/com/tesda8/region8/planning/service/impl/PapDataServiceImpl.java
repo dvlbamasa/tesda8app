@@ -8,6 +8,7 @@ import com.tesda8.region8.planning.model.entities.OperatingUnitData;
 import com.tesda8.region8.planning.model.entities.PapData;
 import com.tesda8.region8.planning.model.entities.SuccessIndicatorData;
 import com.tesda8.region8.planning.model.mapper.PlanningMapper;
+import com.tesda8.region8.planning.model.wrapper.PapDataWrapper;
 import com.tesda8.region8.planning.repository.OperatingUnitDataRepository;
 import com.tesda8.region8.planning.repository.PapDataRepository;
 import com.tesda8.region8.planning.repository.SuccessIndicatorDataRepository;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -87,6 +89,70 @@ public class PapDataServiceImpl implements PapDataService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public PapDataWrapper getAllPapDataWrapperByFilter(String measureFilter, String papNameFilter) {
+        List<PapData> papDataList = papDataRepository.findAll();
+        papDataList.forEach(
+                papData -> {
+                    papData.setSuccessIndicatorDataList(
+                            papData.getSuccessIndicatorDataList()
+                                    .stream()
+                                    .filter(successIndicatorData -> !successIndicatorData.getIsDeleted())
+                                    .filter(successIndicatorData -> successIndicatorData.getMeasures()
+                                            .toLowerCase()
+                                            .contains(Optional.ofNullable(measureFilter).orElse("")
+                                                    .toLowerCase().trim()))
+                                    .map(this::sortOperatingUnitData)
+                                    .collect(Collectors.toList())
+                    );
+                }
+        );
+
+        List<PapDataDto> papDataDtoList = papDataList
+                .stream()
+                .filter(papData -> papData.getSuccessIndicatorDataList().size() > 0)
+                .filter(papData -> !papData.getIsDeleted())
+                .filter(papData -> papData.getName()
+                        .toLowerCase()
+                        .contains(Optional.ofNullable(papNameFilter).orElse("")
+                                .toLowerCase().trim()))
+                .map(papData -> planningMapper.papDataToDto(papData))
+                .collect(Collectors.toList());
+
+
+        PapDataWrapper papDataWrapper = new PapDataWrapper();
+        papDataWrapper.setTesdppData(Lists.newArrayList());
+        papDataWrapper.setTesdrpData(Lists.newArrayList());
+        papDataWrapper.setTesdpData(Lists.newArrayList());
+        papDataWrapper.setStoData(Lists.newArrayList());
+        papDataWrapper.setGassData(Lists.newArrayList());
+
+        papDataDtoList.forEach(
+                papDataDto -> {
+                    switch (papDataDto.getPapGroupType()) {
+                        case TESDPP:
+                            papDataWrapper.getTesdppData().add(papDataDto);
+                            break;
+                        case TESDRP:
+                            papDataWrapper.getTesdrpData().add(papDataDto);
+                            break;
+                        case TESDP:
+                            papDataWrapper.getTesdpData().add(papDataDto);
+                            break;
+                        case GASS:
+                            papDataWrapper.getGassData().add(papDataDto);
+                            break;
+                        case STO:
+                            papDataWrapper.getStoData().add(papDataDto);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+        );
+        return papDataWrapper;
+    }
+
     private SuccessIndicatorData sortOperatingUnitData(SuccessIndicatorData successIndicatorData) {
         successIndicatorData.getOperatingUnitDataList().sort(Comparator.comparing(OperatingUnitData::getId));
         return successIndicatorData;
@@ -111,17 +177,14 @@ public class PapDataServiceImpl implements PapDataService {
                 }
         );
         //include only papdata with successindicators
-        List<PapData> finalPapDataList = papDataList
+        return papDataList
                 .stream()
+                .filter(papData -> !papData.getIsDeleted())
                 .filter(papData -> papData.getSuccessIndicatorDataList().size() > 0)
                 .filter(papData -> papData.getName()
                         .toLowerCase()
                         .contains(Optional.ofNullable(papName).orElse("")
                                 .toLowerCase().trim()))
-                .collect(Collectors.toList());
-        return finalPapDataList
-                .stream()
-                .filter(papData -> !papData.getIsDeleted())
                 .map(papData -> planningMapper.papDataToDto(papData))
                 .collect(Collectors.toList());
     }

@@ -223,33 +223,19 @@ public class PlanningController {
     }
 
     private void setModelInitialAtributes(Model model) {
-        PapDataWrapper papDataWrapper2 = new PapDataWrapper();
-        papDataWrapper2.setTesdppData(papDataService.getAllPapDataByPapGroupType(PapGroupType.TESDPP));
-        papDataWrapper2.setTesdrpData(papDataService.getAllPapDataByPapGroupType(PapGroupType.TESDRP));
-        papDataWrapper2.setTesdpData(papDataService.getAllPapDataByPapGroupType(PapGroupType.TESDP));
-        papDataWrapper2.setStoData(papDataService.getAllPapDataByPapGroupType(PapGroupType.STO));
-        papDataWrapper2.setGassData(papDataService.getAllPapDataByPapGroupType(PapGroupType.GASS));
+        PapDataWrapper papDataWrapper = papDataService.getAllPapDataWrapperByFilter("", "");
+
         model.addAttribute("papFilter", new PapDataFilterRequest());
         model.addAttribute("papNameValue", "");
         model.addAttribute("successIndicatorMeasureValue", "");
-        model.addAttribute("papData", papDataWrapper2);
+        model.addAttribute("papData", papDataWrapper);
     }
 
     private void setModelAttributesWithFilter(PapDataFilterRequest papDataFilterRequest, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             //errors processing
         }
-        PapDataWrapper papDataWrapper = new PapDataWrapper();
-        papDataWrapper.setTesdppData(papDataService.getAllPapDataByPapGroupTypeAndMeasureAndPapName(PapGroupType.TESDPP,
-                papDataFilterRequest.getSuccessIndicatorMeasure(), papDataFilterRequest.getPapName()));
-        papDataWrapper.setTesdrpData(papDataService.getAllPapDataByPapGroupTypeAndMeasureAndPapName(PapGroupType.TESDRP,
-                papDataFilterRequest.getSuccessIndicatorMeasure(), papDataFilterRequest.getPapName()));
-        papDataWrapper.setTesdpData(papDataService.getAllPapDataByPapGroupTypeAndMeasureAndPapName(PapGroupType.TESDP,
-                papDataFilterRequest.getSuccessIndicatorMeasure(), papDataFilterRequest.getPapName()));
-        papDataWrapper.setStoData(papDataService.getAllPapDataByPapGroupTypeAndMeasureAndPapName(PapGroupType.STO,
-                papDataFilterRequest.getSuccessIndicatorMeasure(), papDataFilterRequest.getPapName()));
-        papDataWrapper.setGassData(papDataService.getAllPapDataByPapGroupTypeAndMeasureAndPapName(PapGroupType.GASS,
-                papDataFilterRequest.getSuccessIndicatorMeasure(), papDataFilterRequest.getPapName()));
+        PapDataWrapper papDataWrapper = papDataService.getAllPapDataWrapperByFilter(papDataFilterRequest.getSuccessIndicatorMeasure(), papDataFilterRequest.getPapName());
 
         model.addAttribute("papFilter", new PapDataFilterRequest());
         model.addAttribute("papNameValue", papDataFilterRequest.getPapName());

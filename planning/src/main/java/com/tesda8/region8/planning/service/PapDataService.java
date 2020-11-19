@@ -2,6 +2,7 @@ package com.tesda8.region8.planning.service;
 
 import com.tesda8.region8.planning.model.dto.PapDataDto;
 import com.tesda8.region8.planning.model.dto.SuccessIndicatorDataDto;
+import com.tesda8.region8.planning.model.wrapper.PapDataWrapper;
 import com.tesda8.region8.util.enums.PapGroupType;
 
 import java.util.List;
@@ -11,6 +12,8 @@ public interface PapDataService {
     List<PapDataDto> getAllPapData();
 
     List<PapDataDto> getAllPapDataByPapGroupType(PapGroupType papGroupType);
+
+    PapDataWrapper getAllPapDataWrapperByFilter(String measureFilter, String papName);
 
     List<PapDataDto> getAllPapDataByPapGroupTypeAndMeasureAndPapName(PapGroupType papGroupType, String measureFilter, String papName);
 
