@@ -237,5 +237,5 @@ $("#downloadGraphButton").click(function(){
 
             pdf.save("TESDA-Monthly-Comparative-Reports.pdf");
         });
-    }, 1000);
+    }, 3000);
 });

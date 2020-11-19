@@ -139,6 +139,6 @@ $("#downloadGraphButton").click(function(){
 
             pdf.save("TESDA-" + papGroupTypeLabel + " Graphs.pdf");
         });
-    }, 1000);
+    }, 3000);
 
 });

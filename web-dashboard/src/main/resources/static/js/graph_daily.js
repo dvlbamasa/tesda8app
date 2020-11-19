@@ -200,5 +200,5 @@ $("#downloadGraphButton").click(function(){
 
             pdf.save("TESDA-Daily-Accomplishment-Reports.pdf");
         });
-    }, 1000);
+    }, 3000);
 });
