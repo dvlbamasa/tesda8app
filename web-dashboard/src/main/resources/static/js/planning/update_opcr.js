@@ -1,4 +1,5 @@
 window.onload = function () {
+    document.getElementById('submitButton1').disabled=false;
     $("#submitButton1").click(function(event) {
         if($('#tesdppForm').valid()) {
             event.preventDefault();
