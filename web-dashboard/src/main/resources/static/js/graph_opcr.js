@@ -100,6 +100,7 @@ function generateGraph(urlTarget, chartName, title, legend1, legend2) {
 
 
 $("#downloadGraphButton").click(function(){
+    swal("Exporting Data as PDF.", "Your report is being downloaded in a moment.", "success");
     var HTML_Width = $(".canvas_div_pdf").width();
     var HTML_Height = $(".canvas_div_pdf").height();
     var top_left_margin = 15;
@@ -138,6 +139,6 @@ $("#downloadGraphButton").click(function(){
 
             pdf.save("TESDA-" + papGroupTypeLabel + " Graphs.pdf");
         });
-    }, 2000);
+    }, 1000);
 
 });

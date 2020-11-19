@@ -303,3 +303,10 @@ label.error {
     color: red;
     display: block;
 }
+
+.navDropdown:hover .dropdown-menu{
+    display: block;
+}
+.dropdown-menu{
+    margin-top: 0;
+}

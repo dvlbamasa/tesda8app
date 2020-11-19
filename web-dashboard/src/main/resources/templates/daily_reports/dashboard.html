@@ -37,38 +37,39 @@
         </div>
         <div class="container canvas_div_pdf" id="graphContainer">
             <div class="row">
-                <div id="poEnrolledGraph" class="mb-5 mt-5" style="height: 320px; width: 100%;"></div>
-                <div id="poGraduatedGraph" class="mb-5 mt-5" style="height: 320px; width: 100%;"></div>
-                <div id="poAssessedGraph" class="mb-5 mt-5" style="height: 320px; width: 100%;"></div>
-                <div id="poCertifiedGraph" class="mb-5 mt-5" style="height: 340px; width: 100%;"></div>
-                <div id="certificationRateGraph" class="mb-5 mt-5" style="height: 320px; width: 100%;"></div>
-                <div id="roEnrolledT2Graph" class="mb-5 mt-5" style="height: 320px; width: 100%;"></div>
-                <div id="roEnrolledGSGraph" class="mb-5 mt-5" style="height: 320px; width: 100%;"></div>
-                <div id="roGraduatedT2Graph" class="mb-5 mt-5" style="height: 340px; width: 100%;"></div>
-                <div id="roGraduatedGSGraph" class="mb-5 mt-5" style="height: 320px; width: 100%;"></div>
-                <div id="institutionEnrolledGraph" class="mb-5 mt-5" style="height: 320px; width: 100%;"></div>
-                <div id="institutionGraduatedGraph" class="mb-5 mt-5" style="height: 320px; width: 100%;"></div>
-                <div id="enterpriseEnrolledT2Graph" class="mb-5 mt-5" style="height: 360px; width: 100%;"></div>
-                <div id="enterpriseEnrolledGSGraph" class="mb-5 mt-5" style="height: 320px; width: 100%;"></div>
-                <div id="enterpriseGraduatedT2Graph" class="mb-5 mt-5" style="height: 320px; width: 100%;"></div>
-                <div id="enterpriseGraduatedGSGraph" class="mb-5 mt-5" style="height: 320px; width: 100%;"></div>
-                <div id="communityEnrolledGraph" class="mb-5 mt-5" style="height: 360px; width: 100%;"></div>
-                <div id="communityGraduatedGraph" class="mb-5 mt-5" style="height: 320px; width: 100%;"></div>
-                <div id="ttiEnrolledGraph" class="mb-5 mt-5" style="height: 320px; width: 100%;"></div>
-                <div id="ttiGraduatedGraph" class="mb-5 mt-5" style="height: 320px; width: 100%;"></div>
-                <div id="ttiAssessedGraph" class="mb-5 mt-5" style="height: 360px; width: 100%;"></div>
-                <div id="ttiCertifiedGraph" class="mb-5 mt-5" style="height: 320px; width: 100%;"></div>
+                <div id="poEnrolledGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+                <div id="poGraduatedGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+                <div id="poAssessedGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+                <div id="poCertifiedGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+                <div id="certificationRateGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+                <div id="roEnrolledT2Graph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+                <div id="roEnrolledGSGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+                <div id="roGraduatedT2Graph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+                <div id="roGraduatedGSGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+                <div id="institutionEnrolledGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+                <div id="institutionGraduatedGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+                <div id="enterpriseEnrolledT2Graph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+                <div id="enterpriseEnrolledGSGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+                <div id="enterpriseGraduatedT2Graph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+                <div id="enterpriseGraduatedGSGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+                <div id="communityEnrolledGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+                <div id="communityGraduatedGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+                <div id="ttiEnrolledGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+                <div id="ttiGraduatedGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+                <div id="ttiAssessedGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+                <div id="ttiCertifiedGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
             </div>
         </div>
     </div>
 </div>
 <!-- /.container -->
 
-<script type='text/javascript' src="../../static/js/graph_daily.js" th:src="@{js/graph_daily.js}"></script>
+<script type='text/javascript' src="../../static/js/graph_daily.js" th:src="@{/js/graph_daily.js}"></script>
 
 
 
 <div th:replace="fragments/footer :: footer"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
 </body>
 </html>

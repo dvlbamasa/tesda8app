@@ -1,4 +1,6 @@
 function exportTableToExcel(tableID, filename = ''){
+    $('table').stickyTableHeaders('destroy');
+
     var downloadLink;
     var dataType = 'application/vnd.ms-excel';
     var tableSelect = document.getElementById(tableID);
@@ -27,4 +29,6 @@ function exportTableToExcel(tableID, filename = ''){
         //triggering the function
         downloadLink.click();
     }
+
+    $('table').stickyTableHeaders({fixedOffset: $('.page-header')});
 }
