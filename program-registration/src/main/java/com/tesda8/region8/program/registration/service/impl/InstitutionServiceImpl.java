@@ -10,6 +10,7 @@ import com.tesda8.region8.program.registration.model.dto.RegisteredProgramFilter
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramRequestDto;
 import com.tesda8.region8.program.registration.model.entities.Institution;
 import com.tesda8.region8.program.registration.model.entities.QInstitution;
+import com.tesda8.region8.program.registration.model.entities.QRegisteredProgram;
 import com.tesda8.region8.program.registration.model.entities.RegisteredProgram;
 import com.tesda8.region8.program.registration.model.mapper.ProgramRegistrationMapper;
 import com.tesda8.region8.program.registration.model.wrapper.CourseCount;
@@ -224,7 +225,7 @@ public class InstitutionServiceImpl implements InstitutionService {
         Arrays.asList(registeredProgramFilter.getOperatingUnitType())
                 .forEach(operatingUnitType -> {
                     if (!operatingUnitType.equals(OperatingUnitType.TOTAL)) {
-                        operatingUnitTypePredicate.or(QInstitution.institution.operatingUnitType.eq(operatingUnitType));
+                        operatingUnitTypePredicate.or(QRegisteredProgram.registeredProgram.institution.operatingUnitType.eq(operatingUnitType));
                     }
                 });
 
@@ -233,7 +234,7 @@ public class InstitutionServiceImpl implements InstitutionService {
         Arrays.asList(registeredProgramFilter.getInstitutionClassification())
                 .forEach(institutionClassification -> {
                     if (!institutionClassification.equals(InstitutionClassification.ALL)) {
-                        institutionClassificationPredicate.or(QInstitution.institution.institutionClassification.eq(institutionClassification));
+                        institutionClassificationPredicate.or(QRegisteredProgram.registeredProgram.institution.institutionClassification.eq(institutionClassification));
                     }
                 });
 
@@ -242,77 +243,48 @@ public class InstitutionServiceImpl implements InstitutionService {
         Arrays.asList(registeredProgramFilter.getInstitutionIds())
                 .forEach(id -> {
                     if (id != 0) {
-                        institutionsPredicate.or(QInstitution.institution.id.eq(id));
+                        institutionsPredicate.or(QRegisteredProgram.registeredProgram.institution.id.eq(id));
                     }
                 });
 
         booleanBuilder.and(institutionsPredicate);
-        booleanBuilder.and(QInstitution.institution.isDeleted.eq(false));
+        booleanBuilder.and(QRegisteredProgram.registeredProgram.institution.isDeleted.eq(false));
 
-        Predicate predicate = booleanBuilder.getValue();
+        booleanBuilder.and(QRegisteredProgram.registeredProgram.isDeleted.eq(false));
+        booleanBuilder.and(QRegisteredProgram.registeredProgram.isClosed.eq(registeredProgramFilter.getIsClosed()));
 
-        List<Institution> institutions = (List<Institution>) institutionRepository.findAll(predicate);
-        List<InstitutionDto> institutionDtos = institutions.stream()
-                .map(institution -> programRegistrationMapper.institutionToDto(institution))
-                .collect(Collectors.toList());
+        if (registeredProgramFilter.getCourseStatus() != CourseStatus.ALL) {
+            booleanBuilder.and(QRegisteredProgram.registeredProgram.courseStatus.eq(registeredProgramFilter.getCourseStatus()));
+        }
 
-        institutionDtos.forEach(
-                institutionDto -> {
-                    institutionDto.setRegisteredPrograms(
-                            institutionDto.getRegisteredPrograms()
-                                    .stream()
-                                    .filter(programDto -> !programDto.getIsDeleted())
-                                    .filter(programDto -> registeredProgramFilter.getSector().equals(Sector.ALL) || programDto.getSector().equals(registeredProgramFilter.getSector()))
-                                    .filter(programDto -> programDto.getProgramRegistrationNumber().toLowerCase().trim().contains(registeredProgramFilter.getRegisteredProgramNumber().toLowerCase().trim()))
-                                    .filter(programDto -> programDto.getName().toLowerCase().trim().contains(registeredProgramFilter.getCourseName().toLowerCase()))
-                                    .filter(programDto -> registeredProgramFilter.getCourseStatus().equals(CourseStatus.ALL) || programDto.getCourseStatus().equals(registeredProgramFilter.getCourseStatus()))
-                                    .filter(programDto -> programDto.getIsClosed().equals(registeredProgramFilter.getIsClosed()))
-                                    .collect(Collectors.toList())
-                    );
-                }
-        );
+        if (registeredProgramFilter.getSector() != Sector.ALL) {
+            booleanBuilder.and(QRegisteredProgram.registeredProgram.sector.eq(registeredProgramFilter.getSector()));
+        }
+
+        booleanBuilder.and(QRegisteredProgram.registeredProgram.name.toLowerCase().trim()
+                .containsIgnoreCase(registeredProgramFilter.getCourseName().trim()));
+        booleanBuilder.and(QRegisteredProgram.registeredProgram.programRegistrationNumber.toLowerCase().trim()
+                .containsIgnoreCase(registeredProgramFilter.getRegisteredProgramNumber().trim()));
+
 
         if (registeredProgramFilter.getDateIssuedFrom() != null) {
-            institutionDtos.forEach(
-                    institutionDto -> {
-                        institutionDto.setRegisteredPrograms(
-                                institutionDto.getRegisteredPrograms()
-                                        .stream()
-                                        .filter(programDto -> programDto.getDateIssued().isEqual(convertToLocalDateTimeViaInstant(registeredProgramFilter.getDateIssuedFrom())) ||
-                                                              programDto.getDateIssued().isAfter(convertToLocalDateTimeViaInstant(registeredProgramFilter.getDateIssuedFrom())))
-                                        .collect(Collectors.toList())
-                        );
-                    }
-            );
+            booleanBuilder.and(QRegisteredProgram.registeredProgram.dateIssued
+                    .goe(convertToLocalDateTimeViaInstant(registeredProgramFilter.getDateIssuedFrom())));
         }
 
         if (registeredProgramFilter.getDateIssuedTo() != null) {
-            institutionDtos.forEach(
-                    institutionDto -> {
-                        institutionDto.setRegisteredPrograms(
-                                institutionDto.getRegisteredPrograms()
-                                        .stream()
-                                        .filter(programDto -> programDto.getDateIssued().isEqual(convertToLocalDateTimeViaInstant(registeredProgramFilter.getDateIssuedTo())) ||
-                                                              programDto.getDateIssued().isBefore(convertToLocalDateTimeViaInstant(registeredProgramFilter.getDateIssuedTo())))
-                                        .collect(Collectors.toList())
-                        );
-                    }
-            );
+            booleanBuilder.and(QRegisteredProgram.registeredProgram.dateIssued
+                    .loe(convertToLocalDateTimeViaInstant(registeredProgramFilter.getDateIssuedTo())));
         }
-        List<RegisteredProgramDto> registeredProgramDtoList = Lists.newArrayList();
 
-        institutionDtos.forEach(
-                institutionDto -> {
-                    institutionDto.getRegisteredPrograms().forEach(
-                            registeredProgramDto -> {
-                                registeredProgramDto.setInstitutionName(institutionDto.getName());
-                                registeredProgramDto.setInstitutionClassification(institutionDto.getInstitutionClassification().label);
-                                registeredProgramDto.setOperatingUnit(institutionDto.getOperatingUnitType().label);
-                                registeredProgramDtoList.add(registeredProgramDto);
-                            }
-                    );
-                }
-        );
+        Predicate predicate = booleanBuilder.getValue();
+
+        List<RegisteredProgram> registeredProgramList = (List<RegisteredProgram>) registeredProgramRepository.findAll(predicate);
+
+
+        List<RegisteredProgramDto> registeredProgramDtoList = registeredProgramList.stream()
+                .map(registeredProgram -> programRegistrationMapper.registeredProgramToDto(registeredProgram))
+                .collect(Collectors.toList());
 
         return sortRegisteredPrograms(registeredProgramDtoList, registeredProgramFilter.getSortOrder());
     }

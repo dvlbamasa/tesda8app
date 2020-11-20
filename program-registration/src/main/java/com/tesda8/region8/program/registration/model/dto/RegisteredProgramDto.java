@@ -1,6 +1,8 @@
 package com.tesda8.region8.program.registration.model.dto;
 
 import com.tesda8.region8.util.enums.CourseStatus;
+import com.tesda8.region8.util.enums.InstitutionClassification;
+import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.Sector;
 import lombok.Data;
 
@@ -10,9 +12,9 @@ import java.time.LocalDateTime;
 public class RegisteredProgramDto {
 
     private long id;
-    private String operatingUnit;
+    private OperatingUnitType operatingUnit;
     private String institutionName;
-    private String institutionClassification;
+    private InstitutionClassification institutionClassification;
     private String name;
     private int duration;
     private String programRegistrationNumber;

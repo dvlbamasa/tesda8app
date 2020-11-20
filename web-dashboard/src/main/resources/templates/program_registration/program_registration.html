@@ -226,9 +226,9 @@
                         <tbody>
                             <th:block th:each="registeredProgram : ${registeredPrograms}">
                                 <tr>
-                                    <td scope="row" th:class="${registeredProgram.isClosed} ? closed-col : ''"><span th:text="${registeredProgram.operatingUnit}"></span></td>
+                                    <td scope="row" th:class="${registeredProgram.isClosed} ? closed-col : ''"><span th:text="${registeredProgram.operatingUnit.label}"></span></td>
                                     <td th:class="${registeredProgram.isClosed} ? closed-col : ''"><span th:text="${registeredProgram.institutionName}"></span></td>
-                                    <td th:class="${registeredProgram.isClosed} ? closed-col : ''"><span th:text="${registeredProgram.institutionClassification}"></span></td>
+                                    <td th:class="${registeredProgram.isClosed} ? closed-col : ''"><span th:text="${registeredProgram.institutionClassification.label}"></span></td>
                                     <td th:class="${registeredProgram.isClosed} ? closed-col : ''"><span th:text="${registeredProgram.name}"></span></td>
                                     <td th:class="${registeredProgram.isClosed} ? closed-col : ''"><span th:text="${registeredProgram.sector.label}"></span></td>
                                     <td th:class="${registeredProgram.isClosed} ? closed-col : ''"><span th:text="${registeredProgram.duration} + ' hours'"></span></td>
