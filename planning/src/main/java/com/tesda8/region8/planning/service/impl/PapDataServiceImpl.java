@@ -8,7 +8,7 @@ import com.tesda8.region8.planning.model.dto.PapDataDto;
 import com.tesda8.region8.planning.model.dto.SuccessIndicatorDataDto;
 import com.tesda8.region8.planning.model.entities.OperatingUnitData;
 import com.tesda8.region8.planning.model.entities.PapData;
-import com.tesda8.region8.planning.model.entities.QPapData;
+import com.tesda8.region8.planning.model.entities.QSuccessIndicatorData;
 import com.tesda8.region8.planning.model.entities.SuccessIndicatorData;
 import com.tesda8.region8.planning.model.mapper.PlanningMapper;
 import com.tesda8.region8.planning.model.wrapper.PapDataWrapper;
@@ -26,7 +26,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -95,36 +94,24 @@ public class PapDataServiceImpl implements PapDataService {
     public PapDataWrapper getAllPapDataWrapperByFilter(String measureFilter, String papNameFilter) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
-        booleanBuilder.and(QPapData.papData.name.toLowerCase().trim()
-                .contains(Optional.of(papNameFilter.toLowerCase().trim()).orElse("")));
+        booleanBuilder.and(QSuccessIndicatorData.successIndicatorData.papData.name.toLowerCase().trim()
+                .containsIgnoreCase(Optional.of(papNameFilter.trim()).orElse("")));
 
-        booleanBuilder.and(QPapData.papData.isDeleted.eq(false));
+        booleanBuilder.and(QSuccessIndicatorData.successIndicatorData.papData.isDeleted.eq(false));
 
-        booleanBuilder.and(QPapData.papData.successIndicatorDataList.size().gt(0));
+        booleanBuilder.and(QSuccessIndicatorData.successIndicatorData.isDeleted.eq(false));
+
+        booleanBuilder.and(QSuccessIndicatorData.successIndicatorData.measures.containsIgnoreCase(
+                Optional.of(measureFilter.trim()).orElse("")));
 
         Predicate predicate = booleanBuilder.getValue();
 
-        List<PapData> papDataList = (List<PapData>) papDataRepository.findAll(predicate);
+        List<SuccessIndicatorData> successIndicatorDataList =
+                (List<SuccessIndicatorData>) successIndicatorDataRepository.findAll(predicate);
 
-        papDataList.forEach(
-                papData -> {
-                    papData.setSuccessIndicatorDataList(
-                            papData.getSuccessIndicatorDataList()
-                                    .stream()
-                                    .filter(successIndicatorData -> !successIndicatorData.getIsDeleted())
-                                    .filter(successIndicatorData -> successIndicatorData.getMeasures()
-                                            .toLowerCase()
-                                            .contains(Optional.ofNullable(measureFilter).orElse("")
-                                                    .toLowerCase().trim()))
-                                    .map(this::sortOperatingUnitData)
-                                    .collect(Collectors.toList())
-                    );
-                }
-        );
-
-        List<PapDataDto> papDataDtoList = papDataList
-                .stream()
-                .map(papData -> planningMapper.papDataToDto(papData))
+        List<SuccessIndicatorDataDto> successIndicatorDataDtoList = successIndicatorDataList.stream()
+                .map(this::sortOperatingUnitData)
+                .map(successIndicatorData -> planningMapper.successIndicatorToDto(successIndicatorData))
                 .collect(Collectors.toList());
 
         PapDataWrapper papDataWrapper = new PapDataWrapper();
@@ -134,23 +121,23 @@ public class PapDataServiceImpl implements PapDataService {
         papDataWrapper.setStoData(Lists.newArrayList());
         papDataWrapper.setGassData(Lists.newArrayList());
 
-        papDataDtoList.forEach(
-                papDataDto -> {
-                    switch (papDataDto.getPapGroupType()) {
+        successIndicatorDataDtoList.forEach(
+                successIndicatorDataDto -> {
+                    switch (successIndicatorDataDto.getPapGroupType()) {
                         case TESDPP:
-                            papDataWrapper.getTesdppData().add(papDataDto);
+                            papDataWrapper.getTesdppData().add(successIndicatorDataDto);
                             break;
                         case TESDRP:
-                            papDataWrapper.getTesdrpData().add(papDataDto);
+                            papDataWrapper.getTesdrpData().add(successIndicatorDataDto);
                             break;
                         case TESDP:
-                            papDataWrapper.getTesdpData().add(papDataDto);
+                            papDataWrapper.getTesdpData().add(successIndicatorDataDto);
                             break;
                         case GASS:
-                            papDataWrapper.getGassData().add(papDataDto);
+                            papDataWrapper.getGassData().add(successIndicatorDataDto);
                             break;
                         case STO:
-                            papDataWrapper.getStoData().add(papDataDto);
+                            papDataWrapper.getStoData().add(successIndicatorDataDto);
                             break;
                         default:
                             break;
@@ -199,69 +186,61 @@ public class PapDataServiceImpl implements PapDataService {
     @Override
     public SuccessIndicatorDataDto getSuccessIndicatorData(Long id) {
         SuccessIndicatorData successIndicatorData = successIndicatorDataRepository.getOne(id);
-        successIndicatorData = sortOperatingUnitData(successIndicatorData);
+        sortOperatingUnitData(successIndicatorData);
         return planningMapper.successIndicatorToDto(successIndicatorData);
     }
 
     @Override
-    public void updatePapData(List<PapDataDto> papDataDtoList) {
-        papDataDtoList.forEach(
-                papDataDto -> {
-                    papDataDto.getSuccessIndicatorDataList().forEach(
-                            successIndicatorDataDto -> {
-                                // total initialize
-                                OperatingUnitDataDto total = new OperatingUnitDataDto();
-                                SuccessIndicatorData successIndicatorData = successIndicatorDataRepository.getOne(successIndicatorDataDto.getId());
-                                total.setTarget(successIndicatorData.getTarget());
-                                total.setOutput(0);
+    public void updatePapData(List<SuccessIndicatorDataDto> successIndicatorDataDtoList) {
+        successIndicatorDataDtoList.forEach(
+                successIndicatorDataDto -> {
+                    // total initialize
+                    OperatingUnitDataDto total = new OperatingUnitDataDto();
+                    SuccessIndicatorData successIndicatorData = successIndicatorDataRepository.getOne(successIndicatorDataDto.getId());
+                    total.setTarget(successIndicatorData.getTarget());
+                    total.setOutput(0);
 
-                                OperatingUnitData oldTotal = successIndicatorData.getOperatingUnitDataList()
-                                        .stream()
-                                        .filter(operatingUnitData -> operatingUnitData.getOperatingUnitType().equals(OperatingUnitPOType.TOTAL))
-                                        .findAny().get();
+                    OperatingUnitData oldTotal = successIndicatorData.getOperatingUnitDataList()
+                            .stream()
+                            .filter(operatingUnitData -> operatingUnitData.getOperatingUnitType().equals(OperatingUnitPOType.TOTAL))
+                            .findAny().get();
 
-                                successIndicatorDataDto.getOperatingUnitDataList().forEach(
-                                        operatingUnitDataDto -> {
-                                            OperatingUnitData operatingUnitData1 =
-                                                    operatingUnitDataRepository.getOne(operatingUnitDataDto.getId());
-                                            setValues(operatingUnitData1, operatingUnitDataDto);
-                                            operatingUnitDataRepository.save(operatingUnitData1);
-                                            calculateTotal(total, operatingUnitDataDto);
-                                        }
-                                );
-
-                                if (!successIndicatorData.getIsAccumulated()) {
-                                    total.setOutput(total.getOutput()/7);
-                                }
-                                total.setRate(ReportUtil.calculateRate(total.getTarget(), total.getOutput()));
-                                setValues(oldTotal, total);
-                                operatingUnitDataRepository.save(oldTotal);
-                             }
+                    successIndicatorDataDto.getOperatingUnitDataList().forEach(
+                            operatingUnitDataDto -> {
+                                OperatingUnitData operatingUnitData1 =
+                                        operatingUnitDataRepository.getOne(operatingUnitDataDto.getId());
+                                setValues(operatingUnitData1, operatingUnitDataDto);
+                                operatingUnitDataRepository.save(operatingUnitData1);
+                                calculateTotal(total, operatingUnitDataDto);
+                            }
                     );
-                }
+
+                    if (!successIndicatorData.getIsAccumulated()) {
+                        total.setOutput(total.getOutput()/7);
+                    }
+                    total.setRate(ReportUtil.calculateRate(total.getTarget(), total.getOutput()));
+                    setValues(oldTotal, total);
+                    operatingUnitDataRepository.save(oldTotal);
+                 }
         );
     }
 
     @Override
     @Transactional
-    public void updateSuccessIndicators(List<PapDataDto> papDataDtoList) {
-        papDataDtoList.forEach(
-                papDataDto -> {
-                    papDataDto.getSuccessIndicatorDataList().forEach(
-                            successIndicatorDataDto -> {
-                                SuccessIndicatorData successIndicatorData =
-                                        successIndicatorDataRepository.getOne(successIndicatorDataDto.getId());
-                                setValues(successIndicatorData, successIndicatorDataDto);
-                                successIndicatorDataRepository.save(successIndicatorData);
-                                OperatingUnitData oldTotal = successIndicatorData.getOperatingUnitDataList()
-                                        .stream()
-                                        .filter(operatingUnitData -> operatingUnitData.getOperatingUnitType().equals(OperatingUnitPOType.TOTAL))
-                                        .findAny().get();
-                                oldTotal.setTarget((long) successIndicatorDataDto.getTarget());
-                                oldTotal.setRate(ReportUtil.calculateRate(oldTotal.getTarget(), oldTotal.getOutput()));
-                                operatingUnitDataRepository.save(oldTotal);
-                            }
-                    );
+    public void updateSuccessIndicators(List<SuccessIndicatorDataDto> successIndicatorDataDtoList) {
+        successIndicatorDataDtoList.forEach(
+                successIndicatorDataDto -> {
+                    SuccessIndicatorData successIndicatorData =
+                            successIndicatorDataRepository.getOne(successIndicatorDataDto.getId());
+                    setValues(successIndicatorData, successIndicatorDataDto);
+                    successIndicatorDataRepository.save(successIndicatorData);
+                    OperatingUnitData oldTotal = successIndicatorData.getOperatingUnitDataList()
+                            .stream()
+                            .filter(operatingUnitData -> operatingUnitData.getOperatingUnitType().equals(OperatingUnitPOType.TOTAL))
+                            .findAny().get();
+                    oldTotal.setTarget((long) successIndicatorDataDto.getTarget());
+                    oldTotal.setRate(ReportUtil.calculateRate(oldTotal.getTarget(), oldTotal.getOutput()));
+                    operatingUnitDataRepository.save(oldTotal);
                 }
         );
     }

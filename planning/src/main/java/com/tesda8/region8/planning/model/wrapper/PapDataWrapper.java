@@ -1,6 +1,6 @@
 package com.tesda8.region8.planning.model.wrapper;
 
-import com.tesda8.region8.planning.model.dto.PapDataDto;
+import com.tesda8.region8.planning.model.dto.SuccessIndicatorDataDto;
 import lombok.Data;
 
 import java.util.List;
@@ -8,9 +8,9 @@ import java.util.List;
 @Data
 public class PapDataWrapper {
 
-    private List<PapDataDto> tesdppData;
-    private List<PapDataDto> tesdrpData;
-    private List<PapDataDto> tesdpData;
-    private List<PapDataDto> stoData;
-    private List<PapDataDto> gassData;
+    private List<SuccessIndicatorDataDto> tesdppData;
+    private List<SuccessIndicatorDataDto> tesdrpData;
+    private List<SuccessIndicatorDataDto> tesdpData;
+    private List<SuccessIndicatorDataDto> stoData;
+    private List<SuccessIndicatorDataDto> gassData;
 }

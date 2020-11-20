@@ -113,39 +113,37 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <th:block th:each="pap, itemstat : *{tesdppData}">
-                                        <th:block th:each="successIndicator : ${pap.successIndicatorDataList}">
-                                            <tr>
-                                                <td th:text="${pap.name}"></td>
-                                                <td>
-                                                    <span th:text="${successIndicator.target}"></span>
-                                                    <th:block th:if="${successIndicator.isPercentage}">
-                                                        <span>&#37;</span>
-                                                    </th:block>
-                                                </td>
-                                                <td th:text="${successIndicator.measures}"></td>
-                                                <th:block th:each="operatingUnitData : ${successIndicator.operatingUnitDataList}">
-                                                    <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                                        <th class="total-col"><span th:text="${operatingUnitData.target}"></span>
-                                                            <th:block th:if="${successIndicator.isPercentage}">
-                                                                <span>&#37;</span>
-                                                            </th:block>
-                                                        </th>
-                                                        <th class="total-col"><span th:text="${operatingUnitData.output}"></span>
-                                                            <th:block th:if="${successIndicator.isPercentage}">
-                                                                <span>&#37;</span>
-                                                            </th:block>
-                                                        </th>
-                                                        <th class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></th>
-                                                    </th:block>
-                                                    <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                                        <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
-                                                        <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
-                                                        <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                                    </th:block>
+                                    <th:block th:each="successIndicator, itemstat : *{tesdppData}">
+                                        <tr>
+                                            <td th:text="${successIndicator.papName}"></td>
+                                            <td>
+                                                <span th:text="${successIndicator.target}"></span>
+                                                <th:block th:if="${successIndicator.isPercentage}">
+                                                    <span>&#37;</span>
                                                 </th:block>
-                                            </tr>
-                                        </th:block>
+                                            </td>
+                                            <td th:text="${successIndicator.measures}"></td>
+                                            <th:block th:each="operatingUnitData : ${successIndicator.operatingUnitDataList}">
+                                                <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
+                                                    <th class="total-col"><span th:text="${operatingUnitData.target}"></span>
+                                                        <th:block th:if="${successIndicator.isPercentage}">
+                                                            <span>&#37;</span>
+                                                        </th:block>
+                                                    </th>
+                                                    <th class="total-col"><span th:text="${operatingUnitData.output}"></span>
+                                                        <th:block th:if="${successIndicator.isPercentage}">
+                                                            <span>&#37;</span>
+                                                        </th:block>
+                                                    </th>
+                                                    <th class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></th>
+                                                </th:block>
+                                                <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
+                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
+                                                </th:block>
+                                            </th:block>
+                                        </tr>
                                     </th:block>
                                 </tbody>
                             </table>
@@ -196,10 +194,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <th:block th:each="pap, itemstat : *{tesdrpData}">
-                                    <th:block th:each="successIndicator : ${pap.successIndicatorDataList}">
+                                    <th:block th:each="successIndicator, itemstat : *{tesdrpData}">
                                         <tr>
-                                            <td th:text="${pap.name}"></td>
+                                            <td th:text="${successIndicator.papName}"></td>
                                             <td>
                                                 <span th:text="${successIndicator.target}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
@@ -229,7 +226,6 @@
                                             </th:block>
                                         </tr>
                                     </th:block>
-                                </th:block>
                                 </tbody>
                             </table>
                         </div>
@@ -279,10 +275,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <th:block th:each="pap, itemstat : *{tesdpData}">
-                                    <th:block th:each="successIndicator : ${pap.successIndicatorDataList}">
+                                    <th:block th:each="successIndicator, itemstat : *{tesdpData}">
                                         <tr>
-                                            <td th:text="${pap.name}"></td>
+                                            <td th:text="${successIndicator.papName}"></td>
                                             <td>
                                                 <span th:text="${successIndicator.target}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
@@ -312,7 +307,6 @@
                                             </th:block>
                                         </tr>
                                     </th:block>
-                                </th:block>
                                 </tbody>
                             </table>
                         </div>
@@ -362,10 +356,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <th:block th:each="pap, itemstat : *{stoData}">
-                                    <th:block th:each="successIndicator : ${pap.successIndicatorDataList}">
+                                    <th:block th:each="successIndicator, itemstat : *{stoData}">
                                         <tr>
-                                            <td th:text="${pap.name}"></td>
+                                            <td th:text="${successIndicator.papName}"></td>
                                             <td>
                                                 <span th:text="${successIndicator.target}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
@@ -395,7 +388,6 @@
                                             </th:block>
                                         </tr>
                                     </th:block>
-                                </th:block>
                                 </tbody>
                             </table>
                         </div>
@@ -445,10 +437,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <th:block th:each="pap, itemstat : *{gassData}">
-                                    <th:block th:each="successIndicator : ${pap.successIndicatorDataList}">
+                                    <th:block th:each="successIndicator, itemstat : *{gassData}">
                                         <tr>
-                                            <td th:text="${pap.name}"></td>
+                                            <td th:text="${successIndicator.papName}"></td>
                                             <td>
                                                 <span th:text="${successIndicator.target}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
@@ -478,7 +469,6 @@
                                             </th:block>
                                         </tr>
                                     </th:block>
-                                </th:block>
                                 </tbody>
                             </table>
                         </div>

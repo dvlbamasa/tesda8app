@@ -43,7 +43,7 @@ public class PapDataRestController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/papData/update")
-    public void updatePapData(@RequestBody  List<PapDataDto> papDataDtoList) {
+    public void updatePapData(@RequestBody  List<SuccessIndicatorDataDto> papDataDtoList) {
         papDataService.updatePapData(papDataDtoList);
     }
 
@@ -53,8 +53,8 @@ public class PapDataRestController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/papData/successIndicator/update")
-    public void updateSuccessIndicator(@RequestBody List<PapDataDto> papDataDtoList) {
-        papDataService.updateSuccessIndicators(papDataDtoList);
+    public void updateSuccessIndicator(@RequestBody List<SuccessIndicatorDataDto> successIndicatorDataDtoList) {
+        papDataService.updateSuccessIndicators(successIndicatorDataDtoList);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/papData/create")

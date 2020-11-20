@@ -94,36 +94,21 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <th:block th:each="pap, itemstat : ${papData.tesdppData}">
-                                    <th:block th:each="successIndicator, itemstat2 : ${pap.successIndicatorDataList}">
-                                        <tr>
-                                            <th th:text="${pap.name}"></th>
-                                            <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                       th:field="*{tesdppData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .target}" required/></td>
-                                            <td><textarea  class="form-control"
-                                                       th:field="*{tesdppData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .measures}" required/></td>
-                                            <td><input type="checkbox"
-                                                       th:field="*{tesdppData[__${itemstat.index}__]
-                                                       .successIndicatorDataList[__${itemstat2.index}__]
-                                                       .isAccumulated}" /></td>
-                                            <td><input type="checkbox"
-                                                       th:field="*{tesdppData[__${itemstat.index}__]
-                                                       .successIndicatorDataList[__${itemstat2.index}__]
-                                                       .isPercentage}" /></td>
-                                            <td class="delete-col"><input type="checkbox"
-                                                       th:field="*{tesdppData[__${itemstat.index}__]
-                                                       .successIndicatorDataList[__${itemstat2.index}__]
-                                                       .isDeleted}" /></td>
-                                        </tr>
-                                        <input type="hidden" th:field="*{tesdppData[__${itemstat.index}__]
-                                                                        .successIndicatorDataList[__${itemstat2.index}__].id}" />
-                                    </th:block>
+                                <th:block th:each="successIndicator, itemstat : ${papData.tesdppData}">
+                                    <tr>
+                                        <th th:text="${successIndicator.papName}"></th>
+                                        <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
+                                                   th:field="*{tesdppData[__${itemstat.index}__].target}" required/></td>
+                                        <td><textarea  class="form-control"
+                                                       th:field="*{tesdppData[__${itemstat.index}__].measures}" required></textarea></td>
+                                        <td><input type="checkbox"
+                                                   th:field="*{tesdppData[__${itemstat.index}__].isAccumulated}" /></td>
+                                        <td><input type="checkbox"
+                                                   th:field="*{tesdppData[__${itemstat.index}__].isPercentage}" /></td>
+                                        <td class="delete-col"><input type="checkbox"
+                                                                      th:field="*{tesdppData[__${itemstat.index}__].isDeleted}" /></td>
+                                    </tr>
                                     <input type="hidden" th:field="*{tesdppData[__${itemstat.index}__].id}" />
-
                                 </th:block>
                                 </tbody>
                             </table>
@@ -155,37 +140,22 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <th:block th:each="pap, itemstat : ${papData.tesdrpData}">
-                                    <th:block th:each="successIndicator, itemstat2 : ${pap.successIndicatorDataList}">
+                                    <th:block th:each="successIndicator, itemstat : ${papData.tesdrpData}">
                                         <tr>
-                                            <th th:text="${pap.name}"></th>
+                                            <th th:text="${successIndicator.papName}"></th>
                                             <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                       th:field="*{tesdrpData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .target}" required/></td>
+                                                       th:field="*{tesdrpData[__${itemstat.index}__].target}" required/></td>
                                             <td><textarea  class="form-control"
-                                                           th:field="*{tesdrpData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .measures}" required/></td>
+                                                           th:field="*{tesdrpData[__${itemstat.index}__].measures}" required></textarea></td>
                                             <td><input type="checkbox"
-                                                       th:field="*{tesdrpData[__${itemstat.index}__]
-                                                       .successIndicatorDataList[__${itemstat2.index}__]
-                                                       .isAccumulated}" /></td>
+                                                       th:field="*{tesdrpData[__${itemstat.index}__].isAccumulated}" /></td>
                                             <td><input type="checkbox"
-                                                       th:field="*{tesdrpData[__${itemstat.index}__]
-                                                       .successIndicatorDataList[__${itemstat2.index}__]
-                                                       .isPercentage}" /></td>
+                                                       th:field="*{tesdrpData[__${itemstat.index}__].isPercentage}" /></td>
                                             <td class="delete-col"><input type="checkbox"
-                                                                          th:field="*{tesdrpData[__${itemstat.index}__]
-                                                       .successIndicatorDataList[__${itemstat2.index}__]
-                                                       .isDeleted}" /></td>
+                                                                          th:field="*{tesdrpData[__${itemstat.index}__].isDeleted}" /></td>
                                         </tr>
-                                        <input type="hidden" th:field="*{tesdrpData[__${itemstat.index}__]
-                                                                        .successIndicatorDataList[__${itemstat2.index}__].id}" />
+                                        <input type="hidden" th:field="*{tesdrpData[__${itemstat.index}__].id}" />
                                     </th:block>
-                                    <input type="hidden" th:field="*{tesdrpData[__${itemstat.index}__].id}" />
-
-                                </th:block>
                                 </tbody>
                             </table>
                         </div>
@@ -216,36 +186,21 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <th:block th:each="pap, itemstat : ${papData.tesdpData}">
-                                    <th:block th:each="successIndicator, itemstat2 : ${pap.successIndicatorDataList}">
-                                        <tr>
-                                            <th th:text="${pap.name}"></th>
-                                            <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                       th:field="*{tesdpData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .target}" required/></td>
-                                            <td><textarea  class="form-control"
-                                                           th:field="*{tesdpData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .measures}" required/></td>
-                                            <td><input type="checkbox"
-                                                       th:field="*{tesdpData[__${itemstat.index}__]
-                                                       .successIndicatorDataList[__${itemstat2.index}__]
-                                                       .isAccumulated}" /></td>
-                                            <td><input type="checkbox"
-                                                       th:field="*{tesdpData[__${itemstat.index}__]
-                                                       .successIndicatorDataList[__${itemstat2.index}__]
-                                                       .isPercentage}" /></td>
-                                            <td class="delete-col"><input type="checkbox"
-                                                                          th:field="*{tesdpData[__${itemstat.index}__]
-                                                       .successIndicatorDataList[__${itemstat2.index}__]
-                                                       .isDeleted}" /></td>
-                                        </tr>
-                                        <input type="hidden" th:field="*{tesdpData[__${itemstat.index}__]
-                                                                        .successIndicatorDataList[__${itemstat2.index}__].id}" />
-                                    </th:block>
+                                <th:block th:each="successIndicator, itemstat : ${papData.tesdpData}">
+                                    <tr>
+                                        <th th:text="${successIndicator.papName}"></th>
+                                        <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
+                                                   th:field="*{tesdpData[__${itemstat.index}__].target}" required/></td>
+                                        <td><textarea  class="form-control"
+                                                       th:field="*{tesdpData[__${itemstat.index}__].measures}" required></textarea></td>
+                                        <td><input type="checkbox"
+                                                   th:field="*{tesdpData[__${itemstat.index}__].isAccumulated}" /></td>
+                                        <td><input type="checkbox"
+                                                   th:field="*{tesdpData[__${itemstat.index}__].isPercentage}" /></td>
+                                        <td class="delete-col"><input type="checkbox"
+                                                                      th:field="*{tesdpData[__${itemstat.index}__].isDeleted}" /></td>
+                                    </tr>
                                     <input type="hidden" th:field="*{tesdpData[__${itemstat.index}__].id}" />
-
                                 </th:block>
                                 </tbody>
                             </table>
@@ -277,36 +232,21 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <th:block th:each="pap, itemstat : ${papData.stoData}">
-                                    <th:block th:each="successIndicator, itemstat2 : ${pap.successIndicatorDataList}">
-                                        <tr>
-                                            <th th:text="${pap.name}"></th>
-                                            <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                       th:field="*{stoData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .target}" required/></td>
-                                            <td><textarea  class="form-control"
-                                                           th:field="*{stoData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .measures}" required/></td>
-                                            <td><input type="checkbox"
-                                                       th:field="*{stoData[__${itemstat.index}__]
-                                                       .successIndicatorDataList[__${itemstat2.index}__]
-                                                       .isAccumulated}" /></td>
-                                            <td><input type="checkbox"
-                                                       th:field="*{stoData[__${itemstat.index}__]
-                                                       .successIndicatorDataList[__${itemstat2.index}__]
-                                                       .isPercentage}" /></td>
-                                            <td class="delete-col"><input type="checkbox"
-                                                                          th:field="*{stoData[__${itemstat.index}__]
-                                                       .successIndicatorDataList[__${itemstat2.index}__]
-                                                       .isDeleted}" /></td>
-                                        </tr>
-                                        <input type="hidden" th:field="*{stoData[__${itemstat.index}__]
-                                                                        .successIndicatorDataList[__${itemstat2.index}__].id}" />
-                                    </th:block>
+                                <th:block th:each="successIndicator, itemstat : ${papData.stoData}">
+                                    <tr>
+                                        <th th:text="${successIndicator.papName}"></th>
+                                        <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
+                                                   th:field="*{stoData[__${itemstat.index}__].target}" required/></td>
+                                        <td><textarea  class="form-control"
+                                                       th:field="*{stoData[__${itemstat.index}__].measures}" required></textarea></td>
+                                        <td><input type="checkbox"
+                                                   th:field="*{stoData[__${itemstat.index}__].isAccumulated}" /></td>
+                                        <td><input type="checkbox"
+                                                   th:field="*{stoData[__${itemstat.index}__].isPercentage}" /></td>
+                                        <td class="delete-col"><input type="checkbox"
+                                                                      th:field="*{stoData[__${itemstat.index}__].isDeleted}" /></td>
+                                    </tr>
                                     <input type="hidden" th:field="*{stoData[__${itemstat.index}__].id}" />
-
                                 </th:block>
                                 </tbody>
                             </table>
@@ -338,36 +278,21 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <th:block th:each="pap, itemstat : ${papData.gassData}">
-                                    <th:block th:each="successIndicator, itemstat2 : ${pap.successIndicatorDataList}">
-                                        <tr>
-                                            <th th:text="${pap.name}"></th>
-                                            <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                       th:field="*{gassData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .target}" required/></td>
-                                            <td><textarea  class="form-control"
-                                                           th:field="*{gassData[__${itemstat.index}__]
-                                                               .successIndicatorDataList[__${itemstat2.index}__]
-                                                               .measures}" required/></td>
-                                            <td><input type="checkbox"
-                                                       th:field="*{gassData[__${itemstat.index}__]
-                                                       .successIndicatorDataList[__${itemstat2.index}__]
-                                                       .isAccumulated}" /></td>
-                                            <td><input type="checkbox"
-                                                       th:field="*{gassData[__${itemstat.index}__]
-                                                       .successIndicatorDataList[__${itemstat2.index}__]
-                                                       .isPercentage}" /></td>
-                                            <td class="delete-col"><input type="checkbox"
-                                                                          th:field="*{gassData[__${itemstat.index}__]
-                                                       .successIndicatorDataList[__${itemstat2.index}__]
-                                                       .isDeleted}" /></td>
-                                        </tr>
-                                        <input type="hidden" th:field="*{gassData[__${itemstat.index}__]
-                                                                        .successIndicatorDataList[__${itemstat2.index}__].id}" />
-                                    </th:block>
+                                <th:block th:each="successIndicator, itemstat : ${papData.gassData}">
+                                    <tr>
+                                        <th th:text="${successIndicator.papName}"></th>
+                                        <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
+                                                   th:field="*{gassData[__${itemstat.index}__].target}" required/></td>
+                                        <td><textarea  class="form-control"
+                                                       th:field="*{gassData[__${itemstat.index}__].measures}" required></textarea></td>
+                                        <td><input type="checkbox"
+                                                   th:field="*{gassData[__${itemstat.index}__].isAccumulated}" /></td>
+                                        <td><input type="checkbox"
+                                                   th:field="*{gassData[__${itemstat.index}__].isPercentage}" /></td>
+                                        <td class="delete-col"><input type="checkbox"
+                                                                      th:field="*{gassData[__${itemstat.index}__].isDeleted}" /></td>
+                                    </tr>
                                     <input type="hidden" th:field="*{gassData[__${itemstat.index}__].id}" />
-
                                 </th:block>
                                 </tbody>
                             </table>

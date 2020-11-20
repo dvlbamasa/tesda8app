@@ -19,6 +19,8 @@ public interface PlanningMapper {
     OperatingUnitDataDto operatingUnitDataToDto(OperatingUnitData operatingUnitData);
 
     SuccessIndicatorData successIndicatorToEntity(SuccessIndicatorDataDto successIndicatorDataDto);
+    @Mapping(source = "successIndicatorData.papData.name", target = "papName")
+    @Mapping(source = "successIndicatorData.papData.papGroupType", target = "papGroupType")
     SuccessIndicatorDataDto successIndicatorToDto(SuccessIndicatorData successIndicatorData);
 
     PapData papDataToEntity(PapDataDto papDataDto);
