@@ -5,6 +5,7 @@ function exportTableToExcel(tableID, filename = ''){
     var dataType = 'application/vnd.ms-excel';
     var tableSelect = document.getElementById(tableID);
     var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+    tableHTML = tableHTML.replace(/#/g, '%23');
 
     // Specify file name
     filename = filename?filename+'.xls':'excel_data.xls';

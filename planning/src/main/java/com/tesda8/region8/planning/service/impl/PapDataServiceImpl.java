@@ -313,6 +313,7 @@ public class PapDataServiceImpl implements PapDataService {
     }
 
     @Override
+    @Transactional
     public void deletePapData(PapDataDto papDataDto) {
         PapData papData = papDataRepository.getOne(papDataDto.getId());
         papData.setIsDeleted(true);
