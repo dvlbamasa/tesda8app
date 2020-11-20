@@ -1,8 +1,13 @@
 package com.tesda8.region8.reports.model.entities;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity

@@ -6,7 +6,12 @@ import com.tesda8.region8.util.enums.ReportSourceType;
 import com.tesda8.region8.util.model.Auditable;
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
 
 @Entity
 @Data

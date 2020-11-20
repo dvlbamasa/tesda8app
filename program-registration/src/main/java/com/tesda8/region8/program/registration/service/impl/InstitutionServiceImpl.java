@@ -1,12 +1,15 @@
 package com.tesda8.region8.program.registration.service.impl;
 
 import com.google.common.collect.Lists;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
 import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
 import com.tesda8.region8.program.registration.model.dto.InstitutionFilter;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramDto;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramFilter;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramRequestDto;
 import com.tesda8.region8.program.registration.model.entities.Institution;
+import com.tesda8.region8.program.registration.model.entities.QInstitution;
 import com.tesda8.region8.program.registration.model.entities.RegisteredProgram;
 import com.tesda8.region8.program.registration.model.mapper.ProgramRegistrationMapper;
 import com.tesda8.region8.program.registration.model.wrapper.CourseCount;
@@ -78,57 +81,53 @@ public class InstitutionServiceImpl implements InstitutionService {
 
     @Override
     public List<InstitutionDto> getAllInstitutionWithFilter(InstitutionFilter institutionFilter) {
-        logger.info("Institutionfilter: {}", institutionFilter.toString());
-        List<Institution> institutions = institutionRepository.findAll();
-        List<Institution> filteredInstitutions = Lists.newArrayList();
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
 
+        BooleanBuilder operatingUnitTypePredicate = new BooleanBuilder();
         Arrays.asList(institutionFilter.getOperatingUnitType())
                 .forEach(operatingUnitType -> {
-                    List<Institution> newInstitutionList = institutions
-                            .stream()
-                            .filter(institution -> operatingUnitType.equals(OperatingUnitType.TOTAL) || institution.getOperatingUnitType().equals(operatingUnitType))
-                            .collect(Collectors.toList());
-                    filteredInstitutions.addAll(newInstitutionList);
+                    if (!operatingUnitType.equals(OperatingUnitType.TOTAL)) {
+                        operatingUnitTypePredicate.or(QInstitution.institution.operatingUnitType.eq(operatingUnitType));
+                    }
                 });
-
-        List<Institution> filteredInstitutionsType = Lists.newArrayList();
-
+        booleanBuilder.and(operatingUnitTypePredicate);
+        BooleanBuilder institutionTypePredicate = new BooleanBuilder();
         Arrays.asList(institutionFilter.getInstitutionType())
                 .forEach(institutionType -> {
-                    List<Institution> newInstitutionList = filteredInstitutions
-                            .stream()
-                            .filter(institution -> institutionType.equals(InstitutionType.ALL) || institution.getInstitutionType().equals(institutionType))
-                            .collect(Collectors.toList());
-                    filteredInstitutionsType.addAll(newInstitutionList);
+                    if (!institutionType.equals(InstitutionType.ALL)) {
+                        institutionTypePredicate.or(QInstitution.institution.institutionType.eq(institutionType));
+                    }
                 });
-
-        List<Institution> filteredInstitutionsClassification = Lists.newArrayList();
-
+        booleanBuilder.and(institutionTypePredicate);
+        BooleanBuilder institutionClassificationPredicate = new BooleanBuilder();
         Arrays.asList(institutionFilter.getInstitutionClassification())
                 .forEach(institutionClassification -> {
-                    List<Institution> newInstitutionList = filteredInstitutionsType
-                            .stream()
-                            .filter(institution -> institutionClassification.equals(InstitutionClassification.ALL) || institution.getInstitutionClassification().equals(institutionClassification))
-                            .collect(Collectors.toList());
-                    filteredInstitutionsClassification.addAll(newInstitutionList);
+                    if (!institutionClassification.equals(InstitutionClassification.ALL)) {
+                        institutionClassificationPredicate.or(QInstitution.institution.institutionClassification.eq(institutionClassification));
+                    }
                 });
-
-        List<Institution> filteredInstitutionsName = Lists.newArrayList();
-
+        booleanBuilder.and(institutionClassificationPredicate);
+        BooleanBuilder institutionsPredicate = new BooleanBuilder();
         Arrays.asList(institutionFilter.getInstitutionIds())
                 .forEach(id -> {
-                    List<Institution> newInstitutionList = filteredInstitutionsClassification
-                            .stream()
-                            .filter(institution -> id == 0 || institution.getId().equals(id))
-                            .collect(Collectors.toList());
-                    filteredInstitutionsName.addAll(newInstitutionList);
+                    if (id != 0) {
+                        institutionsPredicate.or(QInstitution.institution.id.eq(id));
+                    }
                 });
 
-        return filteredInstitutionsName
+        booleanBuilder.and(institutionsPredicate);
+        booleanBuilder.and(QInstitution.institution.isDeleted.eq(false));
+        booleanBuilder.and(QInstitution.institution.address.toLowerCase().trim()
+                .contains(institutionFilter.getAddress().trim().toLowerCase()));
+        booleanBuilder.and(QInstitution.institution.contactNumber.toLowerCase().trim()
+                .contains(institutionFilter.getContactNumber().trim().toLowerCase()));
+
+        Predicate predicate = booleanBuilder.getValue();
+
+        List<Institution> institutions = (List<Institution>) institutionRepository.findAll(predicate);
+
+        return institutions
                 .stream()
-                .filter(institution -> !institution.getIsDeleted())
-                .filter(institution -> institution.getAddress().toLowerCase().trim().contains(institutionFilter.getAddress().toLowerCase().trim()))
-                .filter(institution -> institution.getContactNumber().trim().contains(institutionFilter.getContactNumber().trim()))
                 .map(institution -> programRegistrationMapper.institutionToDto(institution))
                 .collect(Collectors.toList());
     }
@@ -216,40 +215,43 @@ public class InstitutionServiceImpl implements InstitutionService {
 
     @Override
     public List<InstitutionDto> getAllRegisteredProgramsWithFilter(RegisteredProgramFilter registeredProgramFilter) {
-        List<Institution> institutions = institutionRepository.findAll();
-        List<Institution> filteredInstitutions = Lists.newArrayList();
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
 
+        BooleanBuilder operatingUnitTypePredicate = new BooleanBuilder();
         Arrays.asList(registeredProgramFilter.getOperatingUnitType())
                 .forEach(operatingUnitType -> {
-                    List<Institution> newInstitutionList = institutions
-                            .stream()
-                            .filter(institution -> operatingUnitType.equals(OperatingUnitType.TOTAL) || institution.getOperatingUnitType().equals(operatingUnitType))
-                            .collect(Collectors.toList());
-                    filteredInstitutions.addAll(newInstitutionList);
+                    if (!operatingUnitType.equals(OperatingUnitType.TOTAL)) {
+                        operatingUnitTypePredicate.or(QInstitution.institution.operatingUnitType.eq(operatingUnitType));
+                    }
                 });
 
-        List<Institution> filteredInstitutionsClassification = Lists.newArrayList();
-
+        booleanBuilder.and(operatingUnitTypePredicate);
+        BooleanBuilder institutionClassificationPredicate = new BooleanBuilder();
         Arrays.asList(registeredProgramFilter.getInstitutionClassification())
                 .forEach(institutionClassification -> {
-                    List<Institution> newInstitutionList = filteredInstitutions
-                            .stream()
-                            .filter(institution -> institutionClassification.equals(InstitutionClassification.ALL) || institution.getInstitutionClassification().equals(institutionClassification))
-                            .collect(Collectors.toList());
-                    filteredInstitutionsClassification.addAll(newInstitutionList);
+                    if (!institutionClassification.equals(InstitutionClassification.ALL)) {
+                        institutionClassificationPredicate.or(QInstitution.institution.institutionClassification.eq(institutionClassification));
+                    }
                 });
 
-        List<InstitutionDto> institutionDtos = Lists.newArrayList();
-        Arrays.stream(registeredProgramFilter.getInstitutionIds()).forEach(
-                id -> {
-                    List<InstitutionDto> institutionList = filteredInstitutionsClassification
-                            .stream()
-                            .filter(institution -> id == 0 || institution.getId().equals(id))
-                            .map(institution -> programRegistrationMapper.institutionToDto(institution))
-                            .collect(Collectors.toList());
-                    institutionDtos.addAll(institutionList);
-                }
-        );
+        booleanBuilder.and(institutionClassificationPredicate);
+        BooleanBuilder institutionsPredicate = new BooleanBuilder();
+        Arrays.asList(registeredProgramFilter.getInstitutionIds())
+                .forEach(id -> {
+                    if (id != 0) {
+                        institutionsPredicate.or(QInstitution.institution.id.eq(id));
+                    }
+                });
+
+        booleanBuilder.and(institutionsPredicate);
+        booleanBuilder.and(QInstitution.institution.isDeleted.eq(false));
+
+        Predicate predicate = booleanBuilder.getValue();
+
+        List<Institution> institutions = (List<Institution>) institutionRepository.findAll(predicate);
+        List<InstitutionDto> institutionDtos = institutions.stream()
+                .map(institution -> programRegistrationMapper.institutionToDto(institution))
+                .collect(Collectors.toList());
 
         institutionDtos.forEach(
                 institutionDto -> {

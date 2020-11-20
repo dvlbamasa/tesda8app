@@ -1,7 +1,6 @@
 package com.tesda8.region8.web.controller;
 
 import com.tesda8.region8.util.model.DataPoints;
-import com.tesda8.region8.web.model.dto.graph.GraphData;
 import com.tesda8.region8.web.model.dto.graph.GraphDataList;
 import com.tesda8.region8.util.enums.DailyReportType;
 import com.tesda8.region8.util.enums.DataPointType;
@@ -11,7 +10,11 @@ import com.tesda8.region8.util.enums.ReportSourceType;
 import com.tesda8.region8.web.service.GraphDataFetcherService;
 import com.tesda8.region8.web.service.OPCRGraphDataFetcherService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 

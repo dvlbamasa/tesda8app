@@ -1,11 +1,14 @@
 package com.tesda8.region8.planning.service.impl;
 
 import com.google.common.collect.Lists;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
 import com.tesda8.region8.planning.model.dto.OperatingUnitDataDto;
 import com.tesda8.region8.planning.model.dto.PapDataDto;
 import com.tesda8.region8.planning.model.dto.SuccessIndicatorDataDto;
 import com.tesda8.region8.planning.model.entities.OperatingUnitData;
 import com.tesda8.region8.planning.model.entities.PapData;
+import com.tesda8.region8.planning.model.entities.QPapData;
 import com.tesda8.region8.planning.model.entities.SuccessIndicatorData;
 import com.tesda8.region8.planning.model.mapper.PlanningMapper;
 import com.tesda8.region8.planning.model.wrapper.PapDataWrapper;
@@ -91,7 +94,19 @@ public class PapDataServiceImpl implements PapDataService {
 
     @Override
     public PapDataWrapper getAllPapDataWrapperByFilter(String measureFilter, String papNameFilter) {
-        List<PapData> papDataList = papDataRepository.findAll();
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+
+        booleanBuilder.and(QPapData.papData.name.toLowerCase().trim()
+                .contains(Optional.of(papNameFilter.toLowerCase().trim()).orElse("")));
+
+        booleanBuilder.and(QPapData.papData.isDeleted.eq(false));
+
+        booleanBuilder.and(QPapData.papData.successIndicatorDataList.size().gt(0));
+
+        Predicate predicate = booleanBuilder.getValue();
+
+        List<PapData> papDataList = (List<PapData>) papDataRepository.findAll(predicate);
+
         papDataList.forEach(
                 papData -> {
                     papData.setSuccessIndicatorDataList(
@@ -110,12 +125,6 @@ public class PapDataServiceImpl implements PapDataService {
 
         List<PapDataDto> papDataDtoList = papDataList
                 .stream()
-                .filter(papData -> papData.getSuccessIndicatorDataList().size() > 0)
-                .filter(papData -> !papData.getIsDeleted())
-                .filter(papData -> papData.getName()
-                        .toLowerCase()
-                        .contains(Optional.ofNullable(papNameFilter).orElse("")
-                                .toLowerCase().trim()))
                 .map(papData -> planningMapper.papDataToDto(papData))
                 .collect(Collectors.toList());
 
