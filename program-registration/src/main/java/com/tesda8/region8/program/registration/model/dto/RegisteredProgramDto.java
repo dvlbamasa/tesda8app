@@ -10,6 +10,9 @@ import java.time.LocalDateTime;
 public class RegisteredProgramDto {
 
     private long id;
+    private String operatingUnit;
+    private String institutionName;
+    private String institutionClassification;
     private String name;
     private int duration;
     private String programRegistrationNumber;

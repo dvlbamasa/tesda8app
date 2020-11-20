@@ -29,7 +29,7 @@ public interface InstitutionService {
     List<InstitutionDto> getAllInstitutionByNameAndSectorAndCourseName(String[] institutionName,
                                                                                 Sector sector, String courseName);
 
-    List<InstitutionDto> getAllRegisteredProgramsWithFilter(RegisteredProgramFilter registeredProgramFilter);
+    List<RegisteredProgramDto> getAllRegisteredProgramsWithFilter(RegisteredProgramFilter registeredProgramFilter);
 
     InstitutionProgramRegCounter getTotalCountOfRegisteredPrograms(List<InstitutionDto> institutionDtoList);
 

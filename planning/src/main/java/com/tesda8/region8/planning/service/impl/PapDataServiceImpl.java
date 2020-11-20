@@ -37,7 +37,6 @@ public class PapDataServiceImpl implements PapDataService {
 
     private static Logger logger = LoggerFactory.getLogger(PapDataServiceImpl.class);
 
-
     private PapDataRepository papDataRepository;
     private PlanningMapper planningMapper;
     private OperatingUnitDataRepository operatingUnitDataRepository;

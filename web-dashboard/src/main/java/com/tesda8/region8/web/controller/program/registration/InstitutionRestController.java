@@ -51,7 +51,7 @@ public class InstitutionRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/registeredPrograms/filter")
-    public List<InstitutionDto> getAllregisteredProgramWithFilter(@RequestBody RegisteredProgramFilter registeredProgramFilter) {
+    public List<RegisteredProgramDto> getAllregisteredProgramWithFilter(@RequestBody RegisteredProgramFilter registeredProgramFilter) {
         return institutionService.getAllRegisteredProgramsWithFilter(registeredProgramFilter);
     }
 

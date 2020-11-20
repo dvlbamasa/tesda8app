@@ -4,6 +4,7 @@ import com.tesda8.region8.util.enums.CourseStatus;
 import com.tesda8.region8.util.enums.InstitutionClassification;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.Sector;
+import com.tesda8.region8.util.enums.SortOrder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,4 +25,5 @@ public class RegisteredProgramFilter {
     private Date dateIssuedTo;
     private CourseStatus courseStatus;
     private Boolean isClosed;
+    private SortOrder sortOrder;
 }

@@ -24,6 +24,7 @@ import com.tesda8.region8.util.enums.InstitutionClassification;
 import com.tesda8.region8.util.enums.InstitutionType;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.Sector;
+import com.tesda8.region8.util.enums.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -214,7 +217,7 @@ public class InstitutionServiceImpl implements InstitutionService {
     }
 
     @Override
-    public List<InstitutionDto> getAllRegisteredProgramsWithFilter(RegisteredProgramFilter registeredProgramFilter) {
+    public List<RegisteredProgramDto> getAllRegisteredProgramsWithFilter(RegisteredProgramFilter registeredProgramFilter) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
         BooleanBuilder operatingUnitTypePredicate = new BooleanBuilder();
@@ -296,9 +299,22 @@ public class InstitutionServiceImpl implements InstitutionService {
                     }
             );
         }
-        return institutionDtos.stream()
-                .map(this::sortDateAsc)
-                .collect(Collectors.toList());
+        List<RegisteredProgramDto> registeredProgramDtoList = Lists.newArrayList();
+
+        institutionDtos.forEach(
+                institutionDto -> {
+                    institutionDto.getRegisteredPrograms().forEach(
+                            registeredProgramDto -> {
+                                registeredProgramDto.setInstitutionName(institutionDto.getName());
+                                registeredProgramDto.setInstitutionClassification(institutionDto.getInstitutionClassification().label);
+                                registeredProgramDto.setOperatingUnit(institutionDto.getOperatingUnitType().label);
+                                registeredProgramDtoList.add(registeredProgramDto);
+                            }
+                    );
+                }
+        );
+
+        return sortRegisteredPrograms(registeredProgramDtoList, registeredProgramFilter.getSortOrder());
     }
 
     public LocalDateTime convertToLocalDateTimeViaInstant(Date dateToConvert) {
@@ -307,9 +323,13 @@ public class InstitutionServiceImpl implements InstitutionService {
                 .toLocalDateTime();
     }
 
-    private InstitutionDto sortDateAsc(InstitutionDto institutionDto) {
-        institutionDto.getRegisteredPrograms().sort(Comparator.comparing(RegisteredProgramDto::getDateIssued));
-        return institutionDto;
+    private List<RegisteredProgramDto> sortRegisteredPrograms(List<RegisteredProgramDto> registeredProgramDtoList, SortOrder sortOrder) {
+        if (sortOrder.equals(SortOrder.ASC)) {
+            registeredProgramDtoList.sort(Comparator.comparing(RegisteredProgramDto::getDateIssued));
+        } else {
+            registeredProgramDtoList.sort(Collections.reverseOrder(Comparator.comparing(RegisteredProgramDto::getDateIssued)));
+        }
+        return registeredProgramDtoList;
     }
 
     public InstitutionProgramRegCounter getTotalCountOfRegisteredPrograms(List<InstitutionDto> institutionDtoList) {

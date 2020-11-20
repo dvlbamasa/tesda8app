@@ -2,10 +2,16 @@ package com.tesda8.region8.web.controller.program.registration;
 
 import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
 import com.tesda8.region8.program.registration.model.dto.InstitutionFilter;
+import com.tesda8.region8.program.registration.model.dto.RegisteredProgramDto;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramFilter;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramRequestDto;
 import com.tesda8.region8.program.registration.model.wrapper.InstitutionProgramRegCounter;
 import com.tesda8.region8.program.registration.service.InstitutionService;
+import com.tesda8.region8.util.enums.CourseStatus;
+import com.tesda8.region8.util.enums.InstitutionClassification;
+import com.tesda8.region8.util.enums.OperatingUnitType;
+import com.tesda8.region8.util.enums.Sector;
+import com.tesda8.region8.util.enums.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,8 +59,6 @@ public class ProgramRegistrationController {
         List<InstitutionDto> ttiList = institutionService.getAllInstitution();
         InstitutionProgramRegCounter institutionProgramRegCounter = institutionService.getTotalCountOfRegisteredPrograms(institutionDtoList);
         model.addAttribute("institutionFilter", institutionFilter);
-        model.addAttribute("contactNumber", institutionFilter.getContactNumber());
-        model.addAttribute("address", institutionFilter.getAddress());
         model.addAttribute("institutions", institutionDtoList);
         model.addAttribute("ttiList", ttiList);
         model.addAttribute("total", institutionProgramRegCounter);
@@ -70,17 +74,7 @@ public class ProgramRegistrationController {
         }
         // handles bootstrap select bug not including ALL option
 
-        List<InstitutionDto> institutionDtoList =
-                institutionService.getAllRegisteredProgramsWithFilter(registeredProgramFilter);
-        List<InstitutionDto> ttiList = institutionService.getAllInstitution();
-        InstitutionProgramRegCounter institutionProgramRegCounter = institutionService.getTotalCountOfRegisteredPrograms(institutionDtoList);
-        model.addAttribute("courseNameValue", registeredProgramFilter.getCourseName());
-        model.addAttribute("registeredProgramNumberValue", registeredProgramFilter.getRegisteredProgramNumber());
-        model.addAttribute("registeredProgramFilter", new RegisteredProgramFilter());
-        model.addAttribute("institutions", institutionDtoList);
-        model.addAttribute("ttiList", ttiList);
-        model.addAttribute("total", institutionProgramRegCounter);
-        return "program_registration/program_registration";
+        return initializeModelRegisteredPrograms(model, registeredProgramFilter);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/program_registration/registeredProgram/create")
@@ -184,14 +178,26 @@ public class ProgramRegistrationController {
     }
 
     private String initializeModel(Model model) {
+        RegisteredProgramFilter registeredProgramFilter = new RegisteredProgramFilter();
+        registeredProgramFilter.setOperatingUnitType(new OperatingUnitType[]{OperatingUnitType.TOTAL});
+        registeredProgramFilter.setInstitutionIds(new Long[]{0L});
+        registeredProgramFilter.setInstitutionClassification(new InstitutionClassification[]{InstitutionClassification.ALL});
+        registeredProgramFilter.setSector(Sector.ALL);
+        registeredProgramFilter.setCourseStatus(CourseStatus.ALL);
+        registeredProgramFilter.setCourseName("");
+        registeredProgramFilter.setRegisteredProgramNumber("");
+        registeredProgramFilter.setIsClosed(false);
+        registeredProgramFilter.setSortOrder(SortOrder.ASC);
+        return initializeModelRegisteredPrograms(model, registeredProgramFilter);
+    }
+
+    private String initializeModelRegisteredPrograms(Model model, RegisteredProgramFilter registeredProgramFilter) {
+        List<RegisteredProgramDto> registeredProgramDtoList = institutionService.getAllRegisteredProgramsWithFilter(registeredProgramFilter);
         List<InstitutionDto> institutionDtoList = institutionService.getAllInstitution();
-        InstitutionProgramRegCounter institutionProgramRegCounter = institutionService.getTotalCountOfRegisteredPrograms(institutionDtoList);
-        model.addAttribute("courseNameValue", "");
-        model.addAttribute("registeredProgramNumberValue", "");
-        model.addAttribute("registeredProgramFilter", new RegisteredProgramFilter());
-        model.addAttribute("institutions", institutionDtoList);
+        model.addAttribute("registeredProgramFilter", registeredProgramFilter);
+        model.addAttribute("registeredPrograms", registeredProgramDtoList);
         model.addAttribute("ttiList", institutionDtoList);
-        model.addAttribute("total", institutionProgramRegCounter);
+        model.addAttribute("total", registeredProgramDtoList.size());
         return "program_registration/program_registration";
     }
 }
