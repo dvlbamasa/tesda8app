@@ -2,7 +2,6 @@ package com.tesda8.region8.web.controller.program.registration;
 
 import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramDto;
-import com.tesda8.region8.program.registration.model.wrapper.InstitutionProgramRegCounter;
 import com.tesda8.region8.program.registration.model.wrapper.ProgramRegistrationWrapper;
 import com.tesda8.region8.program.registration.model.wrapper.RegisteredProgramRequest;
 import com.tesda8.region8.program.registration.service.InstitutionService;

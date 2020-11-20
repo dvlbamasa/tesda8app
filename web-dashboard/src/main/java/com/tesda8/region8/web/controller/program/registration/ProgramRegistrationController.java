@@ -5,7 +5,6 @@ import com.tesda8.region8.program.registration.model.dto.InstitutionFilter;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramDto;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramFilter;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramRequestDto;
-import com.tesda8.region8.program.registration.model.wrapper.InstitutionProgramRegCounter;
 import com.tesda8.region8.program.registration.service.InstitutionService;
 import com.tesda8.region8.util.enums.CourseStatus;
 import com.tesda8.region8.util.enums.InstitutionClassification;
@@ -53,15 +52,11 @@ public class ProgramRegistrationController {
         if (bindingResult.hasErrors()) {
             //errors processing
         }
-        // handles bootstrap select bug not including ALL option
-
         List<InstitutionDto> institutionDtoList = institutionService.getAllInstitutionWithFilter(institutionFilter);
         List<InstitutionDto> ttiList = institutionService.getAllInstitution();
-        InstitutionProgramRegCounter institutionProgramRegCounter = institutionService.getTotalCountOfRegisteredPrograms(institutionDtoList);
         model.addAttribute("institutionFilter", institutionFilter);
         model.addAttribute("institutions", institutionDtoList);
         model.addAttribute("ttiList", ttiList);
-        model.addAttribute("total", institutionProgramRegCounter);
         return "program_registration/institution_list";
     }
 
@@ -72,8 +67,6 @@ public class ProgramRegistrationController {
         if (bindingResult.hasErrors()) {
             //errors processing
         }
-        // handles bootstrap select bug not including ALL option
-
         return initializeModelRegisteredPrograms(model, registeredProgramFilter);
     }
 
@@ -166,14 +159,12 @@ public class ProgramRegistrationController {
 
     private String initializeModelInstitutionPage(Model model) {
         List<InstitutionDto> institutionDtoList = institutionService.getAllInstitution();
-        InstitutionProgramRegCounter institutionProgramRegCounter = institutionService.getTotalCountOfRegisteredPrograms(institutionDtoList);
         model.addAttribute("institutionFilter", new InstitutionFilter());
         model.addAttribute("contactNumber", "");
         model.addAttribute("address", "");
         model.addAttribute("institutionName", "");
         model.addAttribute("institutions", institutionDtoList);
         model.addAttribute("ttiList", institutionDtoList);
-        model.addAttribute("total", institutionProgramRegCounter);
         return "program_registration/institution_list";
     }
 

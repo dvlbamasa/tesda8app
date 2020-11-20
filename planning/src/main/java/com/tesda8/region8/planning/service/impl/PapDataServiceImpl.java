@@ -127,7 +127,6 @@ public class PapDataServiceImpl implements PapDataService {
                 .map(papData -> planningMapper.papDataToDto(papData))
                 .collect(Collectors.toList());
 
-
         PapDataWrapper papDataWrapper = new PapDataWrapper();
         papDataWrapper.setTesdppData(Lists.newArrayList());
         papDataWrapper.setTesdrpData(Lists.newArrayList());

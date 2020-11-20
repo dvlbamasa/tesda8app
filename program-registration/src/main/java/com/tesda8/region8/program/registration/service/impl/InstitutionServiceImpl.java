@@ -14,7 +14,6 @@ import com.tesda8.region8.program.registration.model.entities.QRegisteredProgram
 import com.tesda8.region8.program.registration.model.entities.RegisteredProgram;
 import com.tesda8.region8.program.registration.model.mapper.ProgramRegistrationMapper;
 import com.tesda8.region8.program.registration.model.wrapper.CourseCount;
-import com.tesda8.region8.program.registration.model.wrapper.InstitutionProgramRegCounter;
 import com.tesda8.region8.program.registration.model.wrapper.InstitutionWrapper;
 import com.tesda8.region8.program.registration.model.wrapper.ProgramRegistrationWrapper;
 import com.tesda8.region8.program.registration.repository.InstitutionRepository;
@@ -313,18 +312,6 @@ public class InstitutionServiceImpl implements InstitutionService {
             registeredProgramDtoList.sort(Collections.reverseOrder(Comparator.comparing(RegisteredProgramDto::getDateIssued)));
         }
         return registeredProgramDtoList;
-    }
-
-    public InstitutionProgramRegCounter getTotalCountOfRegisteredPrograms(List<InstitutionDto> institutionDtoList) {
-        InstitutionProgramRegCounter institutionProgramRegCounter = new InstitutionProgramRegCounter();
-        institutionDtoList.forEach(
-                institutionDto -> {
-                     institutionProgramRegCounter.setTotalRegisteredPrograms(institutionDto.getRegisteredPrograms().size() +
-                             institutionProgramRegCounter.getTotalRegisteredPrograms());
-                }
-        );
-        institutionProgramRegCounter.setTotalInstitutions(institutionDtoList.size());
-        return institutionProgramRegCounter;
     }
 
     @Override

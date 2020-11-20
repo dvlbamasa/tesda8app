@@ -5,7 +5,6 @@ import com.tesda8.region8.program.registration.model.dto.InstitutionFilter;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramDto;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramFilter;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramRequestDto;
-import com.tesda8.region8.program.registration.model.wrapper.InstitutionProgramRegCounter;
 import com.tesda8.region8.program.registration.model.wrapper.ProgramRegistrationWrapper;
 import com.tesda8.region8.util.enums.InstitutionClassification;
 import com.tesda8.region8.util.enums.InstitutionType;
@@ -30,8 +29,6 @@ public interface InstitutionService {
                                                                                 Sector sector, String courseName);
 
     List<RegisteredProgramDto> getAllRegisteredProgramsWithFilter(RegisteredProgramFilter registeredProgramFilter);
-
-    InstitutionProgramRegCounter getTotalCountOfRegisteredPrograms(List<InstitutionDto> institutionDtoList);
 
     ProgramRegistrationWrapper getCourseCountPerInstitution();
 
