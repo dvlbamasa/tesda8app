@@ -20,6 +20,7 @@ public interface ProgramRegistrationMapper {
     @Mapping(source = "registeredProgram.institution.name", target = "institutionName")
     @Mapping(source = "registeredProgram.institution.institutionClassification", target = "institutionClassification")
     @Mapping(source = "registeredProgram.institution.operatingUnitType", target = "operatingUnit")
+    @Mapping(source = "registeredProgram.institution.shortName", target = "institutionShortName")
     RegisteredProgramDto registeredProgramToDto(RegisteredProgram registeredProgram);
     RegisteredProgramRequestDto registeredProgramToRequestDto(RegisteredProgram registeredProgram);
 

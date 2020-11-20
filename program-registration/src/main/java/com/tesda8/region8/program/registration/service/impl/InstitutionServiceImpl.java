@@ -36,7 +36,6 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -150,17 +149,6 @@ public class InstitutionServiceImpl implements InstitutionService {
     @Override
     public List<InstitutionDto> getAllInstitutionByCourseSector(Sector sector) {
         List<Institution> institutions = institutionRepository.findAll();
-        return getInstitutionDtos(sector, institutions);
-    }
-
-    @Override
-    public List<InstitutionDto> getAllInstitutionByCourseSectorAndInstitutionClassification(Sector sector, InstitutionClassification institutionClassification) {
-        List<Institution> institutions = institutionRepository
-                .findAllByInstitutionTypeAndInstitutionClassification(InstitutionType.PUBLIC, institutionClassification);
-        return getInstitutionDtos(sector, institutions);
-    }
-
-    private List<InstitutionDto> getInstitutionDtos(Sector sector, List<Institution> institutions) {
         List<InstitutionDto> institutionDtos = institutions
                 .stream()
                 .filter(institution -> !institution.getIsDeleted())
@@ -171,7 +159,7 @@ public class InstitutionServiceImpl implements InstitutionService {
                     institutionDto.setRegisteredPrograms(
                             institutionDto.getRegisteredPrograms()
                                     .stream()
-                                    .filter(registeredProgramDto -> !registeredProgramDto.getIsDeleted())                                    .filter(registeredProgramDto -> !registeredProgramDto.getIsDeleted())
+                                    .filter(registeredProgramDto -> !registeredProgramDto.getIsDeleted())
                                     .filter(registeredProgramDto -> !registeredProgramDto.getIsClosed())
                                     .filter(registeredProgramDto -> !registeredProgramDto.getCourseStatus().equals(CourseStatus.BUNDLED_PROGRAM))
                                     .filter(programDto -> programDto.getSector().equals(sector))
@@ -183,38 +171,61 @@ public class InstitutionServiceImpl implements InstitutionService {
     }
 
     @Override
-    public List<InstitutionDto> getAllInstitutionByNameAndSectorAndCourseName(String[] institutionNames,
-                                                                              Sector sector,
-                                                                              String courseName) {
-        List<Institution> institutions = institutionRepository.findAll();
-        List<InstitutionDto> institutionDtos = Lists.newArrayList();
-        Arrays.stream(institutionNames).forEach(
-                institutionName -> {
-                    List<InstitutionDto> institutionList = institutions
-                            .stream()
-                            .filter(institution -> !institution.getIsDeleted())
-                            .filter(institution -> institutionName.equals(ALL) || institution.getName().equalsIgnoreCase(institutionName))
-                            .filter(institution -> institution.getInstitutionClassification().equals(InstitutionClassification.TESDA))
-                            .map(institution -> programRegistrationMapper.institutionToDto(institution))
-                            .collect(Collectors.toList());
-                    institutionDtos.addAll(institutionList);
-                }
-        );
-        institutionDtos.forEach(
-                institutionDto -> {
-                    institutionDto.setRegisteredPrograms(
-                            institutionDto.getRegisteredPrograms()
-                                    .stream()
-                                    .filter(programDto -> !programDto.getIsDeleted())
-                                    .filter(programDto -> !programDto.getIsClosed())
-                                    .filter(programDto -> !programDto.getCourseStatus().equals(CourseStatus.BUNDLED_PROGRAM))
-                                    .filter(programDto -> sector.equals(Sector.ALL) ||  programDto.getSector().equals(sector))
-                                    .filter(programDto -> programDto.getName().toLowerCase().contains(courseName.toLowerCase()))
-                                    .collect(Collectors.toList())
-                    );
-                }
-        );
-        return institutionDtos;
+    public List<RegisteredProgramDto> getAllRegisteredProgramsByCourseSectorAndInstitutionClassification(Sector sector, InstitutionClassification institutionClassification) {
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+
+        booleanBuilder.and(QRegisteredProgram.registeredProgram.sector.eq(sector));
+        booleanBuilder.and(QRegisteredProgram.registeredProgram.isClosed.eq(false));
+        booleanBuilder.and(QRegisteredProgram.registeredProgram.isDeleted.eq(false));
+        booleanBuilder.and(QRegisteredProgram.registeredProgram.courseStatus.ne(CourseStatus.BUNDLED_PROGRAM));
+        booleanBuilder.and(QRegisteredProgram.registeredProgram.institution.institutionClassification.eq(institutionClassification));
+        booleanBuilder.and(QRegisteredProgram.registeredProgram.institution.isDeleted.eq(false));
+        booleanBuilder.and(QRegisteredProgram.registeredProgram.institution.institutionType.eq(InstitutionType.PUBLIC));
+
+        Predicate predicate = booleanBuilder.getValue();
+
+        List<RegisteredProgram> registeredProgramList = (List<RegisteredProgram>) registeredProgramRepository.findAll(predicate);
+
+        List<RegisteredProgramDto> registeredProgramDtoList = registeredProgramList.stream()
+                .map(registeredProgram -> programRegistrationMapper.registeredProgramToDto(registeredProgram))
+                .collect(Collectors.toList());
+
+        return sortRegisteredPrograms(registeredProgramDtoList, SortOrder.ASC);
+    }
+
+    @Override
+    public List<RegisteredProgramDto> getAllRegisteredProgramsByNameAndSectorAndCourseName(String[] institutionNames,
+                                                                                           Sector sector,
+                                                                                           String courseName) {
+
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        BooleanBuilder institutionsPredicate = new BooleanBuilder();
+        Arrays.asList(institutionNames)
+                .forEach(name -> {
+                    if (!name.equals(ALL)) {
+                        institutionsPredicate.or(QRegisteredProgram.registeredProgram.institution.name.equalsIgnoreCase(name));
+                    }
+                });
+        booleanBuilder.and(institutionsPredicate);
+        booleanBuilder.and(QRegisteredProgram.registeredProgram.institution.isDeleted.eq(false));
+        booleanBuilder.and(QRegisteredProgram.registeredProgram.institution.institutionClassification.eq(InstitutionClassification.TESDA));
+        booleanBuilder.and(QRegisteredProgram.registeredProgram.isDeleted.eq(false));
+        booleanBuilder.and(QRegisteredProgram.registeredProgram.isClosed.eq(false));
+        booleanBuilder.and(QRegisteredProgram.registeredProgram.courseStatus.ne(CourseStatus.BUNDLED_PROGRAM));
+        booleanBuilder.and(QRegisteredProgram.registeredProgram.name.containsIgnoreCase(courseName.trim()));
+        if (sector != Sector.ALL) {
+            booleanBuilder.and(QRegisteredProgram.registeredProgram.sector.eq(sector));
+        }
+
+        Predicate predicate = booleanBuilder.getValue();
+
+        List<RegisteredProgram> registeredProgramList = (List<RegisteredProgram>) registeredProgramRepository.findAll(predicate);
+
+        List<RegisteredProgramDto> registeredProgramDtoList = registeredProgramList.stream()
+                .map(registeredProgram -> programRegistrationMapper.registeredProgramToDto(registeredProgram))
+                .collect(Collectors.toList());
+
+        return sortRegisteredPrograms(registeredProgramDtoList, SortOrder.ASC);
     }
 
     @Override
@@ -379,7 +390,6 @@ public class InstitutionServiceImpl implements InstitutionService {
         );
         institutionWrappers.add(total);
 
-
         ProgramRegistrationWrapper programRegistrationWrapper = new ProgramRegistrationWrapper();
 
         institutionWrappers.forEach( institutionWrapper -> {
@@ -409,7 +419,6 @@ public class InstitutionServiceImpl implements InstitutionService {
                     break;
             }
         });
-
 
         return programRegistrationWrapper;
     }

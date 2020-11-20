@@ -24,9 +24,9 @@ public interface InstitutionService {
 
     List<InstitutionDto> getAllInstitutionByCourseSector(Sector sector);
 
-    List<InstitutionDto> getAllInstitutionByCourseSectorAndInstitutionClassification(Sector sector, InstitutionClassification institutionClassification);
+    List<RegisteredProgramDto> getAllRegisteredProgramsByCourseSectorAndInstitutionClassification(Sector sector, InstitutionClassification institutionClassification);
 
-    List<InstitutionDto> getAllInstitutionByNameAndSectorAndCourseName(String[] institutionName,
+    List<RegisteredProgramDto> getAllRegisteredProgramsByNameAndSectorAndCourseName(String[] institutionName,
                                                                                 Sector sector, String courseName);
 
     List<RegisteredProgramDto> getAllRegisteredProgramsWithFilter(RegisteredProgramFilter registeredProgramFilter);

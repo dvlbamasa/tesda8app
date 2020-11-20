@@ -13,6 +13,7 @@ public class RegisteredProgramDto {
 
     private long id;
     private OperatingUnitType operatingUnit;
+    private String institutionShortName;
     private String institutionName;
     private InstitutionClassification institutionClassification;
     private String name;

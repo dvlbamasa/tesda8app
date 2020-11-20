@@ -62,7 +62,7 @@
                                             <th:block th:if="${sector.sectorType == 'TTI'}">
                                                 <option th:value="${sector}"
                                                         th:text="${sector.label}"
-                                                        th:selected="${sectorValue} == ${sector}">
+                                                        th:selected="${registeredProgramRequest.sector} == ${sector}">
                                             </th:block>
                                         </th:block>
 
@@ -73,7 +73,7 @@
                             <div class="form-group row">
                                 <label for="courseName" class="col-sm-2 col-form-label">Qualification Title</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" placeholder="Enter Qualification Title" id="courseName" name="courseName" type="text" th:value="${courseNameValue}" />
+                                    <input class="form-control" placeholder="Enter Qualification Title" id="courseName" name="courseName" type="text" th:value="${registeredProgramRequest.courseName}" />
                                 </div>
                             </div>
                         </div>
@@ -95,7 +95,7 @@
             <div>
                 <div class="container">
                     <p class="lead text-black-50">Total Registered Programs:
-                        <span class="lead text-black" th:text="${total.totalRegisteredPrograms}"></span>
+                        <span class="lead text-black" th:text="${registeredPrograms.size()}"></span>
                     </p>
                 </div>
                 <div class="table-responsive">
@@ -113,12 +113,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <th:block th:each="institution : ${institutions}">
-                            <th:block th:each="registeredProgram : ${institution.registeredPrograms}">
+                            <th:block th:each="registeredProgram : ${registeredPrograms}">
                                 <tr>
-                                    <th scope="row"><span th:text="${institution.operatingUnitType.label}"></span></th>
-                                    <td><span th:text="${institution.shortName}"></span></td>
-                                    <td><span th:text="${institution.name}"></span></td>
+                                    <th scope="row"><span th:text="${registeredProgram.operatingUnit.label}"></span></th>
+                                    <td><span th:text="${registeredProgram.institutionShortName}"></span></td>
+                                    <td><span th:text="${registeredProgram.institutionName}"></span></td>
                                     <td><span th:text="${registeredProgram.name}"></span></td>
                                     <td><span th:text="${registeredProgram.duration} + ' hours'"></span></td>
                                     <td><span th:text="${registeredProgram.programRegistrationNumber}"></span></td>
@@ -126,7 +125,6 @@
                                     <td><span th:text="${registeredProgram.numberOfTeachers}"></span></td>
                                 </tr>
                             </th:block>
-                        </th:block>
                         </tbody>
                     </table>
                 </div>
