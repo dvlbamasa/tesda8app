@@ -8,23 +8,18 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Table;
 
 @Entity
 @Data
-@Table(name = "CERTIFICATION_RATE_REPORT")
 public class CertificationRateReport extends Auditable<String> {
 
     @Column(name = "OPERATING_UNIT")
     @Enumerated(EnumType.STRING)
     private OperatingUnitType operatingUnitType;
 
-    @Column(name = "ASSESSED")
     private long assessed;
 
-    @Column(name = "CERTIFIED")
     private long certified;
 
-    @Column(name = "RATE")
     private double rate;
 }

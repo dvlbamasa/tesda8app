@@ -11,11 +11,9 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Table;
 
 @Entity
 @Data
-@Table(name = "GENERAL_REPORT")
 public class GeneralReport extends Auditable<String> {
 
     @Embedded
@@ -25,11 +23,9 @@ public class GeneralReport extends Auditable<String> {
     @Enumerated(EnumType.STRING)
     private OperatingUnitType operatingUnitType;
 
-    @Column(name = "REPORT_SOURCE_TYPE")
     @Enumerated(EnumType.STRING)
     private ReportSourceType reportSourceType;
 
-    @Column(name = "DAILY_REPORT_TYPE")
     @Enumerated(EnumType.STRING)
     private DailyReportType dailyReportType;
 }

@@ -251,77 +251,47 @@ public class GraphDataFetcherServiceImpl implements GraphDataFetcherService {
 
     @Override
     public GraphDataList fetchGeneralDataList(EgacType egacType, ReportSourceType reportSourceType, DailyReportType dailyReportType) {
-        GraphDataList graphDataList = new GraphDataList();
-        GraphData targetData = new GraphData();
-        GraphData outputData = new GraphData();
-        GraphData rateData = new GraphData();
-        targetData.setDataPoints(fetchGeneralReportsData(DataPointType.TARGET, egacType,reportSourceType,dailyReportType));
-        outputData.setDataPoints(fetchGeneralReportsData(DataPointType.OUTPUT, egacType,reportSourceType,dailyReportType));
-        rateData.setDataPoints(fetchGeneralReportsData(DataPointType.RATE, egacType,reportSourceType,dailyReportType));
-        graphDataList.setOutputData(outputData);
-        graphDataList.setTargetData(targetData);
-        graphDataList.setRateData(rateData);
+        GraphDataList graphDataList = new GraphDataList().initialize();
+        graphDataList.getTargetData().setDataPoints(fetchGeneralReportsData(DataPointType.TARGET, egacType,reportSourceType,dailyReportType));
+        graphDataList.getOutputData().setDataPoints(fetchGeneralReportsData(DataPointType.OUTPUT, egacType,reportSourceType,dailyReportType));
+        graphDataList.getRateData().setDataPoints(fetchGeneralReportsData(DataPointType.RATE, egacType,reportSourceType,dailyReportType));
         return graphDataList;
     }
 
     @Override
     public GraphDataList fetchCertificationRateDataList() {
-        GraphDataList graphDataList = new GraphDataList();
-        GraphData targetData = new GraphData();
-        GraphData outputData = new GraphData();
-        GraphData rateData = new GraphData();
-        targetData.setDataPoints(fetchCertificationRateData(DataPointType.ASSESSED));
-        outputData.setDataPoints(fetchCertificationRateData(DataPointType.CERTIFIED));
-        rateData.setDataPoints(fetchCertificationRateData(DataPointType.RATE));
-        graphDataList.setOutputData(outputData);
-        graphDataList.setTargetData(targetData);
-        graphDataList.setRateData(rateData);
+        GraphDataList graphDataList = new GraphDataList().initialize();
+        graphDataList.getTargetData().setDataPoints(fetchCertificationRateData(DataPointType.ASSESSED));
+        graphDataList.getOutputData().setDataPoints(fetchCertificationRateData(DataPointType.CERTIFIED));
+        graphDataList.getRateData().setDataPoints(fetchCertificationRateData(DataPointType.RATE));
         return graphDataList;
     }
 
     @Override
     public GraphDataList fetchTTIReportDataList(EgacType egacType) {
-        GraphDataList graphDataList = new GraphDataList();
-        GraphData targetData = new GraphData();
-        GraphData outputData = new GraphData();
-        GraphData rateData = new GraphData();
-        targetData.setDataPoints(fetchTTIReportsData(DataPointType.TARGET, egacType));
-        outputData.setDataPoints(fetchTTIReportsData(DataPointType.OUTPUT, egacType));
-        rateData.setDataPoints(fetchTTIReportsData(DataPointType.RATE, egacType));
-        graphDataList.setOutputData(outputData);
-        graphDataList.setTargetData(targetData);
-        graphDataList.setRateData(rateData);
+        GraphDataList graphDataList = new GraphDataList().initialize();
+        graphDataList.getTargetData().setDataPoints(fetchTTIReportsData(DataPointType.TARGET, egacType));
+        graphDataList.getOutputData().setDataPoints(fetchTTIReportsData(DataPointType.OUTPUT, egacType));
+        graphDataList.getRateData().setDataPoints(fetchTTIReportsData(DataPointType.RATE, egacType));
         return graphDataList;
     }
 
 
     @Override
     public GraphDataList fetchROPerModeReportsDataList(EgacType egacType, ReportSourceType reportSourceType) {
-        GraphDataList graphDataList = new GraphDataList();
-        GraphData targetData = new GraphData();
-        GraphData outputData = new GraphData();
-        GraphData rateData = new GraphData();
-        targetData.setDataPoints(fetchROPerModeReportsData(DataPointType.TARGET, egacType, reportSourceType));
-        outputData.setDataPoints(fetchROPerModeReportsData(DataPointType.OUTPUT, egacType, reportSourceType));
-        rateData.setDataPoints(fetchROPerModeReportsData(DataPointType.RATE, egacType, reportSourceType));
-        graphDataList.setOutputData(outputData);
-        graphDataList.setTargetData(targetData);
-        graphDataList.setRateData(rateData);
+        GraphDataList graphDataList = new GraphDataList().initialize();
+        graphDataList.getTargetData().setDataPoints(fetchROPerModeReportsData(DataPointType.TARGET, egacType, reportSourceType));
+        graphDataList.getOutputData().setDataPoints(fetchROPerModeReportsData(DataPointType.OUTPUT, egacType, reportSourceType));
+        graphDataList.getRateData().setDataPoints(fetchROPerModeReportsData(DataPointType.RATE, egacType, reportSourceType));
         return graphDataList;
     }
 
     @Override
     public GraphDataList fetchMonthlyReportDataList(EgacType egacType, OperatingUnitType operatingUnitType) {
-        GraphDataList graphDataList = new GraphDataList();
-        GraphData targetData = new GraphData();
-        GraphData outputData = new GraphData();
-        GraphData rateData = new GraphData();
-        targetData.setDataPoints(fetchMonthlyReportsData(DataPointType.TARGET, operatingUnitType, egacType));
-        outputData.setDataPoints(fetchMonthlyReportsData(DataPointType.OUTPUT, operatingUnitType, egacType));
-        rateData.setDataPoints(fetchMonthlyReportsData(DataPointType.RATE, operatingUnitType, egacType));
-        graphDataList.setOutputData(outputData);
-        graphDataList.setTargetData(targetData);
-        graphDataList.setRateData(rateData);
+        GraphDataList graphDataList = new GraphDataList().initialize();
+        graphDataList.getTargetData().setDataPoints(fetchMonthlyReportsData(DataPointType.TARGET, operatingUnitType, egacType));
+        graphDataList.getOutputData().setDataPoints(fetchMonthlyReportsData(DataPointType.OUTPUT, operatingUnitType, egacType));
+        graphDataList.getRateData().setDataPoints(fetchMonthlyReportsData(DataPointType.RATE, operatingUnitType, egacType));
         return graphDataList;
     }
 

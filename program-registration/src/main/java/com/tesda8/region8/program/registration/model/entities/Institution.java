@@ -10,52 +10,40 @@ import lombok.Data;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import java.util.List;
 
 @Data
 @Entity
-@Table(name = "INSTITUTION")
 public class Institution extends Auditable<String> {
 
     @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<RegisteredProgram> registeredPrograms;
 
-    @Column(name = "NAME")
     private String name;
 
-    @Column(name = "SHORT_NAME")
     private String shortName;
 
-    @Column(name = "OPERATING_UNIT_TYPE")
     @Enumerated(EnumType.STRING)
     private OperatingUnitType operatingUnitType;
 
-    @Column(name = "ADDRESS")
     private String address;
 
-    @Column(name = "CONTACT_NUMBER")
     private String contactNumber;
 
-    @Column(name = "INSTITUTION_TYPE")
     @Enumerated(EnumType.STRING)
     private InstitutionType institutionType;
 
-    @Column(name = "CONGRESSIONAL_DISTRICT")
     @Enumerated(EnumType.STRING)
     private CongressionalDistrict congressionalDistrict;
 
-    @Column(name = "INSTITUTION_CLASSIFICATION")
     @Enumerated(EnumType.STRING)
     private InstitutionClassification institutionClassification;
 
-    @Column(name = "IS_DELETED")
     @Type(type = "yes_no")
     private Boolean isDeleted = false;
 }

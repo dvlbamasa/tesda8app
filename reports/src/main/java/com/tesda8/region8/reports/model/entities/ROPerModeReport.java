@@ -5,7 +5,6 @@ import com.tesda8.region8.util.enums.ReportSourceType;
 import com.tesda8.region8.util.model.Auditable;
 import lombok.Data;
 
-import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -20,11 +19,9 @@ public class ROPerModeReport extends Auditable<String> {
     @Embedded
     private EgacData egacData;
 
-    @Column(name = "DELIVERY_MODE")
     @Enumerated(EnumType.STRING)
     private DeliveryMode deliveryMode;
 
-    @Column(name = "REPORT_SOURCE_TYPE")
     @Enumerated(EnumType.STRING)
     private ReportSourceType reportSourceType;
 }

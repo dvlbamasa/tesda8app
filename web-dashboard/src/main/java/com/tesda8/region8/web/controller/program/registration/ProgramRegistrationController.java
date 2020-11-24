@@ -119,7 +119,10 @@ public class ProgramRegistrationController {
             //errors processing
         }
         institutionService.createInstitution(institutionDto);
-        return initializeModelInstitutionPage(model);
+        List<InstitutionDto> ttiList = institutionService.getAllInstitution();
+        model.addAttribute("registeredProgram", new RegisteredProgramRequestDto());
+        model.addAttribute("ttiList", ttiList);
+        return "program_registration/add_prog_reg";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/program_registration/registeredProgram/update/save")

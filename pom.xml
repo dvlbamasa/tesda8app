@@ -9,6 +9,7 @@
         <module>planning</module>
         <module>program-registration</module>
         <module>reports</module>
+        <module>scholarship</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

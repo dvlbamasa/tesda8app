@@ -47,11 +47,6 @@ public class HomeController {
         return "certification/certification";
     }
 
-    @GetMapping("/scholarship")
-    public String scholarship() {
-        return "scholarship/scholarship";
-    }
-
     @GetMapping("/payroll")
     public String payroll() {
         return "payroll/payroll";

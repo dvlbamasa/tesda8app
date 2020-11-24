@@ -5,7 +5,6 @@ import com.tesda8.region8.planning.model.dto.SuccessIndicatorDataDto;
 import com.tesda8.region8.planning.service.PapDataService;
 import com.tesda8.region8.util.enums.DataPointType;
 import com.tesda8.region8.util.model.DataPoints;
-import com.tesda8.region8.web.model.dto.graph.GraphData;
 import com.tesda8.region8.web.model.dto.graph.GraphDataList;
 import com.tesda8.region8.web.service.OPCRGraphDataFetcherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +24,10 @@ public class OPCRGraphDataFetcherServiceImpl implements OPCRGraphDataFetcherServ
 
     @Override
     public GraphDataList fetchOPCRDataList(Long successIndicatorId) {
-        GraphDataList graphDataList = new GraphDataList();
-        GraphData targetData = new GraphData();
-        GraphData outputData = new GraphData();
-        GraphData rateData = new GraphData();
-        targetData.setDataPoints(fetchDataPoints(DataPointType.TARGET, successIndicatorId));
-        outputData.setDataPoints(fetchDataPoints(DataPointType.OUTPUT, successIndicatorId));
-        rateData.setDataPoints(fetchDataPoints(DataPointType.RATE, successIndicatorId));
-        graphDataList.setTargetData(targetData);
-        graphDataList.setOutputData(outputData);
-        graphDataList.setRateData(rateData);
+        GraphDataList graphDataList = new GraphDataList().initialize();
+        graphDataList.getTargetData().setDataPoints(fetchDataPoints(DataPointType.TARGET, successIndicatorId));
+        graphDataList.getOutputData().setDataPoints(fetchDataPoints(DataPointType.OUTPUT, successIndicatorId));
+        graphDataList.getRateData().setDataPoints(fetchDataPoints(DataPointType.RATE, successIndicatorId));
         return graphDataList;
     }
 

@@ -6,6 +6,7 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class RegisteredProgramRequestDto {
@@ -22,4 +23,8 @@ public class RegisteredProgramRequestDto {
     private Long numberOfTeachers;
     private Boolean isClosed;
     private Boolean isDeleted;
+    private RegistrationRequirementDto registrationRequirement;
+    private List<TrainerDto> trainerDtoList;
+    private List<OfficialDto> officialDtoList;
+    private List<NonTeachingStaffDto> nonTeachingStaffDtoList;
 }

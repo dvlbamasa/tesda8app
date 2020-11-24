@@ -5,7 +5,6 @@ import com.tesda8.region8.util.enums.Month;
 import com.tesda8.region8.util.model.Auditable;
 import lombok.Data;
 
-import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,11 +14,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 @Entity
 @Data
-@Table(name = "MONTHLY_REPORT")
 public class MonthlyReport extends Auditable<String> {
 
     @Id
@@ -31,11 +28,9 @@ public class MonthlyReport extends Auditable<String> {
     @JsonBackReference
     private OperatingUnit operatingUnit;
 
-    @Column(name = "MONTH")
     @Enumerated(EnumType.STRING)
     private Month month;
 
-    @Column(name = "YEAR")
     private int year;
 
     @Embedded

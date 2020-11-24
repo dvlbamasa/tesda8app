@@ -5,7 +5,6 @@ import com.tesda8.region8.util.enums.TTIType;
 import com.tesda8.region8.util.model.Auditable;
 import lombok.Data;
 
-import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -20,11 +19,9 @@ public class TTIReport extends Auditable<String> {
     @Embedded
     private EgacData egacData;
 
-    @Column(name = "TTI_TYPE")
     @Enumerated(EnumType.STRING)
     private TTIType ttiType;
 
-    @Column(name = "REPORT_SOURCE_TYPE")
     @Enumerated(EnumType.STRING)
     private ReportSourceType reportSourceType;
 }

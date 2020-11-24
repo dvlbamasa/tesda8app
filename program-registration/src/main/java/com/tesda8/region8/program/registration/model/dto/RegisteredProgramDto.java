@@ -7,6 +7,7 @@ import com.tesda8.region8.util.enums.Sector;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class RegisteredProgramDto {
@@ -25,4 +26,8 @@ public class RegisteredProgramDto {
     private Long numberOfTeachers;
     private Boolean isClosed;
     private Boolean isDeleted;
+    private RegistrationRequirementDto registrationRequirement;
+    private List<TrainerDto> trainerDtoList;
+    private List<OfficialDto> officialDtoList;
+    private List<NonTeachingStaffDto> nonTeachingStaffDtoList;
 }
