@@ -2,11 +2,13 @@ package com.tesda8.region8.reports.model.dto;
 
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 public class OperatingUnitDto {
 
     private long id;

@@ -1,8 +1,10 @@
 package com.tesda8.region8.scholarship.model.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class PhysicalAccomplishmentDto {
     private Long enrolled;
     private Double enrolledUtilization;

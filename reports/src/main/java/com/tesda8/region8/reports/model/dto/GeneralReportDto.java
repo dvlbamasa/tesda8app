@@ -4,10 +4,12 @@ import com.tesda8.region8.util.enums.DailyReportType;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.ReportSourceType;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
 public class GeneralReportDto {
 
     private long id;

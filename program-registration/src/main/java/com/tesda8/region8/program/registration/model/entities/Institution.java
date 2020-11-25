@@ -7,6 +7,7 @@ import com.tesda8.region8.util.enums.InstitutionType;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.model.Auditable;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.CascadeType;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class Institution extends Auditable<String> {
 
     @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL)

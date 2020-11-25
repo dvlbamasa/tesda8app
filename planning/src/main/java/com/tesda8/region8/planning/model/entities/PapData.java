@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tesda8.region8.util.enums.PapGroupType;
 import com.tesda8.region8.util.model.Auditable;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.OneToMany;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 @Entity
 public class PapData extends Auditable<String> {
 

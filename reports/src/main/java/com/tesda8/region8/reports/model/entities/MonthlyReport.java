@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.tesda8.region8.util.enums.Month;
 import com.tesda8.region8.util.model.Auditable;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class MonthlyReport extends Auditable<String> {
 
     @Id

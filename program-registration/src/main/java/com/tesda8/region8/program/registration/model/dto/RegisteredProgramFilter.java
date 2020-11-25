@@ -6,11 +6,13 @@ import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.Sector;
 import com.tesda8.region8.util.enums.SortOrder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
 public class RegisteredProgramFilter {
 
     private Long [] institutionIds;

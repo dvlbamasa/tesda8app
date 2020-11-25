@@ -6,6 +6,7 @@ import com.tesda8.region8.util.enums.CourseStatus;
 import com.tesda8.region8.util.enums.Sector;
 import com.tesda8.region8.util.model.Auditable;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.CascadeType;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 @Entity
 public class RegisteredProgram extends Auditable<String> {
 

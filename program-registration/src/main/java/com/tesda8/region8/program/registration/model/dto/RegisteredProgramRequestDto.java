@@ -3,12 +3,14 @@ package com.tesda8.region8.program.registration.model.dto;
 import com.tesda8.region8.util.enums.CourseStatus;
 import com.tesda8.region8.util.enums.Sector;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 public class RegisteredProgramRequestDto {
 
     private long id;
