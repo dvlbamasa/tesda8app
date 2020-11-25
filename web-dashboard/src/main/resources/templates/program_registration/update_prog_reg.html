@@ -31,6 +31,9 @@
                 <form id="updateProgRegForm" th:action="@{/program_registration/registeredProgram/update/save}" th:object="${registeredProgram}" method="post">
                     <fieldset>
                         <div class="container">
+                            <div class="btn-group float-right" role="group">
+                                <a th:href="@{/program_registration/registeredProgram/{id}/delete(id=${registeredProgram.id})}" id="deleteButton"><button class="btn-lg btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete Registered Program</button></a>
+                            </div>
                             <h1 class="display-5 text-black-50 mb-5">Update Registered Program</h1>
                             <input type="hidden" th:field="*{id}"/>
                             <input type="hidden" th:field="*{isDeleted}"/>
@@ -116,9 +119,45 @@
                                     <span>Check if the registered program has been closed</span>
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <label for="buildingOwnershipDateIssued" class="col-sm-2 col-form-label">Building Ownership Date Issued</label>
+                                <div class="input-group date  col-sm-10" id="buildingOwnershipDateIssued" data-target-input="nearest">
+                                    <input th:field="*{registrationRequirement.buildingOwnershipDateIssued}" type="text" class="form-control datetimepicker-input" data-target="#buildingOwnershipDateIssued"/>
+                                    <div class="input-group-append" data-target="#buildingOwnershipDateIssued" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="fireSafetyDateIssued" class="col-sm-2 col-form-label">Fire Safety Certificate Date Issued</label>
+                                <div class="input-group date  col-sm-10" id="fireSafetyDateIssued" data-target-input="nearest">
+                                    <input th:field="*{registrationRequirement.fireSafetyDateIssued}" type="text" class="form-control datetimepicker-input" data-target="#fireSafetyDateIssued"/>
+                                    <div class="input-group-append" data-target="#fireSafetyDateIssued" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="moaValidity" class="col-sm-2 col-form-label">MOA Validity Date Issued</label>
+                                <div class="input-group date  col-sm-10" id="moaValidity" data-target-input="nearest">
+                                    <input th:field="*{registrationRequirement.moaValidity}" type="text" class="form-control datetimepicker-input" data-target="#moaValidity"/>
+                                    <div class="input-group-append" data-target="#moaValidity" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
                             <script type="text/javascript">
                                 $(function () {
                                     $('#dateIssued').datetimepicker({
+                                        format: 'L'
+                                    });
+                                    $('#buildingOwnershipDateIssued').datetimepicker({
+                                        format: 'L'
+                                    });
+                                    $('#fireSafetyDateIssued').datetimepicker({
+                                        format: 'L'
+                                    });
+                                    $('#moaValidity').datetimepicker({
                                         format: 'L'
                                     });
                                 });
@@ -131,9 +170,115 @@
                         </div>
                     </fieldset>
                 </form>
-                <div class="btn-group float-right" role="group">
-                    <a th:href="@{/program_registration/registeredProgram/{id}/delete(id=${registeredProgram.id})}" id="deleteButton"><button class="btn-lg btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete Registered Program</button></a>
-                </div>
+            </div>
+        </div>
+        <div class="container mt-5">
+            <hr class="border"/>
+        </div>
+        <div class="container mb-5">
+            <h1 class="display-5 text-black-50 mb-5">List of Officials</h1>
+            <div class="table-responsive">
+                <table id="official-table" class="table table-bordered table-striped table-sm">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col"> Name</th>
+                        <th scope="col"> Position</th>
+                        <th scope="col"> Address</th>
+                        <th scope="col"> Contact Number</th>
+                        <th scope="col"> Email</th>
+                        <th scope="col"> Nature of Appointment</th>
+                        <th scope="col"> Educational Attainment</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="official : ${registeredProgram.officialDtoList}">
+                        <tr>
+                            <td><span th:text="${official.name}"></span></td>
+                            <td><span th:text="${official.position}"></span></td>
+                            <td><span th:text="${official.address}"></span></td>
+                            <td><span th:text="${official.contactNumber}"></span></td>
+                            <td><span th:text="${official.email}"></span></td>
+                            <td><span th:text="${official.natureOfAppointment}"></span></td>
+                            <td><span th:text="${official.educationalAttainment.label}"></span></td>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="container mt-5">
+            <hr class="border"/>
+        </div>
+        <div class="container mb-5">
+            <h1 class="display-5 text-black-50 mb-5">List of Trainers</h1>
+            <div class="table-responsive">
+                <table id="trainer-table" class="table table-bordered table-striped table-sm">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col"> Name</th>
+                        <th scope="col"> Position</th>
+                        <th scope="col"> Nature of Appointment</th>
+                        <th scope="col"> Educational Attainment</th>
+                        <th scope="col"> Years of Teaching Exp.</th>
+                        <th scope="col"> Years of Industry Exp.</th>
+                        <th scope="col" colspan="2"> Trainers Qualification</th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>NTTC Number</th>
+                        <th>Validity</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="trainer : ${registeredProgram.trainerDtoList}">
+                        <tr>
+                            <td><span th:text="${trainer.name}"></span></td>
+                            <td><span th:text="${trainer.position}"></span></td>
+                            <td><span th:text="${trainer.natureOfAppointment}"></span></td>
+                            <td><span th:text="${trainer.educationalAttainment.label}"></span></td>
+                            <td><span th:text="${trainer.teachingExperienceYear}"></span></td>
+                            <td><span th:text="${trainer.industryExperienceYear}"></span></td>
+                            <td><span th:text="${trainer.trainerQualification.nttcNumber}"></span></td>
+                            <td><span th:text="${trainer.trainerQualification.validity}"></span></td>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="container mt-5">
+            <hr class="border"/>
+        </div>
+        <div class="container mb-5">
+            <h1 class="display-5 text-black-50 mb-5">List of Non-Teaching Staff</h1>
+            <div class="table-responsive">
+                <table id="staff-table" class="table table-bordered table-striped table-sm">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col"> Name</th>
+                        <th scope="col"> Position</th>
+                        <th scope="col"> Nature of Appointment</th>
+                        <th scope="col"> Educational Attainment</th>
+                        <th scope="col"> Experience relative to position</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="staff : ${registeredProgram.nonTeachingStaffDtoList}">
+                        <tr>
+                            <td><span th:text="${staff.name}"></span></td>
+                            <td><span th:text="${staff.position}"></span></td>
+                            <td><span th:text="${staff.natureOfAppointment}"></span></td>
+                            <td><span th:text="${staff.educationalAttainment.label}"></span></td>
+                            <td><span th:text="${staff.positionExperience}"></span></td>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

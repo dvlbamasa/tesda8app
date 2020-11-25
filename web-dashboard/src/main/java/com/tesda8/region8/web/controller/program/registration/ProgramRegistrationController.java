@@ -1,16 +1,24 @@
 package com.tesda8.region8.web.controller.program.registration;
 
+import com.google.api.client.util.Lists;
 import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
 import com.tesda8.region8.program.registration.model.dto.InstitutionFilter;
+import com.tesda8.region8.program.registration.model.dto.NonTeachingStaffDto;
+import com.tesda8.region8.program.registration.model.dto.OfficialDto;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramDto;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramFilter;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramRequestDto;
+import com.tesda8.region8.program.registration.model.dto.TrainerDto;
+import com.tesda8.region8.program.registration.model.entities.RegisteredProgram;
 import com.tesda8.region8.program.registration.service.InstitutionService;
+import com.tesda8.region8.program.registration.service.impl.InstitutionServiceImpl;
 import com.tesda8.region8.util.enums.CourseStatus;
 import com.tesda8.region8.util.enums.InstitutionClassification;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.Sector;
 import com.tesda8.region8.util.enums.SortOrder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +37,7 @@ public class ProgramRegistrationController {
     private InstitutionService institutionService;
     private static final String ALL = "ALL";
 
+    private static Logger logger = LoggerFactory.getLogger(ProgramRegistrationController.class);
 
     @Autowired
     public ProgramRegistrationController(InstitutionService institutionService) {
@@ -108,7 +117,26 @@ public class ProgramRegistrationController {
         if (bindingResult.hasErrors()) {
             //errors processing
         }
-        institutionService.createRegisteredProgram(registeredProgramRequestDto);
+        RegisteredProgram registeredProgram = institutionService.createRegisteredProgram(registeredProgramRequestDto);
+        registeredProgramRequestDto.setOfficialDtoList(Lists.newArrayList());
+        registeredProgramRequestDto.setTrainerDtoList(Lists.newArrayList());
+        registeredProgramRequestDto.setNonTeachingStaffDtoList(Lists.newArrayList());
+        registeredProgramRequestDto.getOfficialDtoList().add(new OfficialDto());
+        registeredProgramRequestDto.getTrainerDtoList().add(new TrainerDto());
+        registeredProgramRequestDto.getNonTeachingStaffDtoList().add(new NonTeachingStaffDto());
+        registeredProgramRequestDto.setId(registeredProgram.getId());
+        model.addAttribute("registeredProgram", registeredProgramRequestDto);
+        return "program_registration/add_other_requirements";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/program_registration/registeredProgram/create/saveRequirements")
+    public String saveRegisteredProgramRequirements(@ModelAttribute RegisteredProgramRequestDto registeredProgramRequestDto,
+                                        BindingResult bindingResult,
+                                        Model model) {
+        if (bindingResult.hasErrors()) {
+            //errors processing
+        }
+        institutionService.saveRegisteredProgramRequirements(registeredProgramRequestDto);
         return initializeModel(model);
     }
 

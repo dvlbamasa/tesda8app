@@ -18,11 +18,7 @@ import java.time.LocalDateTime;
 @Data
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class Auditable<U> implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+public abstract class Auditable<U> extends SerializableEntity {
 
     @CreatedDate
     private LocalDateTime createdDate;

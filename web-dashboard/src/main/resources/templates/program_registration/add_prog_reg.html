@@ -122,9 +122,45 @@
                                     <input type="number" onkeypress="return isNumberKey(event)"  class="form-control" placeholder="Enter Number of Teachers" id="numberOfTeachers" name="numberOfTeachers" th:field="*{numberOfTeachers}" required/>
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <label for="buildingOwnershipDateIssued" class="col-sm-2 col-form-label">Building Ownership Date Issued</label>
+                                <div class="input-group date  col-sm-10" id="buildingOwnershipDateIssued" data-target-input="nearest">
+                                    <input th:field="*{registrationRequirement.buildingOwnershipDateIssued}" type="text" class="form-control datetimepicker-input" data-target="#buildingOwnershipDateIssued"/>
+                                    <div class="input-group-append" data-target="#buildingOwnershipDateIssued" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="fireSafetyDateIssued" class="col-sm-2 col-form-label">Fire Safety Certificate Date Issued</label>
+                                <div class="input-group date  col-sm-10" id="fireSafetyDateIssued" data-target-input="nearest">
+                                    <input th:field="*{registrationRequirement.fireSafetyDateIssued}" type="text" class="form-control datetimepicker-input" data-target="#fireSafetyDateIssued"/>
+                                    <div class="input-group-append" data-target="#fireSafetyDateIssued" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="moaValidity" class="col-sm-2 col-form-label">MOA Validity Date Issued</label>
+                                <div class="input-group date  col-sm-10" id="moaValidity" data-target-input="nearest">
+                                    <input th:field="*{registrationRequirement.moaValidity}" type="text" class="form-control datetimepicker-input" data-target="#moaValidity"/>
+                                    <div class="input-group-append" data-target="#moaValidity" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
                             <script type="text/javascript">
                                 $(function () {
                                     $('#dateIssued').datetimepicker({
+                                        format: 'L'
+                                    });
+                                    $('#buildingOwnershipDateIssued').datetimepicker({
+                                        format: 'L'
+                                    });
+                                    $('#fireSafetyDateIssued').datetimepicker({
+                                        format: 'L'
+                                    });
+                                    $('#moaValidity').datetimepicker({
                                         format: 'L'
                                     });
                                 });

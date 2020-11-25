@@ -412,7 +412,7 @@ public class InstitutionServiceImpl implements InstitutionService {
 
     @Override
     @Transactional
-    public void createRegisteredProgram(RegisteredProgramRequestDto registeredProgramDto) {
+    public RegisteredProgram createRegisteredProgram(RegisteredProgramRequestDto registeredProgramDto) {
         Institution institution = institutionRepository.getOne(registeredProgramDto.getInstitutionId());
         RegisteredProgram registeredProgram = programRegistrationMapper.registeredProgramToEntity(registeredProgramDto);
         registeredProgram.setInstitution(institution);
@@ -420,7 +420,29 @@ public class InstitutionServiceImpl implements InstitutionService {
         registeredProgram.setIsDeleted(false);
         registeredProgram.setDateIssued(convertToLocalDateTimeViaInstant(registeredProgramDto.getDateIssued()));
         institution.getRegisteredPrograms().add(registeredProgram);
-        institutionRepository.save(institution);
+        Institution savedInstitution = institutionRepository.save(institution);
+        return savedInstitution.getRegisteredPrograms()
+                .stream()
+                .max(Comparator.comparing(RegisteredProgram::getId))
+                .orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Override
+    @Transactional
+    public void saveRegisteredProgramRequirements(RegisteredProgramRequestDto registeredProgramRequestDto) {
+        RegisteredProgram registeredProgram = registeredProgramRepository.findById(registeredProgramRequestDto.getId()).orElseThrow(EntityNotFoundException::new);
+        registeredProgram = programRegistrationMapper.updatedRegisteredProgramRequirementsToEntity(registeredProgramRequestDto,registeredProgram);
+        RegisteredProgram finalRegisteredProgram = registeredProgram;
+        registeredProgram.getNonTeachingStaffList().forEach(
+                nonTeachingStaff -> nonTeachingStaff.setRegisteredProgram(finalRegisteredProgram)
+        );
+        registeredProgram.getOfficialList().forEach(
+                official -> official.setRegisteredProgram(finalRegisteredProgram)
+        );
+        registeredProgram.getTrainerList().forEach(
+                trainer -> trainer.setRegisteredProgram(finalRegisteredProgram)
+        );
+        registeredProgramRepository.save(registeredProgram);
     }
 
     @Override

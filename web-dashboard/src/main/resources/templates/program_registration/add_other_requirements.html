@@ -1,0 +1,231 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Program Registration - Add Registered Program</title>
+    <div th:replace="fragments/header :: header-css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-PMjWzHVtwxdq7m7GIxBot5vdxUY+5aKP9wpKtvnNBZrVv1srI8tU6xvFMzG8crLNcMj/8Xl/WWmo/oAP/40p1g==" crossorigin="anonymous" />
+
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+
+<div id="page-container">
+    <div id = "content-wrap">
+        <header class="bg-primary py-5 mb-5">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <div class="col-lg-12">
+                        <h1 class="display-4 text-white mt-5 mb-2">Add Registered Program</h1>
+                        <p class="lead text-white-50">Create new registered program to the compendium</p>
+                        <div class="btn-group mr-2 float-right" role="group">
+                            <a th:href="@{/program_registration}" class="btn btn-info btn-lg" role="button" aria-pressed="true">Back to Compendium</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div>
+            <div class="container mb-5">
+                <form id="addProgRegForm" th:action="@{/program_registration/registeredProgram/create/saveRequirements}" th:object="${registeredProgram}" method="post">
+                    <fieldset>
+                        <input type="hidden" th:field="*{id}"/>
+                        <div class="container">
+                            <h1 class="display-5 text-black-50 mb-5">Add Official</h1>
+                            <div class="item" th:each="official, itemstat : ${registeredProgram.officialDtoList}">
+                                <div class="form-group row">
+                                    <label for="officialName" class="col-sm-2 col-form-label">Name</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" placeholder="Enter Official Name" id="officialName" name="officialName" type="text" th:field="*{officialDtoList[__${itemstat.index}__].name}" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="officialPosition" class="col-sm-2 col-form-label">Position</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" placeholder="Enter Official Position" id="officialPosition" name="officialPosition" type="text" th:field="*{officialDtoList[__${itemstat.index}__].position}" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="officialAddress" class="col-sm-2 col-form-label">Address</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" placeholder="Enter Official Address" id="officialAddress" name="officialAddress" type="text" th:field="*{officialDtoList[__${itemstat.index}__].address}" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="contactNumber" class="col-sm-2 col-form-label">Contact Number</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" placeholder="Enter Official Contact Number" id="contactNumber" name="contactNumber" type="text" th:field="*{officialDtoList[__${itemstat.index}__].contactNumber}" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="email" class="col-sm-2 col-form-label">Email</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" placeholder="Enter Official Email" id="email" name="email" type="text" th:field="*{officialDtoList[__${itemstat.index}__].email}" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="officialNatureOfAppointment" class="col-sm-2 col-form-label">Nature of Appointment</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" placeholder="Enter Official Nature of Appointment" id="officialNatureOfAppointment" name="officialNatureOfAppointment" type="text" th:field="*{officialDtoList[__${itemstat.index}__].natureOfAppointment}" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="officialEducationalAttainment" class="col-sm-2 col-form-label">Educational Attainment</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control selectpicker" id="officialEducationalAttainment" name="officialEducationalAttainment" th:field="*{officialDtoList[__${itemstat.index}__].educationalAttainment}" required>
+                                            <th:block th:each="educationalAttainment : ${T(com.tesda8.region8.util.enums.EducationalAttainment).values()}">
+                                                    <option th:value="${educationalAttainment}"
+                                                            th:text="${educationalAttainment.label}">
+                                                    </option>
+                                            </th:block>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <hr class="border"/>
+                        </div>
+                        <div class="container">
+                            <h1 class="display-5 text-black-50 mb-5">Add Trainer</h1>
+                            <div class="item" th:each="trainer, itemstat : ${registeredProgram.trainerDtoList}">
+                                <div class="form-group row">
+                                    <label for="trainerName" class="col-sm-2 col-form-label">Name</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" placeholder="Enter Official Name" id="trainerName" name="trainerName" type="text" th:field="*{trainerDtoList[__${itemstat.index}__].name}" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="trainerPosition" class="col-sm-2 col-form-label">Position</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" placeholder="Enter Position" id="trainerPosition" name="trainerPosition" type="text" th:field="*{trainerDtoList[__${itemstat.index}__].position}" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="trainerNatureOfAppointment" class="col-sm-2 col-form-label">Nature of Appointment</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" placeholder="Enter Official Nature of Appointment" id="trainerNatureOfAppointment" name="trainerNatureOfAppointment" type="text" th:field="*{trainerDtoList[__${itemstat.index}__].natureOfAppointment}" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="trainerEducationalAttainment" class="col-sm-2 col-form-label">Educational Attainment</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control selectpicker" id="trainerEducationalAttainment" name="trainerEducationalAttainment" th:field="*{trainerDtoList[__${itemstat.index}__].educationalAttainment}" required>
+                                            <th:block th:each="educationalAttainment : ${T(com.tesda8.region8.util.enums.EducationalAttainment).values()}">
+                                                <option th:value="${educationalAttainment}"
+                                                        th:text="${educationalAttainment.label}">
+                                                </option>
+                                            </th:block>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="teachingExperienceYear" class="col-sm-2 col-form-label">No. of Years of Teaching Experience</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" onkeypress="return isNumberKey(event)"  class="form-control" placeholder="Enter Duration Hours" id="teachingExperienceYear" name="teachingExperienceYear" th:field="*{trainerDtoList[__${itemstat.index}__].teachingExperienceYear}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="industryExperienceYear" class="col-sm-2 col-form-label">No. of Years of Industry Experience Relevant to Qualification</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" onkeypress="return isNumberKey(event)"  class="form-control" placeholder="Enter Duration Hours" id="industryExperienceYear" name="teachingExperienceYear" th:field="*{trainerDtoList[__${itemstat.index}__].industryExperienceYear}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Trainers Qualification</label>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="nttcNumber" class="col-sm-2 col-form-label">NTTC Number</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" placeholder="Enter Official Nature of Appointment" id="nttcNumber" name="nttcNumber" type="text" th:field="*{trainerDtoList[__${itemstat.index}__].trainerQualification.nttcNumber}" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="validity" class="col-sm-2 col-form-label">Validity</label>
+                                    <div class="input-group date  col-sm-10" id="validity" data-target-input="nearest">
+                                        <input th:field="*{trainerDtoList[__${itemstat.index}__].trainerQualification.validity}" type="text" class="form-control datetimepicker-input" data-target="#validity"/>
+                                        <div class="input-group-append" data-target="#validity" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <script type="text/javascript">
+                                    $(function () {
+                                        $('#validity').datetimepicker({
+                                            format: 'L'
+                                        });
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <hr class="border"/>
+                        </div>
+                        <div class="container">
+                            <h1 class="display-5 text-black-50 mb-5">Add Non-Teaching Staff</h1>
+                            <div class="item" th:each="trainer, itemstat : ${registeredProgram.nonTeachingStaffDtoList}">
+                                <div class="form-group row">
+                                    <label for="staffName" class="col-sm-2 col-form-label">Name</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" placeholder="Enter Name" id="staffName" name="staffName" type="text" th:field="*{nonTeachingStaffDtoList[__${itemstat.index}__].name}" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="staffPosition" class="col-sm-2 col-form-label">Position</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" placeholder="Enter Position" id="staffPosition" name="staffPosition" type="text" th:field="*{nonTeachingStaffDtoList[__${itemstat.index}__].position}" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="staffNatureOfAppointment" class="col-sm-2 col-form-label">Nature of Appointment</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" placeholder="Enter Nature of Appointment" id="staffNatureOfAppointment" name="staffNatureOfAppointment" type="text" th:field="*{nonTeachingStaffDtoList[__${itemstat.index}__].natureOfAppointment}" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="staffEducationalAttainment" class="col-sm-2 col-form-label">Educational Attainment</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control selectpicker" id="staffEducationalAttainment" name="staffEducationalAttainment" th:field="*{nonTeachingStaffDtoList[__${itemstat.index}__].educationalAttainment}" required>
+                                            <th:block th:each="educationalAttainment : ${T(com.tesda8.region8.util.enums.EducationalAttainment).values()}">
+                                                <option th:value="${educationalAttainment}"
+                                                        th:text="${educationalAttainment.label}">
+                                                </option>
+                                            </th:block>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="experience" class="col-sm-2 col-form-label">Experience Relative to Position</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" placeholder="Enter Nature of Appointment" id="experience" name="experience" type="text" th:field="*{nonTeachingStaffDtoList[__${itemstat.index}__].positionExperience}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container mt-5">
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton" th:value="Update"><i class="fa fa-plus-circle" aria-hidden="true"></i> Create</button></div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script  type='text/javascript' src="../../static/js/main.js" th:src="@{/js/main.js}"></script>
+
+
+<div th:replace="fragments/footer :: footer"/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-2JBCbWoMJPH+Uj7Wq5OLub8E5edWHlTM4ar/YJkZh3plwB2INhhOC3eDoqHm1Za/ZOSksrLlURLoyXVdfQXqwg==" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+<script  type='text/javascript' th:src="@{/js/program_registration/add_registered_program.js}"></script>
+
+
+</body>
+</html>

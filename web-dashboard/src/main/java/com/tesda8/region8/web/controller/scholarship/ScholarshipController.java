@@ -11,13 +11,11 @@ import java.security.GeneralSecurityException;
 public class ScholarshipController {
 
     @Autowired
-    public ScholarshipController( ) {
-
+    public ScholarshipController() {
     }
 
     @GetMapping("/scholarship")
     public String scholarship() throws IOException, GeneralSecurityException {
-
         return "scholarship/scholarship";
     }
 }
