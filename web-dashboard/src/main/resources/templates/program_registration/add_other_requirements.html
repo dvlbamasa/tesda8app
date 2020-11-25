@@ -17,8 +17,8 @@
             <div class="container h-100">
                 <div class="row h-100 align-items-center">
                     <div class="col-lg-12">
-                        <h1 class="display-4 text-white mt-5 mb-2">Add Registered Program</h1>
-                        <p class="lead text-white-50">Create new registered program to the compendium</p>
+                        <h1 class="display-4 text-white mt-5 mb-2">Add Registration Requirements</h1>
+                        <p class="lead text-white-50">Add Official, Trainer and Non-Teaching Staff for the registered program.</p>
                         <div class="btn-group mr-2 float-right" role="group">
                             <a th:href="@{/program_registration}" class="btn btn-info btn-lg" role="button" aria-pressed="true">Back to Compendium</a>
                         </div>
@@ -28,12 +28,13 @@
         </header>
         <div>
             <div class="container mb-5">
-                <form id="addProgRegForm" th:action="@{/program_registration/registeredProgram/create/saveRequirements}" th:object="${registeredProgram}" method="post">
+                <form id="addProgRegReqForm" th:action="@{/program_registration/registeredProgram/create/saveRequirements}" th:object="${registeredProgram}" method="post">
                     <fieldset>
                         <input type="hidden" th:field="*{id}"/>
                         <div class="container">
                             <h1 class="display-5 text-black-50 mb-5">Add Official</h1>
                             <div class="item" th:each="official, itemstat : ${registeredProgram.officialDtoList}">
+                                <input type="hidden" th:field="*{officialDtoList[__${itemstat.index}__].isDeleted}"/>
                                 <div class="form-group row">
                                     <label for="officialName" class="col-sm-2 col-form-label">Name</label>
                                     <div class="col-sm-10">
@@ -61,7 +62,7 @@
                                 <div class="form-group row">
                                     <label for="email" class="col-sm-2 col-form-label">Email</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" placeholder="Enter Official Email" id="email" name="email" type="text" th:field="*{officialDtoList[__${itemstat.index}__].email}" />
+                                        <input class="form-control" placeholder="Enter Official Email" id="email" name="email" type="email" th:field="*{officialDtoList[__${itemstat.index}__].email}" />
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -90,6 +91,7 @@
                         <div class="container">
                             <h1 class="display-5 text-black-50 mb-5">Add Trainer</h1>
                             <div class="item" th:each="trainer, itemstat : ${registeredProgram.trainerDtoList}">
+                                <input type="hidden" th:field="*{trainerDtoList[__${itemstat.index}__].isDeleted}"/>
                                 <div class="form-group row">
                                     <label for="trainerName" class="col-sm-2 col-form-label">Name</label>
                                     <div class="col-sm-10">
@@ -165,6 +167,7 @@
                         <div class="container">
                             <h1 class="display-5 text-black-50 mb-5">Add Non-Teaching Staff</h1>
                             <div class="item" th:each="trainer, itemstat : ${registeredProgram.nonTeachingStaffDtoList}">
+                                <input type="hidden" th:field="*{nonTeachingStaffDtoList[__${itemstat.index}__].isDeleted}"/>
                                 <div class="form-group row">
                                     <label for="staffName" class="col-sm-2 col-form-label">Name</label>
                                     <div class="col-sm-10">
@@ -224,7 +227,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
-<script  type='text/javascript' th:src="@{/js/program_registration/add_registered_program.js}"></script>
+<script  type='text/javascript' th:src="@{/js/program_registration/add_registration_requirements.js}"></script>
 
 
 </body>

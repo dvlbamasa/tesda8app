@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.tesda8.region8.util.enums.EducationalAttainment;
 import com.tesda8.region8.util.model.Auditable;
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -30,4 +31,7 @@ public class Trainer extends Auditable<String> {
     @JoinColumn(name = "REGISTERED_PROGRAM_ID", nullable = false)
     @JsonBackReference
     private RegisteredProgram registeredProgram;
+
+    @Type(type = "yes_no")
+    private Boolean isDeleted = false;
 }

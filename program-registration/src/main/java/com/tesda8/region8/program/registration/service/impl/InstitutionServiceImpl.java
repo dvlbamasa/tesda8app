@@ -476,7 +476,27 @@ public class InstitutionServiceImpl implements InstitutionService {
     @Override
     public RegisteredProgramRequestDto getRegisteredProgramDto(Long id) {
         RegisteredProgram registeredProgram = registeredProgramRepository.getOne(id);
-        return programRegistrationMapper.registeredProgramToRequestDto(registeredProgram);
+        RegisteredProgramRequestDto registeredProgramRequestDto = programRegistrationMapper
+                .registeredProgramToRequestDto(registeredProgram);
+        registeredProgramRequestDto.setNonTeachingStaffDtoList(
+                registeredProgramRequestDto.getNonTeachingStaffDtoList()
+                .stream()
+                .filter(nonTeachingStaffDto -> !nonTeachingStaffDto.getIsDeleted())
+                .collect(Collectors.toList())
+        );
+        registeredProgramRequestDto.setOfficialDtoList(
+                registeredProgramRequestDto.getOfficialDtoList()
+                .stream()
+                .filter(officialDto -> !officialDto.getIsDeleted())
+                .collect(Collectors.toList())
+        );
+        registeredProgramRequestDto.setTrainerDtoList(
+                registeredProgramRequestDto.getTrainerDtoList()
+                .stream()
+                .filter(trainerDto -> !trainerDto.getIsDeleted())
+                .collect(Collectors.toList())
+        );
+        return registeredProgramRequestDto;
     }
 
     @Override

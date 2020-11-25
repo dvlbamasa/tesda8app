@@ -35,8 +35,6 @@ import java.util.List;
 public class ProgramRegistrationController {
 
     private InstitutionService institutionService;
-    private static final String ALL = "ALL";
-
     private static Logger logger = LoggerFactory.getLogger(ProgramRegistrationController.class);
 
     @Autowired
@@ -49,27 +47,8 @@ public class ProgramRegistrationController {
         return initializeModel(model);
     }
 
-    @GetMapping("/program_registration/institutions")
-    public String institutionsList(Model model) {
-        return initializeModelInstitutionPage(model);
-    }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/program_registration/institutions/filter")
-    public String institutionListWithFilter(@ModelAttribute InstitutionFilter institutionFilter,
-                                  BindingResult bindingResult,
-                                  Model model) {
-        if (bindingResult.hasErrors()) {
-            //errors processing
-        }
-        List<InstitutionDto> institutionDtoList = institutionService.getAllInstitutionWithFilter(institutionFilter);
-        List<InstitutionDto> ttiList = institutionService.getAllInstitution();
-        model.addAttribute("institutionFilter", institutionFilter);
-        model.addAttribute("institutions", institutionDtoList);
-        model.addAttribute("ttiList", ttiList);
-        return "program_registration/institution_list";
-    }
-
-    @RequestMapping(method = RequestMethod.POST, value = "/program_registration/courses/search")
+    @RequestMapping(method = RequestMethod.POST, value = "/program_registration/registeredProgram/search")
     public String registeredProgramsWithFilter(@ModelAttribute RegisteredProgramFilter registeredProgramFilter,
                                   BindingResult bindingResult,
                                   Model model) {
@@ -87,12 +66,6 @@ public class ProgramRegistrationController {
         return "program_registration/add_prog_reg";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/program_registration/institution/create")
-    public String createInstitution(Model model) {
-        model.addAttribute("institution", new InstitutionDto());
-        return "program_registration/add_institution";
-    }
-
     @RequestMapping(method = RequestMethod.GET, value = "/program_registration/registeredProgram/{id}/update")
     public String updateRegisteredProgram(@PathVariable("id") Long id, Model model) {
         RegisteredProgramRequestDto registeredProgramRequestDto = institutionService.getRegisteredProgramDto(id);
@@ -100,13 +73,6 @@ public class ProgramRegistrationController {
         model.addAttribute("registeredProgram", registeredProgramRequestDto);
         model.addAttribute("ttiList", ttiList);
         return "program_registration/update_prog_reg";
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/program_registration/institution/{id}/update")
-    public String updateInstitution(@PathVariable("id") Long id, Model model) {
-        InstitutionDto institutionDto = institutionService.getInstitutionDto(id);
-        model.addAttribute("institution", institutionDto);
-        return "program_registration/update_institution";
     }
 
 
@@ -121,9 +87,9 @@ public class ProgramRegistrationController {
         registeredProgramRequestDto.setOfficialDtoList(Lists.newArrayList());
         registeredProgramRequestDto.setTrainerDtoList(Lists.newArrayList());
         registeredProgramRequestDto.setNonTeachingStaffDtoList(Lists.newArrayList());
-        registeredProgramRequestDto.getOfficialDtoList().add(new OfficialDto());
-        registeredProgramRequestDto.getTrainerDtoList().add(new TrainerDto());
-        registeredProgramRequestDto.getNonTeachingStaffDtoList().add(new NonTeachingStaffDto());
+        registeredProgramRequestDto.getOfficialDtoList().add(new OfficialDto(false));
+        registeredProgramRequestDto.getTrainerDtoList().add(new TrainerDto(false));
+        registeredProgramRequestDto.getNonTeachingStaffDtoList().add(new NonTeachingStaffDto(false));
         registeredProgramRequestDto.setId(registeredProgram.getId());
         model.addAttribute("registeredProgram", registeredProgramRequestDto);
         return "program_registration/add_other_requirements";
@@ -140,19 +106,6 @@ public class ProgramRegistrationController {
         return initializeModel(model);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/program_registration/institution/create/save")
-    public String saveInstitution(@ModelAttribute InstitutionDto institutionDto,
-                                  BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            //errors processing
-        }
-        institutionService.createInstitution(institutionDto);
-        List<InstitutionDto> ttiList = institutionService.getAllInstitution();
-        model.addAttribute("registeredProgram", new RegisteredProgramRequestDto());
-        model.addAttribute("ttiList", ttiList);
-        return "program_registration/add_prog_reg";
-    }
-
     @RequestMapping(method = RequestMethod.POST, value = "/program_registration/registeredProgram/update/save")
     public String saveUpdatedRegisteredProgram(@ModelAttribute RegisteredProgramRequestDto registeredProgramRequestDto,
                                         BindingResult bindingResult,
@@ -164,39 +117,11 @@ public class ProgramRegistrationController {
         return initializeModel(model);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/program_registration/institution/update/save")
-    public String saveUpdatedInstitution(@ModelAttribute InstitutionDto institutionDto,
-                                               BindingResult bindingResult,
-                                               Model model) {
-        if (bindingResult.hasErrors()) {
-            //errors processing
-        }
-        institutionService.updateInstitution(institutionDto);
-        return initializeModelInstitutionPage(model);
-    }
-
     @RequestMapping(method = RequestMethod.GET, value = "/program_registration/registeredProgram/{id}/delete")
     public String deleteRegisteredProgram(@PathVariable("id") Long id,
                                           Model model) {
         institutionService.deleteRegisteredProgram(id);
         return initializeModel(model);
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/program_registration/institution/{id}/delete")
-    public String deleteInstitution(@PathVariable("id") Long id, Model model) {
-        institutionService.deleteInstitution(id);
-        return initializeModelInstitutionPage(model);
-    }
-
-    private String initializeModelInstitutionPage(Model model) {
-        List<InstitutionDto> institutionDtoList = institutionService.getAllInstitution();
-        model.addAttribute("institutionFilter", new InstitutionFilter());
-        model.addAttribute("contactNumber", "");
-        model.addAttribute("address", "");
-        model.addAttribute("institutionName", "");
-        model.addAttribute("institutions", institutionDtoList);
-        model.addAttribute("ttiList", institutionDtoList);
-        return "program_registration/institution_list";
     }
 
     private String initializeModel(Model model) {

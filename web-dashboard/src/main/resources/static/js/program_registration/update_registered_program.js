@@ -46,3 +46,75 @@ $("#deleteButton").click(function(event) {
             }
         });
 });
+
+
+$(".deleteOfficial").click(function(event) {
+    event.preventDefault();
+    var currentElement = $(this);
+    swal({
+        title: "Delete Official?",
+        text: "Once deleted, the official will not be available.",
+        icon: "warning",
+        buttons: ["No", "Yes"],
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                swal("Official successfully deleted!", {
+                    icon: "success",
+                }).then((value) => {
+                    window.location.href = currentElement.attr('href');
+                });
+            } else {
+                swal("Confirm first before deleting.");
+            }
+        });
+});
+
+
+$(".deleteTrainer").click(function(event) {
+    event.preventDefault();
+    var currentElement = $(this);
+    swal({
+        title: "Delete Trainer?",
+        text: "Once deleted, the trainer will not be available.",
+        icon: "warning",
+        buttons: ["No", "Yes"],
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                swal("Trainer successfully deleted!", {
+                    icon: "success",
+                }).then((value) => {
+                    window.location.href = currentElement.attr('href');
+                });
+            } else {
+                swal("Confirm first before deleting.");
+            }
+        });
+});
+
+
+$(".deleteStaff").click(function(event) {
+    event.preventDefault();
+    var currentElement = $(this);
+    swal({
+        title: "Delete Staff?",
+        text: "Once deleted, the staff will not be available.",
+        icon: "warning",
+        buttons: ["No", "Yes"],
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                swal("Staff successfully deleted!", {
+                    icon: "success",
+                }).then((value) => {
+                    window.location.href = currentElement.attr('href');
+                });
+            } else {
+                swal("Confirm first before deleting.");
+            }
+        });
+});
