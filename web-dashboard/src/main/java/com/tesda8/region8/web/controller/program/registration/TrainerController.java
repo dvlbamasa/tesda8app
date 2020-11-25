@@ -3,6 +3,7 @@ package com.tesda8.region8.web.controller.program.registration;
 import com.tesda8.region8.program.registration.model.dto.TrainerDto;
 import com.tesda8.region8.program.registration.service.InstitutionService;
 import com.tesda8.region8.program.registration.service.RegistrationRequirementsCrudService;
+import com.tesda8.region8.program.registration.service.impl.RegisteredProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -20,8 +21,9 @@ public class TrainerController extends RequirementControllerUtil{
 
     @Autowired
     public TrainerController(@Qualifier("trainer") RegistrationRequirementsCrudService registrationRequirementsCrudService,
-                            InstitutionService institutionService) {
-        super(institutionService);
+                             InstitutionService institutionService,
+                             RegisteredProgramService registeredProgramService) {
+        super(registeredProgramService, institutionService);
         this.registrationRequirementsCrudService = registrationRequirementsCrudService;
     }
 

@@ -3,6 +3,7 @@ package com.tesda8.region8.web.controller.program.registration;
 import com.tesda8.region8.program.registration.model.dto.NonTeachingStaffDto;
 import com.tesda8.region8.program.registration.service.InstitutionService;
 import com.tesda8.region8.program.registration.service.RegistrationRequirementsCrudService;
+import com.tesda8.region8.program.registration.service.impl.RegisteredProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -20,8 +21,9 @@ public class NonTeachingStaffController extends RequirementControllerUtil {
 
     @Autowired
     public NonTeachingStaffController(InstitutionService institutionService,
+                                      RegisteredProgramService registeredProgramService,
                                       @Qualifier("staff") RegistrationRequirementsCrudService registrationRequirementsCrudService) {
-        super(institutionService);
+        super(registeredProgramService, institutionService);
         this.registrationRequirementsCrudService = registrationRequirementsCrudService;
     }
 

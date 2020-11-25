@@ -8,6 +8,7 @@ import com.tesda8.region8.program.registration.model.dto.RegisteredProgramReques
 import com.tesda8.region8.program.registration.model.entities.Institution;
 import com.tesda8.region8.program.registration.model.wrapper.ProgramRegistrationWrapper;
 import com.tesda8.region8.program.registration.service.InstitutionService;
+import com.tesda8.region8.program.registration.service.impl.RegisteredProgramService;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.Sector;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,13 @@ import java.util.List;
 public class InstitutionRestController {
 
     private InstitutionService institutionService;
+    private RegisteredProgramService registeredProgramService;
 
     @Autowired
-    public InstitutionRestController(InstitutionService institutionService) {
+    public InstitutionRestController(InstitutionService institutionService,
+                                     RegisteredProgramService registeredProgramService) {
         this.institutionService = institutionService;
+        this.registeredProgramService = registeredProgramService;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/all")
@@ -42,7 +46,7 @@ public class InstitutionRestController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/count")
     public ProgramRegistrationWrapper getCourseCountPerInstitution() {
-        return institutionService.getCourseCountPerInstitution();
+        return registeredProgramService.getCourseCountPerInstitution();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/filter")
@@ -52,12 +56,12 @@ public class InstitutionRestController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/registeredPrograms/filter")
     public List<RegisteredProgramDto> getAllregisteredProgramWithFilter(@RequestBody RegisteredProgramFilter registeredProgramFilter) {
-        return institutionService.getAllRegisteredProgramsWithFilter(registeredProgramFilter);
+        return registeredProgramService.getAllRegisteredProgramsWithFilter(registeredProgramFilter);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/registeredProgram/create")
     public void createRegisteredProgram(@RequestBody RegisteredProgramRequestDto registeredProgramDto) {
-        institutionService.createRegisteredProgram(registeredProgramDto);
+        registeredProgramService.createRegisteredProgram(registeredProgramDto);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/create")
@@ -67,7 +71,7 @@ public class InstitutionRestController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/registeredProgram/update")
     public void updateRegisteredProgram(@RequestBody RegisteredProgramRequestDto registeredProgramRequestDto) {
-        institutionService.updateRegisteredProgram(registeredProgramRequestDto);
+        registeredProgramService.updateRegisteredProgram(registeredProgramRequestDto);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/update")
@@ -77,7 +81,7 @@ public class InstitutionRestController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/registeredProgram/{id}/fetch")
     public RegisteredProgramRequestDto getRegisteredProgram(@PathVariable("id") Long id) {
-        return institutionService.getRegisteredProgramDto(id);
+        return registeredProgramService.getRegisteredProgramDto(id);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}/fetch")
@@ -87,7 +91,7 @@ public class InstitutionRestController {
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/registeredProgram/{id}/delete")
     public void deleteRegisteredProgram(@PathVariable("id") Long id) {
-        institutionService.deleteRegisteredProgram(id);
+        registeredProgramService.deleteRegisteredProgram(id);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}/delete")

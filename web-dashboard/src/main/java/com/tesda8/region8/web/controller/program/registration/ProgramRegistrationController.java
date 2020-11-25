@@ -12,6 +12,7 @@ import com.tesda8.region8.program.registration.model.dto.TrainerDto;
 import com.tesda8.region8.program.registration.model.entities.RegisteredProgram;
 import com.tesda8.region8.program.registration.service.InstitutionService;
 import com.tesda8.region8.program.registration.service.impl.InstitutionServiceImpl;
+import com.tesda8.region8.program.registration.service.impl.RegisteredProgramService;
 import com.tesda8.region8.util.enums.CourseStatus;
 import com.tesda8.region8.util.enums.InstitutionClassification;
 import com.tesda8.region8.util.enums.OperatingUnitType;
@@ -35,11 +36,14 @@ import java.util.List;
 public class ProgramRegistrationController {
 
     private InstitutionService institutionService;
+    private RegisteredProgramService registeredProgramService;
     private static Logger logger = LoggerFactory.getLogger(ProgramRegistrationController.class);
 
     @Autowired
-    public ProgramRegistrationController(InstitutionService institutionService) {
+    public ProgramRegistrationController(InstitutionService institutionService,
+                                         RegisteredProgramService registeredProgramService) {
         this.institutionService = institutionService;
+        this.registeredProgramService = registeredProgramService;
     }
 
     @GetMapping("/program_registration")
@@ -68,7 +72,7 @@ public class ProgramRegistrationController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/program_registration/registeredProgram/{id}/update")
     public String updateRegisteredProgram(@PathVariable("id") Long id, Model model) {
-        RegisteredProgramRequestDto registeredProgramRequestDto = institutionService.getRegisteredProgramDto(id);
+        RegisteredProgramRequestDto registeredProgramRequestDto = registeredProgramService.getRegisteredProgramDto(id);
         List<InstitutionDto> ttiList = institutionService.getAllInstitution();
         model.addAttribute("registeredProgram", registeredProgramRequestDto);
         model.addAttribute("ttiList", ttiList);
@@ -83,7 +87,7 @@ public class ProgramRegistrationController {
         if (bindingResult.hasErrors()) {
             //errors processing
         }
-        RegisteredProgram registeredProgram = institutionService.createRegisteredProgram(registeredProgramRequestDto);
+        RegisteredProgram registeredProgram = registeredProgramService.createRegisteredProgram(registeredProgramRequestDto);
         registeredProgramRequestDto.setOfficialDtoList(Lists.newArrayList());
         registeredProgramRequestDto.setTrainerDtoList(Lists.newArrayList());
         registeredProgramRequestDto.setNonTeachingStaffDtoList(Lists.newArrayList());
@@ -102,7 +106,7 @@ public class ProgramRegistrationController {
         if (bindingResult.hasErrors()) {
             //errors processing
         }
-        institutionService.saveRegisteredProgramRequirements(registeredProgramRequestDto);
+        registeredProgramService.saveRegisteredProgramRequirements(registeredProgramRequestDto);
         return initializeModel(model);
     }
 
@@ -113,14 +117,14 @@ public class ProgramRegistrationController {
         if (bindingResult.hasErrors()) {
             //errors processing
         }
-        institutionService.updateRegisteredProgram(registeredProgramRequestDto);
+        registeredProgramService.updateRegisteredProgram(registeredProgramRequestDto);
         return initializeModel(model);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/program_registration/registeredProgram/{id}/delete")
     public String deleteRegisteredProgram(@PathVariable("id") Long id,
                                           Model model) {
-        institutionService.deleteRegisteredProgram(id);
+        registeredProgramService.deleteRegisteredProgram(id);
         return initializeModel(model);
     }
 
@@ -139,7 +143,7 @@ public class ProgramRegistrationController {
     }
 
     private String initializeModelRegisteredPrograms(Model model, RegisteredProgramFilter registeredProgramFilter) {
-        List<RegisteredProgramDto> registeredProgramDtoList = institutionService.getAllRegisteredProgramsWithFilter(registeredProgramFilter);
+        List<RegisteredProgramDto> registeredProgramDtoList = registeredProgramService.getAllRegisteredProgramsWithFilter(registeredProgramFilter);
         List<InstitutionDto> institutionDtoList = institutionService.getAllInstitution();
         model.addAttribute("registeredProgramFilter", registeredProgramFilter);
         model.addAttribute("registeredPrograms", registeredProgramDtoList);

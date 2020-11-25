@@ -3,6 +3,7 @@ package com.tesda8.region8.web.controller.program.registration;
 import com.tesda8.region8.program.registration.model.dto.OfficialDto;
 import com.tesda8.region8.program.registration.service.InstitutionService;
 import com.tesda8.region8.program.registration.service.RegistrationRequirementsCrudService;
+import com.tesda8.region8.program.registration.service.impl.RegisteredProgramService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,9 @@ public class OfficialController extends RequirementControllerUtil {
 
     @Autowired
     public OfficialController(@Qualifier("official") RegistrationRequirementsCrudService registrationRequirementsCrudService,
-                              InstitutionService institutionService) {
-        super(institutionService);
+                              InstitutionService institutionService,
+                              RegisteredProgramService registeredProgramService) {
+        super(registeredProgramService, institutionService);
         this.registrationRequirementsCrudService = registrationRequirementsCrudService;
     }
 

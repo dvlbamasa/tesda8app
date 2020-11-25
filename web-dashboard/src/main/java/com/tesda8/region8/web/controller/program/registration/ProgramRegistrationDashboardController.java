@@ -5,6 +5,7 @@ import com.tesda8.region8.program.registration.model.dto.RegisteredProgramDto;
 import com.tesda8.region8.program.registration.model.wrapper.ProgramRegistrationWrapper;
 import com.tesda8.region8.program.registration.model.wrapper.RegisteredProgramRequest;
 import com.tesda8.region8.program.registration.service.InstitutionService;
+import com.tesda8.region8.program.registration.service.impl.RegisteredProgramService;
 import com.tesda8.region8.util.enums.InstitutionClassification;
 import com.tesda8.region8.util.enums.InstitutionType;
 import com.tesda8.region8.util.enums.Sector;
@@ -28,23 +29,26 @@ public class ProgramRegistrationDashboardController {
     private static Logger logger = LoggerFactory.getLogger(ProgramRegistrationDashboardController.class);
     private static final String ALL = "ALL";
 
+    private RegisteredProgramService registeredProgramService;
     private InstitutionService institutionService;
 
     @Autowired
-    public ProgramRegistrationDashboardController(InstitutionService institutionService) {
+    public ProgramRegistrationDashboardController(RegisteredProgramService registeredProgramService,
+                                                  InstitutionService institutionService) {
+        this.registeredProgramService = registeredProgramService;
         this.institutionService = institutionService;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/registeredPrograms")
     public String showInstitutionsProgRegCount(Model model) {
-        ProgramRegistrationWrapper programRegistrationWrapper = institutionService.getCourseCountPerInstitution();
+        ProgramRegistrationWrapper programRegistrationWrapper = registeredProgramService.getCourseCountPerInstitution();
         model.addAttribute("institutionsList", programRegistrationWrapper);
         return "program_registration/prog_reg_dashboard";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/registeredPrograms/{sectorType}/sector")
     public String getRegisteredProgramPerSector(@PathVariable("sectorType") Sector sector, Model model) {
-        List<RegisteredProgramDto> registeredProgramDtoList = institutionService.getAllRegisteredProgramsByCourseSectorAndInstitutionClassification(sector, InstitutionClassification.TESDA);
+        List<RegisteredProgramDto> registeredProgramDtoList = registeredProgramService.getAllRegisteredProgramsByCourseSectorAndInstitutionClassification(sector, InstitutionClassification.TESDA);
         List<InstitutionDto> ttiList = institutionService.getAllInstitutionByInstitutionTypeAndInstitutionClassification(InstitutionType.PUBLIC, InstitutionClassification.TESDA);
         model.addAttribute("sectorValue", sector);
         model.addAttribute("registeredProgramRequest", new RegisteredProgramRequest());
@@ -65,7 +69,7 @@ public class ProgramRegistrationDashboardController {
             registeredProgramRequest.setInstitutionNames(new String[] {ALL});
         }
         List<RegisteredProgramDto> registeredProgramDtoList =
-                institutionService.getAllRegisteredProgramsByNameAndSectorAndCourseName(registeredProgramRequest.getInstitutionNames(),
+                registeredProgramService.getAllRegisteredProgramsByNameAndSectorAndCourseName(registeredProgramRequest.getInstitutionNames(),
                         registeredProgramRequest.getSector(), registeredProgramRequest.getCourseName());
         List<InstitutionDto> ttiList = institutionService.getAllInstitutionByInstitutionTypeAndInstitutionClassification(InstitutionType.PUBLIC, InstitutionClassification.TESDA);
         model.addAttribute("sectorValue", registeredProgramRequest.getSector());

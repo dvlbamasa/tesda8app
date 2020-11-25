@@ -24,30 +24,12 @@ public interface InstitutionService {
 
     List<InstitutionDto> getAllInstitutionByCourseSector(Sector sector);
 
-    List<RegisteredProgramDto> getAllRegisteredProgramsByCourseSectorAndInstitutionClassification(Sector sector, InstitutionClassification institutionClassification);
-
-    List<RegisteredProgramDto> getAllRegisteredProgramsByNameAndSectorAndCourseName(String[] institutionName,
-                                                                                Sector sector, String courseName);
-
-    List<RegisteredProgramDto> getAllRegisteredProgramsWithFilter(RegisteredProgramFilter registeredProgramFilter);
-
-    ProgramRegistrationWrapper getCourseCountPerInstitution();
-
-    RegisteredProgram createRegisteredProgram(RegisteredProgramRequestDto registeredProgramDto);
-
-    void saveRegisteredProgramRequirements(RegisteredProgramRequestDto registeredProgramRequestDto);
-
     void createInstitution(InstitutionDto institutionDto);
-
-    void updateRegisteredProgram(RegisteredProgramRequestDto registeredProgramRequestDto);
 
     void updateInstitution(InstitutionDto institutionDto);
 
-    RegisteredProgramRequestDto getRegisteredProgramDto(Long id);
-
     InstitutionDto getInstitutionDto(Long id);
 
-    void deleteRegisteredProgram(Long id);
-
     void deleteInstitution(Long id);
+
 }
