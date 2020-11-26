@@ -35,25 +35,58 @@
             <button class="btn btn-danger btn-lg" id="downloadGraphButton" type="button"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Export as PDF</button>
             <p class="lead text-black-50 mt-5">Daily reports as of: <span class="text-black" th:text="${#temporals.format(dateTimeNow, 'dd/MM/yyyy hh:mm:ss a')}"></span></p>
         </div>
-        <div class="container canvas_div_pdf" id="graphContainer">
-            <div class="row">
+        <div class="sidebar">
+            <nav id="daily-navbar" class="list-group">
+                <a class="navbar-brand" href="#">Reports</a>
+                <nav class="nav nav-pills flex-column">
+                    <a class="list-group-item list-group-item-action" href="#po">PO Report</a>
+                    <a class="list-group-item list-group-item-action" href="#certification">Certification Rate</a>
+                    <a class="list-group-item list-group-item-action" href="#ro">RO Per Mode</a>
+                    <a class="list-group-item list-group-item-action" href="#institution">Institution Based</a>
+                    <a class="list-group-item list-group-item-action" href="#enterprise">Enterprise Based</a>
+                    <a class="list-group-item list-group-item-action" href="#community">Community Based</a>
+                    <a class="list-group-item list-group-item-action" href="#tti">TTI</a>
+                </nav>
+            </nav>
+        </div>
+        <div class="container canvas_div_pdf" id="graphContainer" data-spy="scroll" data-target="#daily-navbar" data-offset="50">
+            <div>
+                <h1 id="po"></h1>
                 <div id="poEnrolledGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
                 <div id="poGraduatedGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
                 <div id="poAssessedGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
                 <div id="poCertifiedGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+            </div>
+            <div>
+                <h1 id="certification"></h1>
                 <div id="certificationRateGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+            </div>
+            <div>
+                <h1 id="ro"></h1>
                 <div id="roEnrolledT2Graph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
                 <div id="roEnrolledGSGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
                 <div id="roGraduatedT2Graph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
                 <div id="roGraduatedGSGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+            </div>
+            <div>
+                <h1 id="institution"></h1>
                 <div id="institutionEnrolledGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
                 <div id="institutionGraduatedGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+            </div>
+            <div>
+                <h1 id="enterprise"></h1>
                 <div id="enterpriseEnrolledT2Graph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
                 <div id="enterpriseEnrolledGSGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
                 <div id="enterpriseGraduatedT2Graph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
                 <div id="enterpriseGraduatedGSGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+            </div>
+            <div>
+                <h1 id="community"></h1>
                 <div id="communityEnrolledGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
                 <div id="communityGraduatedGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
+            </div>
+            <div>
+                <h1 id="tti"></h1>
                 <div id="ttiEnrolledGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
                 <div id="ttiGraduatedGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
                 <div id="ttiAssessedGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>

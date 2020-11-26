@@ -2,7 +2,6 @@ package com.tesda8.region8.web.controller.program.registration;
 
 import com.google.api.client.util.Lists;
 import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
-import com.tesda8.region8.program.registration.model.dto.InstitutionFilter;
 import com.tesda8.region8.program.registration.model.dto.NonTeachingStaffDto;
 import com.tesda8.region8.program.registration.model.dto.OfficialDto;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramDto;
@@ -11,7 +10,6 @@ import com.tesda8.region8.program.registration.model.dto.RegisteredProgramReques
 import com.tesda8.region8.program.registration.model.dto.TrainerDto;
 import com.tesda8.region8.program.registration.model.entities.RegisteredProgram;
 import com.tesda8.region8.program.registration.service.InstitutionService;
-import com.tesda8.region8.program.registration.service.impl.InstitutionServiceImpl;
 import com.tesda8.region8.program.registration.service.impl.RegisteredProgramService;
 import com.tesda8.region8.util.enums.CourseStatus;
 import com.tesda8.region8.util.enums.InstitutionClassification;

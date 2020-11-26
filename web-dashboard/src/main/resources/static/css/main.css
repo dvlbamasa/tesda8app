@@ -265,6 +265,24 @@ a:active {
     font-family: 'Open Sans', sans-serif;
 }
 
+.sidebar {
+    padding: 10px;
+    width: 200px;
+    background-color: #353a3f;
+    color: #fff;
+}
+
+.sidebar {
+    float: right;
+}
+
+/* The sticky */
+.sidebar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 50px;
+}
+
 .bg-text2 {
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */

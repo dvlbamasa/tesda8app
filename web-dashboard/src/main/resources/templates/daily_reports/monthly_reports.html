@@ -32,10 +32,23 @@
                 <button class="btn btn-danger btn-lg" id="downloadGraphButton" type="button"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Export as PDF</button>
             </div>
         </div>
-
-        <div class="container canvas_div_pdf">
+        <div class="sidebar">
+            <nav id="monthly-navbar" class="list-group">
+                <a class="navbar-brand" href="#">Operating Units</a>
+                <nav class="nav nav-pills flex-column">
+                    <a class="list-group-item list-group-item-action" href="#leyte">Leyte</a>
+                    <a class="list-group-item list-group-item-action" href="#southernLeyte">Southern Leyte</a>
+                    <a class="list-group-item list-group-item-action" href="#biliran">Biliran</a>
+                    <a class="list-group-item list-group-item-action" href="#samar">Samar</a>
+                    <a class="list-group-item list-group-item-action" href="#easternSamar">Eastern Samar</a>
+                    <a class="list-group-item list-group-item-action" href="#northernSamar">Northern Samar</a>
+                    <a class="list-group-item list-group-item-action" href="#total">Region VII Total</a>
+                </nav>
+            </nav>
+        </div>
+        <div class="container canvas_div_pdf" data-spy="scroll" data-target="#monthly-navbar" data-offset="50">
             <div class="col text-center ">
-                <h1 class="display-3 text-black-50 mt-5 mb-2">Leyte Province</h1>
+                <h1 id="leyte" class="display-3 text-black-50 mt-5 mb-2">Leyte Province</h1>
             </div>
 
             <div id="leyteGraphContainer">
@@ -48,7 +61,7 @@
             </div>
 
             <div class="col text-center ">
-                <h1 class="display-3 text-black-50 mt-3 mb-2">Southern Leyte Province</h1>
+                <h1 id="southernLeyte" class="display-3 text-black-50 mt-3 mb-2">Southern Leyte Province</h1>
             </div>
 
             <div id="southern-leyteGraphContainer">
@@ -61,7 +74,7 @@
             </div>
 
             <div class="col text-center ">
-                <h1 class="display-3 text-black-50 mt-3 mb-2">Biliran Province</h1>
+                <h1 id="biliran" class="display-3 text-black-50 mt-3 mb-2">Biliran Province</h1>
             </div>
 
             <div id="biliranGraphContainer">
@@ -74,7 +87,7 @@
             </div>
 
             <div class="col text-center ">
-                <h1 class="display-3 text-black-50 mt-3 mb-2">Samar Province</h1>
+                <h1 id="samar" class="display-3 text-black-50 mt-3 mb-2">Samar Province</h1>
             </div>
 
             <div id="samarGraphContainer">
@@ -87,7 +100,7 @@
             </div>
 
             <div class="col text-center ">
-                <h1 class="display-3 text-black-50 mt-3 mb-2">Eastern Samar Province</h1>
+                <h1 id="easternSamar" class="display-3 text-black-50 mt-3 mb-2">Eastern Samar Province</h1>
             </div>
 
             <div id="easternSamarGraphContainer">
@@ -100,7 +113,7 @@
             </div>
 
             <div class="col text-center ">
-                <h1 class="display-3 text-black-50 mt-3 mb-2">Northern Samar Province</h1>
+                <h1 id="northernSamar" class="display-3 text-black-50 mt-3 mb-2">Northern Samar Province</h1>
             </div>
 
             <div id="northernSamarGraphContainer">
@@ -113,7 +126,7 @@
             </div>
 
             <div class="col text-center ">
-                <h1 class="display-3 text-black-50 mt-3 mb-2">Region VIII Total</h1>
+                <h1 id="total" class="display-3 text-black-50 mt-3 mb-2">Region VIII Total</h1>
             </div>
 
             <div id="regionGraphContainer">
