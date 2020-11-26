@@ -1,4 +1,4 @@
-package com.tesda8.region8.web.controller;
+package com.tesda8.region8.web.controller.reports;
 
 import com.tesda8.region8.web.model.dto.wrapper.CertificationRateReportWrapper;
 import com.tesda8.region8.web.model.dto.wrapper.GeneralReportsDtoWrapper;

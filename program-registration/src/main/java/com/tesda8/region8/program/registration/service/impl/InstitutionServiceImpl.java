@@ -131,30 +131,6 @@ public class InstitutionServiceImpl implements InstitutionService {
     }
 
     @Override
-    public List<InstitutionDto> getAllInstitutionByCourseSector(Sector sector) {
-        List<Institution> institutions = institutionRepository.findAll();
-        List<InstitutionDto> institutionDtos = institutions
-                .stream()
-                .filter(institution -> !institution.getIsDeleted())
-                .map(institution -> programRegistrationMapper.institutionToDto(institution))
-                .collect(Collectors.toList());
-        institutionDtos.forEach(
-                institutionDto -> {
-                    institutionDto.setRegisteredPrograms(
-                            institutionDto.getRegisteredPrograms()
-                                    .stream()
-                                    .filter(registeredProgramDto -> !registeredProgramDto.getIsDeleted())
-                                    .filter(registeredProgramDto -> !registeredProgramDto.getIsClosed())
-                                    .filter(registeredProgramDto -> !registeredProgramDto.getCourseStatus().equals(CourseStatus.BUNDLED_PROGRAM))
-                                    .filter(programDto -> programDto.getSector().equals(sector))
-                                    .collect(Collectors.toList())
-                    );
-                }
-        );
-        return institutionDtos;
-    }
-
-    @Override
     @Transactional
     public void createInstitution(InstitutionDto institutionDto) {
         Institution institution = programRegistrationMapper.institutionToEntity(institutionDto);

@@ -1,4 +1,4 @@
-package com.tesda8.region8.web.controller.reports;
+package com.tesda8.region8.web.restcontroller.reports;
 
 import com.tesda8.region8.reports.model.dto.OperatingUnitDto;
 import com.tesda8.region8.util.enums.OperatingUnitType;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api")
 public class OperatingUnitRestController {
 
     private OperatingUnitService operatingUnitService;

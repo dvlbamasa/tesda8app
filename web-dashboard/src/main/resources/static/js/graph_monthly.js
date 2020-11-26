@@ -1,122 +1,122 @@
 window.onload = function () {
 
     // Monthly Leyte Enrolled
-    generateGraph("/graph/monthlyReports/LEYTE/operatingUnitType/ENROLLED/egacType",
+    generateGraph("/api/graph/monthlyReports/LEYTE/operatingUnitType/ENROLLED/egacType",
         "leyteEnrolledGraph", "Comparative Report of Enrolled in Leyte", "Target", "Total");
 
     // Monthly Leyte Graduated
-    generateGraph("/graph/monthlyReports/LEYTE/operatingUnitType/GRADUATED/egacType",
+    generateGraph("/api/graph/monthlyReports/LEYTE/operatingUnitType/GRADUATED/egacType",
         "leyteGraduatedGraph", "Comparative Report of Graduated in Leyte", "Target", "Total");
 
     // Monthly Leyte Assessed
-    generateGraph("/graph/monthlyReports/LEYTE/operatingUnitType/ASSESSED/egacType",
+    generateGraph("/api/graph/monthlyReports/LEYTE/operatingUnitType/ASSESSED/egacType",
         "leyteAssessedGraph", "Comparative Report of Assessed in Leyte", "Target", "Total");
 
     // Monthly Leyte Certified
-    generateGraph("/graph/monthlyReports/LEYTE/operatingUnitType/CERTIFIED/egacType",
+    generateGraph("/api/graph/monthlyReports/LEYTE/operatingUnitType/CERTIFIED/egacType",
         "leyteCertifiedGraph", "Comparative Report of Certified in Leyte", "Target", "Total");
 
 
 
     // Monthly Southern Leyte Enrolled
-    generateGraph("/graph/monthlyReports/SOUTHERN_LEYTE/operatingUnitType/ENROLLED/egacType",
+    generateGraph("/api/graph/monthlyReports/SOUTHERN_LEYTE/operatingUnitType/ENROLLED/egacType",
         "southernLeyteEnrolledGraph", "Comparative Report of Enrolled in Southern Leyte", "Target", "Total");
 
     // Monthly Southern Leyte Graduated
-    generateGraph("/graph/monthlyReports/SOUTHERN_LEYTE/operatingUnitType/GRADUATED/egacType",
+    generateGraph("/api/graph/monthlyReports/SOUTHERN_LEYTE/operatingUnitType/GRADUATED/egacType",
         "southernLeyteGraduatedGraph", "Comparative Report of Graduated in Southern Leyte", "Target", "Total");
 
     // Monthly Southern Leyte Assessed
-    generateGraph("/graph/monthlyReports/SOUTHERN_LEYTE/operatingUnitType/ASSESSED/egacType",
+    generateGraph("/api/graph/monthlyReports/SOUTHERN_LEYTE/operatingUnitType/ASSESSED/egacType",
         "southernLeyteAssessedGraph", "Comparative Report of Assessed in Southern Leyte", "Target", "Total");
 
     // Monthly Southern Leyte Certified
-    generateGraph("/graph/monthlyReports/SOUTHERN_LEYTE/operatingUnitType/CERTIFIED/egacType",
+    generateGraph("/api/graph/monthlyReports/SOUTHERN_LEYTE/operatingUnitType/CERTIFIED/egacType",
         "southernLeyteCertifiedGraph", "Comparative Report of Certified in Southern Leyte", "Target", "Total");
 
 
     // Monthly Biliran Enrolled
-    generateGraph("/graph/monthlyReports/BILIRAN/operatingUnitType/ENROLLED/egacType",
+    generateGraph("/api/graph/monthlyReports/BILIRAN/operatingUnitType/ENROLLED/egacType",
         "biliranEnrolledGraph", "Comparative Report of Enrolled in Biliran", "Target", "Total");
 
     // Monthly Biliran Graduated
-    generateGraph("/graph/monthlyReports/BILIRAN/operatingUnitType/GRADUATED/egacType",
+    generateGraph("/api/graph/monthlyReports/BILIRAN/operatingUnitType/GRADUATED/egacType",
         "biliranGraduatedGraph", "Comparative Report of Graduated in Biliran", "Target", "Total");
 
     // Monthly Biliran Assessed
-    generateGraph("/graph/monthlyReports/BILIRAN/operatingUnitType/ASSESSED/egacType",
+    generateGraph("/api/graph/monthlyReports/BILIRAN/operatingUnitType/ASSESSED/egacType",
         "biliranAssessedGraph", "Comparative Report of Assessed in Biliran", "Target", "Total");
 
     // Monthly Biliran Certified
-    generateGraph("/graph/monthlyReports/BILIRAN/operatingUnitType/CERTIFIED/egacType",
+    generateGraph("/api/graph/monthlyReports/BILIRAN/operatingUnitType/CERTIFIED/egacType",
         "biliranCertifiedGraph", "Comparative Report of Certified in Biliran", "Target", "Total");
 
 
     // Monthly Samar Enrolled
-    generateGraph("/graph/monthlyReports/SAMAR/operatingUnitType/ENROLLED/egacType",
+    generateGraph("/api/graph/monthlyReports/SAMAR/operatingUnitType/ENROLLED/egacType",
         "samarEnrolledGraph", "Comparative Report of Enrolled in Samar", "Target", "Total");
 
     // Monthly Samar Graduated
-    generateGraph("/graph/monthlyReports/SAMAR/operatingUnitType/GRADUATED/egacType",
+    generateGraph("/api/graph/monthlyReports/SAMAR/operatingUnitType/GRADUATED/egacType",
         "samarGraduatedGraph", "Comparative Report of Graduated in Samar", "Target", "Total");
 
     // Monthly Samar Assessed
-    generateGraph("/graph/monthlyReports/SAMAR/operatingUnitType/ASSESSED/egacType",
+    generateGraph("/api/graph/monthlyReports/SAMAR/operatingUnitType/ASSESSED/egacType",
         "samarAssessedGraph", "Comparative Report of Assessed in Samar", "Target", "Total");
 
     // Monthly Samar Certified
-    generateGraph("/graph/monthlyReports/SAMAR/operatingUnitType/CERTIFIED/egacType",
+    generateGraph("/api/graph/monthlyReports/SAMAR/operatingUnitType/CERTIFIED/egacType",
         "samarCertifiedGraph", "Comparative Report of Certified in Samar", "Target", "Total");
 
 
     // Monthly Eastern Samar Enrolled
-    generateGraph("/graph/monthlyReports/EASTERN_SAMAR/operatingUnitType/ENROLLED/egacType",
+    generateGraph("/api/graph/monthlyReports/EASTERN_SAMAR/operatingUnitType/ENROLLED/egacType",
         "easternSamarEnrolledGraph", "Comparative Report of Enrolled in Eastern Samar", "Target", "Total");
 
     // Monthly Eastern Samar Graduated
-    generateGraph("/graph/monthlyReports/EASTERN_SAMAR/operatingUnitType/GRADUATED/egacType",
+    generateGraph("/api/graph/monthlyReports/EASTERN_SAMAR/operatingUnitType/GRADUATED/egacType",
         "easternSamarGraduatedGraph", "Comparative Report of Graduated in Eastern Samar", "Target", "Total");
 
     // Monthly Eastern Samar Assessed
-    generateGraph("/graph/monthlyReports/EASTERN_SAMAR/operatingUnitType/ASSESSED/egacType",
+    generateGraph("/api/graph/monthlyReports/EASTERN_SAMAR/operatingUnitType/ASSESSED/egacType",
         "easternSamarAssessedGraph", "Comparative Report of Assessed in Eastern Samar", "Target", "Total");
 
     // Monthly Eastern Samar Certified
-    generateGraph("/graph/monthlyReports/EASTERN_SAMAR/operatingUnitType/CERTIFIED/egacType",
+    generateGraph("/api/graph/monthlyReports/EASTERN_SAMAR/operatingUnitType/CERTIFIED/egacType",
         "easternSamarCertifiedGraph", "Comparative Report of Certified in Eastern Samar", "Target", "Total");
 
 
     // Monthly Northern Samar Enrolled
-    generateGraph("/graph/monthlyReports/NORTHERN_SAMAR/operatingUnitType/ENROLLED/egacType",
+    generateGraph("/api/graph/monthlyReports/NORTHERN_SAMAR/operatingUnitType/ENROLLED/egacType",
         "northernSamarEnrolledGraph", "Comparative Report of Enrolled in Northern Samar", "Target", "Total");
 
     // Monthly Northern Samar Graduated
-    generateGraph("/graph/monthlyReports/NORTHERN_SAMAR/operatingUnitType/GRADUATED/egacType",
+    generateGraph("/api/graph/monthlyReports/NORTHERN_SAMAR/operatingUnitType/GRADUATED/egacType",
         "northernSamarGraduatedGraph", "Comparative Report of Graduated in Northern Samar", "Target", "Total");
 
     // Monthly Northern Samar Assessed
-    generateGraph("/graph/monthlyReports/NORTHERN_SAMAR/operatingUnitType/ASSESSED/egacType",
+    generateGraph("/api/graph/monthlyReports/NORTHERN_SAMAR/operatingUnitType/ASSESSED/egacType",
         "northernSamarAssessedGraph", "Comparative Report of Assessed in Northern Samar", "Target", "Total");
 
     // Monthly Northern Samar Certified
-    generateGraph("/graph/monthlyReports/NORTHERN_SAMAR/operatingUnitType/CERTIFIED/egacType",
+    generateGraph("/api/graph/monthlyReports/NORTHERN_SAMAR/operatingUnitType/CERTIFIED/egacType",
         "northernSamarCertifiedGraph", "Comparative Report of Certified in Northern Samar", "Target", "Total");
 
 
     // Monthly Region Enrolled
-    generateGraph("/graph/monthlyReports/TOTAL/operatingUnitType/ENROLLED/egacType",
+    generateGraph("/api/graph/monthlyReports/TOTAL/operatingUnitType/ENROLLED/egacType",
         "regionEnrolledGraph", "Comparative Report of Enrolled in Region VIII", "Target", "Total");
 
     // Monthly Region Graduated
-    generateGraph("/graph/monthlyReports/TOTAL/operatingUnitType/GRADUATED/egacType",
+    generateGraph("/api/graph/monthlyReports/TOTAL/operatingUnitType/GRADUATED/egacType",
         "regionGraduatedGraph", "Comparative Report of Graduated in Region VIII", "Target", "Total");
 
     // Monthly Region Assessed
-    generateGraph("/graph/monthlyReports/TOTAL/operatingUnitType/ASSESSED/egacType",
+    generateGraph("/api/graph/monthlyReports/TOTAL/operatingUnitType/ASSESSED/egacType",
         "regionAssessedGraph", "Comparative Report of Assessed in Region VIII", "Target", "Total");
 
     // Monthly Region Certified
-    generateGraph("/graph/monthlyReports/TOTAL/operatingUnitType/CERTIFIED/egacType",
+    generateGraph("/api/graph/monthlyReports/TOTAL/operatingUnitType/CERTIFIED/egacType",
         "regionCertifiedGraph", "Comparative Report of Certified in Region VIII", "Target", "Total");
 }
 

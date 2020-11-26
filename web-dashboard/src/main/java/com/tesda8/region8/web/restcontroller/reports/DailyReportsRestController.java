@@ -1,4 +1,4 @@
-package com.tesda8.region8.web.controller.reports;
+package com.tesda8.region8.web.restcontroller.reports;
 
 import com.tesda8.region8.reports.model.dto.CertificationRateReportDto;
 import com.tesda8.region8.reports.model.dto.GeneralReportDto;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/reports")
+@RequestMapping("/api/reports")
 public class DailyReportsRestController {
 
     private GeneralReportService generalReportService;

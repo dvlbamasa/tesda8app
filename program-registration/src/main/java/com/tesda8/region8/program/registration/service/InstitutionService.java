@@ -22,8 +22,6 @@ public interface InstitutionService {
     List<InstitutionDto> getAllInstitutionByInstitutionTypeAndInstitutionClassification(InstitutionType institutionType,
                                                                                         InstitutionClassification institutionClassification);
 
-    List<InstitutionDto> getAllInstitutionByCourseSector(Sector sector);
-
     void createInstitution(InstitutionDto institutionDto);
 
     void updateInstitution(InstitutionDto institutionDto);

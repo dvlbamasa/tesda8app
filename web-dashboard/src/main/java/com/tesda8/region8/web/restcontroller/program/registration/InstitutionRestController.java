@@ -1,4 +1,4 @@
-package com.tesda8.region8.web.controller.program.registration;
+package com.tesda8.region8.web.restcontroller.program.registration;
 
 import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
 import com.tesda8.region8.program.registration.model.dto.InstitutionFilter;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/institution")
+@RequestMapping("/api/institution")
 public class InstitutionRestController {
 
     private InstitutionService institutionService;
@@ -35,11 +35,6 @@ public class InstitutionRestController {
     @RequestMapping(method = RequestMethod.GET, value = "/all")
     public List<InstitutionDto> getAllInstitutions() {
         return institutionService.getAllInstitution();
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/{sector}/sector")
-    public List<InstitutionDto> getAllInstitutionByCourseSector(@PathVariable("sector")Sector sector) {
-        return institutionService.getAllInstitutionByCourseSector(sector);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/count")

@@ -1,86 +1,86 @@
 window.onload = function () {
     // PO ENROLLED GRAPH
-    generateGraph("/graph/generalReport/ENROLLED/egacType/T2MIS/reportSource/PO_REPORT/reportType",
+    generateGraph("/api/graph/generalReport/ENROLLED/egacType/T2MIS/reportSource/PO_REPORT/reportType",
         "poEnrolledGraph", "PO - Enrolled", "Target", "Output");
 
     // PO GRADUATED GRAPH
-    generateGraph("/graph/generalReport/GRADUATED/egacType/T2MIS/reportSource/PO_REPORT/reportType",
+    generateGraph("/api/graph/generalReport/GRADUATED/egacType/T2MIS/reportSource/PO_REPORT/reportType",
         "poGraduatedGraph", "PO - Graduated", "Target", "Output");
 
     // PO ASSESSED GRAPH
-    generateGraph("/graph/generalReport/ASSESSED/egacType/T2MIS/reportSource/PO_REPORT/reportType",
+    generateGraph("/api/graph/generalReport/ASSESSED/egacType/T2MIS/reportSource/PO_REPORT/reportType",
         "poAssessedGraph", "PO - Assessed", "Target", "Output");
 
     // PO CERTIFIED GRAPH
-    generateGraph("/graph/generalReport/CERTIFIED/egacType/T2MIS/reportSource/PO_REPORT/reportType",
+    generateGraph("/api/graph/generalReport/CERTIFIED/egacType/T2MIS/reportSource/PO_REPORT/reportType",
         "poCertifiedGraph", "PO - Certified", "Target", "Output");
 
     // CERTIFICATION RATE GRAPH
-    generateGraph("/graph/certificationRate",
+    generateGraph("/api/graph/certificationRate",
         "certificationRateGraph", "Certification Rate", "Assessed", "Certified");
 
     // RO PER MODE ENROLLED T2 GRAPH
-    generateGraph("/graph/roPerMode/ENROLLED/egacType/T2MIS/reportSource",
+    generateGraph("/api/graph/roPerMode/ENROLLED/egacType/T2MIS/reportSource",
         "roEnrolledT2Graph", "All Delivery (Enrolled) With EBT (T2MIS)", "Target", "Output");
 
     // RO PER MODE ENROLLED GS GRAPH
-    generateGraph("/graph/roPerMode/ENROLLED/egacType/GS/reportSource",
+    generateGraph("/api/graph/roPerMode/ENROLLED/egacType/GS/reportSource",
         "roEnrolledGSGraph", "All Delivery (Enrolled) With EBT (Google Sheet)", "Target", "Output");
 
     // RO PER MODE GRADUATED T2 GRAPH
-    generateGraph("/graph/roPerMode/GRADUATED/egacType/T2MIS/reportSource",
+    generateGraph("/api/graph/roPerMode/GRADUATED/egacType/T2MIS/reportSource",
         "roGraduatedT2Graph", "All Delivery (Graduates) With EBT (T2MIS)", "Target", "Output");
 
     // RO PER MODE GRADUATED GS GRAPH
-    generateGraph("/graph/roPerMode/GRADUATED/egacType/GS/reportSource",
+    generateGraph("/api/graph/roPerMode/GRADUATED/egacType/GS/reportSource",
         "roGraduatedGSGraph", "All Delivery (Graduates) With EBT (Google Sheet)", "Target", "Output");
 
     // INSTITUTION BASED ENROLLED
-    generateGraph("/graph/generalReport/ENROLLED/egacType/T2MIS/reportSource/INSTITUTION_BASED_REPORT/reportType",
+    generateGraph("/api/graph/generalReport/ENROLLED/egacType/T2MIS/reportSource/INSTITUTION_BASED_REPORT/reportType",
         "institutionEnrolledGraph", "Institution-Based (Enrolled)", "Target", "Output");
 
     // INSTITUTION BASED GRADUATED
-    generateGraph("/graph/generalReport/GRADUATED/egacType/T2MIS/reportSource/INSTITUTION_BASED_REPORT/reportType",
+    generateGraph("/api/graph/generalReport/GRADUATED/egacType/T2MIS/reportSource/INSTITUTION_BASED_REPORT/reportType",
         "institutionGraduatedGraph", "Institution-Based (Graduates)", "Target", "Output");
 
     // ENTERPRISE BASED ENROLLED T2
-    generateGraph("/graph/generalReport/ENROLLED/egacType/T2MIS/reportSource/ENTERPRISE_BASED_REPORT/reportType",
+    generateGraph("/api/graph/generalReport/ENROLLED/egacType/T2MIS/reportSource/ENTERPRISE_BASED_REPORT/reportType",
         "enterpriseEnrolledT2Graph", "Enterprise-Based (Enrolled) T2MIS", "Target", "Output");
 
     // ENTERPRISE BASED GRADUATED T2
-    generateGraph("/graph/generalReport/GRADUATED/egacType/T2MIS/reportSource/ENTERPRISE_BASED_REPORT/reportType",
+    generateGraph("/api/graph/generalReport/GRADUATED/egacType/T2MIS/reportSource/ENTERPRISE_BASED_REPORT/reportType",
         "enterpriseGraduatedT2Graph", "Enterprise-Based (Graduates) T2MIS", "Target", "Output");
 
     // ENTERPRISE BASED ENROLLED GS
-    generateGraph("/graph/generalReport/ENROLLED/egacType/GS/reportSource/ENTERPRISE_BASED_REPORT/reportType",
+    generateGraph("/api/graph/generalReport/ENROLLED/egacType/GS/reportSource/ENTERPRISE_BASED_REPORT/reportType",
         "enterpriseEnrolledGSGraph", "Enterprise-Based (Enrolled) Google Sheet", "Target", "Output");
 
     // ENTERPRISE BASED GRADUATED GS
-    generateGraph("/graph/generalReport/GRADUATED/egacType/GS/reportSource/ENTERPRISE_BASED_REPORT/reportType",
+    generateGraph("/api/graph/generalReport/GRADUATED/egacType/GS/reportSource/ENTERPRISE_BASED_REPORT/reportType",
         "enterpriseGraduatedGSGraph", "Enterprise-Based (Graduates) Google Sheet", "Target", "Output");
 
     // COMMUNITY BASED ENROLLED
-    generateGraph("/graph/generalReport/ENROLLED/egacType/T2MIS/reportSource/COMMUNITY_BASED_REPORT/reportType",
+    generateGraph("/api/graph/generalReport/ENROLLED/egacType/T2MIS/reportSource/COMMUNITY_BASED_REPORT/reportType",
         "communityEnrolledGraph", "Community-Based (Enrolled)", "Target", "Output");
 
     // COMMUNITY BASED GRADUATED
-    generateGraph("/graph/generalReport/GRADUATED/egacType/T2MIS/reportSource/COMMUNITY_BASED_REPORT/reportType",
+    generateGraph("/api/graph/generalReport/GRADUATED/egacType/T2MIS/reportSource/COMMUNITY_BASED_REPORT/reportType",
         "communityGraduatedGraph", "Community-Based (Graduates)", "Target", "Output");
 
     // TTI ENROLLED GRAPH
-    generateGraph("/graph/generalReport/ENROLLED/egacType/T2MIS/reportSource/TTI_REPORT/reportType",
+    generateGraph("/api/graph/generalReport/ENROLLED/egacType/T2MIS/reportSource/TTI_REPORT/reportType",
         "ttiEnrolledGraph", "Enrolled per TTI", "Target", "Output");
 
     // TTI GRADUATED GRAPH
-    generateGraph("/graph/generalReport/GRADUATED/egacType/T2MIS/reportSource/TTI_REPORT/reportType",
+    generateGraph("/api/graph/generalReport/GRADUATED/egacType/T2MIS/reportSource/TTI_REPORT/reportType",
         "ttiGraduatedGraph", "Graduated per TTI", "Target", "Output");
 
     // TTI ASSESSED GRAPH
-    generateGraph("/graph/ttiReport/ASSESSED/egacType",
+    generateGraph("/api/graph/ttiReport/ASSESSED/egacType",
         "ttiAssessedGraph", "Assessed per TTI", "Target", "Output");
 
     // TTI CERTIFIED GRAPH
-    generateGraph("/graph/ttiReport/CERTIFIED/egacType",
+    generateGraph("/api/graph/ttiReport/CERTIFIED/egacType",
         "ttiCertifiedGraph", "Certified per TTI", "Target", "Output");
 }
 

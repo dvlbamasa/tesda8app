@@ -3,7 +3,7 @@ window.onload = function () {
     var papName = $('#papName').val();
     var measure = $('#measure').val();
 
-    $.getJSON('/papData/' + papGroupType + '/papGroup/filter',
+    $.getJSON('/api/papData/' + papGroupType + '/papGroup/filter',
         {
             measure: measure,
             papName: papName
@@ -13,7 +13,7 @@ window.onload = function () {
             for (var i = 0; i < data.length; i++) {
                 var successIndicators = data[i].successIndicatorDataList;
                 for (var j = 0; j < successIndicators.length; j++) {
-                    generateGraph("/graph/successIndicator/" + successIndicators[j].id + "/dataPoints",
+                    generateGraph("/api/graph/successIndicator/" + successIndicators[j].id + "/dataPoints",
                         "successIndicatorGraph" + successIndicators[j].id, data[i].name + " - " + successIndicators[j].target + (successIndicators[j].isPercentage ?  '%' : "") + ' ' + successIndicators[j].measures, "Target", "Total");
                 }
             }

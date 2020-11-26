@@ -1,4 +1,4 @@
-package com.tesda8.region8.web.controller;
+package com.tesda8.region8.web.restcontroller;
 
 import com.tesda8.region8.util.model.DataPoints;
 import com.tesda8.region8.web.model.dto.graph.GraphDataList;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/graph")
+@RequestMapping("/api/graph")
 public class GraphDataRestController {
 
     private GraphDataFetcherService graphDataFetcherService;

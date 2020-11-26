@@ -23,6 +23,7 @@ public class ScholarshipAccomplishment extends Auditable<String> {
     @Enumerated(EnumType.STRING)
     private ScholarshipType scholarshipType;
 
+    @Enumerated(EnumType.STRING)
     private Month month;
 
     private Long year;
