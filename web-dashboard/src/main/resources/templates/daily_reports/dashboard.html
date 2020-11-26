@@ -7,7 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
-<body>
+<body data-spy="scroll" data-target="#daily-navbar" data-offset="50">
 
 <div th:replace="fragments/header :: header"/>
 
@@ -20,36 +20,36 @@
                         <h1 class="display-4 text-white mt-5 mb-2">Dashboard</h1>
                         <p class="lead text-white-50">Updated daily accomplishment reports.</p>
                         <p class="lead mb-5 text-white-50">Last updated: <span class="text-white" th:text="${#temporals.format(dailyReportInfo, 'dd/MM/yyyy hh:mm:ss a')}"></span></p>
-                            <a th:href="@{/monthly}" class="btn btn-info btn-lg" role="button" aria-pressed="true">View Monthly Comparative Reports</a>
-                            <a th:href="@{/registeredPrograms}" class="btn btn-info btn-lg" role="button" aria-pressed="true">Monitor TTI Registered Programs</a>
+                            <a th:href="@{/monthly}" class="a-header btn btn-info btn-lg" role="button" aria-pressed="true">Monthly Comparative Reports</a>
+                            <a th:href="@{/registeredPrograms}" class="a-header btn btn-info btn-lg" role="button" aria-pressed="true">TTI Registered Programs</a>
 
                         <div class="btn-group mr-2 float-right" role="group">
-                            <a th:href="@{/tableData}" class="btn btn-info btn-lg" role="button" aria-pressed="true">Table Data</a>
-                            <a th:href="@{/dailyReports}" class="btn btn-success btn-lg" role="button" aria-pressed="true">Update Report</a>
+                            <a th:href="@{/tableData}" class="a-header btn btn-info btn-lg" role="button" aria-pressed="true">Table Data</a>
+                            <a th:href="@{/dailyReports}" class="a-header btn btn-success btn-lg" role="button" aria-pressed="true">Update Report</a>
                         </div>
                     </div>
                 </div>
             </div>
         </header>
+        <div class="sidebar">
+            <nav id="daily-navbar" class="navbar navbar-light bg-light">
+                <a class="navbar-brand" href="#">Reports</a>
+                <nav class="nav nav-pills flex-column">
+                    <a class="nav-link"  href="#po">PO Report</a>
+                    <a class="nav-link"  href="#certification">Certification Rate</a>
+                    <a class="nav-link"  href="#ro">RO Per Mode</a>
+                    <a class="nav-link"  href="#institution">Institution Based</a>
+                    <a class="nav-link"  href="#enterprise">Enterprise Based</a>
+                    <a class="nav-link"  href="#community">Community Based</a>
+                    <a class="nav-link"  href="#tti">TTI</a>
+                </nav>
+            </nav>
+        </div>
         <div class="container">
             <button class="btn btn-danger btn-lg" id="downloadGraphButton" type="button"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Export as PDF</button>
             <p class="lead text-black-50 mt-5">Daily reports as of: <span class="text-black" th:text="${#temporals.format(dateTimeNow, 'dd/MM/yyyy hh:mm:ss a')}"></span></p>
         </div>
-        <div class="sidebar">
-            <nav id="daily-navbar" class="list-group">
-                <a class="navbar-brand" href="#">Reports</a>
-                <nav class="nav nav-pills flex-column">
-                    <a class="list-group-item list-group-item-action" href="#po">PO Report</a>
-                    <a class="list-group-item list-group-item-action" href="#certification">Certification Rate</a>
-                    <a class="list-group-item list-group-item-action" href="#ro">RO Per Mode</a>
-                    <a class="list-group-item list-group-item-action" href="#institution">Institution Based</a>
-                    <a class="list-group-item list-group-item-action" href="#enterprise">Enterprise Based</a>
-                    <a class="list-group-item list-group-item-action" href="#community">Community Based</a>
-                    <a class="list-group-item list-group-item-action" href="#tti">TTI</a>
-                </nav>
-            </nav>
-        </div>
-        <div class="container canvas_div_pdf" id="graphContainer" data-spy="scroll" data-target="#daily-navbar" data-offset="50">
+        <div class="container canvas_div_pdf" id="graphContainer">
             <div>
                 <h1 id="po"></h1>
                 <div id="poEnrolledGraph" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>

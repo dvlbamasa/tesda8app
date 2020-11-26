@@ -157,28 +157,28 @@ tbody:hover td[rowspan], tr:hover td {
     background: #5098d5;
 }
 
-a:link {
+.a-header:link {
     color: #ffffff;
     background-color: transparent;
     text-decoration: none;
 }
 
-a:visited {
+.a-header:visited {
     color: #ffffff;
     background-color: transparent;
     text-decoration: none;
 }
 
-a:hover {
+.a-header:hover {
     color: #bcc4ff;
     background-color: transparent;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
-a:active {
+.a-header:active {
     color: #7388ff;
     background-color: transparent;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .graphContainer { width: 3000px !important; height: 3000px !important; }
@@ -268,8 +268,8 @@ a:active {
 .sidebar {
     padding: 10px;
     width: 200px;
-    background-color: #353a3f;
-    color: #fff;
+    background-color: #ffffff;
+    color: #363a3f;
 }
 
 .sidebar {
@@ -313,6 +313,14 @@ a:active {
     }
 }
 
+
+/* If the screen size is 1400px or less */
+@media only screen and (max-width: 1400px) {
+    .sidebar {
+        display: none;
+    }
+}
+
 .nav-dropdown {
     background-color: #353a3f;
 }
@@ -327,4 +335,8 @@ label.error {
 }
 .dropdown-menu{
     margin-top: 0;
+}
+
+.dropdown-item {
+    color: white;
 }

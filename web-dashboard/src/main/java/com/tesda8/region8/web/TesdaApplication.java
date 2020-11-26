@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackages = {
 		"com.tesda8.region8.planning.repository",
 		"com.tesda8.region8.program.registration.repository",
-		"com.tesda8.region8.scholarship.model",
+		"com.tesda8.region8.scholarship.repository",
 		"com.tesda8.region8.reports.repository"
 })
 @EntityScan(basePackages = {

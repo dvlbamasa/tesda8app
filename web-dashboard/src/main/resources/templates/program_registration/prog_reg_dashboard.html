@@ -17,7 +17,7 @@
                         <h1 class="display-4 text-white mt-5 mb-2">Registered Programs</h1>
                         <p class="lead text-white-50">Summary of total course/registered programs per TESDA Technological Institution.</p>
                         <div class="btn-group mr-2 float-right" role="group">
-                            <a th:href="@{/dashboard}" class="btn btn-info btn-lg" role="button" aria-pressed="true">Back to Dashboard</a>
+                            <a th:href="@{/dashboard}" class="a-header btn btn-info btn-lg" role="button" aria-pressed="true">Back to Dashboard</a>
                         </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                             <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
                                 <th:block th:if="${sector.sectorType == 'TTI' and sector != T(com.tesda8.region8.util.enums.Sector).ALL}">
                                     <th>
-                                        <a th:text="${sector.label}" th:href="@{/registeredPrograms/{sectorType}/sector(sectorType=${sector})}"></a>
+                                        <a class="a-header" th:text="${sector.label}" th:href="@{/registeredPrograms/{sectorType}/sector(sectorType=${sector})}"></a>
                                     </th>
                                 </th:block>
                             </th:block>
