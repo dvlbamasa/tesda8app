@@ -199,6 +199,10 @@ tbody:hover td[rowspan], tr:hover td {
     background-color: #ffffad;
 }
 
+.col-striped2 {
+    background-color: #ffd1ad;
+}
+
 .home {
     background: linear-gradient(130deg, #ffffff, #ffffff);
     background-size: 400% 400%;

@@ -15,4 +15,16 @@ public class PhysicalAccomplishmentDto {
     private Long certified;
     private Double certifiedUtilization;
     private Long employed;
+
+    public PhysicalAccomplishmentDto(Long enrolled, Double enrolledUtilization, Long graduates, Double graduatesUtilization, Long assessed, Double assessedUtilization, Long certified, Double certifiedUtilization, Long employed) {
+        this.enrolled = enrolled;
+        this.enrolledUtilization = enrolledUtilization;
+        this.graduates = graduates;
+        this.graduatesUtilization = graduatesUtilization;
+        this.assessed = assessed;
+        this.assessedUtilization = assessedUtilization;
+        this.certified = certified;
+        this.certifiedUtilization = certifiedUtilization;
+        this.employed = employed;
+    }
 }

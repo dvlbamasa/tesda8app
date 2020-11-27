@@ -4,6 +4,7 @@ import com.tesda8.region8.scholarship.model.dto.ScholarshipAccomplishmentDto;
 import com.tesda8.region8.scholarship.model.entities.ScholarshipAccomplishment;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
@@ -19,4 +20,11 @@ public interface ScholarshipMapper {
     @Mapping(source = "scholarshipAccomplishmentDto.financialAccomplishmentDto", target = "financialAccomplishment")
     @Mapping(source = "scholarshipAccomplishmentDto.physicalAccomplishmentDto", target = "physicalAccomplishment")
     ScholarshipAccomplishment scholarshipAccomplishmentToEntity(ScholarshipAccomplishmentDto scholarshipAccomplishmentDto);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "scholarshipAccomplishmentDto.qualificationMapDto", target = "qualificationMap")
+    @Mapping(source = "scholarshipAccomplishmentDto.financialAccomplishmentDto", target = "financialAccomplishment")
+    @Mapping(source = "scholarshipAccomplishmentDto.physicalAccomplishmentDto", target = "physicalAccomplishment")
+    public abstract ScholarshipAccomplishment updatedScholarshipAccomplishmentToEntity(ScholarshipAccomplishmentDto scholarshipAccomplishmentDto,
+                                                                                       @MappingTarget ScholarshipAccomplishment scholarshipAccomplishment);
 }

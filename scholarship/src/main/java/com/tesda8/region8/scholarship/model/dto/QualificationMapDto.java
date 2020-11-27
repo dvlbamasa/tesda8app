@@ -8,4 +8,9 @@ import lombok.NoArgsConstructor;
 public class QualificationMapDto {
     private Long amount;
     private Long slots;
+
+    public QualificationMapDto(Long amount, Long slots) {
+        this.amount = amount;
+        this.slots = slots;
+    }
 }

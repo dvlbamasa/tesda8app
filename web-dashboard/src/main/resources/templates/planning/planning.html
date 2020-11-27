@@ -69,411 +69,391 @@
                 </li>
             </ul>
         </div>
-        <div class="tab-content" id="pills-tabContent-tesdpp">
+        <div class="tab-content" id="pills-tabContent-tesdpp" th:object="${papData}">
             <div class="tab-pane fade show active" id="tesdpp" role="tabpanel" aria-labelledby="tesdpp-tab">
                 <div class="container mb-5">
                     <button onclick="exportTableToExcel('tesdpp-table', 'OPCR - Technical Education and Skills Development Policy Program')" class="btn btn-success btn-lg" id="downloadTable1" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
                     <a th:href="@{/planning/graph/TESDPP/papGroup(papName=${papNameValue}, measure=${successIndicatorMeasureValue})}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                 </div>
-                <form th:object="${papData}" method="post">
-                    <fieldset>
-                        <div class="table-responsive double-scroll">
-                            <table class="table table-striped table-bordered table-sm" id="tesdpp-table">
-                                <thead class="thead-dark">
+                <div class="table-responsive double-scroll">
+                    <table class="table table-striped table-bordered table-sm" id="tesdpp-table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col"> P/A/P</th>
+                            <th colspan="2" scope="col"> Success Indicators</th>
+                            <th:block th:each="opratingUnitType : ${T(com.tesda8.region8.util.enums.OperatingUnitPOType).values()}">
+                                <th colspan="3" th:text="${opratingUnitType.label}">
+                                </th>
+                            </th:block>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th>Target</th>
+                            <th>Measure</th>
+                            <th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th>
+                            <th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <th:block th:each="successIndicator, itemstat : *{tesdppData}">
                                 <tr>
-                                    <th scope="col"> P/A/P</th>
-                                    <th colspan="2" scope="col"> Success Indicators</th>
-                                    <th:block th:each="opratingUnitType : ${T(com.tesda8.region8.util.enums.OperatingUnitPOType).values()}">
-                                        <th colspan="3" th:text="${opratingUnitType.label}">
-                                        </th>
-                                    </th:block>
-                                </tr>
-                                <tr>
-                                    <th></th>
-                                    <th>Target</th>
-                                    <th>Measure</th>
-                                    <th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th>
-                                    <th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <th:block th:each="successIndicator, itemstat : *{tesdppData}">
-                                        <tr>
-                                            <td th:text="${successIndicator.papName}"></td>
-                                            <td>
-                                                <span th:text="${successIndicator.target}"></span>
+                                    <td th:text="${successIndicator.papName}"></td>
+                                    <td>
+                                        <span th:text="${successIndicator.target}"></span>
+                                        <th:block th:if="${successIndicator.isPercentage}">
+                                            <span>&#37;</span>
+                                        </th:block>
+                                    </td>
+                                    <td th:text="${successIndicator.measures}"></td>
+                                    <th:block th:each="operatingUnitData : ${successIndicator.operatingUnitDataList}">
+                                        <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
+                                            <th class="total-col"><span th:text="${operatingUnitData.target}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
                                                     <span>&#37;</span>
                                                 </th:block>
-                                            </td>
-                                            <td th:text="${successIndicator.measures}"></td>
-                                            <th:block th:each="operatingUnitData : ${successIndicator.operatingUnitDataList}">
-                                                <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                                    <th class="total-col"><span th:text="${operatingUnitData.target}"></span>
-                                                        <th:block th:if="${successIndicator.isPercentage}">
-                                                            <span>&#37;</span>
-                                                        </th:block>
-                                                    </th>
-                                                    <th class="total-col"><span th:text="${operatingUnitData.output}"></span>
-                                                        <th:block th:if="${successIndicator.isPercentage}">
-                                                            <span>&#37;</span>
-                                                        </th:block>
-                                                    </th>
-                                                    <th class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></th>
+                                            </th>
+                                            <th class="total-col"><span th:text="${operatingUnitData.output}"></span>
+                                                <th:block th:if="${successIndicator.isPercentage}">
+                                                    <span>&#37;</span>
                                                 </th:block>
-                                                <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
-                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
-                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                                </th:block>
-                                            </th:block>
-                                        </tr>
+                                            </th>
+                                            <th class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></th>
+                                        </th:block>
+                                        <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
+                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
+                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
+                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
+                                        </th:block>
                                     </th:block>
-                                </tbody>
-                            </table>
-                        </div>
-                    </fieldset>
-                </form>
+                                </tr>
+                            </th:block>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="tab-pane fade" id="tesdrp" role="tabpanel" aria-labelledby="tesdrp-tab">
                 <div class="container mb-5">
                     <button onclick="exportTableToExcel('tesdrp-table', 'OPCR - Technical Education and Skills Development Regulatory Program')" class="btn btn-success btn-lg" id="downloadTable2" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
                     <a th:href="@{/planning/graph/TESDRP/papGroup(papName=${papNameValue}, measure=${successIndicatorMeasureValue})}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                 </div>
-                <form th:object="${papData}" method="post">
-                    <fieldset>
-                        <div class="table-responsive double-scroll">
-                            <table class="table table-striped table-bordered table-sm" id="tesdrp-table">
-                                <thead class="thead-dark">
+                <div class="table-responsive double-scroll">
+                    <table class="table table-striped table-bordered table-sm" id="tesdrp-table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col"> P/A/P</th>
+                            <th colspan="2" scope="col"> Success Indicators</th>
+                            <th:block th:each="opratingUnitType : ${T(com.tesda8.region8.util.enums.OperatingUnitPOType).values()}">
+                                <th colspan="3" th:text="${opratingUnitType.label}">
+                                </th>
+                            </th:block>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th>Target</th>
+                            <th>Measure</th>
+                            <th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th>
+                            <th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <th:block th:each="successIndicator, itemstat : *{tesdrpData}">
                                 <tr>
-                                    <th scope="col"> P/A/P</th>
-                                    <th colspan="2" scope="col"> Success Indicators</th>
-                                    <th:block th:each="opratingUnitType : ${T(com.tesda8.region8.util.enums.OperatingUnitPOType).values()}">
-                                        <th colspan="3" th:text="${opratingUnitType.label}">
-                                        </th>
-                                    </th:block>
-                                </tr>
-                                <tr>
-                                    <th></th>
-                                    <th>Target</th>
-                                    <th>Measure</th>
-                                    <th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th>
-                                    <th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <th:block th:each="successIndicator, itemstat : *{tesdrpData}">
-                                        <tr>
-                                            <td th:text="${successIndicator.papName}"></td>
-                                            <td>
-                                                <span th:text="${successIndicator.target}"></span>
+                                    <td th:text="${successIndicator.papName}"></td>
+                                    <td>
+                                        <span th:text="${successIndicator.target}"></span>
+                                        <th:block th:if="${successIndicator.isPercentage}">
+                                            <span>&#37;</span>
+                                        </th:block>
+                                    </td>
+                                    <td th:text="${successIndicator.measures}"></td>
+                                    <th:block th:each="operatingUnitData : ${successIndicator.operatingUnitDataList}">
+                                        <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
+                                            <th class="total-col"><span th:text="${operatingUnitData.target}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
                                                     <span>&#37;</span>
                                                 </th:block>
-                                            </td>
-                                            <td th:text="${successIndicator.measures}"></td>
-                                            <th:block th:each="operatingUnitData : ${successIndicator.operatingUnitDataList}">
-                                                <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                                    <th class="total-col"><span th:text="${operatingUnitData.target}"></span>
-                                                        <th:block th:if="${successIndicator.isPercentage}">
-                                                            <span>&#37;</span>
-                                                        </th:block>
-                                                    </th>
-                                                    <th class="total-col"><span th:text="${operatingUnitData.output}"></span>
-                                                        <th:block th:if="${successIndicator.isPercentage}">
-                                                            <span>&#37;</span>
-                                                        </th:block>
-                                                    </th>
-                                                    <th class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></th>
+                                            </th>
+                                            <th class="total-col"><span th:text="${operatingUnitData.output}"></span>
+                                                <th:block th:if="${successIndicator.isPercentage}">
+                                                    <span>&#37;</span>
                                                 </th:block>
-                                                <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
-                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
-                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                                </th:block>
-                                            </th:block>
-                                        </tr>
+                                            </th>
+                                            <th class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></th>
+                                        </th:block>
+                                        <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
+                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
+                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
+                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
+                                        </th:block>
                                     </th:block>
-                                </tbody>
-                            </table>
-                        </div>
-                    </fieldset>
-                </form>
+                                </tr>
+                            </th:block>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="tab-pane fade" id="tesdp" role="tabpanel" aria-labelledby="tesdp-tab">
                 <div class="container mb-5">
                     <button onclick="exportTableToExcel('tesdp-table', 'OPCR - Technical Education and Skills Development Program')" class="btn btn-success btn-lg" id="downloadTable3" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
                     <a th:href="@{/planning/graph/TESDP/papGroup(papName=${papNameValue}, measure=${successIndicatorMeasureValue})}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                 </div>
-                <form th:object="${papData}" method="post">
-                    <fieldset>
-                        <div class="table-responsive double-scroll">
-                            <table class="table table-striped table-bordered table-sm" id="tesdp-table">
-                                <thead class="thead-dark">
+                <div class="table-responsive double-scroll">
+                    <table class="table table-striped table-bordered table-sm" id="tesdp-table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col"> P/A/P</th>
+                            <th colspan="2" scope="col"> Success Indicators</th>
+                            <th:block th:each="opratingUnitType : ${T(com.tesda8.region8.util.enums.OperatingUnitPOType).values()}">
+                                <th colspan="3" th:text="${opratingUnitType.label}">
+                                </th>
+                            </th:block>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th>Target</th>
+                            <th>Measure</th>
+                            <th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th>
+                            <th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <th:block th:each="successIndicator, itemstat : *{tesdpData}">
                                 <tr>
-                                    <th scope="col"> P/A/P</th>
-                                    <th colspan="2" scope="col"> Success Indicators</th>
-                                    <th:block th:each="opratingUnitType : ${T(com.tesda8.region8.util.enums.OperatingUnitPOType).values()}">
-                                        <th colspan="3" th:text="${opratingUnitType.label}">
-                                        </th>
-                                    </th:block>
-                                </tr>
-                                <tr>
-                                    <th></th>
-                                    <th>Target</th>
-                                    <th>Measure</th>
-                                    <th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th>
-                                    <th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <th:block th:each="successIndicator, itemstat : *{tesdpData}">
-                                        <tr>
-                                            <td th:text="${successIndicator.papName}"></td>
-                                            <td>
-                                                <span th:text="${successIndicator.target}"></span>
+                                    <td th:text="${successIndicator.papName}"></td>
+                                    <td>
+                                        <span th:text="${successIndicator.target}"></span>
+                                        <th:block th:if="${successIndicator.isPercentage}">
+                                            <span>&#37;</span>
+                                        </th:block>
+                                    </td>
+                                    <td th:text="${successIndicator.measures}"></td>
+                                    <th:block th:each="operatingUnitData : ${successIndicator.operatingUnitDataList}">
+                                        <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
+                                            <th class="total-col"><span th:text="${operatingUnitData.target}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
                                                     <span>&#37;</span>
                                                 </th:block>
-                                            </td>
-                                            <td th:text="${successIndicator.measures}"></td>
-                                            <th:block th:each="operatingUnitData : ${successIndicator.operatingUnitDataList}">
-                                                <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                                    <th class="total-col"><span th:text="${operatingUnitData.target}"></span>
-                                                        <th:block th:if="${successIndicator.isPercentage}">
-                                                            <span>&#37;</span>
-                                                        </th:block>
-                                                    </th>
-                                                    <th class="total-col"><span th:text="${operatingUnitData.output}"></span>
-                                                        <th:block th:if="${successIndicator.isPercentage}">
-                                                            <span>&#37;</span>
-                                                        </th:block>
-                                                    </th>
-                                                    <th class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></th>
+                                            </th>
+                                            <th class="total-col"><span th:text="${operatingUnitData.output}"></span>
+                                                <th:block th:if="${successIndicator.isPercentage}">
+                                                    <span>&#37;</span>
                                                 </th:block>
-                                                <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
-                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
-                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                                </th:block>
-                                            </th:block>
-                                        </tr>
+                                            </th>
+                                            <th class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></th>
+                                        </th:block>
+                                        <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
+                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
+                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
+                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
+                                        </th:block>
                                     </th:block>
-                                </tbody>
-                            </table>
-                        </div>
-                    </fieldset>
-                </form>
+                                </tr>
+                            </th:block>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="tab-pane fade" id="sto" role="tabpanel" aria-labelledby="sto-tab">
                 <div class="container mb-5">
                     <button onclick="exportTableToExcel('sto-table', 'OPCR - Support to Operations')" class="btn btn-success btn-lg" id="downloadTable4" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
                     <a th:href="@{/planning/graph/STO/papGroup(papName=${papNameValue}, measure=${successIndicatorMeasureValue})}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                 </div>
-                <form th:object="${papData}" method="post">
-                    <fieldset>
-                        <div class="table-responsive double-scroll">
-                            <table class="table table-striped table-bordered table-sm" id="sto-table">
-                                <thead class="thead-dark">
+                <div class="table-responsive double-scroll">
+                    <table class="table table-striped table-bordered table-sm" id="sto-table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col"> P/A/P</th>
+                            <th colspan="2" scope="col"> Success Indicators</th>
+                            <th:block th:each="opratingUnitType : ${T(com.tesda8.region8.util.enums.OperatingUnitPOType).values()}">
+                                <th colspan="3" th:text="${opratingUnitType.label}">
+                                </th>
+                            </th:block>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th>Target</th>
+                            <th>Measure</th>
+                            <th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th>
+                            <th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <th:block th:each="successIndicator, itemstat : *{stoData}">
                                 <tr>
-                                    <th scope="col"> P/A/P</th>
-                                    <th colspan="2" scope="col"> Success Indicators</th>
-                                    <th:block th:each="opratingUnitType : ${T(com.tesda8.region8.util.enums.OperatingUnitPOType).values()}">
-                                        <th colspan="3" th:text="${opratingUnitType.label}">
-                                        </th>
-                                    </th:block>
-                                </tr>
-                                <tr>
-                                    <th></th>
-                                    <th>Target</th>
-                                    <th>Measure</th>
-                                    <th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th>
-                                    <th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <th:block th:each="successIndicator, itemstat : *{stoData}">
-                                        <tr>
-                                            <td th:text="${successIndicator.papName}"></td>
-                                            <td>
-                                                <span th:text="${successIndicator.target}"></span>
+                                    <td th:text="${successIndicator.papName}"></td>
+                                    <td>
+                                        <span th:text="${successIndicator.target}"></span>
+                                        <th:block th:if="${successIndicator.isPercentage}">
+                                            <span>&#37;</span>
+                                        </th:block>
+                                    </td>
+                                    <td th:text="${successIndicator.measures}"></td>
+                                    <th:block th:each="operatingUnitData : ${successIndicator.operatingUnitDataList}">
+                                        <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
+                                            <th class="total-col"><span th:text="${operatingUnitData.target}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
                                                     <span>&#37;</span>
                                                 </th:block>
-                                            </td>
-                                            <td th:text="${successIndicator.measures}"></td>
-                                            <th:block th:each="operatingUnitData : ${successIndicator.operatingUnitDataList}">
-                                                <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                                    <th class="total-col"><span th:text="${operatingUnitData.target}"></span>
-                                                        <th:block th:if="${successIndicator.isPercentage}">
-                                                            <span>&#37;</span>
-                                                        </th:block>
-                                                    </th>
-                                                    <th class="total-col"><span th:text="${operatingUnitData.output}"></span>
-                                                        <th:block th:if="${successIndicator.isPercentage}">
-                                                            <span>&#37;</span>
-                                                        </th:block>
-                                                    </th>
-                                                    <th class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></th>
+                                            </th>
+                                            <th class="total-col"><span th:text="${operatingUnitData.output}"></span>
+                                                <th:block th:if="${successIndicator.isPercentage}">
+                                                    <span>&#37;</span>
                                                 </th:block>
-                                                <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
-                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
-                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                                </th:block>
-                                            </th:block>
-                                        </tr>
+                                            </th>
+                                            <th class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></th>
+                                        </th:block>
+                                        <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
+                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
+                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
+                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
+                                        </th:block>
                                     </th:block>
-                                </tbody>
-                            </table>
-                        </div>
-                    </fieldset>
-                </form>
+                                </tr>
+                            </th:block>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="tab-pane fade" id="gass" role="tabpanel" aria-labelledby="gass-tab">
                 <div class="container mb-5">
                     <button onclick="exportTableToExcel('gass-table', 'OPCR - General Administrative Support Servies')" class="btn btn-success btn-lg" id="downloadTable5" type="button"> <i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
                     <a th:href="@{/planning/graph/GASS/papGroup(papName=${papNameValue}, measure=${successIndicatorMeasureValue})}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                 </div>
-                <form th:object="${papData}" method="post">
-                    <fieldset>
-                        <div class="table-responsive double-scroll">
-                            <table class="table table-striped table-bordered table-sm" id="gass-table">
-                                <thead class="thead-dark">
+                <div class="table-responsive double-scroll">
+                    <table class="table table-striped table-bordered table-sm" id="gass-table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col"> P/A/P</th>
+                            <th colspan="2" scope="col"> Success Indicators</th>
+                            <th:block th:each="opratingUnitType : ${T(com.tesda8.region8.util.enums.OperatingUnitPOType).values()}">
+                                <th colspan="3" th:text="${opratingUnitType.label}">
+                                </th>
+                            </th:block>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th>Target</th>
+                            <th>Measure</th>
+                            <th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th>
+                            <th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <th:block th:each="successIndicator, itemstat : *{gassData}">
                                 <tr>
-                                    <th scope="col"> P/A/P</th>
-                                    <th colspan="2" scope="col"> Success Indicators</th>
-                                    <th:block th:each="opratingUnitType : ${T(com.tesda8.region8.util.enums.OperatingUnitPOType).values()}">
-                                        <th colspan="3" th:text="${opratingUnitType.label}">
-                                        </th>
-                                    </th:block>
-                                </tr>
-                                <tr>
-                                    <th></th>
-                                    <th>Target</th>
-                                    <th>Measure</th>
-                                    <th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th>
-                                    <th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th><th>Target</th>
-                                    <th>Output</th>
-                                    <th>Acc.&#37;</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <th:block th:each="successIndicator, itemstat : *{gassData}">
-                                        <tr>
-                                            <td th:text="${successIndicator.papName}"></td>
-                                            <td>
-                                                <span th:text="${successIndicator.target}"></span>
+                                    <td th:text="${successIndicator.papName}"></td>
+                                    <td>
+                                        <span th:text="${successIndicator.target}"></span>
+                                        <th:block th:if="${successIndicator.isPercentage}">
+                                            <span>&#37;</span>
+                                        </th:block>
+                                    </td>
+                                    <td th:text="${successIndicator.measures}"></td>
+                                    <th:block th:each="operatingUnitData : ${successIndicator.operatingUnitDataList}">
+                                        <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
+                                            <th class="total-col"><span th:text="${operatingUnitData.target}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
                                                     <span>&#37;</span>
                                                 </th:block>
-                                            </td>
-                                            <td th:text="${successIndicator.measures}"></td>
-                                            <th:block th:each="operatingUnitData : ${successIndicator.operatingUnitDataList}">
-                                                <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                                    <th class="total-col"><span th:text="${operatingUnitData.target}"></span>
-                                                        <th:block th:if="${successIndicator.isPercentage}">
-                                                            <span>&#37;</span>
-                                                        </th:block>
-                                                    </th>
-                                                    <th class="total-col"><span th:text="${operatingUnitData.output}"></span>
-                                                        <th:block th:if="${successIndicator.isPercentage}">
-                                                            <span>&#37;</span>
-                                                        </th:block>
-                                                    </th>
-                                                    <th class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></th>
+                                            </th>
+                                            <th class="total-col"><span th:text="${operatingUnitData.output}"></span>
+                                                <th:block th:if="${successIndicator.isPercentage}">
+                                                    <span>&#37;</span>
                                                 </th:block>
-                                                <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
-                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
-                                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                                </th:block>
-                                            </th:block>
-                                        </tr>
+                                            </th>
+                                            <th class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></th>
+                                        </th:block>
+                                        <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
+                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
+                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
+                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
+                                        </th:block>
                                     </th:block>
-                                </tbody>
-                            </table>
-                        </div>
-                    </fieldset>
-                </form>
+                                </tr>
+                            </th:block>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class ScholarshipAccomplishmentDto {
-
+    private Long id;
     private OperatingUnitType operatingUnitType;
     private ScholarshipType scholarshipType;
     private Month month;
@@ -17,4 +17,15 @@ public class ScholarshipAccomplishmentDto {
     private QualificationMapDto qualificationMapDto;
     private FinancialAccomplishmentDto financialAccomplishmentDto;
     private PhysicalAccomplishmentDto physicalAccomplishmentDto;
+
+    public ScholarshipAccomplishmentDto(OperatingUnitType operatingUnitType, ScholarshipType scholarshipType,
+                                        Month month, Long year) {
+        this.operatingUnitType = operatingUnitType;
+        this.scholarshipType = scholarshipType;
+        this.month = month;
+        this.year = year;
+        this.qualificationMapDto = new QualificationMapDto(0L, 0L);
+        this.financialAccomplishmentDto = new FinancialAccomplishmentDto(0L, 0.0, 0L, 0.0 );
+        this.physicalAccomplishmentDto = new PhysicalAccomplishmentDto(0L, 0.0, 0L, 0.0, 0L, 0.0, 0L, 0.0, 0L);
+    }
 }

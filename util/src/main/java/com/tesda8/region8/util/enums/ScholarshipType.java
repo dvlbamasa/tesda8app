@@ -5,6 +5,7 @@ public enum ScholarshipType {
     TWSP("TWSP"),
     PESFA("PESFA"),
     STEP("STEP"),
+    RESP("RESP"),
     UAQTEA_SB("UAQTEA_SB"),
     UAQTEA_DIPLOMA("UAQTEA_DIPLOMA");
 

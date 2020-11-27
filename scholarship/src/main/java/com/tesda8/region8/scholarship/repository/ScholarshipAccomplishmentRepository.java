@@ -2,6 +2,7 @@ package com.tesda8.region8.scholarship.repository;
 
 import com.tesda8.region8.scholarship.model.entities.ScholarshipAccomplishment;
 import com.tesda8.region8.util.enums.Month;
+import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.ScholarshipType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
@@ -15,4 +16,7 @@ public interface ScholarshipAccomplishmentRepository extends JpaRepository<Schol
     List<ScholarshipAccomplishment> findAllByYear(Long year);
     List<ScholarshipAccomplishment> findAllByYearAndMonth(Long year, Month month);
     List<ScholarshipAccomplishment> findAllByYearAndMonthAndScholarshipType(Long year, Month month, ScholarshipType scholarshipType);
+    ScholarshipAccomplishment findByYearAndMonthAndScholarshipTypeAndOperatingUnitType(Long year, Month month,
+                                                                                       ScholarshipType scholarshipType,
+                                                                                       OperatingUnitType  operatingUnitType);
 }

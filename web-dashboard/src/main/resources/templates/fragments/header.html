@@ -28,7 +28,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top page-header">
         <a class="navbar-brand" th:href="@{/}">
             <img th:src="@{/images/favicon.png}" src="../../static/images/tesda_logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
-            TESDA Region VIII
+            TESDA RO-8
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -50,10 +50,10 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown navDropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Planning
                     </a>
-                    <div class="dropdown-menu nav-dropdown" aria-labelledby="navbarDropdown3">
+                    <div class="dropdown-menu nav-dropdown" aria-labelledby="navbarDropdown2">
                         <a class="dropdown-item header-dropdown-item" th:href="@{/planning}">OPCR Summary</a>
                         <a class="dropdown-item header-dropdown-item" th:href="@{/planning/opcr/update}">Update OPCR</a>
                         <div class="dropdown-divider"></div>
@@ -63,10 +63,11 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown navDropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <!-- <span class="badge badge-pill badge-danger" style="float:right;margin-bottom:-10px;">1</span>  your badge -->
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Program Registration
                     </a>
-                    <div class="dropdown-menu nav-dropdown" aria-labelledby="navbarDropdown2">
+                    <div class="dropdown-menu nav-dropdown" aria-labelledby="navbarDropdown3">
                         <a class="dropdown-item header-dropdown-item" th:href="@{/program_registration}">Compendium of Registered Programs</a>
                         <a class="dropdown-item header-dropdown-item" th:href="@{/program_registration/registeredProgram/create}">Add Registered Program</a>
                         <div class="dropdown-divider"></div>
@@ -74,8 +75,14 @@
                         <a class="dropdown-item header-dropdown-item" th:href="@{/program_registration/institution/create}">Add Institution</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/scholarship}">Scholarship</a>
+                <li class="nav-item dropdown navDropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Scholarship
+                    </a>
+                    <div class="dropdown-menu nav-dropdown" aria-labelledby="navbarDropdown4">
+                        <a class="dropdown-item header-dropdown-item" th:href="@{/scholarship}">Monthly Scholarship Accomplishment</a>
+                        <a class="dropdown-item header-dropdown-item" th:href="@{/scholarship/update(year = 2020, month = 'DECEMBER')}">Update Scholarship Accomplishment</a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/certification}">Certification</a>
