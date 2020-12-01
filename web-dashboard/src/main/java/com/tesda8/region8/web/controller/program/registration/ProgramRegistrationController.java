@@ -10,7 +10,7 @@ import com.tesda8.region8.program.registration.model.dto.RegisteredProgramReques
 import com.tesda8.region8.program.registration.model.dto.TrainerDto;
 import com.tesda8.region8.program.registration.model.entities.RegisteredProgram;
 import com.tesda8.region8.program.registration.service.InstitutionService;
-import com.tesda8.region8.program.registration.service.impl.RegisteredProgramService;
+import com.tesda8.region8.program.registration.service.RegisteredProgramService;
 import com.tesda8.region8.util.enums.CourseStatus;
 import com.tesda8.region8.util.enums.InstitutionClassification;
 import com.tesda8.region8.util.enums.OperatingUnitType;

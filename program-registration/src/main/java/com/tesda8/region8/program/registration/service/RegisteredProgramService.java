@@ -1,4 +1,4 @@
-package com.tesda8.region8.program.registration.service.impl;
+package com.tesda8.region8.program.registration.service;
 
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramDto;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramFilter;

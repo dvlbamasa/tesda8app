@@ -16,6 +16,7 @@ import com.tesda8.region8.program.registration.model.wrapper.InstitutionWrapper;
 import com.tesda8.region8.program.registration.model.wrapper.ProgramRegistrationWrapper;
 import com.tesda8.region8.program.registration.repository.InstitutionRepository;
 import com.tesda8.region8.program.registration.repository.RegisteredProgramRepository;
+import com.tesda8.region8.program.registration.service.RegisteredProgramService;
 import com.tesda8.region8.util.enums.CourseStatus;
 import com.tesda8.region8.util.enums.InstitutionClassification;
 import com.tesda8.region8.util.enums.InstitutionType;
@@ -37,7 +38,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class RegisteredProgramServiceImpl implements RegisteredProgramService{
+public class RegisteredProgramServiceImpl implements RegisteredProgramService {
 
     private static final String ALL = "ALL";
 

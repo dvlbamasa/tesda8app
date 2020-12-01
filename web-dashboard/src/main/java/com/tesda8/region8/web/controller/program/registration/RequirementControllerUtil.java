@@ -3,7 +3,7 @@ package com.tesda8.region8.web.controller.program.registration;
 import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramRequestDto;
 import com.tesda8.region8.program.registration.service.InstitutionService;
-import com.tesda8.region8.program.registration.service.impl.RegisteredProgramService;
+import com.tesda8.region8.program.registration.service.RegisteredProgramService;
 import org.springframework.ui.Model;
 
 import java.util.List;

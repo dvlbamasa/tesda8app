@@ -7,8 +7,7 @@ import com.tesda8.region8.program.registration.model.dto.RegisteredProgramFilter
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramRequestDto;
 import com.tesda8.region8.program.registration.model.wrapper.ProgramRegistrationWrapper;
 import com.tesda8.region8.program.registration.service.InstitutionService;
-import com.tesda8.region8.program.registration.service.impl.RegisteredProgramService;
-import com.tesda8.region8.util.enums.Sector;
+import com.tesda8.region8.program.registration.service.RegisteredProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;

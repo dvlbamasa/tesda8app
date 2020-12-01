@@ -5,7 +5,7 @@ import com.tesda8.region8.program.registration.model.dto.RegisteredProgramDto;
 import com.tesda8.region8.program.registration.model.wrapper.ProgramRegistrationWrapper;
 import com.tesda8.region8.program.registration.model.wrapper.RegisteredProgramRequest;
 import com.tesda8.region8.program.registration.service.InstitutionService;
-import com.tesda8.region8.program.registration.service.impl.RegisteredProgramService;
+import com.tesda8.region8.program.registration.service.RegisteredProgramService;
 import com.tesda8.region8.util.enums.InstitutionClassification;
 import com.tesda8.region8.util.enums.InstitutionType;
 import com.tesda8.region8.util.enums.Sector;

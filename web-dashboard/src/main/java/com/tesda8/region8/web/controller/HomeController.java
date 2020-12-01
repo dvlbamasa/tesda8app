@@ -1,5 +1,6 @@
 package com.tesda8.region8.web.controller;
 
+import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.reports.model.entities.DailyReportInfo;
 import com.tesda8.region8.reports.service.DailyReportInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,17 +11,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.time.LocalDateTime;
 
 @Controller
-public class HomeController {
+public class HomeController extends DefaultController{
 
     private DailyReportInfoService dailyReportInfoService;
 
     @Autowired
-    public HomeController(DailyReportInfoService dailyReportInfoService) {
+    public HomeController(DailyReportInfoService dailyReportInfoService,
+                          RegisteredProgramStatusService registeredProgramStatusService) {
+        super(registeredProgramStatusService);
         this.dailyReportInfoService = dailyReportInfoService;
     }
 
     @GetMapping("/")
-    public String home1() {
+    public String home1(Model model) {
+        addStatusCounterToModel(model);
         return "home";
     }
 
@@ -31,6 +35,7 @@ public class HomeController {
 
     @GetMapping("/dashboard")
     public String daily(Model model) {
+        addStatusCounterToModel(model);
         DailyReportInfo dailyReportInfo = dailyReportInfoService.getLatestDailyReportInfo();
         model.addAttribute("dailyReportInfo", dailyReportInfo.getUpdatedDate().plusHours(8));
         model.addAttribute("dateTimeNow", LocalDateTime.now().plusHours(8));
@@ -68,7 +73,9 @@ public class HomeController {
     }
 
     @GetMapping("/error")
-    public String error500() {
+    public String error500(Model model) {
+        addStatusCounterToModel(model);
+
         return "error/500";
     }
 }

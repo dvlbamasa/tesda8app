@@ -10,8 +10,18 @@
 <body>
 
 <div th:replace="fragments/header :: header"/>
-
 <div id="page-container">
+    <!--div id="myToast" class="toast" style="position: absolute; top: 0; right: 0;">
+        <div class="toast-header">
+            <strong class="mr-auto"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Document Expired</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            Hello, world! This is a sample message.
+        </div>
+    </div-->
     <div id = "content-wrap">
         <header class="bg-primary py-5 mb-5">
             <div class="container h-100">
@@ -259,6 +269,7 @@
 <script src="https://unpkg.com/sticky-table-headers"></script>
 <script  type='text/javascript' src="../../static/js/doubleScroll/jquery.doubleScroll.js" th:src="@{/js/doubleScroll/jquery.doubleScroll.js}"></script>
 <script type='text/javascript' src="../../static/js/table_event_handlers.js" th:src="@{/js/table_event_handlers.js}"></script>
+<script type='text/javascript' src="../../static/js/table_event_handlers.js" th:src="@{/js/program_registration/program_registration.js}"></script>
 
 </body>
 </html>
