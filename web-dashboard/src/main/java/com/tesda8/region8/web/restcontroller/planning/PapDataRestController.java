@@ -2,7 +2,6 @@ package com.tesda8.region8.web.restcontroller.planning;
 
 import com.tesda8.region8.planning.model.dto.PapDataDto;
 import com.tesda8.region8.planning.model.dto.SuccessIndicatorDataDto;
-import com.tesda8.region8.planning.model.entities.SuccessIndicatorData;
 import com.tesda8.region8.planning.service.PapDataService;
 import com.tesda8.region8.util.enums.PapGroupType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +36,11 @@ public class PapDataRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{papGroupType}/papGroup/filter")
-    public List<PapDataDto> fetchAllPapDataByPapGroupTypeAndMeasure(@PathVariable("papGroupType")PapGroupType papGroupType,
+    public List<SuccessIndicatorDataDto> fetchAllSuccessIndicatorsByPapGroupTypeAndMeasure(@PathVariable("papGroupType")PapGroupType papGroupType,
                                                                     @RequestParam("measure") String measure,
-                                                                    @RequestParam("papName") String papName) {
-        return papDataService.getAllPapDataByPapGroupTypeAndMeasureAndPapName(papGroupType, measure, papName);
+                                                                    @RequestParam("papName") String papName,
+                                                                    @RequestParam("year") Long year) {
+        return papDataService.getAllSuccessIndicatorsByFilter(papGroupType, measure, papName, year);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/update")
@@ -59,8 +59,8 @@ public class PapDataRestController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/create")
-    public void createPapData(@RequestBody PapDataDto papDataDto) {
-        papDataService.createPapData(papDataDto);
+    public void createPapData(@RequestBody PapDataDto papDataDto, @RequestParam("year") Long year) {
+        papDataService.createPapData(papDataDto, year);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/delete")

@@ -2557,7 +2557,7 @@ UPDATE success_indicator_data SET is_deleted = 'N';
 
 UPDATE pap_data SET is_deleted = 'N';
 
-
+UPDATE pap_data SET year = 2020;
 
 
 

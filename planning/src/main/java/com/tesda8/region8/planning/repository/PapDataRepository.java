@@ -13,4 +13,6 @@ import java.util.List;
 public interface PapDataRepository extends JpaRepository<PapData, Long>, QuerydslPredicateExecutor<PapData> {
 
     List<PapData> findAllByPapGroupType(PapGroupType papGroupType);
+
+    List<PapData> findAllByYear(Long year);
 }

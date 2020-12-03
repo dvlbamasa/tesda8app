@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Planning - Update Success Indicators</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+
     <div th:replace="fragments/header :: header-css"/>
 </head>
 <body>
@@ -18,8 +20,7 @@
                         <p class="lead mb-5 text-white-50">Edit target and measure values for success indicators</p>
                         <div class="btn-group mr-2 float-right" role="group">
                             <a th:href="@{/planning}" class="a-header btn btn-info btn-lg" role="button" aria-pressed="true">Back to OPCR Summary</a>
-                            <a th:href="@{/planning/successIndicator/create}" class="a-header btn btn-success btn-lg" role="button" aria-pressed="true">Add Success Indicator</a>
-
+                            <a th:href="@{/planning/successIndicator/create(year = ${papFilter.year})}" class="a-header btn btn-success btn-lg" role="button" aria-pressed="true">Add Success Indicator</a>
                         </div>
                     </div>
                 </div>
@@ -29,15 +30,26 @@
             <div class="container">
                 <h1 class="display-5 text-black-50 mb-5">Search Success Indicator</h1>
                 <div class="form-group row">
+                    <label for="year" class="col-sm-2 col-form-label">OPCR Year</label>
+                    <div class="col-sm-10">
+                        <select class="form-control selectpicker" th:field="*{year}" id="year">
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="papName" class="col-sm-2 col-form-label">P/A/P</label>
                     <div class="col-sm-10">
-                        <input class="form-control" placeholder="Enter P/A/P" id="papName" name="papName" type="text" th:value="${papNameValue}" />
+                        <input class="form-control" placeholder="Enter P/A/P" id="papName" name="papName" type="text" th:value="${papFilter.papName}" />
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="successIndicatorMeasure" class="col-sm-2 col-form-label">Measure</label>
                     <div class="col-sm-10">
-                        <input class="form-control" placeholder="Enter measure" id="successIndicatorMeasure" name="successIndicatorMeasure" type="text" th:value="${successIndicatorMeasureValue}" />
+                        <input class="form-control" placeholder="Enter measure" id="successIndicatorMeasure" name="successIndicatorMeasure" type="text" th:value="${papFilter.successIndicatorMeasure}" />
                     </div>
                 </div>
             </div>
@@ -73,9 +85,11 @@
             <div class="tab-pane fade show active" id="tesdpp" role="tabpanel" aria-labelledby="tesdpp-tab">
                 <form id="tesdppForm" th:action="@{/planning/successIndicators/TESDPP/papGroup/save}"  th:object="${papData}" method="post">
                     <fieldset>
-                        <div class="container mb-5">
-                            <button disabled class="btn btn-primary btn-lg" type="submit" id="submitButton1" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Save Success Indicators</button>
-                        </div>
+                        <th:block th:if="${!papData.tesdppData.isEmpty()}">
+                            <div class="container mb-5">
+                                <button disabled class="btn btn-primary btn-lg" type="submit" id="submitButton1" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Save Success Indicators</button>
+                            </div>
+                        </th:block>
                         <div class="table-responsive  mt-5">
                             <table class="table table-striped table-bordered table-sm">
                                 <thead class="thead-dark">
@@ -94,6 +108,11 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <th:block th:if="${papData.tesdppData.isEmpty()}">
+                                    <tr>
+                                        <td style="text-align:center" colspan="6">No Data Available</td>
+                                    </tr>
+                                </th:block>
                                 <th:block th:each="successIndicator, itemstat : ${papData.tesdppData}">
                                     <tr>
                                         <th th:text="${successIndicator.papName}"></th>
@@ -119,9 +138,11 @@
             <div class="tab-pane fade" id="tesdrp" role="tabpanel" aria-labelledby="tesdrp-tab">
                 <form id="tesdrpForm" th:action="@{/planning/successIndicators/TESDRP/papGroup/save}"  th:object="${papData}" method="post">
                     <fieldset>
-                        <div class="container mb-5">
-                            <button class="btn btn-primary btn-lg" type="submit" id="submitButton2" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Save Success Indicators</button>
-                        </div>
+                        <th:block th:if="${!papData.tesdppData.isEmpty()}">
+                            <div class="container mb-5">
+                                <button class="btn btn-primary btn-lg" type="submit" id="submitButton2" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Save Success Indicators</button>
+                            </div>
+                        </th:block>
                         <div class="table-responsive  mt-5">
                             <table class="table table-striped table-bordered table-sm">
                                 <thead class="thead-dark">
@@ -140,6 +161,11 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <th:block th:if="${papData.tesdrpData.isEmpty()}">
+                                    <tr>
+                                        <td style="text-align:center" colspan="6">No Data Available</td>
+                                    </tr>
+                                </th:block>
                                     <th:block th:each="successIndicator, itemstat : ${papData.tesdrpData}">
                                         <tr>
                                             <th th:text="${successIndicator.papName}"></th>
@@ -165,9 +191,11 @@
             <div class="tab-pane fade" id="tesdp" role="tabpanel" aria-labelledby="tesdp-tab">
                 <form id="tesdpForm" th:action="@{/planning/successIndicators/TESDP/papGroup/save}"  th:object="${papData}" method="post">
                     <fieldset>
-                        <div class="container mb-5">
-                            <button class="btn btn-primary btn-lg" type="submit" id="submitButton3" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Save Success Indicators</button>
-                        </div>
+                        <th:block th:if="${!papData.tesdrpData.isEmpty()}">
+                            <div class="container mb-5">
+                                <button class="btn btn-primary btn-lg" type="submit" id="submitButton3" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Save Success Indicators</button>
+                            </div>
+                        </th:block>
                         <div class="table-responsive  mt-5">
                             <table class="table table-striped table-bordered table-sm">
                                 <thead class="thead-dark">
@@ -186,6 +214,11 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <th:block th:if="${papData.tesdpData.isEmpty()}">
+                                    <tr>
+                                        <td style="text-align:center" colspan="6">No Data Available</td>
+                                    </tr>
+                                </th:block>
                                 <th:block th:each="successIndicator, itemstat : ${papData.tesdpData}">
                                     <tr>
                                         <th th:text="${successIndicator.papName}"></th>
@@ -211,9 +244,11 @@
             <div class="tab-pane fade" id="sto" role="tabpanel" aria-labelledby="sto-tab">
                 <form id="stoForm" th:action="@{/planning/successIndicators/STO/papGroup/save}"  th:object="${papData}" method="post">
                     <fieldset>
-                        <div class="container mb-5">
-                            <button class="btn btn-primary btn-lg" type="submit" id="submitButton4" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Save Success Indicators</button>
-                        </div>
+                        <th:block th:if="${!papData.tesdpData.isEmpty()}">
+                            <div class="container mb-5">
+                                <button class="btn btn-primary btn-lg" type="submit" id="submitButton4" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Save Success Indicators</button>
+                            </div>
+                        </th:block>
                         <div class="table-responsive  mt-5">
                             <table class="table table-striped table-bordered table-sm">
                                 <thead class="thead-dark">
@@ -232,6 +267,11 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <th:block th:if="${papData.stoData.isEmpty()}">
+                                    <tr>
+                                        <td style="text-align:center" colspan="6">No Data Available</td>
+                                    </tr>
+                                </th:block>
                                 <th:block th:each="successIndicator, itemstat : ${papData.stoData}">
                                     <tr>
                                         <th th:text="${successIndicator.papName}"></th>
@@ -257,9 +297,11 @@
             <div class="tab-pane fade" id="gass" role="tabpanel" aria-labelledby="gass-tab">
                 <form id="gassForm" th:action="@{/planning/successIndicators/GASS/papGroup/save}"  th:object="${papData}" method="post">
                     <fieldset>
-                        <div class="container mb-5">
-                            <button class="btn btn-primary btn-lg" type="submit" id="submitButton5" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Save Success Indicators</button>
-                        </div>
+                        <th:block th:if="${!papData.stoData.isEmpty()}">
+                            <div class="container mb-5">
+                                <button class="btn btn-primary btn-lg" type="submit" id="submitButton5" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Save Success Indicators</button>
+                            </div>
+                        </th:block>
                         <div class="table-responsive  mt-5">
                             <table class="table table-striped table-bordered table-sm">
                                 <thead class="thead-dark">
@@ -278,6 +320,11 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <th:block th:if="${papData.gassData.isEmpty()}">
+                                    <tr>
+                                        <td style="text-align:center" colspan="6">No Data Available</td>
+                                    </tr>
+                                </th:block>
                                 <th:block th:each="successIndicator, itemstat : ${papData.gassData}">
                                     <tr>
                                         <th th:text="${successIndicator.papName}"></th>
@@ -305,6 +352,8 @@
     </div>
 </div>
 <div th:replace="fragments/footer :: footer"/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+
 <script  type='text/javascript' src="../../static/js/doubleScroll/jquery.doubleScroll.js" th:src="@{/js/doubleScroll/jquery.doubleScroll.js}"></script>
 <script src="https://unpkg.com/sticky-table-headers"></script>
 <script type='text/javascript' src="../../static/js/table_event_handlers.js" th:src="@{/js/table_event_handlers.js}"></script>

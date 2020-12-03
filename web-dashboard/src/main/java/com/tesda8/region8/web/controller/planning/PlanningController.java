@@ -21,11 +21,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class PlanningController {
 
     private PapDataService papDataService;
+    private final Long DEFAULT_YEAR = 2020L;
 
     @Autowired
     public PlanningController(PapDataService papDataService) {
@@ -51,16 +53,18 @@ public class PlanningController {
     }
 
     @GetMapping("/planning/successIndicator/create")
-    public String createSuccessIndicator(Model model) {
+    public String createSuccessIndicator(@RequestParam(value = "year", required = false) Long year, Model model) {
         model.addAttribute("successIndicator", initializeSuccessIndicatorDto());
-        model.addAttribute("papDataList", papDataService.getAllPapData());
+        model.addAttribute("papDataList", papDataService.getAllPapDataByYear(Optional.ofNullable(year).orElse(DEFAULT_YEAR)));
+        model.addAttribute("papFilter", new PapDataFilterRequest(Optional.ofNullable(year).orElse(DEFAULT_YEAR)));
         return "planning/create_success_indicator";
     }
 
     @GetMapping("/planning/pap/manage")
-    public String managePap(Model model) {
+    public String managePap(@RequestParam(value = "year", required = false) Long year, Model model) {
         model.addAttribute("papData", new PapDataDto());
-        model.addAttribute("papDataList", papDataService.getAllPapData());
+        model.addAttribute("papDataList", papDataService.getAllPapDataByYear(Optional.ofNullable(year).orElse(DEFAULT_YEAR)));
+        model.addAttribute("papFilter", new PapDataFilterRequest(Optional.ofNullable(year).orElse(DEFAULT_YEAR)));
         return "planning/manage_pap";
     }
 
@@ -88,6 +92,26 @@ public class PlanningController {
         return "planning/planning";
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/planning/successIndicator/create/filter",
+            consumes = "application/x-www-form-urlencoded")
+    public String createSuccessIndicatorWithFilter(PapDataFilterRequest papDataFilterRequest,
+                                                    BindingResult bindingResult, Model model) {
+        model.addAttribute("successIndicator", initializeSuccessIndicatorDto());
+        model.addAttribute("papDataList", papDataService.getAllPapDataByYear(papDataFilterRequest.getYear()));
+        model.addAttribute("papFilter", papDataFilterRequest);
+        return "planning/create_success_indicator";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/planning/pap/manage/filter",
+            consumes = "application/x-www-form-urlencoded")
+    public String managePapWithFilter(PapDataFilterRequest papDataFilterRequest,
+                                      BindingResult bindingResult, Model model) {
+        model.addAttribute("papData", new PapDataDto());
+        model.addAttribute("papDataList", papDataService.getAllPapDataByYear(papDataFilterRequest.getYear()));
+        model.addAttribute("papFilter", papDataFilterRequest);
+        return "planning/manage_pap";
+    }
+
     @RequestMapping(method = RequestMethod.POST, value = "/planning/successIndicators/create/save",
             consumes = "application/x-www-form-urlencoded")
     public String saveNewSuccessIndicator(SuccessIndicatorDataDto successIndicatorDataDto,
@@ -102,27 +126,29 @@ public class PlanningController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/planning/papData/create/save",
             consumes = "application/x-www-form-urlencoded")
-    public String saveNewPapData(PapDataDto papDataDto,
+    public String saveNewPapData(@RequestParam("year") Long year, PapDataDto papDataDto,
                                           BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             //errors processing
         }
-        papDataService.createPapData(papDataDto);
+        papDataService.createPapData(papDataDto, year);
         model.addAttribute("successIndicator", initializeSuccessIndicatorDto());
-        model.addAttribute("papDataList", papDataService.getAllPapData());
+        model.addAttribute("papDataList", papDataService.getAllPapDataByYear(year));
+        model.addAttribute("papFilter", new PapDataFilterRequest(year));
         return "planning/create_success_indicator";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/planning/papData/delete",
             consumes = "application/x-www-form-urlencoded")
-    public String deletePapData(PapDataDto papDataDto,
+    public String deletePapData(@RequestParam("year") Long year, PapDataDto papDataDto,
                                  BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             //errors processing
         }
         papDataService.deletePapData(papDataDto);
         model.addAttribute("successIndicator", initializeSuccessIndicatorDto());
-        model.addAttribute("papDataList", papDataService.getAllPapData());
+        model.addAttribute("papDataList", papDataService.getAllPapDataByYear(year));
+        model.addAttribute("papFilter", new PapDataFilterRequest(year));
         return "planning/create_success_indicator";
     }
 
@@ -130,23 +156,24 @@ public class PlanningController {
     public String generateGraph(@PathVariable("papGroup") PapGroupType papGroupType,
                                 @RequestParam("papName") String papName,
                                 @RequestParam("measure") String measure,
+                                @RequestParam("year") Long year,
                                 Model model) {
-        List<PapDataDto> papDataDtoList = Lists.newArrayList();
+        List<SuccessIndicatorDataDto> successIndicatorDataDtoList = Lists.newArrayList();
         switch (papGroupType) {
             case TESDPP:
-                papDataDtoList = papDataService.getAllPapDataByPapGroupTypeAndMeasureAndPapName(PapGroupType.TESDPP, measure, papName);
+                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.TESDPP, measure, papName, Optional.ofNullable(year).orElse(DEFAULT_YEAR));
                 break;
             case TESDRP:
-                papDataDtoList = papDataService.getAllPapDataByPapGroupTypeAndMeasureAndPapName(PapGroupType.TESDRP, measure, papName);
+                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.TESDRP, measure, papName, Optional.ofNullable(year).orElse(DEFAULT_YEAR));
                 break;
             case TESDP:
-                papDataDtoList = papDataService.getAllPapDataByPapGroupTypeAndMeasureAndPapName(PapGroupType.TESDP, measure, papName);
+                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.TESDP, measure, papName, Optional.ofNullable(year).orElse(DEFAULT_YEAR));
                 break;
             case STO:
-                papDataDtoList = papDataService.getAllPapDataByPapGroupTypeAndMeasureAndPapName(PapGroupType.STO, measure, papName);
+                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.STO, measure, papName, Optional.ofNullable(year).orElse(DEFAULT_YEAR));
                 break;
             case GASS:
-                papDataDtoList = papDataService.getAllPapDataByPapGroupTypeAndMeasureAndPapName(PapGroupType.GASS, measure, papName);
+                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.GASS, measure, papName, Optional.ofNullable(year).orElse(DEFAULT_YEAR));
                 break;
             default:
                 break;
@@ -154,7 +181,8 @@ public class PlanningController {
         model.addAttribute("papName", papName);
         model.addAttribute("measure", measure);
         model.addAttribute("papGroupType", papGroupType);
-        model.addAttribute("papDataList", papDataDtoList);
+        model.addAttribute("year", year);
+        model.addAttribute("successIndicatorDataDtoList", successIndicatorDataDtoList);
         return "planning/opcr_graph";
     }
 
@@ -222,11 +250,8 @@ public class PlanningController {
     }
 
     private void setModelInitialAtributes(Model model) {
-        PapDataWrapper papDataWrapper = papDataService.getAllPapDataWrapperByFilter("", "");
-
-        model.addAttribute("papFilter", new PapDataFilterRequest());
-        model.addAttribute("papNameValue", "");
-        model.addAttribute("successIndicatorMeasureValue", "");
+        PapDataWrapper papDataWrapper = papDataService.getAllPapDataWrapperByFilter("", "", DEFAULT_YEAR);
+        model.addAttribute("papFilter", new PapDataFilterRequest(DEFAULT_YEAR));
         model.addAttribute("papData", papDataWrapper);
     }
 
@@ -234,11 +259,8 @@ public class PlanningController {
         if (bindingResult.hasErrors()) {
             //errors processing
         }
-        PapDataWrapper papDataWrapper = papDataService.getAllPapDataWrapperByFilter(papDataFilterRequest.getSuccessIndicatorMeasure(), papDataFilterRequest.getPapName());
-
-        model.addAttribute("papFilter", new PapDataFilterRequest());
-        model.addAttribute("papNameValue", papDataFilterRequest.getPapName());
-        model.addAttribute("successIndicatorMeasureValue", papDataFilterRequest.getSuccessIndicatorMeasure());
+        PapDataWrapper papDataWrapper = papDataService.getAllPapDataWrapperByFilter(papDataFilterRequest.getSuccessIndicatorMeasure(), papDataFilterRequest.getPapName(), papDataFilterRequest.getYear());
+        model.addAttribute("papFilter", papDataFilterRequest);
         model.addAttribute("papData", papDataWrapper);
     }
 

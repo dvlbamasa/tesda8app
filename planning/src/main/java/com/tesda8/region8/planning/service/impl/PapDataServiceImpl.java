@@ -28,6 +28,7 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -72,6 +73,16 @@ public class PapDataServiceImpl implements PapDataService {
     }
 
     @Override
+    public List<PapDataDto> getAllPapDataByYear(Long year) {
+        List<PapData> papDataList = papDataRepository.findAllByYear(year);
+        return papDataList
+                .stream()
+                .filter(papData -> !papData.getIsDeleted())
+                .map(papData -> planningMapper.papDataToDto(papData))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<PapDataDto> getAllPapDataByPapGroupType(PapGroupType papGroupType) {
         List<PapData> papDataList = papDataRepository.findAllByPapGroupType(papGroupType);
         papDataList.forEach(
@@ -91,11 +102,13 @@ public class PapDataServiceImpl implements PapDataService {
     }
 
     @Override
-    public PapDataWrapper getAllPapDataWrapperByFilter(String measureFilter, String papNameFilter) {
+    public PapDataWrapper getAllPapDataWrapperByFilter(String measureFilter, String papNameFilter, Long year) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
         booleanBuilder.and(QSuccessIndicatorData.successIndicatorData.papData.name.toLowerCase().trim()
                 .containsIgnoreCase(Optional.of(papNameFilter.trim()).orElse("")));
+
+        booleanBuilder.and(QSuccessIndicatorData.successIndicatorData.papData.year.eq(year));
 
         booleanBuilder.and(QSuccessIndicatorData.successIndicatorData.papData.isDeleted.eq(false));
 
@@ -153,33 +166,32 @@ public class PapDataServiceImpl implements PapDataService {
     }
 
     @Override
-    public List<PapDataDto> getAllPapDataByPapGroupTypeAndMeasureAndPapName(PapGroupType papGroupType, String measureFilter, String papName) {
-        List<PapData> papDataList = papDataRepository.findAllByPapGroupType(papGroupType);
-        papDataList.forEach(
-                papData -> {
-                    papData.setSuccessIndicatorDataList(
-                            papData.getSuccessIndicatorDataList()
-                            .stream()
-                            .filter(successIndicatorData -> !successIndicatorData.getIsDeleted())
-                            .filter(successIndicatorData -> successIndicatorData.getMeasures()
-                                    .toLowerCase()
-                                    .contains(Optional.ofNullable(measureFilter).orElse("")
-                                            .toLowerCase().trim()))
-                            .map(this::sortOperatingUnitData)
-                            .collect(Collectors.toList())
-                    );
-                }
-        );
-        //include only papdata with successindicators
-        return papDataList
-                .stream()
-                .filter(papData -> !papData.getIsDeleted())
-                .filter(papData -> papData.getSuccessIndicatorDataList().size() > 0)
-                .filter(papData -> papData.getName()
-                        .toLowerCase()
-                        .contains(Optional.ofNullable(papName).orElse("")
-                                .toLowerCase().trim()))
-                .map(papData -> planningMapper.papDataToDto(papData))
+    public List<SuccessIndicatorDataDto> getAllSuccessIndicatorsByFilter(PapGroupType papGroupType, String measureFilter,
+                                                                         String papName, Long year) {
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+
+        booleanBuilder.and(QSuccessIndicatorData.successIndicatorData.papData.name.toLowerCase().trim()
+                .containsIgnoreCase(Optional.of(papName.trim()).orElse("")));
+
+        booleanBuilder.and(QSuccessIndicatorData.successIndicatorData.papData.papGroupType.eq(papGroupType));
+
+        booleanBuilder.and(QSuccessIndicatorData.successIndicatorData.papData.year.eq(year));
+
+        booleanBuilder.and(QSuccessIndicatorData.successIndicatorData.papData.isDeleted.eq(false));
+
+        booleanBuilder.and(QSuccessIndicatorData.successIndicatorData.isDeleted.eq(false));
+
+        booleanBuilder.and(QSuccessIndicatorData.successIndicatorData.measures.containsIgnoreCase(
+                Optional.of(measureFilter.trim()).orElse("")));
+
+        Predicate predicate = booleanBuilder.getValue();
+
+        List<SuccessIndicatorData> successIndicatorDataList =
+                (List<SuccessIndicatorData>) successIndicatorDataRepository.findAll(predicate);
+
+        return successIndicatorDataList.stream()
+                .map(this::sortOperatingUnitData)
+                .map(successIndicatorData -> planningMapper.successIndicatorToDto(successIndicatorData))
                 .collect(Collectors.toList());
     }
 
@@ -283,9 +295,10 @@ public class PapDataServiceImpl implements PapDataService {
 
     @Override
     @Transactional
-    public void createPapData(PapDataDto papDataDto) {
+    public void createPapData(PapDataDto papDataDto, Long year) {
         PapData papData = planningMapper.papDataToEntity(papDataDto);
         papData.setSuccessIndicatorDataList(Lists.newArrayList());
+        papData.setYear(year);
         papData.setIsDeleted(false);
         papDataRepository.save(papData);
     }

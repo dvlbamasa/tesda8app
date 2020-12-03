@@ -27,6 +27,8 @@ public class PapData extends Auditable<String> {
     @Enumerated(EnumType.STRING)
     private PapGroupType papGroupType;
 
+    private Long year;
+
     @Type(type = "yes_no")
     private Boolean isDeleted = false;
 }

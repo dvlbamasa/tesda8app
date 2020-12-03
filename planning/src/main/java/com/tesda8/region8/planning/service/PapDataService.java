@@ -11,11 +11,14 @@ public interface PapDataService {
 
     List<PapDataDto> getAllPapData();
 
+    List<PapDataDto> getAllPapDataByYear(Long year);
+
     List<PapDataDto> getAllPapDataByPapGroupType(PapGroupType papGroupType);
 
-    PapDataWrapper getAllPapDataWrapperByFilter(String measureFilter, String papName);
+    PapDataWrapper getAllPapDataWrapperByFilter(String measureFilter, String papName, Long year);
 
-    List<PapDataDto> getAllPapDataByPapGroupTypeAndMeasureAndPapName(PapGroupType papGroupType, String measureFilter, String papName);
+    List<SuccessIndicatorDataDto> getAllSuccessIndicatorsByFilter(PapGroupType papGroupType, String measureFilter,
+                                                                  String papName, Long year);
 
     SuccessIndicatorDataDto getSuccessIndicatorData(Long id);
 
@@ -25,7 +28,7 @@ public interface PapDataService {
 
     void createSuccessIndicator(SuccessIndicatorDataDto successIndicatorDataDto);
 
-    void createPapData(PapDataDto papDataDto);
+    void createPapData(PapDataDto papDataDto, Long year);
 
     void deletePapData(PapDataDto papDataDto);
 }

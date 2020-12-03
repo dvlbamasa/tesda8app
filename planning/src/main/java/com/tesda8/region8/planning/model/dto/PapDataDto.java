@@ -14,5 +14,6 @@ public class PapDataDto {
     private String name;
     private PapGroupType papGroupType;
     private Boolean isDeleted;
+    private Long year;
     private List<SuccessIndicatorDataDto> successIndicatorDataList;
 }

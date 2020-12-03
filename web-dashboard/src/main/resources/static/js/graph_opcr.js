@@ -2,20 +2,22 @@ window.onload = function () {
     var papGroupType = $('#papGroupType').val();
     var papName = $('#papName').val();
     var measure = $('#measure').val();
+    var year = $('#year').val();
 
     $.getJSON('/api/papData/' + papGroupType + '/papGroup/filter',
         {
             measure: measure,
-            papName: papName
+            papName: papName,
+            year: year
         },
         function(data) {
             var data = data;
             for (var i = 0; i < data.length; i++) {
-                var successIndicators = data[i].successIndicatorDataList;
-                for (var j = 0; j < successIndicators.length; j++) {
-                    generateGraph("/api/graph/successIndicator/" + successIndicators[j].id + "/dataPoints",
-                        "successIndicatorGraph" + successIndicators[j].id, data[i].name + " - " + successIndicators[j].target + (successIndicators[j].isPercentage ?  '%' : "") + ' ' + successIndicators[j].measures, "Target", "Total");
-                }
+                console.log(data[i]);
+                var successIndicator = data[i];
+                generateGraph("/api/graph/successIndicator/" + successIndicator.id + "/dataPoints",
+                    "successIndicatorGraph" + successIndicator.id, successIndicator.papName + " - " + successIndicator.target + (successIndicator.isPercentage ?  '%' : "") + ' ' + successIndicator.measures, "Target", "Total");
+
             }
         }
     );

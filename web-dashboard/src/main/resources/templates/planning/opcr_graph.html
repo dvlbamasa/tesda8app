@@ -32,21 +32,20 @@
         </div>
         <div class="container canvas_div_pdf" id="graphContainer">
             <div class="row">
-                <th:block th:if="${papDataList.empty}">
+                <th:block th:if="${successIndicatorDataDtoList.isEmpty()}">
                     <div class="col text-center ">
                         <h1 class="display-3 text-black-50 mt-3 mb-2">No Graph Available</h1>
                     </div>
                 </th:block>
-                <th:block th:each="papData : ${papDataList}">
-                    <th:block th:each="successIndicator : ${papData.successIndicatorDataList}">
+                <th:block th:each="successIndicator : ${successIndicatorDataDtoList}">
                         <div th:id="'successIndicatorGraph' + ${successIndicator.id}" class="mb-5 mt-5" style="height: 330px; width: 100%;"></div>
-                    </th:block>
                 </th:block>
             </div>
         </div>
         <input id="papGroupType" type="hidden" th:value="${papGroupType}"/>
         <input id="papName" type="hidden" th:value="${papName}"/>
         <input id="measure" type="hidden" th:value="${measure}"/>
+        <input id="year" type="hidden" th:value="${year}"/>
         <input id="papGroupTypeLabel" type="hidden" th:value="${papGroupType.label}"/>
     </div>
 </div>
