@@ -2,6 +2,7 @@ package com.tesda8.region8.web.controller.program.registration;
 
 import com.tesda8.region8.program.registration.model.dto.TrainerDto;
 import com.tesda8.region8.program.registration.service.InstitutionService;
+import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.program.registration.service.RegistrationRequirementsCrudService;
 import com.tesda8.region8.program.registration.service.RegisteredProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,9 @@ public class TrainerController extends RequirementControllerUtil{
     @Autowired
     public TrainerController(@Qualifier("trainer") RegistrationRequirementsCrudService registrationRequirementsCrudService,
                              InstitutionService institutionService,
-                             RegisteredProgramService registeredProgramService) {
-        super(registeredProgramService, institutionService);
+                             RegisteredProgramService registeredProgramService,
+                             RegisteredProgramStatusService registeredProgramStatusService) {
+        super(registeredProgramService, institutionService, registeredProgramStatusService);
         this.registrationRequirementsCrudService = registrationRequirementsCrudService;
     }
 
@@ -32,6 +34,7 @@ public class TrainerController extends RequirementControllerUtil{
         TrainerDto trainerDto = new TrainerDto();
         trainerDto.setRegisteredProgramId(id);
         model.addAttribute("trainer", trainerDto);
+        addStatusCounterToModel(model);
         return "program_registration/trainer/add_trainer";
     }
 
@@ -39,6 +42,7 @@ public class TrainerController extends RequirementControllerUtil{
     public String updateTrainer(@PathVariable("id") Long id, Model model) {
         TrainerDto trainerDto = registrationRequirementsCrudService.get(id);
         model.addAttribute("trainer", trainerDto);
+        addStatusCounterToModel(model);
         return "program_registration/trainer/update_trainer";
     }
 

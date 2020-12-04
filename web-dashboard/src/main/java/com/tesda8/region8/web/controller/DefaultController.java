@@ -12,6 +12,10 @@ public class DefaultController {
     }
 
     protected void addStatusCounterToModel(Model model) {
-        model.addAttribute("statusCounter", registeredProgramStatusService.getStatusCount().getTotal());
+        model.addAttribute("statusCounter", registeredProgramStatusService.getExpiredDocuments().getTotalCount());
+    }
+
+    protected void addExpiredDocumentsListToModel(Model model) {
+        model.addAttribute("expiredDocuments", registeredProgramStatusService.getExpiredDocuments());
     }
 }

@@ -1,6 +1,10 @@
 $(document).ready(function(){
-    $("#myToast").toast({
-        autohide: false
-    });
-    $("#myToast").toast('show');
+    var expiredDocumentCount = $('#expiredDocumentSize').val();
+    console.log(expiredDocumentCount + ' COUNT');
+    if (expiredDocumentCount > 0) {
+        $("#myToast").toast({
+            autohide: false
+        });
+        $("#myToast").toast('show');
+    }
 });

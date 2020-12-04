@@ -2,6 +2,7 @@ package com.tesda8.region8.web.controller.program.registration;
 
 import com.tesda8.region8.program.registration.model.dto.NonTeachingStaffDto;
 import com.tesda8.region8.program.registration.service.InstitutionService;
+import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.program.registration.service.RegistrationRequirementsCrudService;
 import com.tesda8.region8.program.registration.service.RegisteredProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,9 @@ public class NonTeachingStaffController extends RequirementControllerUtil {
     @Autowired
     public NonTeachingStaffController(InstitutionService institutionService,
                                       RegisteredProgramService registeredProgramService,
+                                      RegisteredProgramStatusService registeredProgramStatusService,
                                       @Qualifier("staff") RegistrationRequirementsCrudService registrationRequirementsCrudService) {
-        super(registeredProgramService, institutionService);
+        super(registeredProgramService, institutionService, registeredProgramStatusService);
         this.registrationRequirementsCrudService = registrationRequirementsCrudService;
     }
 
@@ -32,6 +34,7 @@ public class NonTeachingStaffController extends RequirementControllerUtil {
         NonTeachingStaffDto nonTeachingStaffDto = new NonTeachingStaffDto();
         nonTeachingStaffDto.setRegisteredProgramId(id);
         model.addAttribute("staff", nonTeachingStaffDto);
+        addStatusCounterToModel(model);
         return "program_registration/staff/add_staff";
     }
 
@@ -39,6 +42,7 @@ public class NonTeachingStaffController extends RequirementControllerUtil {
     public String updateStaff(@PathVariable("id") Long id, Model model) {
         NonTeachingStaffDto nonTeachingStaffDto = registrationRequirementsCrudService.get(id);
         model.addAttribute("staff", nonTeachingStaffDto);
+        addStatusCounterToModel(model);
         return "program_registration/staff/update_staff";
     }
 

@@ -43,12 +43,14 @@ public class HomeController extends DefaultController{
     }
 
     @GetMapping("/monthly")
-    public String monthly() {
+    public String monthly(Model model) {
+        addStatusCounterToModel(model);
         return "daily_reports/monthly_reports";
     }
 
     @GetMapping("/certification")
-    public String certification() {
+    public String certification(Model model) {
+        addStatusCounterToModel(model);
         return "certification/certification";
     }
 
@@ -63,19 +65,20 @@ public class HomeController extends DefaultController{
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(Model model) {
+        addStatusCounterToModel(model);
         return "login";
     }
 
     @GetMapping("/403")
-    public String error403() {
+    public String error403(Model model) {
+        addStatusCounterToModel(model);
         return "error/403";
     }
 
     @GetMapping("/error")
     public String error500(Model model) {
         addStatusCounterToModel(model);
-
         return "error/500";
     }
 }

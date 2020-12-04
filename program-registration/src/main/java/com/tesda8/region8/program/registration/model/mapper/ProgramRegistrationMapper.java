@@ -32,6 +32,7 @@ public interface ProgramRegistrationMapper {
     @Mapping(source = "registeredProgram.trainerList", target = "trainerDtoList")
     @Mapping(source = "registeredProgram.officialList", target = "officialDtoList")
     @Mapping(source = "registeredProgram.nonTeachingStaffList", target = "nonTeachingStaffDtoList")
+    @Mapping(source = "registeredProgram.institution.name", target = "institutionName")
     RegisteredProgramRequestDto registeredProgramToRequestDto(RegisteredProgram registeredProgram);
 
     @Mapping(target = "id", ignore = true)

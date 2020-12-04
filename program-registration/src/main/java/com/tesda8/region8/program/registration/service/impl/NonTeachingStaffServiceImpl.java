@@ -38,6 +38,7 @@ public class NonTeachingStaffServiceImpl implements RegistrationRequirementsCrud
                 .findById(dto.getRegisteredProgramId()).orElseThrow(EntityNotFoundException::new);
         NonTeachingStaff nonTeachingStaff = programRegistrationMapper.nonTeachingStaffToEntity(dto);
         nonTeachingStaff.setRegisteredProgram(registeredProgram);
+        nonTeachingStaff.setIsDeleted(false);
         registeredProgram.getNonTeachingStaffList().add(nonTeachingStaff);
         registeredProgramRepository.save(registeredProgram);
     }

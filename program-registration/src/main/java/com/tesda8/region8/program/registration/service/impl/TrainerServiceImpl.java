@@ -38,6 +38,7 @@ public class TrainerServiceImpl implements RegistrationRequirementsCrudService<T
                 .findById(dto.getRegisteredProgramId()).orElseThrow(EntityNotFoundException::new);
         Trainer trainer = programRegistrationMapper.trainerToEntity(dto);
         trainer.setRegisteredProgram(registeredProgram);
+        trainer.setIsDeleted(false);
         registeredProgram.getTrainerList().add(trainer);
         trainerRepository.save(trainer);
     }

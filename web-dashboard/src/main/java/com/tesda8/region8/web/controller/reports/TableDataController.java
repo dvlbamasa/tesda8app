@@ -1,5 +1,7 @@
 package com.tesda8.region8.web.controller.reports;
 
+import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
+import com.tesda8.region8.web.controller.DefaultController;
 import com.tesda8.region8.web.model.dto.wrapper.CertificationRateReportWrapper;
 import com.tesda8.region8.web.model.dto.wrapper.GeneralReportsDtoWrapper;
 import com.tesda8.region8.web.model.dto.wrapper.ROPerModeReportWrapper;
@@ -14,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class TableDataController {
+public class TableDataController extends DefaultController {
 
     private TableDataFetcherService tableDataFetcherService;
 
     @Autowired
-    public TableDataController(TableDataFetcherService tableDataFetcherService) {
+    public TableDataController(TableDataFetcherService tableDataFetcherService,
+                               RegisteredProgramStatusService registeredProgramStatusService) {
+        super(registeredProgramStatusService);
         this.tableDataFetcherService = tableDataFetcherService;
     }
 
@@ -66,6 +70,7 @@ public class TableDataController {
         model.addAttribute("reports", generalReportsDtoWrapper);
         model.addAttribute("certificationReports", certificationRateReportWrapper);
         model.addAttribute("roPerModeReports", roPerModeReportWrapper);
+        addStatusCounterToModel(model);
 
         return "daily_reports/table_data";
     }

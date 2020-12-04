@@ -9,7 +9,7 @@
         </head>
 <body>
 
-<div th:replace="fragments/header :: header"/>
+<div th:replace="fragments/header :: header(${statusCounter})"/>
 
 <div id="page-container">
     <div id = "content-wrap">
@@ -37,6 +37,12 @@
                             <h1 class="display-5 text-black-50 mb-5">Update Registered Program</h1>
                             <input type="hidden" th:field="*{id}"/>
                             <input type="hidden" th:field="*{isDeleted}"/>
+                            <div class="form-group row">
+                                <label for="institutionName" class="col-sm-2 col-form-label">Institution Name</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="institutionName" name="institutionName" type="text" th:value="${registeredProgram.institutionName}" disabled/>
+                                </div>
+                            </div>
                             <div class="form-group row">
                                 <label for="sector" class="col-sm-2 col-form-label">Select Course Sector</label>
                                 <div class="col-sm-10">
@@ -115,7 +121,7 @@
                             <div class="form-group row">
                                 <label for="buildingOwnershipDateIssued" class="col-sm-2 col-form-label">Building Ownership Date Issued</label>
                                 <div class="input-group date  col-sm-10" id="buildingOwnershipDateIssued" data-target-input="nearest">
-                                    <input th:field="*{registrationRequirement.buildingOwnershipDateIssued}" type="text" class="form-control datetimepicker-input" data-target="#buildingOwnershipDateIssued"/>
+                                    <input th:field="*{registrationRequirement.buildingOwnershipDateIssued}" type="text" class="form-control datetimepicker-input" data-target="#buildingOwnershipDateIssued" required/>
                                     <div class="input-group-append" data-target="#buildingOwnershipDateIssued" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
@@ -124,7 +130,7 @@
                             <div class="form-group row">
                                 <label for="fireSafetyDateIssued" class="col-sm-2 col-form-label">Fire Safety Certificate Date Issued</label>
                                 <div class="input-group date  col-sm-10" id="fireSafetyDateIssued" data-target-input="nearest">
-                                    <input th:field="*{registrationRequirement.fireSafetyDateIssued}" type="text" class="form-control datetimepicker-input" data-target="#fireSafetyDateIssued"/>
+                                    <input th:field="*{registrationRequirement.fireSafetyDateIssued}" type="text" class="form-control datetimepicker-input" data-target="#fireSafetyDateIssued" required/>
                                     <div class="input-group-append" data-target="#fireSafetyDateIssued" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
@@ -133,10 +139,23 @@
                             <div class="form-group row">
                                 <label for="moaValidity" class="col-sm-2 col-form-label">MOA Validity Date Issued</label>
                                 <div class="input-group date  col-sm-10" id="moaValidity" data-target-input="nearest">
-                                    <input th:field="*{registrationRequirement.moaValidity}" type="text" class="form-control datetimepicker-input" data-target="#moaValidity"/>
+                                    <input th:field="*{registrationRequirement.moaValidity}" type="text" class="form-control datetimepicker-input" data-target="#moaValidity" required/>
                                     <div class="input-group-append" data-target="#moaValidity" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="registrationRequirement.moaValidityType" class="col-sm-2 col-form-label">MOA Validity Years</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control selectpicker" id="registrationRequirement.moaValidityType" name="registrationRequirement.moaValidityType" required>
+                                        <th:block th:each="moaValidityType : ${T(com.tesda8.region8.util.enums.MoaValidityType).values()}">
+                                            <option th:value="${moaValidityType}"
+                                                    th:text="${moaValidityType.label}"
+                                                    th:selected="${moaValidityType == registeredProgram.registrationRequirement.moaValidityType}">
+                                            </option>
+                                        </th:block>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -195,7 +214,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <th:block th:if="${registeredProgram.officialDtoList.empty}">
+                    <th:block th:if="${registeredProgram.officialDtoList.isEmpty()}">
                         <tr>
                             <td style="text-align:center" colspan="9">No Data Available</td>
                         </tr>
@@ -252,7 +271,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <th:block th:if="${registeredProgram.trainerDtoList.empty}">
+                    <th:block th:if="${registeredProgram.trainerDtoList.isEmpty()}">
                         <tr>
                             <td style="text-align:center" colspan="10">No Data Available</td>
                         </tr>
@@ -296,7 +315,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <th:block th:if="${registeredProgram.nonTeachingStaffDtoList.empty}">
+                    <th:block th:if="${registeredProgram.nonTeachingStaffDtoList.isEmpty()}">
                         <tr>
                             <td style="text-align:center" colspan="7">No Data Available</td>
                         </tr>

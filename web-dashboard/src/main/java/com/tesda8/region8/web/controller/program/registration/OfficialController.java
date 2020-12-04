@@ -2,6 +2,7 @@ package com.tesda8.region8.web.controller.program.registration;
 
 import com.tesda8.region8.program.registration.model.dto.OfficialDto;
 import com.tesda8.region8.program.registration.service.InstitutionService;
+import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.program.registration.service.RegistrationRequirementsCrudService;
 import com.tesda8.region8.program.registration.service.RegisteredProgramService;
 import org.slf4j.Logger;
@@ -26,8 +27,9 @@ public class OfficialController extends RequirementControllerUtil {
     @Autowired
     public OfficialController(@Qualifier("official") RegistrationRequirementsCrudService registrationRequirementsCrudService,
                               InstitutionService institutionService,
-                              RegisteredProgramService registeredProgramService) {
-        super(registeredProgramService, institutionService);
+                              RegisteredProgramService registeredProgramService,
+                              RegisteredProgramStatusService registeredProgramStatusService) {
+        super(registeredProgramService, institutionService, registeredProgramStatusService);
         this.registrationRequirementsCrudService = registrationRequirementsCrudService;
     }
 
@@ -36,6 +38,7 @@ public class OfficialController extends RequirementControllerUtil {
         OfficialDto officialDto = new OfficialDto();
         officialDto.setRegisteredProgramId(id);
         model.addAttribute("official", officialDto);
+        addStatusCounterToModel(model);
         return "program_registration/official/add_official";
     }
 
@@ -43,6 +46,7 @@ public class OfficialController extends RequirementControllerUtil {
     public String updateOfficial(@PathVariable("id") Long id, Model model) {
         OfficialDto officialDto = registrationRequirementsCrudService.get(id);
         model.addAttribute("official", officialDto);
+        addStatusCounterToModel(model);
         return "program_registration/official/update_official";
     }
 

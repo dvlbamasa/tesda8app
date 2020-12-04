@@ -344,3 +344,7 @@ label.error {
 .header-dropdown-item {
     color: white;
 }
+
+.danger {
+    color: red;
+}

@@ -7,8 +7,10 @@ import com.tesda8.region8.planning.model.dto.SuccessIndicatorDataDto;
 import com.tesda8.region8.planning.model.wrapper.PapDataFilterRequest;
 import com.tesda8.region8.planning.model.wrapper.PapDataWrapper;
 import com.tesda8.region8.planning.service.PapDataService;
+import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.util.enums.OperatingUnitPOType;
 import com.tesda8.region8.util.enums.PapGroupType;
+import com.tesda8.region8.web.controller.DefaultController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,13 +26,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class PlanningController {
+public class PlanningController extends DefaultController {
 
     private PapDataService papDataService;
     private final Long DEFAULT_YEAR = 2020L;
 
     @Autowired
-    public PlanningController(PapDataService papDataService) {
+    public PlanningController(PapDataService papDataService, RegisteredProgramStatusService registeredProgramStatusService) {
+        super(registeredProgramStatusService);
         this.papDataService = papDataService;
     }
 
@@ -57,6 +60,7 @@ public class PlanningController {
         model.addAttribute("successIndicator", initializeSuccessIndicatorDto());
         model.addAttribute("papDataList", papDataService.getAllPapDataByYear(Optional.ofNullable(year).orElse(DEFAULT_YEAR)));
         model.addAttribute("papFilter", new PapDataFilterRequest(Optional.ofNullable(year).orElse(DEFAULT_YEAR)));
+        addStatusCounterToModel(model);
         return "planning/create_success_indicator";
     }
 
@@ -65,6 +69,7 @@ public class PlanningController {
         model.addAttribute("papData", new PapDataDto());
         model.addAttribute("papDataList", papDataService.getAllPapDataByYear(Optional.ofNullable(year).orElse(DEFAULT_YEAR)));
         model.addAttribute("papFilter", new PapDataFilterRequest(Optional.ofNullable(year).orElse(DEFAULT_YEAR)));
+        addStatusCounterToModel(model);
         return "planning/manage_pap";
     }
 
@@ -99,6 +104,7 @@ public class PlanningController {
         model.addAttribute("successIndicator", initializeSuccessIndicatorDto());
         model.addAttribute("papDataList", papDataService.getAllPapDataByYear(papDataFilterRequest.getYear()));
         model.addAttribute("papFilter", papDataFilterRequest);
+        addStatusCounterToModel(model);
         return "planning/create_success_indicator";
     }
 
@@ -109,6 +115,7 @@ public class PlanningController {
         model.addAttribute("papData", new PapDataDto());
         model.addAttribute("papDataList", papDataService.getAllPapDataByYear(papDataFilterRequest.getYear()));
         model.addAttribute("papFilter", papDataFilterRequest);
+        addStatusCounterToModel(model);
         return "planning/manage_pap";
     }
 
@@ -120,8 +127,7 @@ public class PlanningController {
             //errors processing
         }
         papDataService.createSuccessIndicator(successIndicatorDataDto);
-        setModelInitialAtributes(model);
-        return "planning/planning";
+        return "redirect:/planning";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/planning/papData/create/save",
@@ -135,6 +141,7 @@ public class PlanningController {
         model.addAttribute("successIndicator", initializeSuccessIndicatorDto());
         model.addAttribute("papDataList", papDataService.getAllPapDataByYear(year));
         model.addAttribute("papFilter", new PapDataFilterRequest(year));
+        addStatusCounterToModel(model);
         return "planning/create_success_indicator";
     }
 
@@ -149,6 +156,7 @@ public class PlanningController {
         model.addAttribute("successIndicator", initializeSuccessIndicatorDto());
         model.addAttribute("papDataList", papDataService.getAllPapDataByYear(year));
         model.addAttribute("papFilter", new PapDataFilterRequest(year));
+        addStatusCounterToModel(model);
         return "planning/create_success_indicator";
     }
 
@@ -183,6 +191,7 @@ public class PlanningController {
         model.addAttribute("papGroupType", papGroupType);
         model.addAttribute("year", year);
         model.addAttribute("successIndicatorDataDtoList", successIndicatorDataDtoList);
+        addStatusCounterToModel(model);
         return "planning/opcr_graph";
     }
 
@@ -214,8 +223,7 @@ public class PlanningController {
             default:
                 break;
         }
-        setModelInitialAtributes(model);
-        return "planning/planning";
+        return "redirect:/planning";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/planning/opcr/{papGroup}/papGroup/save",
@@ -245,14 +253,14 @@ public class PlanningController {
             default:
                 break;
         }
-        setModelInitialAtributes(model);
-        return "planning/planning";
+        return "redirect:/planning";
     }
 
     private void setModelInitialAtributes(Model model) {
         PapDataWrapper papDataWrapper = papDataService.getAllPapDataWrapperByFilter("", "", DEFAULT_YEAR);
         model.addAttribute("papFilter", new PapDataFilterRequest(DEFAULT_YEAR));
         model.addAttribute("papData", papDataWrapper);
+        addStatusCounterToModel(model);
     }
 
     private void setModelAttributesWithFilter(PapDataFilterRequest papDataFilterRequest, BindingResult bindingResult, Model model) {
@@ -262,6 +270,7 @@ public class PlanningController {
         PapDataWrapper papDataWrapper = papDataService.getAllPapDataWrapperByFilter(papDataFilterRequest.getSuccessIndicatorMeasure(), papDataFilterRequest.getPapName(), papDataFilterRequest.getYear());
         model.addAttribute("papFilter", papDataFilterRequest);
         model.addAttribute("papData", papDataWrapper);
+        addStatusCounterToModel(model);
     }
 
     private SuccessIndicatorDataDto initializeSuccessIndicatorDto() {

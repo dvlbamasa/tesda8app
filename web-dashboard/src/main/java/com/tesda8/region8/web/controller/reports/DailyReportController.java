@@ -1,5 +1,7 @@
 package com.tesda8.region8.web.controller.reports;
 
+import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
+import com.tesda8.region8.web.controller.DefaultController;
 import com.tesda8.region8.web.model.dto.wrapper.CertificationRateReportWrapper;
 import com.tesda8.region8.web.model.dto.wrapper.GeneralReportsDtoWrapper;
 import com.tesda8.region8.web.model.dto.wrapper.ROPerModeReportWrapper;
@@ -24,7 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
-public class DailyReportController {
+public class DailyReportController extends DefaultController {
 
     private static Logger logger = LoggerFactory.getLogger(DailyReportController.class);
 
@@ -37,7 +39,9 @@ public class DailyReportController {
     public DailyReportController(GeneralReportService generalReportService,
                                  CertificationRateReportService certificationRateReportService,
                                  ROPerModeReportService roPerModeReportService,
-                                 TTIReportService ttiReportService) {
+                                 TTIReportService ttiReportService,
+                                 RegisteredProgramStatusService registeredProgramStatusService) {
+        super(registeredProgramStatusService);
         this.generalReportService = generalReportService;
         this.certificationRateReportService = certificationRateReportService;
         this.roPerModeReportService = roPerModeReportService;
@@ -87,7 +91,7 @@ public class DailyReportController {
         model.addAttribute("reports", generalReportsDtoWrapper);
         model.addAttribute("certificationReports", certificationRateReportWrapper);
         model.addAttribute("roPerModeReports", roPerModeReportWrapper);
-
+        addStatusCounterToModel(model);
         return "daily_reports/update_reports";
     }
 

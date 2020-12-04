@@ -1,5 +1,7 @@
 package com.tesda8.region8.web.controller.reports;
 
+import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
+import com.tesda8.region8.web.controller.DefaultController;
 import com.tesda8.region8.web.model.dto.wrapper.GeneralReportsDtoWrapper;
 import com.tesda8.region8.util.enums.DailyReportType;
 import com.tesda8.region8.reports.service.GeneralReportService;
@@ -15,14 +17,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.time.LocalDateTime;
 
 @Controller
-public class MonthlyReportController {
+public class MonthlyReportController extends DefaultController {
 
     private MonthlyReportService monthlyReportService;
     private GeneralReportService generalReportService;
 
     @Autowired
     public MonthlyReportController(MonthlyReportService monthlyReportService,
-                                   GeneralReportService generalReportService) {
+                                   GeneralReportService generalReportService,
+                                   RegisteredProgramStatusService registeredProgramStatusService) {
+        super(registeredProgramStatusService);
         this.monthlyReportService = monthlyReportService;
         this.generalReportService = generalReportService;
     }
@@ -34,7 +38,7 @@ public class MonthlyReportController {
                 findAllGeneralReportByDailyReportType(DailyReportType.PO_REPORT));
 
         model.addAttribute("reports", generalReportsDtoWrapper);
-
+        addStatusCounterToModel(model);
         return "daily_reports/update_monthly_reports";
     }
 

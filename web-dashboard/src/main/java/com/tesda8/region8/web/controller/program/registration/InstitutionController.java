@@ -4,6 +4,8 @@ import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
 import com.tesda8.region8.program.registration.model.dto.InstitutionFilter;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramRequestDto;
 import com.tesda8.region8.program.registration.service.InstitutionService;
+import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
+import com.tesda8.region8.web.controller.DefaultController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,12 +19,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 @Controller
-public class InstitutionController {
+public class InstitutionController extends DefaultController {
 
     private InstitutionService institutionService;
 
     @Autowired
-    public InstitutionController(InstitutionService institutionService) {
+    public InstitutionController(InstitutionService institutionService, RegisteredProgramStatusService registeredProgramStatusService) {
+        super(registeredProgramStatusService);
         this.institutionService = institutionService;
     }
 
@@ -43,12 +46,14 @@ public class InstitutionController {
         model.addAttribute("institutionFilter", institutionFilter);
         model.addAttribute("institutions", institutionDtoList);
         model.addAttribute("ttiList", ttiList);
+        addStatusCounterToModel(model);
         return "program_registration/institution_list";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/program_registration/institution/create")
     public String createInstitution(Model model) {
         model.addAttribute("institution", new InstitutionDto());
+        addStatusCounterToModel(model);
         return "program_registration/add_institution";
     }
 
@@ -56,6 +61,7 @@ public class InstitutionController {
     public String updateInstitution(@PathVariable("id") Long id, Model model) {
         InstitutionDto institutionDto = institutionService.getInstitutionDto(id);
         model.addAttribute("institution", institutionDto);
+        addStatusCounterToModel(model);
         return "program_registration/update_institution";
     }
 
@@ -69,6 +75,7 @@ public class InstitutionController {
         List<InstitutionDto> ttiList = institutionService.getAllInstitution();
         model.addAttribute("registeredProgram", new RegisteredProgramRequestDto());
         model.addAttribute("ttiList", ttiList);
+        addStatusCounterToModel(model);
         return "program_registration/add_prog_reg";
     }
 
@@ -80,13 +87,13 @@ public class InstitutionController {
             //errors processing
         }
         institutionService.updateInstitution(institutionDto);
-        return initializeModelInstitutionPage(model);
+        return "redirect:/program_registration/institutions";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/program_registration/institution/{id}/delete")
     public String deleteInstitution(@PathVariable("id") Long id, Model model) {
         institutionService.deleteInstitution(id);
-        return initializeModelInstitutionPage(model);
+        return "redirect:/program_registration/institutions";
     }
 
     private String initializeModelInstitutionPage(Model model) {
@@ -97,6 +104,7 @@ public class InstitutionController {
         model.addAttribute("institutionName", "");
         model.addAttribute("institutions", institutionDtoList);
         model.addAttribute("ttiList", institutionDtoList);
+        addStatusCounterToModel(model);
         return "program_registration/institution_list";
     }
 

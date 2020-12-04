@@ -38,6 +38,7 @@ public class OfficialServiceImpl implements RegistrationRequirementsCrudService<
                 .findById(officialDto.getRegisteredProgramId()).orElseThrow(EntityNotFoundException::new);
         Official official = programRegistrationMapper.officialToEntity(officialDto);
         official.setRegisteredProgram(registeredProgram);
+        official.setIsDeleted(false);
         registeredProgram.getOfficialList().add(official);
         registeredProgramRepository.save(registeredProgram);
     }

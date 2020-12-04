@@ -15,6 +15,7 @@ public class RegisteredProgramRequestDto {
 
     private long id;
     private long institutionId;
+    private String institutionName;
     private String name;
     private int duration;
     private String programRegistrationNumber;

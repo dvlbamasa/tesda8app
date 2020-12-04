@@ -1,9 +1,11 @@
 package com.tesda8.region8.web.controller.scholarship;
 
+import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.scholarship.model.dto.ScholarshipFilter;
 import com.tesda8.region8.scholarship.model.dto.ScholarshipWrapper;
 import com.tesda8.region8.scholarship.service.ScholarshipAccomplishmentService;
 import com.tesda8.region8.util.enums.Month;
+import com.tesda8.region8.web.controller.DefaultController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
-public class ScholarshipController {
+public class ScholarshipController extends DefaultController {
 
     private ScholarshipAccomplishmentService scholarshipAccomplishmentService;
 
     @Autowired
-    public ScholarshipController(ScholarshipAccomplishmentService scholarshipAccomplishmentService) {
+    public ScholarshipController(ScholarshipAccomplishmentService scholarshipAccomplishmentService,
+                                 RegisteredProgramStatusService registeredProgramStatusService) {
+        super(registeredProgramStatusService);
         this.scholarshipAccomplishmentService = scholarshipAccomplishmentService;
     }
 
@@ -30,6 +34,7 @@ public class ScholarshipController {
         ScholarshipWrapper scholarshipWrapper = scholarshipAccomplishmentService.getAllScholarshipAccomplishment(2020L, Month.DECEMBER);
         model.addAttribute("scholarships", scholarshipWrapper);
         model.addAttribute("filter", new ScholarshipFilter(2020L, Month.DECEMBER));
+        addStatusCounterToModel(model);
         return "scholarship/scholarship";
     }
 
@@ -39,6 +44,7 @@ public class ScholarshipController {
                 .getAllScholarshipAccomplishment(scholarshipFilter.getYear(), scholarshipFilter.getMonth());
         model.addAttribute("scholarships", scholarshipWrapper);
         model.addAttribute("filter", scholarshipFilter);
+        addStatusCounterToModel(model);
         return "scholarship/scholarship";
     }
 
@@ -49,6 +55,7 @@ public class ScholarshipController {
         ScholarshipWrapper scholarshipWrapper = scholarshipAccomplishmentService.getAllScholarshipAccomplishment(year, month);
         model.addAttribute("scholarships", scholarshipWrapper);
         model.addAttribute("filter", new ScholarshipFilter(year, month));
+        addStatusCounterToModel(model);
         return "scholarship/create_scholarship";
     }
 
@@ -58,6 +65,7 @@ public class ScholarshipController {
                 .getAllScholarshipAccomplishment(scholarshipFilter.getYear(), scholarshipFilter.getMonth());
         model.addAttribute("scholarships", scholarshipWrapper);
         model.addAttribute("filter", scholarshipFilter);
+        addStatusCounterToModel(model);
         return "scholarship/create_scholarship";
     }
 
@@ -67,9 +75,6 @@ public class ScholarshipController {
             //errors processing
         }
         scholarshipAccomplishmentService.updateScholarshipAccomplishment(scholarshipWrapper);
-        ScholarshipWrapper scholarshipWrapper1 = scholarshipAccomplishmentService.getAllScholarshipAccomplishment(2020L, Month.DECEMBER);
-        model.addAttribute("scholarships", scholarshipWrapper1);
-        model.addAttribute("filter", new ScholarshipFilter(2020L, Month.DECEMBER));
-        return "scholarship/scholarship";
+        return "redirect:/scholarship";
     }
 }

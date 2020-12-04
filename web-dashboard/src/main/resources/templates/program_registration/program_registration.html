@@ -9,19 +9,43 @@
 </head>
 <body>
 
-<div th:replace="fragments/header :: header"/>
+<div th:replace="fragments/header :: header(${statusCounter})"/>
 <div id="page-container">
-    <!--div id="myToast" class="toast" style="position: absolute; top: 0; right: 0;">
+    <input type="hidden" id="expiredDocumentSize" th:value="${expiredDocuments.getTotalCount()}"/>
+    <div id="myToast" class="toast" style="position: absolute; top: 0; right: 0;">
         <div class="toast-header">
             <strong class="mr-auto"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Document Expired</strong>
             <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="toast-body">
-            Hello, world! This is a sample message.
+        <div class="toast-body" th:object="${expiredDocuments}">
+            <th:block th:if="${!expiredDocuments.expiredBuildingOwnership.isEmpty()}">
+                <b>Expired Building Ownership:</b>
+                <br/>
+                <th:block th:each="expiredDocument, itemStat : *{expiredBuildingOwnership}">
+                    <a th:href="@{/program_registration/registeredProgram/{id}/update(id=${expiredDocument.id})}"><span class="ml-3 danger" th:text="${expiredDocument.programRegistrationNumber}"></span></a>
+                    <br/>
+                </th:block>
+            </th:block>
+            <th:block th:if="${!expiredDocuments.expiredFireSafety.isEmpty()}">
+                <b>Expired Fire Safety:</b>
+                <br/>
+                <th:block th:each="expiredDocument, itemStat : *{expiredFireSafety}">
+                    <a th:href="@{/program_registration/registeredProgram/{id}/update(id=${expiredDocument.id})}"><span class="ml-3 danger" th:text="${expiredDocument.programRegistrationNumber}"></span></a>
+                    <br/>
+                </th:block>
+            </th:block>
+            <th:block th:if="${!expiredDocuments.expiredMoaValidity.isEmpty()}">
+                <b>Expired Moa Validity:</b>
+                <br/>
+                <th:block th:each="expiredDocument, itemStat : *{expiredMoaValidity}">
+                    <a th:href="@{/program_registration/registeredProgram/{id}/update(id=${expiredDocument.id})}"><span class="ml-3 danger" th:text="${expiredDocument.programRegistrationNumber}"></span></a>
+                    <br/>
+                </th:block>
+            </th:block>
         </div>
-    </div-->
+    </div>
     <div id = "content-wrap">
         <header class="bg-primary py-5 mb-5">
             <div class="container h-100">
