@@ -1,10 +1,9 @@
 package com.tesda8.region8.web.controller.program.registration;
 
 import com.tesda8.region8.program.registration.model.dto.TrainerDto;
-import com.tesda8.region8.program.registration.service.InstitutionService;
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.program.registration.service.RegistrationRequirementsCrudService;
-import com.tesda8.region8.program.registration.service.RegisteredProgramService;
+import com.tesda8.region8.web.controller.DefaultController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -16,16 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class TrainerController extends RequirementControllerUtil{
+public class TrainerController extends DefaultController {
 
     private RegistrationRequirementsCrudService<TrainerDto> registrationRequirementsCrudService;
 
     @Autowired
     public TrainerController(@Qualifier("trainer") RegistrationRequirementsCrudService registrationRequirementsCrudService,
-                             InstitutionService institutionService,
-                             RegisteredProgramService registeredProgramService,
                              RegisteredProgramStatusService registeredProgramStatusService) {
-        super(registeredProgramService, institutionService, registeredProgramStatusService);
+        super(registeredProgramStatusService);
         this.registrationRequirementsCrudService = registrationRequirementsCrudService;
     }
 
@@ -52,7 +49,7 @@ public class TrainerController extends RequirementControllerUtil{
             //errors processing
         }
         registrationRequirementsCrudService.create(trainerDto);
-        return backToUpdateRegisteredProgram(trainerDto.getRegisteredProgramId(), model);
+        return "redirect:/program_registration/registeredProgram/" + trainerDto.getRegisteredProgramId() + "/update";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/program_registration/trainer/update/save")
@@ -61,13 +58,13 @@ public class TrainerController extends RequirementControllerUtil{
             //errors processing
         }
         registrationRequirementsCrudService.update(trainerDto);
-        return backToUpdateRegisteredProgram(trainerDto.getRegisteredProgramId(), model);
+        return "redirect:/program_registration/registeredProgram/" + trainerDto.getRegisteredProgramId() + "/update";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/program_registration/{registeredProgramId}/trainer/{id}/delete")
     public String deleteTrainer(@PathVariable("id") Long id,
                                  @PathVariable("registeredProgramId") Long registeredProgramId, Model model) {
         registrationRequirementsCrudService.delete(id);
-        return backToUpdateRegisteredProgram(registeredProgramId, model);
+        return "redirect:/program_registration/registeredProgram/" + registeredProgramId + "/update";
     }
 }

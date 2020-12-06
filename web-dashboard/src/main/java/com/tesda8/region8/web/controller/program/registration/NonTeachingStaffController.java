@@ -1,10 +1,9 @@
 package com.tesda8.region8.web.controller.program.registration;
 
 import com.tesda8.region8.program.registration.model.dto.NonTeachingStaffDto;
-import com.tesda8.region8.program.registration.service.InstitutionService;
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.program.registration.service.RegistrationRequirementsCrudService;
-import com.tesda8.region8.program.registration.service.RegisteredProgramService;
+import com.tesda8.region8.web.controller.DefaultController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -16,16 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class NonTeachingStaffController extends RequirementControllerUtil {
+public class NonTeachingStaffController extends DefaultController {
 
     private RegistrationRequirementsCrudService<NonTeachingStaffDto> registrationRequirementsCrudService;
 
     @Autowired
-    public NonTeachingStaffController(InstitutionService institutionService,
-                                      RegisteredProgramService registeredProgramService,
-                                      RegisteredProgramStatusService registeredProgramStatusService,
+    public NonTeachingStaffController(RegisteredProgramStatusService registeredProgramStatusService,
                                       @Qualifier("staff") RegistrationRequirementsCrudService registrationRequirementsCrudService) {
-        super(registeredProgramService, institutionService, registeredProgramStatusService);
+        super(registeredProgramStatusService);
         this.registrationRequirementsCrudService = registrationRequirementsCrudService;
     }
 
@@ -52,7 +49,7 @@ public class NonTeachingStaffController extends RequirementControllerUtil {
             //errors processing
         }
         registrationRequirementsCrudService.create(nonTeachingStaffDto);
-        return backToUpdateRegisteredProgram(nonTeachingStaffDto.getRegisteredProgramId(), model);
+        return "redirect:/program_registration/registeredProgram/" + nonTeachingStaffDto.getRegisteredProgramId() + "/update";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/program_registration/staff/update/save")
@@ -61,13 +58,13 @@ public class NonTeachingStaffController extends RequirementControllerUtil {
             //errors processing
         }
         registrationRequirementsCrudService.update(nonTeachingStaffDto);
-        return backToUpdateRegisteredProgram(nonTeachingStaffDto.getRegisteredProgramId(), model);
+        return "redirect:/program_registration/registeredProgram/" + nonTeachingStaffDto.getRegisteredProgramId() + "/update";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/program_registration/{registeredProgramId}/staff/{id}/delete")
     public String deleteTrainer(@PathVariable("id") Long id,
                                 @PathVariable("registeredProgramId") Long registeredProgramId, Model model) {
         registrationRequirementsCrudService.delete(id);
-        return backToUpdateRegisteredProgram(registeredProgramId, model);
+        return "redirect:/program_registration/registeredProgram/" + registeredProgramId + "/update";
     }
 }

@@ -1,10 +1,9 @@
 package com.tesda8.region8.web.controller.program.registration;
 
 import com.tesda8.region8.program.registration.model.dto.OfficialDto;
-import com.tesda8.region8.program.registration.service.InstitutionService;
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.program.registration.service.RegistrationRequirementsCrudService;
-import com.tesda8.region8.program.registration.service.RegisteredProgramService;
+import com.tesda8.region8.web.controller.DefaultController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class OfficialController extends RequirementControllerUtil {
+public class OfficialController extends DefaultController {
 
     private RegistrationRequirementsCrudService<OfficialDto> registrationRequirementsCrudService;
 
@@ -26,10 +25,8 @@ public class OfficialController extends RequirementControllerUtil {
 
     @Autowired
     public OfficialController(@Qualifier("official") RegistrationRequirementsCrudService registrationRequirementsCrudService,
-                              InstitutionService institutionService,
-                              RegisteredProgramService registeredProgramService,
                               RegisteredProgramStatusService registeredProgramStatusService) {
-        super(registeredProgramService, institutionService, registeredProgramStatusService);
+        super(registeredProgramStatusService);
         this.registrationRequirementsCrudService = registrationRequirementsCrudService;
     }
 
@@ -56,7 +53,7 @@ public class OfficialController extends RequirementControllerUtil {
             //errors processing
         }
         registrationRequirementsCrudService.create(officialDto);
-        return backToUpdateRegisteredProgram(officialDto.getRegisteredProgramId(), model);
+        return "redirect:/program_registration/registeredProgram/" + officialDto.getRegisteredProgramId() + "/update";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/program_registration/official/update/save")
@@ -65,14 +62,14 @@ public class OfficialController extends RequirementControllerUtil {
             //errors processing
         }
         registrationRequirementsCrudService.update(officialDto);
-        return backToUpdateRegisteredProgram(officialDto.getRegisteredProgramId(), model);
+        return "redirect:/program_registration/registeredProgram/" + officialDto.getRegisteredProgramId() + "/update";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/program_registration/{registeredProgramId}/official/{id}/delete")
     public String deleteOfficial(@PathVariable("id") Long id,
                                  @PathVariable("registeredProgramId") Long registeredProgramId, Model model) {
         registrationRequirementsCrudService.delete(id);
-        return backToUpdateRegisteredProgram(registeredProgramId, model);
+        return "redirect:/program_registration/registeredProgram/" + registeredProgramId + "/update";
     }
 
 }
