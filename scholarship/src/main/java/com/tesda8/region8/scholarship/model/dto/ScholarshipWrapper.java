@@ -1,13 +1,12 @@
 package com.tesda8.region8.scholarship.model.dto;
 
-import com.google.api.client.util.Lists;
+import com.google.common.collect.Lists;
 import com.tesda8.region8.util.enums.Month;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.ScholarshipType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.management.monitor.Monitor;
 import java.util.Arrays;
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.tesda8.region8.scholarship.service.impl;
 
-import com.google.api.client.util.Lists;
+import com.google.common.collect.Lists;
 import com.tesda8.region8.scholarship.model.dto.ScholarshipAccomplishmentDto;
 import com.tesda8.region8.scholarship.model.dto.ScholarshipWrapper;
 import com.tesda8.region8.scholarship.model.entities.ScholarshipAccomplishment;
