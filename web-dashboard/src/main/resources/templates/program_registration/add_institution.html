@@ -34,7 +34,7 @@
                         <div class="container">
                             <h1 class="display-5 text-black-50 mb-5">Create New Institution</h1>
                             <div class="form-group row">
-                                <label for="operatingUnitType" class="col-sm-2 col-form-label">Select Province</label>
+                                <label for="operatingUnitType" class="col-sm-2 col-form-label">Select Province<span class="input-required">*</span></label>
                                 <div class="col-sm-10">
                                     <select class="form-control selectpicker" id="operatingUnitType" name="operatingUnitType" required>
                                         <th:block th:each="operatingUnitType : ${T(com.tesda8.region8.util.enums.OperatingUnitType).values()}">
@@ -48,7 +48,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="congressionalDistrict" class="col-sm-2 col-form-label">Select Congressional District</label>
+                                <label for="congressionalDistrict" class="col-sm-2 col-form-label">Select Congressional District<span class="input-required">*</span></label>
                                 <div class="col-sm-10">
                                     <select class="form-control selectpicker" id="congressionalDistrict" name="congressionalDistrict" required>
                                         <th:block th:each="congressionalDistrict : ${T(com.tesda8.region8.util.enums.CongressionalDistrict).values()}">
@@ -60,19 +60,19 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="name" class="col-sm-2 col-form-label">Name of Institution</label>
+                                <label for="name" class="col-sm-2 col-form-label">Name of Institution<span class="input-required">*</span></label>
                                 <div class="col-sm-10">
                                     <input class="form-control" placeholder="Enter Name of Institution" id="name" name="name" type="text" th:field="*{name}" required/>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="shortName" class="col-sm-2 col-form-label">Institution Abbreviation</label>
+                                <label for="shortName" class="col-sm-2 col-form-label">Institution Abbreviation<span class="input-required">*</span></label>
                                 <div class="col-sm-10">
                                     <input class="form-control" placeholder="Enter Institution Abbreviation" id="shortName" name="shortName" type="text" th:field="*{shortName}" required/>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="institutionType" class="col-sm-2 col-form-label">Select Type of Institution</label>
+                                <label for="institutionType" class="col-sm-2 col-form-label">Select Type of Institution<span class="input-required">*</span></label>
                                 <div class="col-sm-10">
                                     <select class="form-control selectpicker" id="institutionType" name="institutionType" required>
                                         <th:block th:each="institutionType : ${T(com.tesda8.region8.util.enums.InstitutionType).values()}">
@@ -86,7 +86,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="institutionClassification" class="col-sm-2 col-form-label">Select Classification of Institution</label>
+                                <label for="institutionClassification" class="col-sm-2 col-form-label">Select Classification of Institution<span class="input-required">*</span></label>
                                 <div class="col-sm-10">
                                     <select class="form-control selectpicker" id="institutionClassification" name="institutionClassification" required>
                                         <th:block th:each="institutionClassification : ${T(com.tesda8.region8.util.enums.InstitutionClassification).values()}">
@@ -100,13 +100,13 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="address" class="col-sm-2 col-form-label">Address</label>
+                                <label for="address" class="col-sm-2 col-form-label">Address<span class="input-required">*</span></label>
                                 <div class="col-sm-10">
                                     <input class="form-control" placeholder="Enter Address" id="address" name="address" type="text" th:field="*{address}" required/>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="contactNumber" class="col-sm-2 col-form-label">Contact Number</label>
+                                <label for="contactNumber" class="col-sm-2 col-form-label">Contact Number<span class="input-required">*</span></label>
                                 <div class="col-sm-10">
                                     <input class="form-control" placeholder="Enter Contact Number" id="contactNumber" name="contactNumber" type="text" th:field="*{contactNumber}" required/>
                                 </div>

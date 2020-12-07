@@ -44,7 +44,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="sector" class="col-sm-2 col-form-label">Select Course Sector</label>
+                                <label for="sector" class="col-sm-2 col-form-label">Select Course Sector<span class="input-required">*</span></label>
                                 <div class="col-sm-10">
                                     <select class="form-control selectpicker" data-live-search="true"  id="sector" name="sector" required>
                                         <optgroup label="Non-Bundled Programs">
@@ -71,25 +71,25 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="name" class="col-sm-2 col-form-label">Qualification Title</label>
+                                <label for="name" class="col-sm-2 col-form-label">Qualification Title<span class="input-required">*</span></label>
                                 <div class="col-sm-10">
                                     <input class="form-control" placeholder="Enter Qualification Title" id="name" name="name" type="text" th:field="*{name}" th:value="${registeredProgram.name}" required/>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="duration" class="col-sm-2 col-form-label">Duration in Hours</label>
+                                <label for="duration" class="col-sm-2 col-form-label">Duration in Hours<span class="input-required">*</span></label>
                                 <div class="col-sm-10">
                                     <input type="number" onkeypress="return isNumberKey(event)"  class="form-control" placeholder="Enter Duration Hours" id="duration" name="duration" th:field="*{duration}" th:value="${registeredProgram.duration}" required/>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="programRegistrationNumber" class="col-sm-2 col-form-label">Program Registration Number</label>
+                                <label for="programRegistrationNumber" class="col-sm-2 col-form-label">Program Registration Number<span class="input-required">*</span></label>
                                 <div class="col-sm-10">
                                     <input class="form-control" placeholder="Enter Program Registration Number" id="programRegistrationNumber" name="programRegistrationNumber" type="text" th:field="*{programRegistrationNumber}" th:value="${registeredProgram.programRegistrationNumber}" required/>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="dateIssued" class="col-sm-2 col-form-label">Date Issued</label>
+                                <label for="dateIssued" class="col-sm-2 col-form-label">Date Issued<span class="input-required">*</span></label>
                                 <div class="input-group date  col-sm-10" id="dateIssued" data-target-input="nearest">
                                     <input th:field="*{dateIssued}" th:value="${registeredProgram.dateIssued}" type="text" class="form-control datetimepicker-input" data-target="#dateIssued" required/>
                                     <div class="input-group-append" data-target="#dateIssued" data-toggle="datetimepicker">
@@ -98,7 +98,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="courseStatus" class="col-sm-2 col-form-label">Course Status</label>
+                                <label for="courseStatus" class="col-sm-2 col-form-label">Course Status<span class="input-required">*</span></label>
                                 <div class="col-sm-10">
                                     <select class="form-control selectpicker" id="courseStatus" name="courseStatus" required>
                                         <th:block th:each="courseStatus : ${T(com.tesda8.region8.util.enums.CourseStatus).values()}">
@@ -113,13 +113,13 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="numberOfTeachers" class="col-sm-2 col-form-label">Number of Teachers</label>
+                                <label for="numberOfTeachers" class="col-sm-2 col-form-label">Number of Teachers<span class="input-required">*</span></label>
                                 <div class="col-sm-10">
                                     <input type="number" onkeypress="return isNumberKey(event)"  class="form-control" placeholder="Enter Number of Teachers" id="numberOfTeachers" name="numberOfTeachers" th:field="*{numberOfTeachers}" th:value="${registeredProgram.numberOfTeachers}" required/>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="buildingOwnershipDateIssued" class="col-sm-2 col-form-label">Building Ownership Date Issued</label>
+                                <label for="buildingOwnershipDateIssued" class="col-sm-2 col-form-label">Building Ownership Date Issued<span class="input-required">*</span></label>
                                 <div class="input-group date  col-sm-10" id="buildingOwnershipDateIssued" data-target-input="nearest">
                                     <input th:field="*{registrationRequirement.buildingOwnershipDateIssued}" type="text" class="form-control datetimepicker-input" data-target="#buildingOwnershipDateIssued" required/>
                                     <div class="input-group-append" data-target="#buildingOwnershipDateIssued" data-toggle="datetimepicker">
@@ -128,7 +128,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="fireSafetyDateIssued" class="col-sm-2 col-form-label">Fire Safety Certificate Date Issued</label>
+                                <label for="fireSafetyDateIssued" class="col-sm-2 col-form-label">Fire Safety Certificate Date Issued<span class="input-required">*</span></label>
                                 <div class="input-group date  col-sm-10" id="fireSafetyDateIssued" data-target-input="nearest">
                                     <input th:field="*{registrationRequirement.fireSafetyDateIssued}" type="text" class="form-control datetimepicker-input" data-target="#fireSafetyDateIssued" required/>
                                     <div class="input-group-append" data-target="#fireSafetyDateIssued" data-toggle="datetimepicker">
@@ -137,7 +137,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="moaValidity" class="col-sm-2 col-form-label">MOA Validity Date Issued</label>
+                                <label for="moaValidity" class="col-sm-2 col-form-label">MOA Validity Date Issued<span class="input-required">*</span></label>
                                 <div class="input-group date  col-sm-10" id="moaValidity" data-target-input="nearest">
                                     <input th:field="*{registrationRequirement.moaValidity}" type="text" class="form-control datetimepicker-input" data-target="#moaValidity" required/>
                                     <div class="input-group-append" data-target="#moaValidity" data-toggle="datetimepicker">
@@ -146,7 +146,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="registrationRequirement.moaValidityType" class="col-sm-2 col-form-label">MOA Validity Years</label>
+                                <label for="registrationRequirement.moaValidityType" class="col-sm-2 col-form-label">MOA Validity Years<span class="input-required">*</span></label>
                                 <div class="col-sm-10">
                                     <select class="form-control selectpicker" id="registrationRequirement.moaValidityType" name="registrationRequirement.moaValidityType" required>
                                         <th:block th:each="moaValidityType : ${T(com.tesda8.region8.util.enums.MoaValidityType).values()}">

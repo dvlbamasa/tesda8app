@@ -348,3 +348,7 @@ label.error {
 .danger {
     color: red;
 }
+
+.input-required {
+    color: red;
+}

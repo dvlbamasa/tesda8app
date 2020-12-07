@@ -36,7 +36,7 @@
                             <h1 class="display-5 text-black-50 mb-5">Update Non-Teaching Staff</h1>
                             <input type="hidden" th:field="*{isDeleted}"/>
                             <div class="form-group row">
-                                <label for="staffName" class="col-sm-2 col-form-label">Name</label>
+                                <label for="staffName" class="col-sm-2 col-form-label">Name<span class="input-required">*</span></label>
                                 <div class="col-sm-10">
                                     <input class="form-control" placeholder="Enter Name" id="staffName" name="staffName" type="text" th:field="*{name}" th:value="*{name}" required/>
                                 </div>
