@@ -55,7 +55,7 @@
             <div class="container">
                 <h1 class="display-5 text-black-50 mb-5">Create New Success Indicator</h1>
                 <div class="form-group row">
-                    <label for="papDataId" class="col-sm-2 col-form-label">Select P/A/P</label>
+                    <label for="papDataId" class="col-sm-2 col-form-label">Select P/A/P<span class="input-required">*</span></label>
                     <div class="col-sm-10">
                         <select class="selectpicker" data-width="100%" data-live-search="true" id="papDataId" name="papDataId" required>
                             <th:block th:each="papGroupType : ${T(com.tesda8.region8.util.enums.PapGroupType).values()}">
@@ -72,28 +72,28 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="target" class="col-sm-2 col-form-label">Target</label>
+                    <label for="target" class="col-sm-2 col-form-label">Target<span class="input-required">*</span></label>
                     <div class="col-sm-10">
                         <input id="target" type="number" onkeypress="return isNumberKey(event)" class="form-control"
                                th:field="*{target}" required/>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="isAccumulated" class="col-sm-2 col-form-label">Accumulated</label>
+                    <label for="isAccumulated" class="col-sm-2 col-form-label">Accumulated<span class="input-required">*</span></label>
                     <div class="col-sm-10">
                         <input type="checkbox" th:field="*{isAccumulated}" id="isAccumulated" th:value="${successIndicator.isAccumulated}"/>
                         <span>Check if total values will be accumulated.</span>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="isPercentage" class="col-sm-2 col-form-label">Percentage</label>
+                    <label for="isPercentage" class="col-sm-2 col-form-label">Percentage<span class="input-required">*</span></label>
                     <div class="col-sm-10">
                         <input type="checkbox" th:field="*{isPercentage}" id="isPercentage"/>
                         <span>Check if the target value is in percentage format.</span>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="measures" class="col-sm-2 col-form-label">Measure</label>
+                    <label for="measures" class="col-sm-2 col-form-label">Measure<span class="input-required">*</span></label>
                     <div class="col-sm-10">
                         <textarea class="form-control" placeholder="Enter measure" id="measures" name="measures" type="text" th:field="*{measures}" required>
                         </textarea>
