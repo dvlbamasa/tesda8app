@@ -4,6 +4,8 @@ import com.tesda8.region8.util.model.DataPoints;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 public class ReportUtil {
@@ -14,6 +16,10 @@ public class ReportUtil {
 
     public static double calculateRate(long target, long output) {
         return Double.parseDouble(df2.format(Math.round(100.0 * output/target)));
+    }
+
+    public static BigDecimal calculateRate(BigDecimal dividend, BigDecimal divisor) {
+        return new BigDecimal("100.00").multiply(dividend.divide(divisor, 2, RoundingMode.HALF_UP));
     }
 
     public static DataPoints initializeTotalDataPoints() {

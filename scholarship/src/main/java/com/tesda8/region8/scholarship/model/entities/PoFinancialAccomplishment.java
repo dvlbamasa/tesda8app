@@ -9,8 +9,10 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @Embeddable
-public class QualificationMap {
+public class PoFinancialAccomplishment {
 
-    private BigDecimal amount;
-    private Long slots;
+    private BigDecimal totalObligation;
+    private BigDecimal obligationRate;
+    private BigDecimal totalDisbursement;
+    private BigDecimal disbursementRate;
 }

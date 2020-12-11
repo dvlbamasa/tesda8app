@@ -58,6 +58,6 @@ public class ScholarshipRestController {
     @RequestMapping(method = RequestMethod.POST, value = "/create")
     public void createScholarshipAccomplishment(@RequestBody List<ScholarshipAccomplishmentDto> scholarshipAccomplishmentDtoList,
                                                 @RequestParam("type") ScholarshipType scholarshipType) {
-        scholarshipAccomplishmentService.createScholarshipAccomplishment(scholarshipType, scholarshipAccomplishmentDtoList);
+        scholarshipAccomplishmentService.createScholarshipAccomplishment(scholarshipType, scholarshipAccomplishmentDtoList, Month.DECEMBER, 2020L);
     }
 }

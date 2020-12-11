@@ -193,6 +193,7 @@ tbody:hover td[rowspan], tr:hover td {
 
 .total-col {
     background-color: #b3ffc4;
+    font-weight: bold;
 }
 
 .col-striped {
@@ -200,7 +201,7 @@ tbody:hover td[rowspan], tr:hover td {
 }
 
 .col-striped2 {
-    background-color: #ffd1ad;
+    background-color: #c4e5ff;
 }
 
 .home {
@@ -351,4 +352,17 @@ label.error {
 
 .input-required {
     color: red;
+}
+
+th {
+    display: table-cell;
+    vertical-align: inherit;
+    font-weight: bold;
+    text-align: center;
+}
+
+.strong-data {
+    font-weight: bold;
+    color: red;
+
 }

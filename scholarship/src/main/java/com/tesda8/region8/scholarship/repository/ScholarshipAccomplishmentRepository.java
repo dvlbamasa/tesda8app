@@ -14,9 +14,9 @@ import java.util.List;
 public interface ScholarshipAccomplishmentRepository extends JpaRepository<ScholarshipAccomplishment, Long>, QuerydslPredicateExecutor<ScholarshipAccomplishment> {
 
     List<ScholarshipAccomplishment> findAllByYear(Long year);
-    List<ScholarshipAccomplishment> findAllByYearAndMonth(Long year, Month month);
-    List<ScholarshipAccomplishment> findAllByYearAndMonthAndScholarshipType(Long year, Month month, ScholarshipType scholarshipType);
-    ScholarshipAccomplishment findByYearAndMonthAndScholarshipTypeAndOperatingUnitType(Long year, Month month,
-                                                                                       ScholarshipType scholarshipType,
-                                                                                       OperatingUnitType  operatingUnitType);
+    List<ScholarshipAccomplishment> findAllByYearAndMonthOrderById(Long year, Month month);
+    List<ScholarshipAccomplishment> findAllByYearAndMonthAndScholarshipTypeOrderById(Long year, Month month, ScholarshipType scholarshipType);
+    ScholarshipAccomplishment findByYearAndMonthAndScholarshipTypeAndOperatingUnitTypeOrderById(Long year, Month month,
+                                                                                                ScholarshipType scholarshipType,
+                                                                                                OperatingUnitType  operatingUnitType);
 }

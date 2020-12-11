@@ -14,6 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 public class ScholarshipWrapper {
 
+    private Long year;
+    private Month month;
     private List<ScholarshipAccomplishmentDto> twspData;
     private List<ScholarshipAccomplishmentDto> pesfaData;
     private List<ScholarshipAccomplishmentDto> stepData;
@@ -22,6 +24,8 @@ public class ScholarshipWrapper {
     private List<ScholarshipAccomplishmentDto> uaqteaDiplomaData;
 
     public ScholarshipWrapper initializeScholarshipWrapper(Month month, Long year) {
+        this.month = month;
+        this.year = year;
         this.twspData = Lists.newArrayList();
         this.pesfaData = Lists.newArrayList();
         this.stepData = Lists.newArrayList();

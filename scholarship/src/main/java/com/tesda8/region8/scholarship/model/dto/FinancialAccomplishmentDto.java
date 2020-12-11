@@ -3,19 +3,16 @@ package com.tesda8.region8.scholarship.model.dto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @NoArgsConstructor
 public class FinancialAccomplishmentDto {
-    private Long totalObligation;
-    private Double obligationRate;
-    private Long totalDisbursement;
-    private Double disbursementRate;
+    private RoFinancialAccomplishmentDto roFinancialAccomplishmentDto;
+    private PoFinancialAccomplishmentDto poFinancialAccomplishmentDto;
 
-
-    public FinancialAccomplishmentDto(Long totalObligation, Double obligationRate, Long totalDisbursement, Double disbursementRate) {
-        this.totalObligation = totalObligation;
-        this.obligationRate = obligationRate;
-        this.totalDisbursement = totalDisbursement;
-        this.disbursementRate = disbursementRate;
+    public FinancialAccomplishmentDto(RoFinancialAccomplishmentDto roFinancialAccomplishmentDto, PoFinancialAccomplishmentDto poFinancialAccomplishmentDto) {
+        this.roFinancialAccomplishmentDto = roFinancialAccomplishmentDto;
+        this.poFinancialAccomplishmentDto = poFinancialAccomplishmentDto;
     }
 }

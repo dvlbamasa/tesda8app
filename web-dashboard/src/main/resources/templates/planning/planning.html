@@ -142,17 +142,17 @@
                                     <td th:text="${successIndicator.measures}"></td>
                                     <th:block th:each="operatingUnitData : ${successIndicator.operatingUnitDataList}">
                                         <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                            <th class="total-col"><span th:text="${operatingUnitData.target}"></span>
+                                            <td class="total-col"><span th:text="${operatingUnitData.target}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
                                                     <span>&#37;</span>
                                                 </th:block>
-                                            </th>
-                                            <th class="total-col"><span th:text="${operatingUnitData.output}"></span>
+                                            </td>
+                                            <td class="total-col"><span th:text="${operatingUnitData.output}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
                                                     <span>&#37;</span>
                                                 </th:block>
-                                            </th>
-                                            <th class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></th>
+                                            </td>
+                                            <td class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
                                         </th:block>
                                         <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
                                             <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
@@ -226,17 +226,17 @@
                                     <td th:text="${successIndicator.measures}"></td>
                                     <th:block th:each="operatingUnitData : ${successIndicator.operatingUnitDataList}">
                                         <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                            <th class="total-col"><span th:text="${operatingUnitData.target}"></span>
+                                            <td class="total-col"><span th:text="${operatingUnitData.target}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
                                                     <span>&#37;</span>
                                                 </th:block>
-                                            </th>
-                                            <th class="total-col"><span th:text="${operatingUnitData.output}"></span>
+                                            </td>
+                                            <td class="total-col"><span th:text="${operatingUnitData.output}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
                                                     <span>&#37;</span>
                                                 </th:block>
-                                            </th>
-                                            <th class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></th>
+                                            </td>
+                                            <td class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
                                         </th:block>
                                         <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
                                             <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
@@ -310,17 +310,17 @@
                                     <td th:text="${successIndicator.measures}"></td>
                                     <th:block th:each="operatingUnitData : ${successIndicator.operatingUnitDataList}">
                                         <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                            <th class="total-col"><span th:text="${operatingUnitData.target}"></span>
+                                            <td class="total-col"><span th:text="${operatingUnitData.target}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
                                                     <span>&#37;</span>
                                                 </th:block>
-                                            </th>
-                                            <th class="total-col"><span th:text="${operatingUnitData.output}"></span>
+                                            </td>
+                                            <td class="total-col"><span th:text="${operatingUnitData.output}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
                                                     <span>&#37;</span>
                                                 </th:block>
-                                            </th>
-                                            <th class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></th>
+                                            </td>
+                                            <td class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
                                         </th:block>
                                         <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
                                             <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
@@ -394,17 +394,17 @@
                                     <td th:text="${successIndicator.measures}"></td>
                                     <th:block th:each="operatingUnitData : ${successIndicator.operatingUnitDataList}">
                                         <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                            <th class="total-col"><span th:text="${operatingUnitData.target}"></span>
+                                            <td class="total-col"><span th:text="${operatingUnitData.target}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
                                                     <span>&#37;</span>
                                                 </th:block>
-                                            </th>
-                                            <th class="total-col"><span th:text="${operatingUnitData.output}"></span>
+                                            </td>
+                                            <td class="total-col"><span th:text="${operatingUnitData.output}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
                                                     <span>&#37;</span>
                                                 </th:block>
-                                            </th>
-                                            <th class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></th>
+                                            </td>
+                                            <td class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
                                         </th:block>
                                         <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
                                             <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
@@ -478,17 +478,17 @@
                                     <td th:text="${successIndicator.measures}"></td>
                                     <th:block th:each="operatingUnitData : ${successIndicator.operatingUnitDataList}">
                                         <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                            <th class="total-col"><span th:text="${operatingUnitData.target}"></span>
+                                            <td class="total-col"><span th:text="${operatingUnitData.target}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
                                                     <span>&#37;</span>
                                                 </th:block>
-                                            </th>
-                                            <th class="total-col"><span th:text="${operatingUnitData.output}"></span>
+                                            </td>
+                                            <td class="total-col"><span th:text="${operatingUnitData.output}"></span>
                                                 <th:block th:if="${successIndicator.isPercentage}">
                                                     <span>&#37;</span>
                                                 </th:block>
-                                            </th>
-                                            <th class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></th>
+                                            </td>
+                                            <td class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
                                         </th:block>
                                         <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
                                             <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>

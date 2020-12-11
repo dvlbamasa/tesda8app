@@ -6,6 +6,8 @@ import com.tesda8.region8.util.enums.ScholarshipType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @NoArgsConstructor
 public class ScholarshipAccomplishmentDto {
@@ -24,8 +26,8 @@ public class ScholarshipAccomplishmentDto {
         this.scholarshipType = scholarshipType;
         this.month = month;
         this.year = year;
-        this.qualificationMapDto = new QualificationMapDto(0L, 0L);
-        this.financialAccomplishmentDto = new FinancialAccomplishmentDto(0L, 0.0, 0L, 0.0 );
+        this.qualificationMapDto = new QualificationMapDto(BigDecimal.ZERO, 0L);
+        this.financialAccomplishmentDto = new FinancialAccomplishmentDto(new RoFinancialAccomplishmentDto(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO), new PoFinancialAccomplishmentDto(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
         this.physicalAccomplishmentDto = new PhysicalAccomplishmentDto(0L, 0.0, 0L, 0.0, 0L, 0.0, 0L, 0.0, 0L);
     }
 }

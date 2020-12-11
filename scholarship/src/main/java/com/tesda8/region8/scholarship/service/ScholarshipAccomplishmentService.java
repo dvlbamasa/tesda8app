@@ -25,5 +25,6 @@ public interface ScholarshipAccomplishmentService {
     void updateScholarshipAccomplishment(ScholarshipWrapper scholarshipWrapper);
 
     void createScholarshipAccomplishment(ScholarshipType scholarshipType,
-                                         List<ScholarshipAccomplishmentDto> scholarshipAccomplishmentDtoList);
+                                         List<ScholarshipAccomplishmentDto> scholarshipAccomplishmentDtoList,
+                                         Month month, Long year);
 }

@@ -10,6 +10,7 @@ import com.tesda8.region8.planning.service.PapDataService;
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.util.enums.OperatingUnitPOType;
 import com.tesda8.region8.util.enums.PapGroupType;
+import com.tesda8.region8.util.service.ApplicationUtil;
 import com.tesda8.region8.web.controller.DefaultController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,7 @@ import java.util.Optional;
 public class PlanningController extends DefaultController {
 
     private PapDataService papDataService;
-    private final Long DEFAULT_YEAR = 2020L;
+    private final Long CURRENT_YEAR = ApplicationUtil.getCurrentYear();
 
     @Autowired
     public PlanningController(PapDataService papDataService, RegisteredProgramStatusService registeredProgramStatusService) {
@@ -58,8 +59,8 @@ public class PlanningController extends DefaultController {
     @GetMapping("/planning/successIndicator/create")
     public String createSuccessIndicator(@RequestParam(value = "year", required = false) Long year, Model model) {
         model.addAttribute("successIndicator", initializeSuccessIndicatorDto());
-        model.addAttribute("papDataList", papDataService.getAllPapDataByYear(Optional.ofNullable(year).orElse(DEFAULT_YEAR)));
-        model.addAttribute("papFilter", new PapDataFilterRequest(Optional.ofNullable(year).orElse(DEFAULT_YEAR)));
+        model.addAttribute("papDataList", papDataService.getAllPapDataByYear(Optional.ofNullable(year).orElse(CURRENT_YEAR)));
+        model.addAttribute("papFilter", new PapDataFilterRequest(Optional.ofNullable(year).orElse(CURRENT_YEAR)));
         addStatusCounterToModel(model);
         return "planning/create_success_indicator";
     }
@@ -67,8 +68,8 @@ public class PlanningController extends DefaultController {
     @GetMapping("/planning/pap/manage")
     public String managePap(@RequestParam(value = "year", required = false) Long year, Model model) {
         model.addAttribute("papData", new PapDataDto());
-        model.addAttribute("papDataList", papDataService.getAllPapDataByYear(Optional.ofNullable(year).orElse(DEFAULT_YEAR)));
-        model.addAttribute("papFilter", new PapDataFilterRequest(Optional.ofNullable(year).orElse(DEFAULT_YEAR)));
+        model.addAttribute("papDataList", papDataService.getAllPapDataByYear(Optional.ofNullable(year).orElse(CURRENT_YEAR)));
+        model.addAttribute("papFilter", new PapDataFilterRequest(Optional.ofNullable(year).orElse(CURRENT_YEAR)));
         addStatusCounterToModel(model);
         return "planning/manage_pap";
     }
@@ -169,19 +170,19 @@ public class PlanningController extends DefaultController {
         List<SuccessIndicatorDataDto> successIndicatorDataDtoList = Lists.newArrayList();
         switch (papGroupType) {
             case TESDPP:
-                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.TESDPP, measure, papName, Optional.ofNullable(year).orElse(DEFAULT_YEAR));
+                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.TESDPP, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR));
                 break;
             case TESDRP:
-                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.TESDRP, measure, papName, Optional.ofNullable(year).orElse(DEFAULT_YEAR));
+                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.TESDRP, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR));
                 break;
             case TESDP:
-                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.TESDP, measure, papName, Optional.ofNullable(year).orElse(DEFAULT_YEAR));
+                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.TESDP, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR));
                 break;
             case STO:
-                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.STO, measure, papName, Optional.ofNullable(year).orElse(DEFAULT_YEAR));
+                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.STO, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR));
                 break;
             case GASS:
-                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.GASS, measure, papName, Optional.ofNullable(year).orElse(DEFAULT_YEAR));
+                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.GASS, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR));
                 break;
             default:
                 break;
@@ -257,8 +258,8 @@ public class PlanningController extends DefaultController {
     }
 
     private void setModelInitialAtributes(Model model) {
-        PapDataWrapper papDataWrapper = papDataService.getAllPapDataWrapperByFilter("", "", DEFAULT_YEAR);
-        model.addAttribute("papFilter", new PapDataFilterRequest(DEFAULT_YEAR));
+        PapDataWrapper papDataWrapper = papDataService.getAllPapDataWrapperByFilter("", "", CURRENT_YEAR);
+        model.addAttribute("papFilter", new PapDataFilterRequest(CURRENT_YEAR));
         model.addAttribute("papData", papDataWrapper);
         addStatusCounterToModel(model);
     }
