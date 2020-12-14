@@ -49,6 +49,14 @@ public class ScholarshipAccomplishmentServiceImpl implements ScholarshipAccompli
     }
 
     @Override
+    public List<ScholarshipAccomplishmentDto> getAllScholarshipAccomplishmentByYearAndOperatingUnitAndScholarshipType(Long year, OperatingUnitType operatingUnitType, ScholarshipType scholarshipType) {
+        return scholarshipAccomplishmentRepository.findAllByYearAndOperatingUnitTypeAndScholarshipType(year, operatingUnitType,scholarshipType)
+                .stream()
+                .map(scholarshipMapper::scholarshipAccomplishmentToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<ScholarshipAccomplishmentDto> getAllScholarshipAccomplishmentByMonthAndYear(Long year, Month month) {
         return scholarshipAccomplishmentRepository.findAllByYearAndMonthOrderById(year, month)
                 .stream()

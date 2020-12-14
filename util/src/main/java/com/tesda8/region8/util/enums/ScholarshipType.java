@@ -6,8 +6,8 @@ public enum ScholarshipType {
     PESFA("PESFA"),
     STEP("STEP"),
     RESP("RESP"),
-    UAQTEA_SB("UAQTEA_SB"),
-    UAQTEA_DIPLOMA("UAQTEA_DIPLOMA");
+    UAQTEA_SB("UAQTEA SB"),
+    UAQTEA_DIPLOMA("UAQTEA DIPLOMA");
 
     public final String label;
 

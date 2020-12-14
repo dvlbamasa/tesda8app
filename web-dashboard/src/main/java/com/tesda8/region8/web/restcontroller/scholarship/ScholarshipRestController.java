@@ -4,6 +4,7 @@ import com.tesda8.region8.scholarship.model.dto.ScholarshipAccomplishmentDto;
 import com.tesda8.region8.scholarship.model.dto.ScholarshipWrapper;
 import com.tesda8.region8.scholarship.service.ScholarshipAccomplishmentService;
 import com.tesda8.region8.util.enums.Month;
+import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.ScholarshipType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,6 +41,13 @@ public class ScholarshipRestController {
     public List<ScholarshipAccomplishmentDto> getAllScholarshipAccomplishmentByYearAndMonth(@PathVariable("year") Long year,
                                                                                             @PathVariable("month") Month month) {
         return scholarshipAccomplishmentService.getAllScholarshipAccomplishmentByMonthAndYear(year, month);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{year}/year/{operatingUnit}/operatingUnit/{scholarshipType}/scholarshipType")
+    public List<ScholarshipAccomplishmentDto> getAllScholarshipAccomplishmentByYearAndOperatingUnit(@PathVariable("year") Long year,
+                                                                                                    @PathVariable("operatingUnit") OperatingUnitType operatingUnitType,
+                                                                                                    @PathVariable("scholarshipType") ScholarshipType scholarshipType) {
+        return scholarshipAccomplishmentService.getAllScholarshipAccomplishmentByYearAndOperatingUnitAndScholarshipType(year, operatingUnitType, scholarshipType);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{year}/year/{month}/month/{type}/type")

@@ -89,6 +89,8 @@
             <div class="tab-pane fade show active" id="twsp" role="tabpanel" aria-labelledby="twsp-tab">
                 <div class="container mb-5">
                     <button onclick="exportScholarshipTableToExcel('twsp-table', 'TWSP Monthly Accomplishment Report')" class="btn btn-success btn-lg" id="downloadTable1" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
+                    <a th:href="@{/scholarship/graph(year=${scholarships.year}, scholarshipType='TWSP')}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
+
                 </div>
                 <input type="hidden" th:value="${scholarships.month}" id="monthValue"/>
                 <input type="hidden" th:value="${scholarships.year}" id="yearValue"/>
@@ -160,6 +162,7 @@
             <div class="tab-pane fade show" id="pesfa" role="tabpanel" aria-labelledby="pesfa-tab">
                 <div class="container mb-5">
                     <button onclick="exportScholarshipTableToExcel('pesfa-table', 'PESFA Monthly Accomplishment Report')" class="btn btn-success btn-lg" id="downloadTable2" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
+                    <a th:href="@{/scholarship/graph(year=${scholarships.year}, scholarshipType='PESFA')}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                 </div>
                 <div class="table-responsive double-scroll">
                     <table class="table table-striped table-bordered table-sm" id="pesfa-table">
@@ -229,6 +232,7 @@
             <div class="tab-pane fade show" id="step" role="tabpanel" aria-labelledby="step-tab">
                 <div class="container mb-5">
                     <button onclick="exportScholarshipTableToExcel('step-table', 'STEP Monthly Accomplishment Report')" class="btn btn-success btn-lg" id="downloadTable3" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
+                    <a th:href="@{/scholarship/graph(year=${scholarships.year}, scholarshipType='STEP')}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                 </div>
                 <div class="table-responsive double-scroll">
                     <table class="table table-striped table-bordered table-sm" id="step-table">
@@ -298,6 +302,7 @@
             <div class="tab-pane fade show" id="resp" role="tabpanel" aria-labelledby="resp-tab">
                 <div class="container mb-5">
                     <button onclick="exportScholarshipTableToExcel('resp-table', 'RESP Monthly Accomplishment Report')" class="btn btn-success btn-lg" id="downloadTable4" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
+                    <a th:href="@{/scholarship/graph(year=${scholarships.year}, scholarshipType='RESP')}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                 </div>
                 <div class="table-responsive double-scroll">
                     <table class="table table-striped table-bordered table-sm" id="resp-table">
@@ -367,6 +372,7 @@
             <div class="tab-pane fade show" id="uaqtea-sb" role="tabpanel" aria-labelledby="uaqtea-sb-tab">
                 <div class="container mb-5">
                     <button onclick="exportScholarshipTableToExcel('uaqtea-sb-table', 'UAQTEA SB Monthly Accomplishment Report')" class="btn btn-success btn-lg" id="downloadTable5" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
+                    <a th:href="@{/scholarship/graph(year=${scholarships.year}, scholarshipType='UAQTEA_SB')}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                 </div>
                 <div class="table-responsive double-scroll">
                     <table class="table table-striped table-bordered table-sm" id="uaqtea-sb-table">
@@ -436,6 +442,7 @@
             <div class="tab-pane fade show" id="uaqtea-diploma" role="tabpanel" aria-labelledby="uaqtea-diploma-tab">
                 <div class="container mb-5">
                     <button onclick="exportScholarshipTableToExcel('uaqtea-diploma-table', 'UAQTEA DIPLOMA Monthly Accomplishment Report')" class="btn btn-success btn-lg" id="downloadTable6" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
+                    <a th:href="@{/scholarship/graph(year=${scholarships.year}, scholarshipType='UAQTEA_DIPLOMA')}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                 </div>
                 <div class="table-responsive double-scroll">
                     <table class="table table-striped table-bordered table-sm" id="uaqtea-diploma-table">

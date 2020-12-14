@@ -1,0 +1,44 @@
+package com.tesda8.region8.web.service.impl.scholarship;
+
+import com.tesda8.region8.scholarship.model.dto.ScholarshipAccomplishmentDto;
+import com.tesda8.region8.util.enums.DataPointType;
+import com.tesda8.region8.util.enums.EgacType;
+import com.tesda8.region8.util.model.DataPoints;
+import com.tesda8.region8.web.service.ScholarshipDataPointService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class ScholarshipCertifiedDataPointService implements ScholarshipDataPointService {
+
+    @Override
+    public List<DataPoints> getDataPoints(DataPointType dataPointType, List<ScholarshipAccomplishmentDto> scholarshipAccomplishmentDtoList, List<DataPoints> dataPointsList) {
+        scholarshipAccomplishmentDtoList.forEach(
+                scholarshipAccomplishmentDto -> {
+                    DataPoints dataPoints = new DataPoints();
+                    dataPoints.setLabel(scholarshipAccomplishmentDto.getMonth().label);
+                    switch (dataPointType) {
+                        case TARGET:
+                            dataPoints.setValue(scholarshipAccomplishmentDto.getPhysicalAccomplishmentDto().getAssessed());
+                            break;
+                        case OUTPUT:
+                            dataPoints.setValue(scholarshipAccomplishmentDto.getPhysicalAccomplishmentDto().getCertified());
+                            break;
+                        case RATE:
+                            dataPoints.setValue(scholarshipAccomplishmentDto.getPhysicalAccomplishmentDto().getCertifiedUtilization().longValue());
+                            break;
+                        default:
+                            break;
+                    }
+                    dataPointsList.add(dataPoints);
+                }
+        );
+        return dataPointsList;
+    }
+
+    @Override
+    public EgacType supports() {
+        return EgacType.CERTIFIED;
+    }
+}

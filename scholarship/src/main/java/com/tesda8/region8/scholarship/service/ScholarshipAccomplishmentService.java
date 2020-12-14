@@ -14,6 +14,10 @@ public interface ScholarshipAccomplishmentService {
 
     List<ScholarshipAccomplishmentDto> getAllScholarshipAccomplishmentByYear(Long year);
 
+    List<ScholarshipAccomplishmentDto> getAllScholarshipAccomplishmentByYearAndOperatingUnitAndScholarshipType(Long year,
+                                                                                                               OperatingUnitType operatingUnitType,
+                                                                                                               ScholarshipType scholarshipType);
+
     List<ScholarshipAccomplishmentDto> getAllScholarshipAccomplishmentByMonthAndYear(Long year, Month month);
 
     List<ScholarshipAccomplishmentDto> getAllScholarshipAccomplishmentByMonthAndYearAndType(Long year,

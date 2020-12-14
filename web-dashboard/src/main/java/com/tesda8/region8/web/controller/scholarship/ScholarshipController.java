@@ -2,9 +2,11 @@ package com.tesda8.region8.web.controller.scholarship;
 
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.scholarship.model.dto.ScholarshipFilter;
+import com.tesda8.region8.scholarship.model.dto.ScholarshipGraphFilter;
 import com.tesda8.region8.scholarship.model.dto.ScholarshipWrapper;
 import com.tesda8.region8.scholarship.service.ScholarshipAccomplishmentService;
 import com.tesda8.region8.util.enums.Month;
+import com.tesda8.region8.util.enums.ScholarshipType;
 import com.tesda8.region8.util.service.ApplicationUtil;
 import com.tesda8.region8.web.controller.DefaultController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +77,14 @@ public class ScholarshipController extends DefaultController {
         return "scholarship/create_scholarship";
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/scholarship/graph")
+    public String scholarshipGraph(@RequestParam("year") Long year, @RequestParam("scholarshipType") ScholarshipType scholarshipType,
+                                   Model model) {
+        model.addAttribute("filter", new ScholarshipGraphFilter(year, scholarshipType));
+        addStatusCounterToModel(model);
+        return "scholarship/scholarship_graph";
+    }
+
     @GetMapping("/scholarship/live")
     public String scholarshipLive(Model model) {
         ScholarshipWrapper scholarshipWrapper = scholarshipAccomplishmentService.getAllScholarshipAccomplishment(CURRENT_YEAR, CURRENT_MONTH);
@@ -102,7 +112,6 @@ public class ScholarshipController extends DefaultController {
         addStatusCounterToModel(model);
         return "scholarship/save_live_scholarship";
     }
-
 
     @RequestMapping(method = RequestMethod.POST, value = "/scholarship/update/save")
     public String updateScholarshipSave(@ModelAttribute ScholarshipWrapper scholarshipWrapper, Model model, BindingResult bindingResult) {

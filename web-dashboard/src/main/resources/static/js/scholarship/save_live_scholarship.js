@@ -104,9 +104,8 @@ window.onload = function () {
     // SOUTHERN LEYTE
     fetchSPMORData("1ODMU59l0J_HTeSx3EKpqHQvV3-TDl0qmQX4zhkZ8lgo", stepTableIndexes, stepJsonIndex, stepDataLabel, SOUTHERN_LEYTE_ID_INDEX);
 
-// UAQTEA-SB and UAQTEA-DIPLOMA
-    const uaqteaTableIndexes = ["gsx$_cpzh4", "gsx$_cokwr", "gsx$_cre1l", "gsx$_chk2m", "gsx$_ciyn3", "gsx$_ckd7g", "gsx$_clrrx", "gsx$_cztg3", "gsx$_d180g"];
-    fetchSPMORUaqteaData("1VWWWEeBs9IShM-En7G-idPuDw7dneddhcuJ4J9Hj4yk", uaqteaTableIndexes);
+    //UAQTEA SB AND UAQTEA DIPLOMA
+    fetchUaqtea();
 }
 
 
@@ -180,40 +179,87 @@ function fetchSPMORUaqteaData(sheetId, tableIndexes) {
     });
 }
 
-function updateInputValues(tableIndexes, dataLabel, idIndex, sheetData, sheetIndex) {
-    const amount = replaceChars(sheetData[sheetIndex][tableIndexes[0]]['$t']);
+
+/* Derived from SPMOR google sheet for UAQTEA summary
+*
+    118 is the id of the first cell containing the value needed for uaqtea-sb
+    221 is the id of the first cell containing the value needed for uaqtea-diploma
+*
+* */
+function fetchUaqtea()  {
+    $.getJSON("https://spreadsheets.google.com/feeds/cells/1VWWWEeBs9IShM-En7G-idPuDw7dneddhcuJ4J9Hj4yk/1/public/values?alt=json", function (data) {
+        var sheetData = data.feed.entry;
+        for (var index1 = 118, rowCounter = 0; rowCounter < 6; rowCounter++, index1+=11) {
+            var uaqteaSbRow = {
+                province : sheetData[index1]['gs$cell']['$t'],
+                slots : sheetData[index1+1]['gs$cell']['$t'],
+                amount : sheetData[index1+2]['gs$cell']['$t'],
+                enrolled : sheetData[index1+3]['gs$cell']['$t'],
+                graduates : sheetData[index1+4]['gs$cell']['$t'],
+                assessed : sheetData[index1+5]['gs$cell']['$t'],
+                certified : sheetData[index1+6]['gs$cell']['$t'],
+                employed : sheetData[index1+7]['gs$cell']['$t'],
+                allotment : sheetData[index1+8]['gs$cell']['$t'],
+                totalObligation : sheetData[index1+9]['gs$cell']['$t'],
+                totalDisbursement : sheetData[index1+10]['gs$cell']['$t']
+            }
+            console.log(uaqteaSbRow);
+            updateInputValues(uaqteaSbRow, uaqteaSbLabel, operatingUnitList[rowCounter].idIndex);
+        }
+        for (var index2 = 221, rowCounter1 = 0; rowCounter1 < 4; rowCounter1++, index2+=11) {
+            var uaqteaDiplomaRow = {
+                province : sheetData[index2]['gs$cell']['$t'],
+                slots : sheetData[index2+1]['gs$cell']['$t'],
+                amount : sheetData[index2+2]['gs$cell']['$t'],
+                enrolled : sheetData[index2+3]['gs$cell']['$t'],
+                graduates : sheetData[index2+4]['gs$cell']['$t'],
+                assessed : sheetData[index2+5]['gs$cell']['$t'],
+                certified : sheetData[index2+6]['gs$cell']['$t'],
+                employed : sheetData[index2+7]['gs$cell']['$t'],
+                allotment : sheetData[index2+8]['gs$cell']['$t'],
+                totalObligation : sheetData[index2+9]['gs$cell']['$t'],
+                totalDisbursement : sheetData[index2+10]['gs$cell']['$t']
+            }
+            console.log(uaqteaDiplomaRow);
+            updateInputValues(uaqteaDiplomaRow, uaqteaDiplomaLabel, operatingUnitList[rowCounter1].idIndex);
+        }
+    });
+}
+
+function updateInputValues(uaqteaObject, dataLabel, idIndex) {
+    const amount = replaceChars(uaqteaObject.amount);
     const amountId = dataLabel + idIndex + ".qualificationMapDto.amount";
     document.getElementById(amountId).value = amount;
 
-    const slots = replaceChars(sheetData[sheetIndex][tableIndexes[1]]['$t']);
+    const slots = replaceChars(uaqteaObject.slots);
     const slotsId = dataLabel + idIndex + ".qualificationMapDto.slots";
     document.getElementById(slotsId).value = slots;
 
-    const enrolled = replaceChars(sheetData[sheetIndex][tableIndexes[2]]['$t']);
+    const enrolled = replaceChars(uaqteaObject.enrolled);
     const enrolledId = dataLabel + idIndex + ".physicalAccomplishmentDto.enrolled";
     document.getElementById(enrolledId).value = enrolled;
 
-    const graduates = replaceChars(sheetData[sheetIndex][tableIndexes[3]]['$t']);
+    const graduates = replaceChars(uaqteaObject.graduates);
     const graduatesId = dataLabel + idIndex + ".physicalAccomplishmentDto.graduates";
     document.getElementById(graduatesId).value = graduates;
 
-    const assessed = replaceChars(sheetData[sheetIndex][tableIndexes[4]]['$t']);
+    const assessed = replaceChars(uaqteaObject.assessed);
     const assessedId = dataLabel + idIndex + ".physicalAccomplishmentDto.assessed";
     document.getElementById(assessedId).value = assessed;
 
-    const certified = replaceChars(sheetData[sheetIndex][tableIndexes[5]]['$t']);
+    const certified = replaceChars(uaqteaObject.certified);
     const certifiedId = dataLabel + idIndex + ".physicalAccomplishmentDto.certified";
     document.getElementById(certifiedId).value = certified;
 
-    const employed = replaceChars(sheetData[sheetIndex][tableIndexes[6]]['$t']);
+    const employed = replaceChars(uaqteaObject.employed);
     const employedId = dataLabel + idIndex + ".physicalAccomplishmentDto.employed";
     document.getElementById(employedId).value = employed;
 
-    const totalObligation = replaceChars(sheetData[sheetIndex][tableIndexes[7]]['$t']);
+    const totalObligation = replaceChars(uaqteaObject.totalObligation);
     const totalObligationId = dataLabel + idIndex + ".financialAccomplishmentDto.poFinancialAccomplishmentDto.totalObligation";
     document.getElementById(totalObligationId).value = totalObligation;
 
-    const totalDisbursement = replaceChars(sheetData[sheetIndex][tableIndexes[8]]['$t']);
+    const totalDisbursement = replaceChars(uaqteaObject.totalDisbursement);
     const totalDisbursementId = dataLabel + idIndex + ".financialAccomplishmentDto.poFinancialAccomplishmentDto.totalDisbursement";
     document.getElementById(totalDisbursementId).value = totalDisbursement;
 }

@@ -1,5 +1,6 @@
 package com.tesda8.region8.web.restcontroller;
 
+import com.tesda8.region8.util.enums.ScholarshipType;
 import com.tesda8.region8.util.model.DataPoints;
 import com.tesda8.region8.web.model.dto.graph.GraphDataList;
 import com.tesda8.region8.util.enums.DailyReportType;
@@ -9,28 +10,27 @@ import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.ReportSourceType;
 import com.tesda8.region8.web.service.GraphDataFetcherService;
 import com.tesda8.region8.web.service.OPCRGraphDataFetcherService;
+import com.tesda8.region8.web.service.ScholarshipGraphDataFetcherService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.management.ServiceNotFoundException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/graph")
+@RequiredArgsConstructor
 public class GraphDataRestController {
 
-    private GraphDataFetcherService graphDataFetcherService;
-    private OPCRGraphDataFetcherService opcrGraphDataFetcherService;
-
-    @Autowired
-    public GraphDataRestController(GraphDataFetcherService graphDataFetcherService,
-                                   OPCRGraphDataFetcherService opcrGraphDataFetcherService) {
-        this.graphDataFetcherService = graphDataFetcherService;
-        this.opcrGraphDataFetcherService = opcrGraphDataFetcherService;
-    }
+    private final GraphDataFetcherService graphDataFetcherService;
+    private final OPCRGraphDataFetcherService opcrGraphDataFetcherService;
+    private final ScholarshipGraphDataFetcherService scholarshipGraphDataFetcherService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/certificationRate/{dataPointType}/dataPointType")
     @ResponseBody
@@ -93,5 +93,14 @@ public class GraphDataRestController {
     @ResponseBody
     public GraphDataList fetchOPCRDataList(@PathVariable("id") Long id) {
         return opcrGraphDataFetcherService.fetchOPCRDataList(id);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/scholarship/graphData")
+    @ResponseBody
+    public GraphDataList fetchScholarshipDataList(@RequestParam("year") Long year,
+                                                  @RequestParam("egacType") EgacType egacType,
+                                                  @RequestParam("operatingUnit") OperatingUnitType operatingUnitType,
+                                                  @RequestParam("scholarshipType")ScholarshipType scholarshipType) throws ServiceNotFoundException {
+        return scholarshipGraphDataFetcherService.fetchMonthlyGraphDataList(year, egacType, operatingUnitType, scholarshipType);
     }
 }
