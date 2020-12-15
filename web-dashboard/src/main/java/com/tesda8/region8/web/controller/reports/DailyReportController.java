@@ -82,10 +82,8 @@ public class DailyReportController extends DefaultController {
         generalReportsDtoWrapper.setCommunityBasedReports(
                 generalReportService.findAllGeneralReportByDailyReportType(DailyReportType.COMMUNITY_BASED_REPORT));
 
-        generalReportsDtoWrapper.setTtiReports(
-                generalReportService.findAllGeneralReportByDailyReportType(DailyReportType.TTI_REPORT));
 
-        generalReportsDtoWrapper.setTtiReportsAC(
+        generalReportsDtoWrapper.setTtiReports(
                 ttiReportService.getAllTTIReport());
 
         model.addAttribute("reports", generalReportsDtoWrapper);
@@ -111,9 +109,6 @@ public class DailyReportController extends DefaultController {
                 break;
             case INSTITUTION_BASED_REPORT:
                 generalReportService.updateGeneralReports(generalReportsDtoWrapper.getInstitutionBasedReports());
-                break;
-            case TTI_REPORT:
-                generalReportService.updateGeneralReports(generalReportsDtoWrapper.getTtiReports());
                 break;
             case COMMUNITY_BASED_REPORT:
                 generalReportService.updateGeneralReports(generalReportsDtoWrapper.getCommunityBasedReports());
@@ -169,7 +164,7 @@ public class DailyReportController extends DefaultController {
         if (bindingResult.hasErrors()) {
             //errors processing
         }
-        ttiReportService.updateTTIReports(generalReportsDtoWrapper.getTtiReportsAC());
+        ttiReportService.updateTTIReports(generalReportsDtoWrapper.getTtiReports());
         return "redirect:/dashboard";
     }
 }

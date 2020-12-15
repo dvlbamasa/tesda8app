@@ -53,13 +53,10 @@ public class TableDataController extends DefaultController {
         generalReportsDtoWrapper.setEnterpriseBasedGSReports(tableDataFetcherService.fetchGeneralReportTableData(DailyReportType.ENTERPRISE_BASED_REPORT, ReportSourceType.GS, EgacType.ENROLLED));
         generalReportsDtoWrapper.getEnterpriseBasedGSReports().addAll(tableDataFetcherService.fetchGeneralReportTableData(DailyReportType.ENTERPRISE_BASED_REPORT, ReportSourceType.GS, EgacType.GRADUATED));
 
-        generalReportsDtoWrapper.setTtiReports(tableDataFetcherService.fetchGeneralReportTableData(DailyReportType.TTI_REPORT, ReportSourceType.T2MIS, EgacType.ENROLLED));
-        generalReportsDtoWrapper.getTtiReports().addAll(tableDataFetcherService.fetchGeneralReportTableData(DailyReportType.TTI_REPORT, ReportSourceType.T2MIS, EgacType.GRADUATED));
-        generalReportsDtoWrapper.getTtiReports().addAll(tableDataFetcherService.fetchGeneralReportTableData(DailyReportType.TTI_REPORT, ReportSourceType.T2MIS, EgacType.ASSESSED));
-        generalReportsDtoWrapper.getTtiReports().addAll(tableDataFetcherService.fetchGeneralReportTableData(DailyReportType.TTI_REPORT, ReportSourceType.T2MIS, EgacType.CERTIFIED));
-
-        generalReportsDtoWrapper.setTtiReportsAC(tableDataFetcherService.fetchTTIReportTableData(EgacType.ASSESSED));
-        generalReportsDtoWrapper.getTtiReportsAC().addAll(tableDataFetcherService.fetchTTIReportTableData(EgacType.CERTIFIED));
+        generalReportsDtoWrapper.setTtiReports(tableDataFetcherService.fetchTTIReportTableData(EgacType.ENROLLED));
+        generalReportsDtoWrapper.getTtiReports().addAll(tableDataFetcherService.fetchTTIReportTableData(EgacType.GRADUATED));
+        generalReportsDtoWrapper.getTtiReports().addAll(tableDataFetcherService.fetchTTIReportTableData(EgacType.ASSESSED));
+        generalReportsDtoWrapper.getTtiReports().addAll(tableDataFetcherService.fetchTTIReportTableData(EgacType.CERTIFIED));
 
         roPerModeReportWrapper.setRoPerModeT2Reports(tableDataFetcherService.fetchROPerModeTableData(ReportSourceType.T2MIS, EgacType.ENROLLED));
         roPerModeReportWrapper.getRoPerModeT2Reports().addAll(tableDataFetcherService.fetchROPerModeTableData(ReportSourceType.T2MIS, EgacType.GRADUATED));

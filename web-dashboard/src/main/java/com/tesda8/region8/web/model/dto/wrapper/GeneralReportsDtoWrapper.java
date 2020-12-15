@@ -15,7 +15,6 @@ public class GeneralReportsDtoWrapper {
     private List<GeneralReportDto> enterpriseBasedGSReports;
     private List<GeneralReportDto> enterpriseBasedT2Reports;
     private List<GeneralReportDto> communityBasedReports;
-    private List<GeneralReportDto> ttiReports;
-    private List<TTIReportDto> ttiReportsAC;
+    private List<TTIReportDto> ttiReports;
     private Month month;
 }

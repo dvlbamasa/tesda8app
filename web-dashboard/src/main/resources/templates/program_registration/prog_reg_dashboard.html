@@ -184,12 +184,12 @@
 
                     <tbody>
                     <tr class="table-success">
-                        <th th:rowspan="1" th:scope="rowgroup">Region 8</th>
+                        <td th:rowspan="1" th:scope="rowgroup"><b>Region 8</b></td>
                         <th:block th:each="institution : ${institutionsList.totalInstitutionWrapperList}">
-                            <th scope="row"><span th:text="${institution.institutionShortName}"></span></th>
+                            <td scope="row"><b><span th:text="${institution.institutionShortName}"></span></b></td>
                                 <th:block th:each="course : ${institution.courseCountList}">
-                                    <th th:text="${course.count}">
-                                    </th>
+                                    <td><b><span th:text="${course.count}"></span></b>
+                                    </td>
                                 </th:block>
                         </th:block>
                     </tr>

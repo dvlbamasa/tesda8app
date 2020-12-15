@@ -50,10 +50,7 @@
                     <button class="btn nav-link" id="pills-community-tab" data-toggle="pill" href="#pills-community-report" role="tab" aria-controls="pills-community-report" aria-selected="false">Community Based</button>
                 </li>
                 <li class="nav-item">
-                    <button class="btn nav-link" id="pills-tti-tab" data-toggle="pill" href="#pills-tti-report" role="tab" aria-controls="pills-tti-report" aria-selected="false">TTI (EG)</button>
-                </li>
-                <li class="nav-item">
-                    <button class="btn nav-link" id="pills-ttiAC-tab" data-toggle="pill" href="#pills-ttiAC-report" role="tab" aria-controls="pills-ttiAC-report" aria-selected="false">TTI (AC)</button>
+                    <button class="btn nav-link" id="pills-tti-tab" data-toggle="pill" href="#pills-tti-report" role="tab" aria-controls="pills-tti-report" aria-selected="false">Per TTI</button>
                 </li>
             </ul>
 
@@ -568,17 +565,17 @@
                 </div>
                 <div class="tab-pane fade" id="pills-tti-report" role="tabpanel" aria-labelledby="pills-tti-tab">
                     <div>
-                        <form id="ttiReportEGForm" th:action="@{/dailyReports/TTI_REPORT/type/T2MIS/source/update}" th:object="${reports}" method="post">
+                        <form id="ttiReportACForm" th:action="@{/dailyReports/ttiReport/update}" th:object="${reports}" method="post">
                             <fieldset>
                                 <div class="container">
-                                    <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton9" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update TTI (EG) Report</button>
+                                    <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton10" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update TTI Report</button>
                                 </div>
                                 <div class="container">
                                     <p class="lead mb-3 mt-5 text-black-50-50">Enrolled</p>
                                     <table class="table table-striped table-bordered">
                                         <thead>
                                         <tr>
-                                            <th scope="col"> Operating Unit</th>
+                                            <th scope="col"> TTI</th>
                                             <th scope="col"> Target</th>
                                             <th scope="col"> Output</th>
                                         </tr>
@@ -586,12 +583,11 @@
                                         <tbody>
                                         <tr th:each="report, itemstat : *{ttiReports}">
                                             <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).ENROLLED}">
-                                                <th scope="row"><span th:text="${report.operatingUnitType.label}"></span></th>
+                                                <th scope="row"><span th:text="${report.ttiType.label}"></span></th>
                                                 <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control" th:field="*{ttiReports[__${itemstat.index}__].egacDataDto.target}" required/></td>
                                                 <td>
                                                     <input type="number" onkeypress="return isNumberKey(event)" class="form-control" th:field="*{ttiReports[__${itemstat.index}__].egacDataDto.output}" required/>
                                                     <input type="hidden" th:field="*{ttiReports[__${itemstat.index}__].id}" />
-                                                    <input type="hidden" th:field="*{ttiReports[__${itemstat.index}__].dailyReportType}" />
                                                 </td>
                                             </div>
                                         </tr>
@@ -599,11 +595,11 @@
                                     </table>
                                 </div>
                                 <div class="container">
-                                    <p class="lead mb-3 mt-5 text-black-50-50">Graduated</p>
+                                    <p class="lead mb-3 mt-5 text-black-50-50">GRADUATED</p>
                                     <table class="table table-striped table-bordered">
                                         <thead>
                                         <tr>
-                                            <th scope="col"> Operating Unit</th>
+                                            <th scope="col"> TTI</th>
                                             <th scope="col"> Target</th>
                                             <th scope="col"> Output</th>
                                         </tr>
@@ -611,29 +607,16 @@
                                         <tbody>
                                         <tr th:each="report, itemstat : *{ttiReports}">
                                             <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).GRADUATED}">
-                                                <th scope="row"><span th:text="${report.operatingUnitType.label}"></span></th>
+                                                <th scope="row"><span th:text="${report.ttiType.label}"></span></th>
                                                 <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control" th:field="*{ttiReports[__${itemstat.index}__].egacDataDto.target}" required/></td>
                                                 <td>
                                                     <input type="number" onkeypress="return isNumberKey(event)" class="form-control" th:field="*{ttiReports[__${itemstat.index}__].egacDataDto.output}" required/>
                                                     <input type="hidden" th:field="*{ttiReports[__${itemstat.index}__].id}" />
-                                                    <input type="hidden" th:field="*{ttiReports[__${itemstat.index}__].dailyReportType}" />
                                                 </td>
                                             </div>
                                         </tr>
                                         </tbody>
                                     </table>
-                                </div>
-
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="pills-ttiAC-report" role="tabpanel" aria-labelledby="pills-tti-tab">
-                    <div>
-                        <form id="ttiReportACForm" th:action="@{/dailyReports/ttiReport/update}" th:object="${reports}" method="post">
-                            <fieldset>
-                                <div class="container">
-                                    <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton10" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update TTI (AC) Report</button>
                                 </div>
                                 <div class="container">
                                     <p class="lead mb-3 mt-5 text-black-50-50">Assessed</p>
@@ -646,13 +629,13 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="report, itemstat : *{ttiReportsAC}">
+                                        <tr th:each="report, itemstat : *{ttiReports}">
                                             <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).ASSESSED}">
                                                 <th scope="row"><span th:text="${report.ttiType.label}"></span></th>
-                                                <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control" th:field="*{ttiReportsAC[__${itemstat.index}__].egacDataDto.target}" required/></td>
+                                                <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control" th:field="*{ttiReports[__${itemstat.index}__].egacDataDto.target}" required/></td>
                                                 <td>
-                                                    <input type="number" onkeypress="return isNumberKey(event)" class="form-control" th:field="*{ttiReportsAC[__${itemstat.index}__].egacDataDto.output}" required/>
-                                                    <input type="hidden" th:field="*{ttiReportsAC[__${itemstat.index}__].id}" />
+                                                    <input type="number" onkeypress="return isNumberKey(event)" class="form-control" th:field="*{ttiReports[__${itemstat.index}__].egacDataDto.output}" required/>
+                                                    <input type="hidden" th:field="*{ttiReports[__${itemstat.index}__].id}" />
                                                 </td>
                                             </div>
                                         </tr>
@@ -670,13 +653,13 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="report, itemstat : *{ttiReportsAC}">
+                                        <tr th:each="report, itemstat : *{ttiReports}">
                                             <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).CERTIFIED}">
                                                 <th scope="row"><span th:text="${report.ttiType.label}"></span></th>
-                                                <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control" th:field="*{ttiReportsAC[__${itemstat.index}__].egacDataDto.target}" required/></td>
+                                                <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control" th:field="*{ttiReports[__${itemstat.index}__].egacDataDto.target}" required/></td>
                                                 <td>
-                                                    <input type="number" onkeypress="return isNumberKey(event)" class="form-control" th:field="*{ttiReportsAC[__${itemstat.index}__].egacDataDto.output}" required/>
-                                                    <input type="hidden" th:field="*{ttiReportsAC[__${itemstat.index}__].id}" />
+                                                    <input type="number" onkeypress="return isNumberKey(event)" class="form-control" th:field="*{ttiReports[__${itemstat.index}__].egacDataDto.output}" required/>
+                                                    <input type="hidden" th:field="*{ttiReports[__${itemstat.index}__].id}" />
                                                 </td>
                                             </div>
                                         </tr>

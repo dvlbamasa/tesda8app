@@ -1,23 +1,23 @@
 window.onload = function () {
     // PO ENROLLED GRAPH
     generateGraph("/api/graph/generalReport/ENROLLED/egacType/T2MIS/reportSource/PO_REPORT/reportType",
-        "poEnrolledGraph", "PO - Enrolled", "Target", "Output");
+        "poEnrolledGraph", "Enrolled per PO", "Target", "Output");
 
     // PO GRADUATED GRAPH
     generateGraph("/api/graph/generalReport/GRADUATED/egacType/T2MIS/reportSource/PO_REPORT/reportType",
-        "poGraduatedGraph", "PO - Graduated", "Target", "Output");
+        "poGraduatedGraph", "Graduated per PO", "Target", "Output");
 
     // PO ASSESSED GRAPH
     generateGraph("/api/graph/generalReport/ASSESSED/egacType/T2MIS/reportSource/PO_REPORT/reportType",
-        "poAssessedGraph", "PO - Assessed", "Target", "Output");
+        "poAssessedGraph", "Assessed per PO", "Target", "Output");
 
     // PO CERTIFIED GRAPH
     generateGraph("/api/graph/generalReport/CERTIFIED/egacType/T2MIS/reportSource/PO_REPORT/reportType",
-        "poCertifiedGraph", "PO - Certified", "Target", "Output");
+        "poCertifiedGraph", "Certified per PO", "Target", "Output");
 
     // CERTIFICATION RATE GRAPH
     generateGraph("/api/graph/certificationRate",
-        "certificationRateGraph", "Certification Rate", "Assessed", "Certified");
+        "certificationRateGraph", "Certification Rate per PO", "Assessed", "Certified");
 
     // RO PER MODE ENROLLED T2 GRAPH
     generateGraph("/api/graph/roPerMode/ENROLLED/egacType/T2MIS/reportSource",
@@ -68,11 +68,11 @@ window.onload = function () {
         "communityGraduatedGraph", "Community-Based (Graduates)", "Target", "Output");
 
     // TTI ENROLLED GRAPH
-    generateGraph("/api/graph/generalReport/ENROLLED/egacType/T2MIS/reportSource/TTI_REPORT/reportType",
+    generateGraph("/api/graph/ttiReport/ENROLLED/egacType",
         "ttiEnrolledGraph", "Enrolled per TTI", "Target", "Output");
 
     // TTI GRADUATED GRAPH
-    generateGraph("/api/graph/generalReport/GRADUATED/egacType/T2MIS/reportSource/TTI_REPORT/reportType",
+    generateGraph("/api/graph/ttiReport/GRADUATED/egacType",
         "ttiGraduatedGraph", "Graduated per TTI", "Target", "Output");
 
     // TTI ASSESSED GRAPH
