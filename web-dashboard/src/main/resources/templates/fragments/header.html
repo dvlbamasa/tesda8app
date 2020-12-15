@@ -43,10 +43,12 @@
                         Dashboard
                     </a>
                     <div class="dropdown-menu nav-dropdown" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item header-dropdown-item" th:href="@{/dashboard}">Daily As Of Reports</a>
-                        <a class="dropdown-item header-dropdown-item" th:href="@{/monthly}">Monthly Comparative</a>
+                        <a class="dropdown-item header-dropdown-item" th:href="@{/dashboard/daily}">Daily As Of Accomplishment Reports</a>
+                        <a class="dropdown-item header-dropdown-item" th:href="@{/dashboard/monthly}">Monthly Comparative of Accomplishment Reports</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item header-dropdown-item" th:href="@{/registeredPrograms}">Monitor TTI Registered Programs</a>
+                        <a class="dropdown-item header-dropdown-item" th:href="@{/dashboard/registeredPrograms}">TTI Registered Programs</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item header-dropdown-item" th:href="@{/dashboard/scholarship/live}">Scholarship Accomplishment Data from SPMOR <span class="danger">(Live)</span></a>
                     </div>
                 </li>
                 <li class="nav-item dropdown navDropdown">
@@ -85,8 +87,6 @@
                         Scholarship
                     </a>
                     <div class="dropdown-menu nav-dropdown" aria-labelledby="navbarDropdown4">
-                        <a class="dropdown-item header-dropdown-item" th:href="@{/scholarship/live}">Scholarship Accomplishment Data from SPMOR <span class="danger">(Live)</span></a>
-                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item header-dropdown-item" th:href="@{/scholarship}">Monthly Scholarship Accomplishment Summary</a>
                         <a class="dropdown-item header-dropdown-item" th:href="@{/scholarship/update(year = 2020, month = 'DECEMBER')}">Update Scholarship Accomplishment</a>
                     </div>

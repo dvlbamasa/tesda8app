@@ -43,16 +43,17 @@ public class ProgramRegistrationDashboardController extends DefaultController {
         this.institutionService = institutionService;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/registeredPrograms")
+    @RequestMapping(method = RequestMethod.GET, value = "/dashboard/registeredPrograms")
     public String showInstitutionsProgRegCount(Model model) {
         ProgramRegistrationWrapper programRegistrationWrapper = registeredProgramService.getCourseCountPerInstitution();
         model.addAttribute("institutionsList", programRegistrationWrapper);
         addStatusCounterToModel(model);
-        return "program_registration/prog_reg_dashboard";
+        return "dashboard/prog_reg_dashboard";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/registeredPrograms/{sectorType}/sector")
+    @RequestMapping(method = RequestMethod.GET, value = "/dashboard/registeredPrograms/{sectorType}/sector")
     public String getRegisteredProgramPerSector(@PathVariable("sectorType") Sector sector, Model model) {
+        logger.info("Sector : {}", sector);
         List<RegisteredProgramDto> registeredProgramDtoList = registeredProgramService.getAllRegisteredProgramsByCourseSectorAndInstitutionClassification(sector, InstitutionClassification.TESDA);
         List<InstitutionDto> ttiList = institutionService.getAllInstitutionByInstitutionTypeAndInstitutionClassification(InstitutionType.PUBLIC, InstitutionClassification.TESDA);
         model.addAttribute("sectorValue", sector);
@@ -60,10 +61,10 @@ public class ProgramRegistrationDashboardController extends DefaultController {
         model.addAttribute("registeredPrograms", registeredProgramDtoList);
         model.addAttribute("ttiList", ttiList);
         addStatusCounterToModel(model);
-        return "program_registration/prog_reg_list";
+        return "dashboard/prog_reg_list";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/registeredPrograms/search")
+    @RequestMapping(method = RequestMethod.POST, value = "/dashboard/registeredPrograms/search")
     public String getRegisteredProgramByFilter(@ModelAttribute RegisteredProgramRequest registeredProgramRequest,
                                   BindingResult bindingResult,
                                   Model model) {
@@ -84,7 +85,7 @@ public class ProgramRegistrationDashboardController extends DefaultController {
         model.addAttribute("registeredPrograms", registeredProgramDtoList);
         model.addAttribute("ttiList", ttiList);
         addStatusCounterToModel(model);
-        return "program_registration/prog_reg_list";
+        return "dashboard/prog_reg_list";
     }
 
 }

@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 public class ApplicationUtil {
 
     public static Month getCurrentMonth() {
-        System.out.println(LocalDateTime.now().getMonth().name());
         return Month.valueOf(LocalDateTime.now().getMonth().name());
     }
 

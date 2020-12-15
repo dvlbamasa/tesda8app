@@ -48,7 +48,7 @@ public class DailyReportController extends DefaultController {
         this.ttiReportService = ttiReportService;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/dailyReports")
+    @RequestMapping(method = RequestMethod.GET, value = "/dailyReports/update")
     public String showPOReports(Model model) {
 
         GeneralReportsDtoWrapper generalReportsDtoWrapper = new GeneralReportsDtoWrapper();

@@ -15,11 +15,11 @@
             <div class="container h-100">
                 <div class="row h-100 align-items-center">
                     <div class="col-lg-12">
-                        <h1 class="display-4 text-white mt-5 mb-2">Daily Reports</h1>
+                        <h1 class="display-4 text-white mt-5 mb-2">Daily Accomplishment Reports</h1>
                         <p class="lead mb-5 text-white-50">View accomplishment reports in table format</p>
                         <div class="btn-group mr-2 float-right" role="group">
-                            <a th:href="@{/dashboard}" class="a-header btn btn-info btn-lg" role="button" aria-pressed="true">Back to Dashboard</a>
-                            <a th:href="@{/dailyReports}" class="a-header btn btn-success btn-lg" role="button" aria-pressed="true">Update Report</a>
+                            <a th:href="@{/dashboard/daily}" class="a-header btn btn-info btn-lg" role="button" aria-pressed="true">Back to Dashboard</a>
+                            <a th:href="@{/dailyReports/update}" class="a-header btn btn-success btn-lg" role="button" aria-pressed="true">Update Report</a>
                         </div>
                     </div>
                 </div>
@@ -55,100 +55,56 @@
                     <button class="btn nav-link" id="pills-tti-tab" data-toggle="pill" href="#pills-tti-report" role="tab" aria-controls="pills-tti-report" aria-selected="false">Per TTI</button>
                 </li>
             </ul>
-
+            <div class="container">
+                <hr class="border"/>
+            </div>
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-ro-report" role="tabpanel" aria-labelledby="pills-ro-tab">
                     <div>
+                        <button onclick="exportTableToExcel('po-table', 'PO Report')"  class="btn btn-success btn-lg mb-5" id="downloadTable" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
                         <form th:object="${reports}" method="post">
                             <fieldset>
-                                <div class="container">
-                                    <p class="lead mb-3 mt-5 text-black-50-50">Enrolled</p>
-                                    <table class="table table-striped table-bordered">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered" id="po-table">
                                         <thead class="thead-dark">
                                         <tr>
                                             <th scope="col"> Operating Unit</th>
-                                            <th scope="col"> Target</th>
-                                            <th scope="col"> Output</th>
-                                            <th scope="col"> Rate</th>
+                                            <th scope="col" colspan="3"><i class="fa fa-user-plus" aria-hidden="true"></i> Enrolled</th>
+                                            <th scope="col" colspan="3"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Graduates</th>
+                                            <th scope="col" colspan="3"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Assessed</th>
+                                            <th scope="col" colspan="3"><i class="fa fa-id-card-o" aria-hidden="true"></i> Certified</th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col">Target</th>
+                                            <th scope="col">Output</th>
+                                            <th scope="col">Rate</th>
+                                            <th scope="col">Target</th>
+                                            <th scope="col">Output</th>
+                                            <th scope="col">Rate</th>
+                                            <th scope="col">Target</th>
+                                            <th scope="col">Output</th>
+                                            <th scope="col">Rate</th>
+                                            <th scope="col">Target</th>
+                                            <th scope="col">Output</th>
+                                            <th scope="col">Rate</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr th:each="report, itemstat : *{poReports}">
-                                            <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).ENROLLED}">
-                                                <th scope="row"><span th:text="${report.operatingUnitType.label}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.target}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.output}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.rate}"></span><span>&#37;</span></th>
-                                            </div>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="container">
-                                    <p class="lead mb-3 mt-5 text-black-50-50">Graduated</p>
-                                    <table class="table table-striped table-bordered">
-                                        <thead class="thead-dark">
-                                        <tr>
-                                            <th scope="col"> Operating Unit</th>
-                                            <th scope="col"> Target</th>
-                                            <th scope="col"> Output</th>
-                                            <th scope="col"> Rate</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="report, itemstat : *{poReports}">
-                                            <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).GRADUATED}">
-                                                <th scope="row"><span th:text="${report.operatingUnitType.label}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.target}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.output}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.rate}"></span><span>&#37;</span></th>
-                                            </div>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="container">
-                                    <p class="lead mb-3 mt-5 text-black-50-50">Assessed</p>
-                                    <table class="table table-striped table-bordered">
-                                        <thead class="thead-dark">
-                                        <tr>
-                                            <th scope="col"> Operating Unit</th>
-                                            <th scope="col"> Target</th>
-                                            <th scope="col"> Output</th>
-                                            <th scope="col"> Rate</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="report, itemstat : *{poReports}">
-                                            <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).ASSESSED}">
-                                                <th scope="row"><span th:text="${report.operatingUnitType.label}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.target}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.output}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.rate}"></span><span>&#37;</span></th>
-                                            </div>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="container">
-                                    <p class="lead mb-3 mt-5 text-black-50-50">Certified</p>
-                                    <table class="table table-striped table-bordered">
-                                        <thead class="thead-dark">
-                                        <tr>
-                                            <th scope="col"> Operating Unit</th>
-                                            <th scope="col"> Target</th>
-                                            <th scope="col"> Output</th>
-                                            <th scope="col"> Rate</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="report, itemstat : *{poReports}">
-                                            <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).CERTIFIED}">
-                                                <th scope="row"><span th:text="${report.operatingUnitType.label}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.target}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.output}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.rate}"></span><span>&#37;</span></th>
-                                            </div>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'first-col'}" scope="row"><span th:text="${report.operatingUnitType.label}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : ''}"><span th:text="${report.enrolled.egacDataDto.target}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : ''}"><span th:text="${report.enrolled.egacDataDto.output}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : ''}"><span th:text="${report.enrolled.egacDataDto.rate}"></span><span>&#37;</span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.graduates.egacDataDto.target}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.graduates.egacDataDto.output}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.graduates.egacDataDto.rate}"></span><span>&#37;</span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : ''}"><span th:text="${report.assessed.egacDataDto.target}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : ''}"><span th:text="${report.assessed.egacDataDto.output}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : ''}"><span th:text="${report.assessed.egacDataDto.rate}"></span><span>&#37;</span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.certified.egacDataDto.target}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.certified.egacDataDto.output}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.certified.egacDataDto.rate}"></span><span>&#37;</span></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -159,25 +115,25 @@
                 </div>
                 <div class="tab-pane fade" id="pills-cert-report" role="tabpanel" aria-labelledby="pills-cert-tab">
                     <div>
-                        <form th:object="${certificationReports}" method="post">
+                        <button onclick="exportTableToExcel('cert-table', 'Certification Rate Report')"  class="btn btn-success btn-lg mb-5" id="downloadTable2" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
+                        <form th:object="${reports}" method="post">
                             <fieldset>
-                                <div class="container">
-                                    <p class="lead mb-3 mt-5 text-black-50-50">Certification Rate Report</p>
-                                    <table class="table table-striped table-bordered">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered" id="cert-table">
                                         <thead class="thead-dark">
                                         <tr>
                                             <th scope="col"> Operating Unit</th>
-                                            <th scope="col"> Assessed</th>
-                                            <th scope="col"> Certified</th>
-                                            <th scope="col"> Rate</th>
+                                            <th scope="col"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Assessed</th>
+                                            <th scope="col"><i class="fa fa-id-card-o" aria-hidden="true"></i> Certified</th>
+                                            <th scope="col"><i class="fa fa-line-chart" aria-hidden="true"></i> Rate</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="report, itemstat : *{certificationRateReportDtos}">
-                                            <th scope="row"><span th:text="${report.operatingUnitType.label}"></span></th>
-                                            <th><span th:text="${report.assessed}"></span></th>
-                                            <th><span th:text="${report.certified}"></span></th>
-                                            <th><span th:text="${report.rate}"></span></span><span>&#37;</span></th>
+                                        <tr th:each="report, itemstat : *{certificationRateReports}">
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'first-col'}" scope="row"><span th:text="${report.operatingUnitType.label}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : ''}"><span th:text="${report.assessed}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : ''}"><span th:text="${report.certified}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : ''}"><span th:text="${report.rate}"></span></span><span>&#37;</span></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -188,50 +144,36 @@
                 </div>
                 <div class="tab-pane fade" id="pills-ro-gs" role="tabpanel" aria-labelledby="pills-ro-gs-tab">
                     <div>
-                        <form th:object="${roPerModeReports}" method="post">
+                        <button onclick="exportTableToExcel('ro-gs-table', 'RO Per Mode (GS) Report')"  class="btn btn-success btn-lg mb-5" id="downloadTable3" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
+                        <form th:object="${reports}" method="post">
                             <fieldset>
-                                <div class="container">
-                                    <p class="lead mb-3 mt-5 text-black-50-50">Enrolled</p>
-                                    <table class="table table-striped table-bordered">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered" id="ro-gs-table">
                                         <thead class="thead-dark">
                                         <tr>
                                             <th scope="col"> Operating Unit</th>
-                                            <th scope="col"> Target</th>
-                                            <th scope="col"> Output</th>
-                                            <th scope="col"> Rate</th>
+                                            <th scope="col" colspan="3"><i class="fa fa-user-plus" aria-hidden="true"></i> Enrolled</th>
+                                            <th scope="col" colspan="3"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Graduates</th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col">Target</th>
+                                            <th scope="col">Output</th>
+                                            <th scope="col">Rate</th>
+                                            <th scope="col">Target</th>
+                                            <th scope="col">Output</th>
+                                            <th scope="col">Rate</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr th:each="roReport, itemstat : *{roPerModeGSReports}">
-                                            <div th:if="${roReport.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).ENROLLED}">
-                                                <th scope="row"><span th:text="${roReport.deliveryMode.label}"></span></th>
-                                                <th><span th:text="${roReport.egacDataDto.target}"></span></th>
-                                                <th><span th:text="${roReport.egacDataDto.output}"></span></th>
-                                                <th><span th:text="${roReport.egacDataDto.rate}"></span><span>&#37;</span></th>
-                                            </div>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="container">
-                                    <p class="lead mb-3 mt-5 text-black-50-50">Graduated</p>
-                                    <table class="table table-striped table-bordered">
-                                        <thead class="thead-dark">
-                                        <tr>
-                                            <th scope="col"> Operating Unit</th>
-                                            <th scope="col"> Target</th>
-                                            <th scope="col"> Output</th>
-                                            <th scope="col"> Rate</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="roReport, itemstat : *{roPerModeGSReports}">
-                                            <div th:if="${roReport.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).GRADUATED}">
-                                                <th scope="row"><span th:text="${roReport.deliveryMode.label}"></span></th>
-                                                <th><span th:text="${roReport.egacDataDto.target}"></span></th>
-                                                <th><span th:text="${roReport.egacDataDto.output}"></span></th>
-                                                <th><span th:text="${roReport.egacDataDto.rate}"></span><span>&#37;</span></th>
-                                            </div>
+                                            <td th:class="${roReport.deliveryMode == T(com.tesda8.region8.util.enums.DeliveryMode).TOTAL ? 'total-col' : 'first-col'}" scope="row"><span th:text="${roReport.deliveryMode.label}"></span></td>
+                                            <td th:class="${roReport.deliveryMode == T(com.tesda8.region8.util.enums.DeliveryMode).TOTAL ? 'total-col' : ''}"><span th:text="${roReport.enrolled.egacDataDto.target}"></span></td>
+                                            <td th:class="${roReport.deliveryMode == T(com.tesda8.region8.util.enums.DeliveryMode).TOTAL ? 'total-col' : ''}"><span th:text="${roReport.enrolled.egacDataDto.output}"></span></td>
+                                            <td th:class="${roReport.deliveryMode == T(com.tesda8.region8.util.enums.DeliveryMode).TOTAL ? 'total-col' : ''}"><span th:text="${roReport.enrolled.egacDataDto.rate}"></span><span>&#37;</span></td>
+                                            <td th:class="${roReport.deliveryMode == T(com.tesda8.region8.util.enums.DeliveryMode).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${roReport.graduates.egacDataDto.target}"></span></td>
+                                            <td th:class="${roReport.deliveryMode == T(com.tesda8.region8.util.enums.DeliveryMode).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${roReport.graduates.egacDataDto.output}"></span></td>
+                                            <td th:class="${roReport.deliveryMode == T(com.tesda8.region8.util.enums.DeliveryMode).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${roReport.graduates.egacDataDto.rate}"></span><span>&#37;</span></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -240,53 +182,38 @@
                         </form>
                     </div>
                 </div>
-
                 <div class="tab-pane fade" id="pills-ro-t2" role="tabpanel" aria-labelledby="pills-ro-t2-tab">
                     <div>
-                        <form th:object="${roPerModeReports}" method="post">
+                        <button onclick="exportTableToExcel('ro-t2-table', 'RO Per Mode (T2) Report')"  class="btn btn-success btn-lg mb-5" id="downloadTable4" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
+                        <form th:object="${reports}" method="post">
                             <fieldset>
-                                <div class="container">
-                                    <p class="lead mb-3 mt-5 text-black-50-50">Enrolled</p>
-                                    <table class="table table-striped table-bordered">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered" id="ro-t2-table">
                                         <thead class="thead-dark">
                                         <tr>
                                             <th scope="col"> Operating Unit</th>
-                                            <th scope="col"> Target</th>
-                                            <th scope="col"> Output</th>
-                                            <th scope="col"> Rate</th>
+                                            <th scope="col" colspan="3"><i class="fa fa-user-plus" aria-hidden="true"></i> Enrolled</th>
+                                            <th scope="col" colspan="3"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Graduates</th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col">Target</th>
+                                            <th scope="col">Output</th>
+                                            <th scope="col">Rate</th>
+                                            <th scope="col">Target</th>
+                                            <th scope="col">Output</th>
+                                            <th scope="col">Rate</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr th:each="roReport, itemstat : *{roPerModeT2Reports}">
-                                            <div th:if="${roReport.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).ENROLLED}">
-                                                <th scope="row"><span th:text="${roReport.deliveryMode.label}"></span></th>
-                                                <th><span th:text="${roReport.egacDataDto.target}"></span></th>
-                                                <th><span th:text="${roReport.egacDataDto.output}"></span></th>
-                                                <th><span th:text="${roReport.egacDataDto.rate}"></span><span>&#37;</span></th>
-                                            </div>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="container">
-                                    <p class="lead mb-3 mt-5 text-black-50-50">Graduated</p>
-                                    <table class="table table-striped table-bordered">
-                                        <thead class="thead-dark">
-                                        <tr>
-                                            <th scope="col"> Operating Unit</th>
-                                            <th scope="col"> Target</th>
-                                            <th scope="col"> Output</th>
-                                            <th scope="col"> Rate</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="roReport, itemstat : *{roPerModeT2Reports}">
-                                            <div th:if="${roReport.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).GRADUATED}">
-                                                <th scope="row"><span th:text="${roReport.deliveryMode.label}"></span></th>
-                                                <th><span th:text="${roReport.egacDataDto.target}"></span></th>
-                                                <th><span th:text="${roReport.egacDataDto.output}"></span></th>
-                                                <th><span th:text="${roReport.egacDataDto.rate}"></span><span>&#37;</span></th>
-                                            </div>
+                                            <td th:class="${roReport.deliveryMode == T(com.tesda8.region8.util.enums.DeliveryMode).TOTAL ? 'total-col' : 'first-col'}" scope="row"><span th:text="${roReport.deliveryMode.label}"></span></td>
+                                            <td th:class="${roReport.deliveryMode == T(com.tesda8.region8.util.enums.DeliveryMode).TOTAL ? 'total-col' : ''}"><span th:text="${roReport.enrolled.egacDataDto.target}"></span></td>
+                                            <td th:class="${roReport.deliveryMode == T(com.tesda8.region8.util.enums.DeliveryMode).TOTAL ? 'total-col' : ''}"><span th:text="${roReport.enrolled.egacDataDto.output}"></span></td>
+                                            <td th:class="${roReport.deliveryMode == T(com.tesda8.region8.util.enums.DeliveryMode).TOTAL ? 'total-col' : ''}"><span th:text="${roReport.enrolled.egacDataDto.rate}"></span><span>&#37;</span></td>
+                                            <td th:class="${roReport.deliveryMode == T(com.tesda8.region8.util.enums.DeliveryMode).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${roReport.graduates.egacDataDto.target}"></span></td>
+                                            <td th:class="${roReport.deliveryMode == T(com.tesda8.region8.util.enums.DeliveryMode).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${roReport.graduates.egacDataDto.output}"></span></td>
+                                            <td th:class="${roReport.deliveryMode == T(com.tesda8.region8.util.enums.DeliveryMode).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${roReport.graduates.egacDataDto.rate}"></span><span>&#37;</span></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -297,50 +224,36 @@
                 </div>
                 <div class="tab-pane fade" id="pills-institution-report" role="tabpanel" aria-labelledby="pills-institution-tab">
                     <div>
+                        <button onclick="exportTableToExcel('institution-table', 'Institution Based Report')"  class="btn btn-success btn-lg mb-5" id="downloadTable5" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
                         <form th:object="${reports}" method="post">
                             <fieldset>
-                                <div class="container">
-                                    <p class="lead mb-3 mt-5 text-black-50-50">Enrolled</p>
-                                    <table class="table table-striped table-bordered">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered" id="institution-table">
                                         <thead class="thead-dark">
                                         <tr>
                                             <th scope="col"> Operating Unit</th>
-                                            <th scope="col"> Target</th>
-                                            <th scope="col"> Output</th>
-                                            <th scope="col"> Rate</th>
+                                            <th scope="col" colspan="3"><i class="fa fa-user-plus" aria-hidden="true"></i> Enrolled</th>
+                                            <th scope="col" colspan="3"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Graduates</th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col">Target</th>
+                                            <th scope="col">Output</th>
+                                            <th scope="col">Rate</th>
+                                            <th scope="col">Target</th>
+                                            <th scope="col">Output</th>
+                                            <th scope="col">Rate</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr th:each="report, itemstat : *{institutionBasedReports}">
-                                            <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).ENROLLED}">
-                                                <th scope="row"><span th:text="${report.operatingUnitType.label}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.target}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.output}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.rate}"></span><span>&#37;</span></th>
-                                            </div>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="container">
-                                    <p class="lead mb-3 mt-5 text-black-50-50">Graduated</p>
-                                    <table class="table table-striped table-bordered">
-                                        <thead class="thead-dark">
-                                        <tr>
-                                            <th scope="col"> Operating Unit</th>
-                                            <th scope="col"> Target</th>
-                                            <th scope="col"> Output</th>
-                                            <th scope="col"> Rate</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="report, itemstat : *{institutionBasedReports}">
-                                            <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).GRADUATED}">
-                                                <th scope="row"><span th:text="${report.operatingUnitType.label}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.target}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.output}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.rate}"></span><span>&#37;</span></th>
-                                            </div>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'first-col'}" scope="row"><span th:text="${report.operatingUnitType.label}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : ''}"><span th:text="${report.enrolled.egacDataDto.target}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : ''}"><span th:text="${report.enrolled.egacDataDto.output}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : ''}"><span th:text="${report.enrolled.egacDataDto.rate}"></span><span>&#37;</span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.graduates.egacDataDto.target}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.graduates.egacDataDto.output}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.graduates.egacDataDto.rate}"></span><span>&#37;</span></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -351,50 +264,36 @@
                 </div>
                 <div class="tab-pane fade" id="pills-enterprise-gs-report" role="tabpanel" aria-labelledby="pills-enterprise-gs-tab">
                     <div>
+                        <button onclick="exportTableToExcel('enterprise-gs-table', 'Enterprise Based Report (Google Sheet)')"  class="btn btn-success btn-lg mb-5" id="downloadTable6" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
                         <form th:object="${reports}" method="post">
                             <fieldset>
-                                <div class="container">
-                                    <p class="lead mb-3 mt-5 text-black-50-50">Enrolled</p>
-                                    <table class="table table-striped table-bordered">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered" id="enterprise-gs-table">
                                         <thead class="thead-dark">
                                         <tr>
                                             <th scope="col"> Operating Unit</th>
-                                            <th scope="col"> Target</th>
-                                            <th scope="col"> Output</th>
-                                            <th scope="col"> Rate</th>
+                                            <th scope="col" colspan="3"><i class="fa fa-user-plus" aria-hidden="true"></i> Enrolled</th>
+                                            <th scope="col" colspan="3"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Graduates</th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col">Target</th>
+                                            <th scope="col">Output</th>
+                                            <th scope="col">Rate</th>
+                                            <th scope="col">Target</th>
+                                            <th scope="col">Output</th>
+                                            <th scope="col">Rate</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr th:each="report, itemstat : *{enterpriseBasedGSReports}">
-                                            <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).ENROLLED}">
-                                                <th scope="row"><span th:text="${report.operatingUnitType.label}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.target}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.output}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.rate}"></span><span>&#37;</span></th>
-                                            </div>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="container">
-                                    <p class="lead mb-3 mt-5 text-black-50-50">Graduated</p>
-                                    <table class="table table-striped table-bordered">
-                                        <thead class="thead-dark">
-                                        <tr>
-                                            <th scope="col"> Operating Unit</th>
-                                            <th scope="col"> Target</th>
-                                            <th scope="col"> Output</th>
-                                            <th scope="col"> Rate</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="report, itemstat : *{enterpriseBasedGSReports}">
-                                            <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).GRADUATED}">
-                                                <th scope="row"><span th:text="${report.operatingUnitType.label}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.target}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.output}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.rate}"></span><span>&#37;</span></th>
-                                            </div>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'first-col'}" scope="row"><span th:text="${report.operatingUnitType.label}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : ''}"><span th:text="${report.enrolled.egacDataDto.target}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : ''}"><span th:text="${report.enrolled.egacDataDto.output}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : ''}"><span th:text="${report.enrolled.egacDataDto.rate}"></span><span>&#37;</span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.graduates.egacDataDto.target}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.graduates.egacDataDto.output}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.graduates.egacDataDto.rate}"></span><span>&#37;</span></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -405,50 +304,36 @@
                 </div>
                 <div class="tab-pane fade" id="pills-enterprise-t2-report" role="tabpanel" aria-labelledby="pills-enterprise-t2-tab">
                     <div>
+                        <button onclick="exportTableToExcel('enterprise-t2-table', 'Enterprise Based Report (T2MIS)')"  class="btn btn-success btn-lg mb-5" id="downloadTable7" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
                         <form th:object="${reports}" method="post">
                             <fieldset>
-                                <div class="container">
-                                    <p class="lead mb-3 mt-5 text-black-50-50">Enrolled</p>
-                                    <table class="table table-striped table-bordered">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered" id="enterprise-t2-table">
                                         <thead class="thead-dark">
                                         <tr>
                                             <th scope="col"> Operating Unit</th>
-                                            <th scope="col"> Target</th>
-                                            <th scope="col"> Output</th>
-                                            <th scope="col"> Rate</th>
+                                            <th scope="col" colspan="3"><i class="fa fa-user-plus" aria-hidden="true"></i> Enrolled</th>
+                                            <th scope="col" colspan="3"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Graduates</th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col">Target</th>
+                                            <th scope="col">Output</th>
+                                            <th scope="col">Rate</th>
+                                            <th scope="col">Target</th>
+                                            <th scope="col">Output</th>
+                                            <th scope="col">Rate</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr th:each="report, itemstat : *{enterpriseBasedT2Reports}">
-                                            <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).ENROLLED}">
-                                                <th scope="row"><span th:text="${report.operatingUnitType.label}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.target}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.output}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.rate}"></span><span>&#37;</span></th>
-                                            </div>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="container">
-                                    <p class="lead mb-3 mt-5 text-black-50-50">Graduated</p>
-                                    <table class="table table-striped table-bordered">
-                                        <thead class="thead-dark">
-                                        <tr>
-                                            <th scope="col"> Operating Unit</th>
-                                            <th scope="col"> Target</th>
-                                            <th scope="col"> Output</th>
-                                            <th scope="col"> Rate</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="report, itemstat : *{enterpriseBasedT2Reports}">
-                                            <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).GRADUATED}">
-                                                <th scope="row"><span th:text="${report.operatingUnitType.label}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.target}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.output}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.rate}"></span><span>&#37;</span></th>
-                                            </div>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'first-col'}" scope="row"><span th:text="${report.operatingUnitType.label}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : ''}"><span th:text="${report.enrolled.egacDataDto.target}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : ''}"><span th:text="${report.enrolled.egacDataDto.output}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : ''}"><span th:text="${report.enrolled.egacDataDto.rate}"></span><span>&#37;</span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.graduates.egacDataDto.target}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.graduates.egacDataDto.output}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.graduates.egacDataDto.rate}"></span><span>&#37;</span></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -459,50 +344,36 @@
                 </div>
                 <div class="tab-pane fade" id="pills-community-report" role="tabpanel" aria-labelledby="pills-community-tab">
                     <div>
+                        <button onclick="exportTableToExcel('community-table', 'Community-Based Report')"  class="btn btn-success btn-lg mb-5" id="downloadTable8" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
                         <form th:object="${reports}" method="post">
                             <fieldset>
-                                <div class="container">
-                                    <p class="lead mb-3 mt-5 text-black-50-50">Enrolled</p>
-                                    <table class="table table-striped table-bordered">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered" id="community-table">
                                         <thead class="thead-dark">
                                         <tr>
                                             <th scope="col"> Operating Unit</th>
-                                            <th scope="col"> Target</th>
-                                            <th scope="col"> Output</th>
-                                            <th scope="col"> Rate</th>
+                                            <th scope="col" colspan="3"><i class="fa fa-user-plus" aria-hidden="true"></i> Enrolled</th>
+                                            <th scope="col" colspan="3"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Graduates</th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col">Target</th>
+                                            <th scope="col">Output</th>
+                                            <th scope="col">Rate</th>
+                                            <th scope="col">Target</th>
+                                            <th scope="col">Output</th>
+                                            <th scope="col">Rate</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr th:each="report, itemstat : *{communityBasedReports}">
-                                            <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).ENROLLED}">
-                                                <th scope="row"><span th:text="${report.operatingUnitType.label}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.target}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.output}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.rate}"></span><span>&#37;</span></th>
-                                            </div>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="container">
-                                    <p class="lead mb-3 mt-5 text-black-50-50">Graduated</p>
-                                    <table class="table table-striped table-bordered">
-                                        <thead class="thead-dark">
-                                        <tr>
-                                            <th scope="col"> Operating Unit</th>
-                                            <th scope="col"> Target</th>
-                                            <th scope="col"> Output</th>
-                                            <th scope="col"> Rate</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="report, itemstat : *{communityBasedReports}">
-                                            <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).GRADUATED}">
-                                                <th scope="row"><span th:text="${report.operatingUnitType.label}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.target}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.output}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.rate}"></span><span>&#37;</span></th>
-                                            </div>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'first-col'}" scope="row"><span th:text="${report.operatingUnitType.label}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : ''}"><span th:text="${report.enrolled.egacDataDto.target}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : ''}"><span th:text="${report.enrolled.egacDataDto.output}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : ''}"><span th:text="${report.enrolled.egacDataDto.rate}"></span><span>&#37;</span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.graduates.egacDataDto.target}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.graduates.egacDataDto.output}"></span></td>
+                                            <td th:class="${report.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.graduates.egacDataDto.rate}"></span><span>&#37;</span></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -513,101 +384,54 @@
                 </div>
                 <div class="tab-pane fade" id="pills-tti-report" role="tabpanel" aria-labelledby="pills-tti-tab">
                     <div>
+                        <button onclick="exportTableToExcel('tti-table', 'TTI Report')"  class="btn btn-success btn-lg mb-5" id="downloadTable9" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
                         <form th:object="${reports}" method="post">
                             <fieldset>
-                                <div class="container">
-                                    <p class="lead mb-3 mt-5 text-black-50-50">Enrolled</p>
-                                    <table class="table table-striped table-bordered">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered" id="tti-table">
                                         <thead class="thead-dark">
                                         <tr>
                                             <th scope="col"> Operating Unit</th>
-                                            <th scope="col"> Target</th>
-                                            <th scope="col"> Output</th>
-                                            <th scope="col"> Rate</th>
+                                            <th scope="col" colspan="3"><i class="fa fa-user-plus" aria-hidden="true"></i> Enrolled</th>
+                                            <th scope="col" colspan="3"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Graduates</th>
+                                            <th scope="col" colspan="3"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Assessed</th>
+                                            <th scope="col" colspan="3"><i class="fa fa-id-card-o" aria-hidden="true"></i> Certified</th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col">Target</th>
+                                            <th scope="col">Output</th>
+                                            <th scope="col">Rate</th>
+                                            <th scope="col">Target</th>
+                                            <th scope="col">Output</th>
+                                            <th scope="col">Rate</th>
+                                            <th scope="col">Target</th>
+                                            <th scope="col">Output</th>
+                                            <th scope="col">Rate</th>
+                                            <th scope="col">Target</th>
+                                            <th scope="col">Output</th>
+                                            <th scope="col">Rate</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr th:each="report, itemstat : *{ttiReports}">
-                                            <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).ENROLLED}">
-                                                <th scope="row"><span th:text="${report.ttiType.label}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.target}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.output}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.rate}"></span><span>&#37;</span></th>
-                                            </div>
+                                            <td th:class="${report.ttiType == T(com.tesda8.region8.util.enums.TTIType).TOTAL ? 'total-col' : 'first-col'}" scope="row"><span th:text="${report.ttiType.label}"></span></td>
+                                            <td th:class="${report.ttiType == T(com.tesda8.region8.util.enums.TTIType).TOTAL ? 'total-col' : ''}"><span th:text="${report.enrolled.egacDataDto.target}"></span></td>
+                                            <td th:class="${report.ttiType == T(com.tesda8.region8.util.enums.TTIType).TOTAL ? 'total-col' : ''}"><span th:text="${report.enrolled.egacDataDto.output}"></span></td>
+                                            <td th:class="${report.ttiType == T(com.tesda8.region8.util.enums.TTIType).TOTAL ? 'total-col' : ''}"><span th:text="${report.enrolled.egacDataDto.rate}"></span><span>&#37;</span></td>
+                                            <td th:class="${report.ttiType == T(com.tesda8.region8.util.enums.TTIType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.graduates.egacDataDto.target}"></span></td>
+                                            <td th:class="${report.ttiType == T(com.tesda8.region8.util.enums.TTIType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.graduates.egacDataDto.output}"></span></td>
+                                            <td th:class="${report.ttiType == T(com.tesda8.region8.util.enums.TTIType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.graduates.egacDataDto.rate}"></span><span>&#37;</span></td>
+                                            <td th:class="${report.ttiType == T(com.tesda8.region8.util.enums.TTIType).TOTAL ? 'total-col' : ''}"><span th:text="${report.assessed.egacDataDto.target}"></span></td>
+                                            <td th:class="${report.ttiType == T(com.tesda8.region8.util.enums.TTIType).TOTAL ? 'total-col' : ''}"><span th:text="${report.assessed.egacDataDto.output}"></span></td>
+                                            <td th:class="${report.ttiType == T(com.tesda8.region8.util.enums.TTIType).TOTAL ? 'total-col' : ''}"><span th:text="${report.assessed.egacDataDto.rate}"></span><span>&#37;</span></td>
+                                            <td th:class="${report.ttiType == T(com.tesda8.region8.util.enums.TTIType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.certified.egacDataDto.target}"></span></td>
+                                            <td th:class="${report.ttiType == T(com.tesda8.region8.util.enums.TTIType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.certified.egacDataDto.output}"></span></td>
+                                            <td th:class="${report.ttiType == T(com.tesda8.region8.util.enums.TTIType).TOTAL ? 'total-col' : 'col-striped'}"><span th:text="${report.certified.egacDataDto.rate}"></span><span>&#37;</span></td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="container">
-                                    <p class="lead mb-3 mt-5 text-black-50-50">Graduated</p>
-                                    <table class="table table-striped table-bordered">
-                                        <thead class="thead-dark">
-                                        <tr>
-                                            <th scope="col"> Operating Unit</th>
-                                            <th scope="col"> Target</th>
-                                            <th scope="col"> Output</th>
-                                            <th scope="col"> Rate</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="report, itemstat : *{ttiReports}">
-                                            <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).GRADUATED}">
-                                                <th scope="row"><span th:text="${report.ttiType.label}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.target}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.output}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.rate}"></span><span>&#37;</span></th>
-                                            </div>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="container">
-                                    <p class="lead mb-3 mt-5 text-black-50-50">Assessed</p>
-                                    <table class="table table-striped table-bordered">
-                                        <thead class="thead-dark">
-                                        <tr>
-                                            <th scope="col"> Operating Unit</th>
-                                            <th scope="col"> Target</th>
-                                            <th scope="col"> Output</th>
-                                            <th scope="col"> Rate</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="report, itemstat : *{ttiReports}">
-                                            <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).ASSESSED}">
-                                                <th scope="row"><span th:text="${report.ttiType.label}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.target}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.output}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.rate}"></span><span>&#37;</span></th>
-                                            </div>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="container">
-                                    <p class="lead mb-3 mt-5 text-black-50-50">Certified</p>
-                                    <table class="table table-striped table-bordered">
-                                        <thead class="thead-dark">
-                                        <tr>
-                                            <th scope="col"> Operating Unit</th>
-                                            <th scope="col"> Target</th>
-                                            <th scope="col"> Output</th>
-                                            <th scope="col"> Rate</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="report, itemstat : *{ttiReports}">
-                                            <div th:if="${report.egacDataDto.egacType == T(com.tesda8.region8.util.enums.EgacType).CERTIFIED}">
-                                                <th scope="row"><span th:text="${report.ttiType.label}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.target}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.output}"></span></th>
-                                                <th><span th:text="${report.egacDataDto.rate}"></span><span>&#37;</span></th>
-                                            </div>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
                             </fieldset>
                         </form>
                     </div>
@@ -619,6 +443,8 @@
 <!-- /.container -->
 
 <div th:replace="fragments/footer :: footer"/>
+<script type='text/javascript' src="../../static/js/table_to_excel.js" th:src="@{/js/table_to_excel.js}"></script>
+<script src="https://unpkg.com/sticky-table-headers"></script>
 
 </body>
 </html>

@@ -85,13 +85,13 @@ public class ScholarshipController extends DefaultController {
         return "scholarship/scholarship_graph";
     }
 
-    @GetMapping("/scholarship/live")
+    @GetMapping("/dashboard/scholarship/live")
     public String scholarshipLive(Model model) {
         ScholarshipWrapper scholarshipWrapper = scholarshipAccomplishmentService.getAllScholarshipAccomplishment(CURRENT_YEAR, CURRENT_MONTH);
         model.addAttribute("scholarships", scholarshipWrapper);
         model.addAttribute("dateTimeNow", LocalDateTime.now().plusHours(8));
         addStatusCounterToModel(model);
-        return "scholarship/live_scholarship";
+        return "dashboard/live_scholarship";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/scholarship/live/save")

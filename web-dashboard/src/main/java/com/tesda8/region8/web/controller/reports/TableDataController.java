@@ -2,11 +2,8 @@ package com.tesda8.region8.web.controller.reports;
 
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.web.controller.DefaultController;
-import com.tesda8.region8.web.model.dto.wrapper.CertificationRateReportWrapper;
-import com.tesda8.region8.web.model.dto.wrapper.GeneralReportsDtoWrapper;
-import com.tesda8.region8.web.model.dto.wrapper.ROPerModeReportWrapper;
+import com.tesda8.region8.web.model.dto.wrapper.GeneralReportTableWrapper;
 import com.tesda8.region8.util.enums.DailyReportType;
-import com.tesda8.region8.util.enums.EgacType;
 import com.tesda8.region8.util.enums.ReportSourceType;
 import com.tesda8.region8.reports.service.TableDataFetcherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,44 +26,19 @@ public class TableDataController extends DefaultController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/tableData")
     public String showTableData(Model model) {
+        GeneralReportTableWrapper generalReportTableWrapper = new GeneralReportTableWrapper();
 
-        GeneralReportsDtoWrapper generalReportsDtoWrapper = new GeneralReportsDtoWrapper();
-        CertificationRateReportWrapper certificationRateReportWrapper = new CertificationRateReportWrapper();
-        ROPerModeReportWrapper roPerModeReportWrapper = new ROPerModeReportWrapper();
+        generalReportTableWrapper.setCertificationRateReports(tableDataFetcherService.fetchCertificationRateTableData());
+        generalReportTableWrapper.setPoReports(tableDataFetcherService.fetchPOReports());
+        generalReportTableWrapper.setTtiReports(tableDataFetcherService.fetchTTIReports());
+        generalReportTableWrapper.setRoPerModeT2Reports(tableDataFetcherService.fetchRoPerModeReports(ReportSourceType.T2MIS));
+        generalReportTableWrapper.setRoPerModeGSReports(tableDataFetcherService.fetchRoPerModeReports(ReportSourceType.GS));
+        generalReportTableWrapper.setCommunityBasedReports(tableDataFetcherService.fetchEGReports(DailyReportType.COMMUNITY_BASED_REPORT, ReportSourceType.T2MIS));
+        generalReportTableWrapper.setInstitutionBasedReports(tableDataFetcherService.fetchEGReports(DailyReportType.INSTITUTION_BASED_REPORT, ReportSourceType.T2MIS));
+        generalReportTableWrapper.setEnterpriseBasedGSReports(tableDataFetcherService.fetchEGReports(DailyReportType.ENTERPRISE_BASED_REPORT, ReportSourceType.GS));
+        generalReportTableWrapper.setEnterpriseBasedT2Reports(tableDataFetcherService.fetchEGReports(DailyReportType.ENTERPRISE_BASED_REPORT, ReportSourceType.T2MIS));
 
-        certificationRateReportWrapper.setCertificationRateReportDtos(tableDataFetcherService.fetchCertificationRateTableData());
-
-        generalReportsDtoWrapper.setPoReports(tableDataFetcherService.fetchGeneralReportTableData(DailyReportType.PO_REPORT, ReportSourceType.T2MIS, EgacType.ENROLLED));
-        generalReportsDtoWrapper.getPoReports().addAll(tableDataFetcherService.fetchGeneralReportTableData(DailyReportType.PO_REPORT, ReportSourceType.T2MIS, EgacType.GRADUATED));
-        generalReportsDtoWrapper.getPoReports().addAll(tableDataFetcherService.fetchGeneralReportTableData(DailyReportType.PO_REPORT, ReportSourceType.T2MIS, EgacType.ASSESSED));
-        generalReportsDtoWrapper.getPoReports().addAll(tableDataFetcherService.fetchGeneralReportTableData(DailyReportType.PO_REPORT, ReportSourceType.T2MIS, EgacType.CERTIFIED));
-
-        generalReportsDtoWrapper.setCommunityBasedReports(tableDataFetcherService.fetchGeneralReportTableData(DailyReportType.COMMUNITY_BASED_REPORT, ReportSourceType.T2MIS, EgacType.ENROLLED));
-        generalReportsDtoWrapper.getCommunityBasedReports().addAll(tableDataFetcherService.fetchGeneralReportTableData(DailyReportType.COMMUNITY_BASED_REPORT, ReportSourceType.T2MIS, EgacType.GRADUATED));
-
-        generalReportsDtoWrapper.setInstitutionBasedReports(tableDataFetcherService.fetchGeneralReportTableData(DailyReportType.INSTITUTION_BASED_REPORT, ReportSourceType.T2MIS, EgacType.ENROLLED));
-        generalReportsDtoWrapper.getInstitutionBasedReports().addAll(tableDataFetcherService.fetchGeneralReportTableData(DailyReportType.INSTITUTION_BASED_REPORT, ReportSourceType.T2MIS, EgacType.GRADUATED));
-
-        generalReportsDtoWrapper.setEnterpriseBasedT2Reports(tableDataFetcherService.fetchGeneralReportTableData(DailyReportType.ENTERPRISE_BASED_REPORT, ReportSourceType.T2MIS, EgacType.ENROLLED));
-        generalReportsDtoWrapper.getEnterpriseBasedT2Reports().addAll(tableDataFetcherService.fetchGeneralReportTableData(DailyReportType.ENTERPRISE_BASED_REPORT, ReportSourceType.T2MIS, EgacType.GRADUATED));
-
-        generalReportsDtoWrapper.setEnterpriseBasedGSReports(tableDataFetcherService.fetchGeneralReportTableData(DailyReportType.ENTERPRISE_BASED_REPORT, ReportSourceType.GS, EgacType.ENROLLED));
-        generalReportsDtoWrapper.getEnterpriseBasedGSReports().addAll(tableDataFetcherService.fetchGeneralReportTableData(DailyReportType.ENTERPRISE_BASED_REPORT, ReportSourceType.GS, EgacType.GRADUATED));
-
-        generalReportsDtoWrapper.setTtiReports(tableDataFetcherService.fetchTTIReportTableData(EgacType.ENROLLED));
-        generalReportsDtoWrapper.getTtiReports().addAll(tableDataFetcherService.fetchTTIReportTableData(EgacType.GRADUATED));
-        generalReportsDtoWrapper.getTtiReports().addAll(tableDataFetcherService.fetchTTIReportTableData(EgacType.ASSESSED));
-        generalReportsDtoWrapper.getTtiReports().addAll(tableDataFetcherService.fetchTTIReportTableData(EgacType.CERTIFIED));
-
-        roPerModeReportWrapper.setRoPerModeT2Reports(tableDataFetcherService.fetchROPerModeTableData(ReportSourceType.T2MIS, EgacType.ENROLLED));
-        roPerModeReportWrapper.getRoPerModeT2Reports().addAll(tableDataFetcherService.fetchROPerModeTableData(ReportSourceType.T2MIS, EgacType.GRADUATED));
-
-        roPerModeReportWrapper.setRoPerModeGSReports(tableDataFetcherService.fetchROPerModeTableData(ReportSourceType.GS, EgacType.ENROLLED));
-        roPerModeReportWrapper.getRoPerModeGSReports().addAll(tableDataFetcherService.fetchROPerModeTableData(ReportSourceType.GS, EgacType.GRADUATED));
-
-        model.addAttribute("reports", generalReportsDtoWrapper);
-        model.addAttribute("certificationReports", certificationRateReportWrapper);
-        model.addAttribute("roPerModeReports", roPerModeReportWrapper);
+        model.addAttribute("reports", generalReportTableWrapper);
         addStatusCounterToModel(model);
 
         return "daily_reports/table_data";

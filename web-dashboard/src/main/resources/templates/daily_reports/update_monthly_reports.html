@@ -17,10 +17,10 @@
                 <div class="row h-100 align-items-center">
                     <div class="col-lg-12">
                         <h1 class="display-4 text-white mt-5 mb-2">Create New Monthly Reports</h1>
-                        <p class="lead mb-5 text-white-50">Create new monthly report by specifying month and target and output values.</p>
+                        <p class="lead mb-5 text-white-50">Create new monthly accomplishment report by specifying month, target and output values.</p>
                         <p class="lead mb-5 text-white">Note: Selecting month with already existing data will override the previously saved data.</p>
                         <div class="btn-group mr-2 float-right" role="group">
-                            <a th:href="@{/monthly}" class="a-header btn btn-info btn-lg" role="button" aria-pressed="true">Back to Monthly Reports</a>
+                            <a th:href="@{/dashboard/monthly}" class="a-header btn btn-info btn-lg" role="button" aria-pressed="true">Back to Monthly Reports</a>
                         </div>
                     </div>
                 </div>
@@ -31,12 +31,12 @@
                 <form id="monthlyReportForm" th:action="@{/monthlyReports/update}" th:object="${reports}" method="post">
                     <fieldset>
                         <div class="container mb-5">
-                            <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton" th:value="Update"><i class="fa fa-plus-circle" aria-hidden="true"></i> Create New Monthly Report</button>
+                            <button class="btn btn-primary btn-lg" type="submit" id="submitButton" th:value="Update"><i class="fa fa-plus-circle" aria-hidden="true"></i> Create New Monthly Report</button>
                         </div>
-                        <div class="container mt-5">
+                        <div class="container mb-5">
                             <div class="form-group row">
                                 <label for="month" class="col-sm-2 col-form-label">Select a Month</label>
-                                <div class="col-sm-4">
+                                <div class="col-sm-10">
                                     <select class="form-control selectpicker" th:field="*{month}" id="month">
                                         <option th:each="month : ${T(com.tesda8.region8.util.enums.Month).values()}"
                                                 th:value="${month}"
@@ -45,6 +45,9 @@
                                     </select>
                                 </div>
                             </div>
+                        </div>
+                        <div class="container">
+                            <hr class="border"/>
                         </div>
                         <div class="container">
                             <p class="lead mb-3 mt-5 text-black-50-50">Enrolled</p>

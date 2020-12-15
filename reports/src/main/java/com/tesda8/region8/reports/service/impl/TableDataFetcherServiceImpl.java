@@ -1,5 +1,10 @@
 package com.tesda8.region8.reports.service.impl;
 
+import com.google.common.collect.Lists;
+import com.tesda8.region8.reports.model.wrapper.GeneralReportDataRowEGWrapper;
+import com.tesda8.region8.reports.model.wrapper.GeneralReportDataRowWrapper;
+import com.tesda8.region8.reports.model.wrapper.RoPerModeDataRowWrapper;
+import com.tesda8.region8.reports.model.wrapper.TTIReportDataRowWrapper;
 import com.tesda8.region8.util.enums.TTIType;
 import com.tesda8.region8.util.service.ReportUtil;
 import com.tesda8.region8.reports.model.dto.CertificationRateReportDto;
@@ -20,6 +25,7 @@ import com.tesda8.region8.reports.service.TableDataFetcherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -114,5 +120,118 @@ public class TableDataFetcherServiceImpl implements TableDataFetcherService {
         total.getEgacDataDto().setRate(ReportUtil.calculateRate(total.getEgacDataDto().getTarget(), total.getEgacDataDto().getOutput()));
         ttiReports.add(total);
         return ttiReports;
+    }
+
+    @Override
+    public List<GeneralReportDataRowWrapper> fetchPOReports() {
+        List<GeneralReportDataRowWrapper> generalReportDataRowWrapperList = Lists.newArrayList();
+        List<GeneralReportDto> enrolledPo = fetchGeneralReportTableData(DailyReportType.PO_REPORT, ReportSourceType.T2MIS, EgacType.ENROLLED);
+        List<GeneralReportDto> graduatesPo = fetchGeneralReportTableData(DailyReportType.PO_REPORT, ReportSourceType.T2MIS, EgacType.GRADUATED);
+        List<GeneralReportDto> assessedPo = fetchGeneralReportTableData(DailyReportType.PO_REPORT, ReportSourceType.T2MIS, EgacType.ASSESSED);
+        List<GeneralReportDto> certifiedPo = fetchGeneralReportTableData(DailyReportType.PO_REPORT, ReportSourceType.T2MIS, EgacType.CERTIFIED);
+
+        Arrays.asList(OperatingUnitType.values()).forEach(
+                operatingUnitType -> {
+                    GeneralReportDataRowWrapper generalReportDataRowWrapper = new GeneralReportDataRowWrapper();
+                    generalReportDataRowWrapper.setOperatingUnitType(operatingUnitType);
+                    generalReportDataRowWrapper.setEnrolled(enrolledPo
+                            .stream()
+                            .filter(generalReportDto -> generalReportDto.getOperatingUnitType().equals(operatingUnitType))
+                            .findFirst().get());
+                    generalReportDataRowWrapper.setAssessed(assessedPo
+                            .stream()
+                            .filter(generalReportDto -> generalReportDto.getOperatingUnitType().equals(operatingUnitType))
+                            .findFirst().get());
+                    generalReportDataRowWrapper.setGraduates(graduatesPo
+                            .stream()
+                            .filter(generalReportDto -> generalReportDto.getOperatingUnitType().equals(operatingUnitType))
+                            .findFirst().get());
+                    generalReportDataRowWrapper.setCertified(certifiedPo
+                            .stream()
+                            .filter(generalReportDto -> generalReportDto.getOperatingUnitType().equals(operatingUnitType))
+                            .findFirst().get());
+                    generalReportDataRowWrapperList.add(generalReportDataRowWrapper);
+                }
+        );
+        return generalReportDataRowWrapperList;
+    }
+
+    @Override
+    public List<GeneralReportDataRowEGWrapper> fetchEGReports(DailyReportType dailyReportType, ReportSourceType reportSourceType) {
+        List<GeneralReportDataRowEGWrapper> generalReportDataRowEGWrapperList = Lists.newArrayList();
+        List<GeneralReportDto> enrolled = fetchGeneralReportTableData(dailyReportType, reportSourceType, EgacType.ENROLLED);
+        List<GeneralReportDto> graduates = fetchGeneralReportTableData(dailyReportType, reportSourceType, EgacType.GRADUATED);
+        Arrays.asList(OperatingUnitType.values()).forEach(
+                operatingUnitType -> {
+                    GeneralReportDataRowEGWrapper generalReportDataRowEGWrapper = new GeneralReportDataRowEGWrapper();
+                    generalReportDataRowEGWrapper.setOperatingUnitType(operatingUnitType);
+                    generalReportDataRowEGWrapper.setEnrolled(enrolled
+                            .stream()
+                            .filter(generalReportDto -> generalReportDto.getOperatingUnitType().equals(operatingUnitType))
+                            .findFirst().get());
+                    generalReportDataRowEGWrapper.setGraduates(graduates
+                            .stream()
+                            .filter(generalReportDto -> generalReportDto.getOperatingUnitType().equals(operatingUnitType))
+                            .findFirst().get());
+                    generalReportDataRowEGWrapperList.add(generalReportDataRowEGWrapper);
+                }
+        );
+        return generalReportDataRowEGWrapperList;
+    }
+
+    @Override
+    public List<RoPerModeDataRowWrapper> fetchRoPerModeReports(ReportSourceType reportSourceType) {
+        List<RoPerModeDataRowWrapper> roPerModeDataRowWrapperList = Lists.newArrayList();
+        List<ROPerModeReportDto> enrolled = fetchROPerModeTableData(reportSourceType, EgacType.ENROLLED);
+        List<ROPerModeReportDto> graduates = fetchROPerModeTableData(reportSourceType, EgacType.GRADUATED);
+        Arrays.asList(DeliveryMode.values()).forEach(
+                deliveryMode -> {
+                    RoPerModeDataRowWrapper roPerModeDataRowWrapper = new RoPerModeDataRowWrapper();
+                    roPerModeDataRowWrapper.setDeliveryMode(deliveryMode);
+                    roPerModeDataRowWrapper.setEnrolled(enrolled
+                            .stream()
+                            .filter(roPerModeReportDto -> roPerModeReportDto.getDeliveryMode().equals(deliveryMode))
+                            .findAny().get());
+                    roPerModeDataRowWrapper.setGraduates(graduates
+                            .stream()
+                            .filter(roPerModeReportDto -> roPerModeReportDto.getDeliveryMode().equals(deliveryMode))
+                            .findAny().get());
+                    roPerModeDataRowWrapperList.add(roPerModeDataRowWrapper);
+                }
+        );
+        return roPerModeDataRowWrapperList;
+    }
+
+    @Override
+    public List<TTIReportDataRowWrapper> fetchTTIReports() {
+        List<TTIReportDataRowWrapper> ttiReportDataRowWrapperList = Lists.newArrayList();
+        List<TTIReportDto> enrolled = fetchTTIReportTableData(EgacType.ENROLLED);
+        List<TTIReportDto> graduates = fetchTTIReportTableData(EgacType.GRADUATED);
+        List<TTIReportDto> assessed = fetchTTIReportTableData(EgacType.ASSESSED);
+        List<TTIReportDto> certified = fetchTTIReportTableData(EgacType.CERTIFIED);
+        Arrays.asList(TTIType.values()).forEach(
+                ttiType -> {
+                    TTIReportDataRowWrapper ttiReportDataRowWrapper = new TTIReportDataRowWrapper();
+                    ttiReportDataRowWrapper.setTtiType(ttiType);
+                    ttiReportDataRowWrapper.setEnrolled(enrolled
+                            .stream()
+                            .filter(ttiReportDto -> ttiReportDto.getTtiType().equals(ttiType))
+                            .findAny().get());
+                    ttiReportDataRowWrapper.setGraduates(graduates
+                            .stream()
+                            .filter(ttiReportDto -> ttiReportDto.getTtiType().equals(ttiType))
+                            .findAny().get());
+                    ttiReportDataRowWrapper.setAssessed(assessed
+                            .stream()
+                            .filter(ttiReportDto -> ttiReportDto.getTtiType().equals(ttiType))
+                            .findAny().get());
+                    ttiReportDataRowWrapper.setCertified(certified
+                            .stream()
+                            .filter(ttiReportDto -> ttiReportDto.getTtiType().equals(ttiType))
+                            .findAny().get());
+                    ttiReportDataRowWrapperList.add(ttiReportDataRowWrapper);
+                }
+        );
+        return ttiReportDataRowWrapperList;
     }
 }

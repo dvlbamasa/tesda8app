@@ -60,7 +60,9 @@ public class RegisteredProgramServiceImpl implements RegisteredProgramService {
     public List<RegisteredProgramDto> getAllRegisteredProgramsByCourseSectorAndInstitutionClassification(Sector sector, InstitutionClassification institutionClassification) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
-        booleanBuilder.and(QRegisteredProgram.registeredProgram.sector.eq(sector));
+        if (sector != Sector.ALL) {
+            booleanBuilder.and(QRegisteredProgram.registeredProgram.sector.eq(sector));
+        }
         booleanBuilder.and(QRegisteredProgram.registeredProgram.isClosed.eq(false));
         booleanBuilder.and(QRegisteredProgram.registeredProgram.isDeleted.eq(false));
         booleanBuilder.and(QRegisteredProgram.registeredProgram.courseStatus.ne(CourseStatus.BUNDLED_PROGRAM));

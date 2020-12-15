@@ -196,6 +196,10 @@ tbody:hover td[rowspan], tr:hover td {
     font-weight: bold;
 }
 
+.first-col {
+    font-weight: bold;
+}
+
 .col-striped {
     background-color: #ffffad;
 }

@@ -33,19 +33,19 @@ public class HomeController extends DefaultController{
         return "home";
     }
 
-    @GetMapping("/dashboard")
+    @GetMapping("/dashboard/daily")
     public String daily(Model model) {
         addStatusCounterToModel(model);
         DailyReportInfo dailyReportInfo = dailyReportInfoService.getLatestDailyReportInfo();
         model.addAttribute("dailyReportInfo", dailyReportInfo.getUpdatedDate().plusHours(8));
         model.addAttribute("dateTimeNow", LocalDateTime.now().plusHours(8));
-        return "daily_reports/dashboard";
+        return "dashboard/daily_reports";
     }
 
-    @GetMapping("/monthly")
+    @GetMapping("/dashboard/monthly")
     public String monthly(Model model) {
         addStatusCounterToModel(model);
-        return "daily_reports/monthly_reports";
+        return "dashboard/monthly_reports";
     }
 
     @GetMapping("/certification")
