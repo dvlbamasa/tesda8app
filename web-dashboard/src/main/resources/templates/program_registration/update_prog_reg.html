@@ -31,9 +31,6 @@
                 <form id="updateProgRegForm" th:action="@{/program_registration/registeredProgram/update/save}" th:object="${registeredProgram}" method="post">
                     <fieldset>
                         <div class="container">
-                            <div class="btn-group float-right" role="group">
-                                <a th:href="@{/program_registration/registeredProgram/{id}/delete(id=${registeredProgram.id})}" id="deleteButton"><button class="btn-lg btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete Registered Program</button></a>
-                            </div>
                             <h1 class="display-5 text-black-50 mb-5">Update Registered Program</h1>
                             <input type="hidden" th:field="*{id}"/>
                             <input type="hidden" th:field="*{isDeleted}"/>
@@ -184,7 +181,8 @@
                         </div>
                         <div class="container mt-5">
                             <div class="btn-group" role="group">
-                                <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button>
+                                <button class="btn btn-primary btn-lg flo1at-right" type="submit" id="submitButton" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button>
+                                <a th:href="@{/program_registration/registeredProgram/{id}/delete(id=${registeredProgram.id})}" id="deleteButton"><button class="btn-lg btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete Registered Program</button></a>
                             </div>
                         </div>
                     </fieldset>

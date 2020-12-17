@@ -32,9 +32,6 @@
                 <form id="updateInstitutionForm" th:action="@{/program_registration/institution/update/save}" th:object="${institution}" method="post">
                     <fieldset>
                         <div class="container">
-                            <div class="btn-group float-right" role="group">
-                                <a th:href="@{/program_registration/institution/{id}/delete(id=${institution.id})}" id="deleteButton"><button class="btn-lg btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete Institution</button></a>
-                            </div>
                             <h1 class="display-5 text-black-50 mb-5">Update Institution</h1>
                             <input type="hidden" th:field="*{id}"/>
                             <div class="form-group row">
@@ -123,6 +120,7 @@
                         <div class="container mt-5">
                             <div class="btn-group" role="group">
                                 <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button>
+                                <a th:href="@{/program_registration/institution/{id}/delete(id=${institution.id})}" id="deleteButton"><button class="btn-lg btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete Institution</button></a>
                             </div>
                         </div>
                     </fieldset>
