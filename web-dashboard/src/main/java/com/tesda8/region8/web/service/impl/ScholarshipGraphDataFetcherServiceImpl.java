@@ -55,7 +55,7 @@ public class ScholarshipGraphDataFetcherServiceImpl implements ScholarshipGraphD
 
     @Override
     public GraphDataList fetchMonthlyGraphDataList(Long year, EgacType egacType, OperatingUnitType operatingUnitType, ScholarshipType scholarshipType) throws ServiceNotFoundException {
-        GraphDataList graphDataList = new GraphDataList().initialize();
+        GraphDataList graphDataList = new GraphDataList().build();
         graphDataList.getTargetData().setDataPoints(fetchDataPoints(DataPointType.TARGET, egacType, year, operatingUnitType, scholarshipType));
         graphDataList.getOutputData().setDataPoints(fetchDataPoints(DataPointType.OUTPUT, egacType, year, operatingUnitType, scholarshipType));
         graphDataList.getRateData().setDataPoints(fetchDataPoints(DataPointType.RATE, egacType, year, operatingUnitType, scholarshipType));

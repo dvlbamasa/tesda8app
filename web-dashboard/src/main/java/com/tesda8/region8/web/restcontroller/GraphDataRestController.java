@@ -61,24 +61,24 @@ public class GraphDataRestController {
         return graphDataFetcherService.fetchCertificationRateDataList();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/roPerMode/{egacType}/egacType/{reportSourceType}/reportSource")
+    @RequestMapping(method = RequestMethod.GET, value = "/roPerMode")
     @ResponseBody
-    public GraphDataList fetchROPerModeDataList(@PathVariable("egacType")EgacType egacType,
-                                                @PathVariable("reportSourceType")ReportSourceType reportSourceType) {
+    public GraphDataList fetchROPerModeDataList(@RequestParam("egacType")EgacType egacType,
+                                                @RequestParam("reportSourceType")ReportSourceType reportSourceType) {
         return graphDataFetcherService.fetchROPerModeReportsDataList(egacType, reportSourceType);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/generalReport/{egacType}/egacType/{reportSourceType}/reportSource/{dailyReportType}/reportType")
+    @RequestMapping(method = RequestMethod.GET, value = "/generalReport")
     @ResponseBody
-    public GraphDataList fetchGeneralDataList(@PathVariable("egacType")EgacType egacType,
-                                                    @PathVariable("reportSourceType")ReportSourceType reportSourceType,
-                                                    @PathVariable("dailyReportType")DailyReportType dailyReportType) {
+    public GraphDataList fetchGeneralDataList(@RequestParam("egacType")EgacType egacType,
+                                                    @RequestParam("reportSourceType")ReportSourceType reportSourceType,
+                                                    @RequestParam("dailyReportType")DailyReportType dailyReportType) {
         return graphDataFetcherService.fetchGeneralDataList(egacType, reportSourceType, dailyReportType);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/ttiReport/{egacType}/egacType")
+    @RequestMapping(method = RequestMethod.GET, value = "/ttiReport")
     @ResponseBody
-    public GraphDataList fetchTTIReportDataList(@PathVariable("egacType") EgacType egacType) {
+    public GraphDataList fetchTTIReportDataList(@RequestParam("egacType") EgacType egacType) {
         return graphDataFetcherService.fetchTTIReportDataList(egacType);
     }
 

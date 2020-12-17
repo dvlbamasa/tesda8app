@@ -11,8 +11,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
 @Configuration
@@ -39,11 +37,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser("rd")
                 .password(passwordEncoder().encode("tesda8"))
-                .roles("USER", "ADMIN", "CERTIFICATION")
+                .roles("ADMIN")
                 .and()
-                .withUser("ro_officer")
+                .withUser("rod_chief")
                 .password(passwordEncoder().encode("tesda8"))
-                .roles("USER", "ADMIN", "CERTIFICATION")
+                .roles("ADMIN")
                 .and()
                 .withUser("payroll")
                 .password(passwordEncoder().encode("tesda8"))

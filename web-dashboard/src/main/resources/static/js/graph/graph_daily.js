@@ -1,90 +1,178 @@
 window.onload = function () {
     // PO ENROLLED GRAPH
-    generateGraph("/api/graph/generalReport/ENROLLED/egacType/T2MIS/reportSource/PO_REPORT/reportType",
+    var requestParameters = {
+        egacType: 'ENROLLED',
+        reportSourceType: 'T2MIS',
+        dailyReportType: 'PO_REPORT'
+    }
+    generateGraph("/api/graph/generalReport", requestParameters,
         "poEnrolledGraph", "Enrolled per PO", "Target", "Output");
 
     // PO GRADUATED GRAPH
-    generateGraph("/api/graph/generalReport/GRADUATED/egacType/T2MIS/reportSource/PO_REPORT/reportType",
+    requestParameters = {
+        egacType: 'GRADUATED',
+        reportSourceType: 'T2MIS',
+        dailyReportType: 'PO_REPORT'
+    }
+    generateGraph("/api/graph/generalReport", requestParameters,
         "poGraduatedGraph", "Graduated per PO", "Target", "Output");
 
     // PO ASSESSED GRAPH
-    generateGraph("/api/graph/generalReport/ASSESSED/egacType/T2MIS/reportSource/PO_REPORT/reportType",
+    requestParameters = {
+        egacType: 'ASSESSED',
+        reportSourceType: 'T2MIS',
+        dailyReportType: 'PO_REPORT'
+    }
+    generateGraph("/api/graph/generalReport", requestParameters,
         "poAssessedGraph", "Assessed per PO", "Target", "Output");
 
     // PO CERTIFIED GRAPH
-    generateGraph("/api/graph/generalReport/CERTIFIED/egacType/T2MIS/reportSource/PO_REPORT/reportType",
+    requestParameters = {
+        egacType: 'CERTIFIED',
+        reportSourceType: 'T2MIS',
+        dailyReportType: 'PO_REPORT'
+    }
+    generateGraph("/api/graph/generalReport", requestParameters,
         "poCertifiedGraph", "Certified per PO", "Target", "Output");
 
     // CERTIFICATION RATE GRAPH
-    generateGraph("/api/graph/certificationRate",
+    generateGraph("/api/graph/certificationRate", null,
         "certificationRateGraph", "Certification Rate per PO", "Assessed", "Certified");
 
     // RO PER MODE ENROLLED T2 GRAPH
-    generateGraph("/api/graph/roPerMode/ENROLLED/egacType/T2MIS/reportSource",
+    requestParameters = {
+        egacType: 'ENROLLED',
+        reportSourceType: 'T2MIS'
+    }
+    generateGraph("/api/graph/roPerMode", requestParameters,
         "roEnrolledT2Graph", "All Delivery (Enrolled) With EBT (T2MIS)", "Target", "Output");
 
     // RO PER MODE ENROLLED GS GRAPH
-    generateGraph("/api/graph/roPerMode/ENROLLED/egacType/GS/reportSource",
+    requestParameters = {
+        egacType: 'ENROLLED',
+        reportSourceType: 'GS'
+    }
+    generateGraph("/api/graph/roPerMode", requestParameters,
         "roEnrolledGSGraph", "All Delivery (Enrolled) With EBT (Google Sheet)", "Target", "Output");
 
     // RO PER MODE GRADUATED T2 GRAPH
-    generateGraph("/api/graph/roPerMode/GRADUATED/egacType/T2MIS/reportSource",
+    requestParameters = {
+        egacType: 'GRADUATED',
+        reportSourceType: 'T2MIS'
+    }
+    generateGraph("/api/graph/roPerMode", requestParameters,
         "roGraduatedT2Graph", "All Delivery (Graduates) With EBT (T2MIS)", "Target", "Output");
 
     // RO PER MODE GRADUATED GS GRAPH
-    generateGraph("/api/graph/roPerMode/GRADUATED/egacType/GS/reportSource",
+    requestParameters = {
+        egacType: 'GRADUATED',
+        reportSourceType: 'GS'
+    }
+    generateGraph("/api/graph/roPerMode", requestParameters,
         "roGraduatedGSGraph", "All Delivery (Graduates) With EBT (Google Sheet)", "Target", "Output");
 
     // INSTITUTION BASED ENROLLED
-    generateGraph("/api/graph/generalReport/ENROLLED/egacType/T2MIS/reportSource/INSTITUTION_BASED_REPORT/reportType",
+    requestParameters = {
+        egacType: 'ENROLLED',
+        reportSourceType: 'T2MIS',
+        dailyReportType: 'INSTITUTION_BASED_REPORT'
+    }
+    generateGraph("/api/graph/generalReport", requestParameters,
         "institutionEnrolledGraph", "Institution-Based (Enrolled)", "Target", "Output");
 
     // INSTITUTION BASED GRADUATED
-    generateGraph("/api/graph/generalReport/GRADUATED/egacType/T2MIS/reportSource/INSTITUTION_BASED_REPORT/reportType",
+    requestParameters = {
+        egacType: 'GRADUATED',
+        reportSourceType: 'T2MIS',
+        dailyReportType: 'INSTITUTION_BASED_REPORT'
+    }
+    generateGraph("/api/graph/generalReport", requestParameters,
         "institutionGraduatedGraph", "Institution-Based (Graduates)", "Target", "Output");
 
     // ENTERPRISE BASED ENROLLED T2
-    generateGraph("/api/graph/generalReport/ENROLLED/egacType/T2MIS/reportSource/ENTERPRISE_BASED_REPORT/reportType",
+    requestParameters = {
+        egacType: 'ENROLLED',
+        reportSourceType: 'T2MIS',
+        dailyReportType: 'ENTERPRISE_BASED_REPORT'
+    }
+    generateGraph("/api/graph/generalReport", requestParameters,
         "enterpriseEnrolledT2Graph", "Enterprise-Based (Enrolled) T2MIS", "Target", "Output");
 
     // ENTERPRISE BASED GRADUATED T2
-    generateGraph("/api/graph/generalReport/GRADUATED/egacType/T2MIS/reportSource/ENTERPRISE_BASED_REPORT/reportType",
+    requestParameters = {
+        egacType: 'GRADUATED',
+        reportSourceType: 'T2MIS',
+        dailyReportType: 'ENTERPRISE_BASED_REPORT'
+    }
+    generateGraph("/api/graph/generalReport", requestParameters,
         "enterpriseGraduatedT2Graph", "Enterprise-Based (Graduates) T2MIS", "Target", "Output");
 
     // ENTERPRISE BASED ENROLLED GS
-    generateGraph("/api/graph/generalReport/ENROLLED/egacType/GS/reportSource/ENTERPRISE_BASED_REPORT/reportType",
+    requestParameters = {
+        egacType: 'ENROLLED',
+        reportSourceType: 'GS',
+        dailyReportType: 'ENTERPRISE_BASED_REPORT'
+    }
+    generateGraph("/api/graph/generalReport", requestParameters,
         "enterpriseEnrolledGSGraph", "Enterprise-Based (Enrolled) Google Sheet", "Target", "Output");
 
     // ENTERPRISE BASED GRADUATED GS
-    generateGraph("/api/graph/generalReport/GRADUATED/egacType/GS/reportSource/ENTERPRISE_BASED_REPORT/reportType",
+    requestParameters = {
+        egacType: 'GRADUATED',
+        reportSourceType: 'GS',
+        dailyReportType: 'ENTERPRISE_BASED_REPORT'
+    }
+    generateGraph("/api/graph/generalReport", requestParameters,
         "enterpriseGraduatedGSGraph", "Enterprise-Based (Graduates) Google Sheet", "Target", "Output");
 
     // COMMUNITY BASED ENROLLED
-    generateGraph("/api/graph/generalReport/ENROLLED/egacType/T2MIS/reportSource/COMMUNITY_BASED_REPORT/reportType",
+    requestParameters = {
+        egacType: 'ENROLLED',
+        reportSourceType: 'T2MIS',
+        dailyReportType: 'COMMUNITY_BASED_REPORT'
+    }
+    generateGraph("/api/graph/generalReport", requestParameters,
         "communityEnrolledGraph", "Community-Based (Enrolled)", "Target", "Output");
 
     // COMMUNITY BASED GRADUATED
-    generateGraph("/api/graph/generalReport/GRADUATED/egacType/T2MIS/reportSource/COMMUNITY_BASED_REPORT/reportType",
+    requestParameters = {
+        egacType: 'GRADUATED',
+        reportSourceType: 'T2MIS',
+        dailyReportType: 'COMMUNITY_BASED_REPORT'
+    }
+    generateGraph("/api/graph/generalReport", requestParameters,
         "communityGraduatedGraph", "Community-Based (Graduates)", "Target", "Output");
 
     // TTI ENROLLED GRAPH
-    generateGraph("/api/graph/ttiReport/ENROLLED/egacType",
+    requestParameters = {
+        egacType: 'ENROLLED'
+    }
+    generateGraph("/api/graph/ttiReport", requestParameters,
         "ttiEnrolledGraph", "Enrolled per TTI", "Target", "Output");
 
     // TTI GRADUATED GRAPH
-    generateGraph("/api/graph/ttiReport/GRADUATED/egacType",
+    requestParameters = {
+        egacType: 'GRADUATED'
+    }
+    generateGraph("/api/graph/ttiReport", requestParameters,
         "ttiGraduatedGraph", "Graduated per TTI", "Target", "Output");
 
     // TTI ASSESSED GRAPH
-    generateGraph("/api/graph/ttiReport/ASSESSED/egacType",
+    requestParameters = {
+        egacType: 'ASSESSED'
+    }
+    generateGraph("/api/graph/ttiReport", requestParameters,
         "ttiAssessedGraph", "Assessed per TTI", "Target", "Output");
 
     // TTI CERTIFIED GRAPH
-    generateGraph("/api/graph/ttiReport/CERTIFIED/egacType",
+    requestParameters = {
+        egacType: 'CERTIFIED'
+    }
+    generateGraph("/api/graph/ttiReport", requestParameters,
         "ttiCertifiedGraph", "Certified per TTI", "Target", "Output");
 }
 
-function generateGraph(urlTarget, chartName, title, legend1, legend2) {
+function generateGraph(urlTarget, requestParameters, chartName, title, legend1, legend2) {
     var dataPointsTarget = [];
     var dataPointsOutput = [];
     var dataPointsRate = [];
@@ -134,7 +222,7 @@ function generateGraph(urlTarget, chartName, title, legend1, legend2) {
         }
         ]
     });
-    $.getJSON(urlTarget, function(data) {
+    $.getJSON(urlTarget, requestParameters, function(data) {
         var targetData = data.targetData;
         for (var i = 0; i < targetData.dataPoints.length; i++) {
             dataPointsTarget.push({

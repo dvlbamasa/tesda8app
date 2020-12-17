@@ -9,7 +9,7 @@ public class GraphDataList {
     private GraphData outputData;
     private GraphData rateData;
 
-    public GraphDataList initialize() {
+    public GraphDataList build() {
         GraphDataList graphDataList = new GraphDataList();
         graphDataList.setRateData(new GraphData());
         graphDataList.setTargetData(new GraphData());

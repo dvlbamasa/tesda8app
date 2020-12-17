@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.tesda8.region8.util.model.DataPoints;
 import com.tesda8.region8.util.service.ReportUtil;
 import com.tesda8.region8.reports.model.dto.TTIReportDto;
-import com.tesda8.region8.web.model.dto.graph.GraphData;
 import com.tesda8.region8.web.model.dto.graph.GraphDataList;
 import com.tesda8.region8.reports.model.dto.CertificationRateReportDto;
 import com.tesda8.region8.reports.model.dto.GeneralReportDto;
@@ -251,7 +250,7 @@ public class GraphDataFetcherServiceImpl implements GraphDataFetcherService {
 
     @Override
     public GraphDataList fetchGeneralDataList(EgacType egacType, ReportSourceType reportSourceType, DailyReportType dailyReportType) {
-        GraphDataList graphDataList = new GraphDataList().initialize();
+        GraphDataList graphDataList = new GraphDataList().build();
         graphDataList.getTargetData().setDataPoints(fetchGeneralReportsData(DataPointType.TARGET, egacType,reportSourceType,dailyReportType));
         graphDataList.getOutputData().setDataPoints(fetchGeneralReportsData(DataPointType.OUTPUT, egacType,reportSourceType,dailyReportType));
         graphDataList.getRateData().setDataPoints(fetchGeneralReportsData(DataPointType.RATE, egacType,reportSourceType,dailyReportType));
@@ -260,7 +259,7 @@ public class GraphDataFetcherServiceImpl implements GraphDataFetcherService {
 
     @Override
     public GraphDataList fetchCertificationRateDataList() {
-        GraphDataList graphDataList = new GraphDataList().initialize();
+        GraphDataList graphDataList = new GraphDataList().build();
         graphDataList.getTargetData().setDataPoints(fetchCertificationRateData(DataPointType.ASSESSED));
         graphDataList.getOutputData().setDataPoints(fetchCertificationRateData(DataPointType.CERTIFIED));
         graphDataList.getRateData().setDataPoints(fetchCertificationRateData(DataPointType.RATE));
@@ -269,7 +268,7 @@ public class GraphDataFetcherServiceImpl implements GraphDataFetcherService {
 
     @Override
     public GraphDataList fetchTTIReportDataList(EgacType egacType) {
-        GraphDataList graphDataList = new GraphDataList().initialize();
+        GraphDataList graphDataList = new GraphDataList().build();
         graphDataList.getTargetData().setDataPoints(fetchTTIReportsData(DataPointType.TARGET, egacType));
         graphDataList.getOutputData().setDataPoints(fetchTTIReportsData(DataPointType.OUTPUT, egacType));
         graphDataList.getRateData().setDataPoints(fetchTTIReportsData(DataPointType.RATE, egacType));
@@ -279,7 +278,7 @@ public class GraphDataFetcherServiceImpl implements GraphDataFetcherService {
 
     @Override
     public GraphDataList fetchROPerModeReportsDataList(EgacType egacType, ReportSourceType reportSourceType) {
-        GraphDataList graphDataList = new GraphDataList().initialize();
+        GraphDataList graphDataList = new GraphDataList().build();
         graphDataList.getTargetData().setDataPoints(fetchROPerModeReportsData(DataPointType.TARGET, egacType, reportSourceType));
         graphDataList.getOutputData().setDataPoints(fetchROPerModeReportsData(DataPointType.OUTPUT, egacType, reportSourceType));
         graphDataList.getRateData().setDataPoints(fetchROPerModeReportsData(DataPointType.RATE, egacType, reportSourceType));
@@ -288,7 +287,7 @@ public class GraphDataFetcherServiceImpl implements GraphDataFetcherService {
 
     @Override
     public GraphDataList fetchMonthlyReportDataList(EgacType egacType, OperatingUnitType operatingUnitType) {
-        GraphDataList graphDataList = new GraphDataList().initialize();
+        GraphDataList graphDataList = new GraphDataList().build();
         graphDataList.getTargetData().setDataPoints(fetchMonthlyReportsData(DataPointType.TARGET, operatingUnitType, egacType));
         graphDataList.getOutputData().setDataPoints(fetchMonthlyReportsData(DataPointType.OUTPUT, operatingUnitType, egacType));
         graphDataList.getRateData().setDataPoints(fetchMonthlyReportsData(DataPointType.RATE, operatingUnitType, egacType));

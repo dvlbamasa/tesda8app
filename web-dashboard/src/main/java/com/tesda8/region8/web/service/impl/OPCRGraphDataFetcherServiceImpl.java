@@ -24,7 +24,7 @@ public class OPCRGraphDataFetcherServiceImpl implements OPCRGraphDataFetcherServ
 
     @Override
     public GraphDataList fetchOPCRDataList(Long successIndicatorId) {
-        GraphDataList graphDataList = new GraphDataList().initialize();
+        GraphDataList graphDataList = new GraphDataList().build();
         graphDataList.getTargetData().setDataPoints(fetchDataPoints(DataPointType.TARGET, successIndicatorId));
         graphDataList.getOutputData().setDataPoints(fetchDataPoints(DataPointType.OUTPUT, successIndicatorId));
         graphDataList.getRateData().setDataPoints(fetchDataPoints(DataPointType.RATE, successIndicatorId));
