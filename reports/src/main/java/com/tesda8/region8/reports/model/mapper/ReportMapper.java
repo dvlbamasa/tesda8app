@@ -1,5 +1,6 @@
 package com.tesda8.region8.reports.model.mapper;
 
+import com.tesda8.region8.audit.model.entities.AuditLog;
 import com.tesda8.region8.reports.model.dto.TTIReportDto;
 import com.tesda8.region8.reports.model.entities.CertificationRateReport;
 import com.tesda8.region8.reports.model.entities.EgacData;
@@ -16,6 +17,7 @@ import com.tesda8.region8.reports.model.dto.ROPerModeReportDto;
 import com.tesda8.region8.reports.model.entities.TTIReport;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
@@ -53,4 +55,52 @@ public interface ReportMapper {
     @Mapping(source = "generalReportDto.egacDataDto", target = "egacDataDto")
     MonthlyReportDto generalReportToMonthlyDto(GeneralReportDto generalReportDto);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "reportSourceType", ignore = true)
+    @Mapping(target = "dailyReportType", ignore = true)
+    @Mapping(target = "operatingUnitType", ignore = true)
+    @Mapping(target = "generalReport.egacData.egacType", ignore = true)
+    @Mapping(source = "generalReportDto.egacDataDto", target = "generalReport.egacData")
+    public abstract GeneralReport updatedGeneralReport(GeneralReportDto generalReportDto,
+                                                       @MappingTarget GeneralReport generalReport);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "operatingUnitType", ignore = true)
+    public abstract CertificationRateReport updatedCertificationRate(CertificationRateReportDto certificationRateReportDto,
+                                                                    @MappingTarget CertificationRateReport certificationRateReport);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "reportSourceType", ignore = true)
+    @Mapping(target = "deliveryMode", ignore = true)
+    @Mapping(source = "roPerModeReportDto.egacDataDto", target = "roPerModeReport.egacData")
+    @Mapping(target = "roPerModeReport.egacData.egacType", ignore = true)
+    public abstract ROPerModeReport updatedROPerMode(ROPerModeReportDto roPerModeReportDto,
+                                                     @MappingTarget ROPerModeReport roPerModeReport);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "ttiType", ignore = true)
+    @Mapping(target = "reportSourceType", ignore = true)
+    @Mapping(source = "ttiReportDto.egacDataDto", target = "ttiReport.egacData")
+    @Mapping(target = "ttiReport.egacData.egacType", ignore = true)
+    public abstract TTIReport updatedTTIReport(TTIReportDto ttiReportDto,
+                                               @MappingTarget TTIReport ttiReport);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "generalReport.id", target = "entityId")
+    AuditLog generalReportToAudit(GeneralReport generalReport);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "roPerModeReport.id", target = "entityId")
+    AuditLog roPerModeReportToAudit(ROPerModeReport roPerModeReport);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "certificationRateReport.id", target = "entityId")
+    AuditLog certificationRateReportToAudit(CertificationRateReport certificationRateReport);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "ttiReport.id", target = "entityId")
+    AuditLog ttiReportReportToAudit(TTIReport ttiReport);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "monthlyReport.id", target = "entityId")
+    AuditLog monthlyReportToAudit(MonthlyReport monthlyReport);
 }

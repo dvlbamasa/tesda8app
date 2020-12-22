@@ -13,10 +13,6 @@ import java.util.Date;
 public class MonthlyReportDto {
 
     private long id;
-    private Date createdDate;
-    private Date updatedDate;
-    private String createdBy;
-    private String updatedBy;
     @Enumerated(EnumType.STRING)
     private Month month;
     private int year;

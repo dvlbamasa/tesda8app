@@ -2,6 +2,8 @@ package com.tesda8.region8.program.registration.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.tesda8.region8.program.registration.service.audit.listener.NonTeachingStaffAuditListener;
+import com.tesda8.region8.program.registration.service.audit.listener.RegisteredProgramAuditListener;
 import com.tesda8.region8.util.enums.CourseStatus;
 import com.tesda8.region8.util.enums.Sector;
 import com.tesda8.region8.util.model.Auditable;
@@ -12,6 +14,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
@@ -23,6 +26,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Entity
+@EntityListeners(RegisteredProgramAuditListener.class)
 public class RegisteredProgram extends Auditable<String> {
 
     private String name;

@@ -64,11 +64,9 @@ public class TTIReportServiceImpl implements TTIReportService {
     }
 
     private void mapAndSaveTTIReport(TTIReport ttiReport, TTIReportDto ttiReportDto) {
-        ttiReport.getEgacData().setOutput(ttiReportDto.getEgacDataDto().getOutput());
-        ttiReport.getEgacData().setTarget(ttiReportDto.getEgacDataDto().getTarget());
+        reportMapper.updatedTTIReport(ttiReportDto, ttiReport);
         ttiReport.getEgacData().setRate(ReportUtil.calculateRate(ttiReportDto.getEgacDataDto().getTarget(),
                 ttiReportDto.getEgacDataDto().getOutput()));
-        ttiReport.setUpdatedDate(LocalDateTime.now());
         ttiReportRepository.save(ttiReport);
     }
 }

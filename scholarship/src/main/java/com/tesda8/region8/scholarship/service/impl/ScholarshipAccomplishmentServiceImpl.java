@@ -124,7 +124,6 @@ public class ScholarshipAccomplishmentServiceImpl implements ScholarshipAccompli
     @Override
     @Transactional
     public void updateScholarshipAccomplishment(ScholarshipWrapper scholarshipWrapper) {
-        logger.info("month: {}, year: {}", scholarshipWrapper.getMonth(), scholarshipWrapper.getYear());
         createScholarshipAccomplishment(ScholarshipType.TWSP, scholarshipWrapper.getTwspData(), scholarshipWrapper.getMonth(), scholarshipWrapper.getYear());
         createScholarshipAccomplishment(ScholarshipType.PESFA, scholarshipWrapper.getPesfaData(), scholarshipWrapper.getMonth(), scholarshipWrapper.getYear());
         createScholarshipAccomplishment(ScholarshipType.STEP, scholarshipWrapper.getStepData(), scholarshipWrapper.getMonth(), scholarshipWrapper.getYear());

@@ -48,7 +48,6 @@ public class MonthlyReportServiceImpl implements MonthlyReportService {
         // delete previous data
         deleteMonthlyReport(month, year);
 
-
         Arrays.asList(OperatingUnitType.values()).forEach(
             operatingUnitType -> {
                 if (!operatingUnitType.equals(OperatingUnitType.TOTAL)) {
@@ -56,16 +55,9 @@ public class MonthlyReportServiceImpl implements MonthlyReportService {
                             .stream()
                             .filter(generalReportDto -> generalReportDto.getOperatingUnitType().equals(operatingUnitType))
                             .map( generalReportDto -> reportMapper.generalReportToMonthlyDto(generalReportDto))
+                            .map( monthlyReportDto -> updateValues(month, year, monthlyReportDto))
                             .collect(Collectors.toList());
 
-                    newMonthlyReport.forEach(
-                            monthlyReportDto -> {
-                                monthlyReportDto.setYear(year);
-                                monthlyReportDto.setMonth(month);
-                                monthlyReportDto.getEgacDataDto().setRate(ReportUtil.calculateRate(monthlyReportDto.getEgacDataDto().getTarget(),
-                                        monthlyReportDto.getEgacDataDto().getOutput()));
-                            }
-                    );
                     List<MonthlyReport> finalMonthlyReports = newMonthlyReport
                             .stream()
                             .map(monthlyReportDto -> reportMapper.monthlyReportToEntity(monthlyReportDto))
@@ -124,6 +116,14 @@ public class MonthlyReportServiceImpl implements MonthlyReportService {
         });
         operatingUnit.getMonthlyReports().addAll(monthlyReportList);
         operatingUnitRepository.save(operatingUnit);
+    }
+
+    private MonthlyReportDto updateValues(Month month, int year, MonthlyReportDto monthlyReportDto) {
+        monthlyReportDto.setYear(year);
+        monthlyReportDto.setMonth(month);
+        monthlyReportDto.getEgacDataDto().setRate(ReportUtil.calculateRate(monthlyReportDto.getEgacDataDto().getTarget(),
+                monthlyReportDto.getEgacDataDto().getOutput()));
+        return monthlyReportDto;
     }
 
     @Override

@@ -10,6 +10,7 @@
         <module>program-registration</module>
         <module>reports</module>
         <module>scholarship</module>
+        <module>audit</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

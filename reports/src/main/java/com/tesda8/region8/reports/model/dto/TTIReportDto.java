@@ -12,10 +12,6 @@ import java.util.Date;
 public class TTIReportDto {
 
     private long id;
-    private Date createdDate;
-    private Date updatedDate;
-    private String createdBy;
-    private String updatedBy;
     private TTIType ttiType;
     private ReportSourceType reportSourceType;
     private EgacDataDto egacDataDto;

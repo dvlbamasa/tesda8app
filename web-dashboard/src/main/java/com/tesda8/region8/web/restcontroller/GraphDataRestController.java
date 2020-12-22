@@ -12,7 +12,6 @@ import com.tesda8.region8.web.service.GraphDataFetcherService;
 import com.tesda8.region8.web.service.OPCRGraphDataFetcherService;
 import com.tesda8.region8.web.service.ScholarshipGraphDataFetcherService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

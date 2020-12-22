@@ -3,7 +3,6 @@ package com.tesda8.region8.reports.service.impl;
 import com.tesda8.region8.util.service.ReportUtil;
 import com.tesda8.region8.reports.model.dto.GeneralReportDto;
 import com.tesda8.region8.reports.model.entities.DailyReportInfo;
-import com.tesda8.region8.reports.model.entities.EgacData;
 import com.tesda8.region8.reports.model.entities.GeneralReport;
 import com.tesda8.region8.util.enums.DailyReportType;
 import com.tesda8.region8.util.enums.EgacType;
@@ -91,14 +90,9 @@ public class GeneralReportServiceImpl implements GeneralReportService {
         generalReports.forEach(
                 generalReportDto -> {
                     generalReportRepository.findById(generalReportDto.getId())
-                            .ifPresent(generalReport -> mapAndSaveGeneralReport(generalReportDto, generalReport));
+                            .ifPresent(generalReport -> updateAndSave(generalReportDto, generalReport));
                 }
         );
-
-        boolean checkIfPoReport =
-                generalReports.stream()
-                        .anyMatch(generalReportDto ->
-                                generalReportDto.getDailyReportType().equals(DailyReportType.PO_REPORT));
 
         DailyReportInfo dailyReportInfo = new DailyReportInfo();
         dailyReportInfo.setUpdatedDate(LocalDateTime.now());
@@ -107,14 +101,10 @@ public class GeneralReportServiceImpl implements GeneralReportService {
         return generalReports;
     }
 
-    private void mapAndSaveGeneralReport(GeneralReportDto generalReportDto, GeneralReport generalReport) {
-        EgacData egacData = generalReport.getEgacData();
-        egacData.setOutput(generalReportDto.getEgacDataDto().getOutput());
-        egacData.setTarget(generalReportDto.getEgacDataDto().getTarget());
-        egacData.setRate(ReportUtil.calculateRate(generalReportDto.getEgacDataDto().getTarget(),
+    private void updateAndSave(GeneralReportDto generalReportDto, GeneralReport generalReport) {
+        reportMapper.updatedGeneralReport(generalReportDto, generalReport);
+        generalReport.getEgacData().setRate(ReportUtil.calculateRate(generalReportDto.getEgacDataDto().getTarget(),
                 generalReportDto.getEgacDataDto().getOutput()));
-
-        generalReport.setEgacData(egacData);
         generalReportRepository.save(generalReport);
     }
 }

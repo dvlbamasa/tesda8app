@@ -80,13 +80,9 @@ public class ROPerModeServiceImpl implements ROPerModeReportService {
     }
 
     private void mapAndSaveROPerModeReport(ROPerModeReport roPerModeReport, ROPerModeReportDto roPerModeReportDto) {
-        EgacData egacData = roPerModeReport.getEgacData();
-        egacData.setTarget(roPerModeReportDto.getEgacDataDto().getTarget());
-        egacData.setOutput(roPerModeReportDto.getEgacDataDto().getOutput());
-        egacData.setRate(ReportUtil.calculateRate(roPerModeReportDto.getEgacDataDto().getTarget(),
+        reportMapper.updatedROPerMode(roPerModeReportDto, roPerModeReport);
+        roPerModeReport.getEgacData().setRate(ReportUtil.calculateRate(roPerModeReportDto.getEgacDataDto().getTarget(),
                 roPerModeReportDto.getEgacDataDto().getOutput()));
-        roPerModeReport.setUpdatedDate(LocalDateTime.now());
-        roPerModeReport.setEgacData(egacData);
         roPerModeReportRepository.save(roPerModeReport);
     }
 

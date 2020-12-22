@@ -2,7 +2,7 @@ package com.tesda8.region8.util.enums;
 
 public enum EgacType {
     ENROLLED("Enrolled"),
-    GRADUATED("Graduated"),
+    GRADUATED("Graduates"),
     ASSESSED("Assessed"),
     CERTIFIED("Certified");
     

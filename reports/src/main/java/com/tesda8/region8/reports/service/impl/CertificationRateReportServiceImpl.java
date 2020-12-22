@@ -60,11 +60,9 @@ public class CertificationRateReportServiceImpl implements CertificationRateRepo
 
     private void mapAndSaveCertificationRateReport(CertificationRateReport certificationRateReport,
                                                    CertificationRateReportDto certificationRateReportDto) {
-        certificationRateReport.setAssessed(certificationRateReportDto.getAssessed());
-        certificationRateReport.setCertified(certificationRateReportDto.getCertified());
+        reportMapper.updatedCertificationRate(certificationRateReportDto, certificationRateReport);
         certificationRateReport.setRate(ReportUtil.calculateRate(certificationRateReportDto.getAssessed(),
                                 certificationRateReportDto.getCertified()));
-        certificationRateReport.setUpdatedDate(LocalDateTime.now());
         certificationRateReportRepository.save(certificationRateReport);
     }
 }

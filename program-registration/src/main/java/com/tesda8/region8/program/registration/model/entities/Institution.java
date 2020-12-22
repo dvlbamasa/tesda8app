@@ -1,6 +1,8 @@
 package com.tesda8.region8.program.registration.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.tesda8.region8.program.registration.service.audit.listener.InstitutionAuditListener;
+import com.tesda8.region8.program.registration.service.audit.listener.NonTeachingStaffAuditListener;
 import com.tesda8.region8.util.enums.CongressionalDistrict;
 import com.tesda8.region8.util.enums.InstitutionClassification;
 import com.tesda8.region8.util.enums.InstitutionType;
@@ -12,6 +14,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
@@ -20,6 +23,7 @@ import java.util.List;
 @Data
 @Entity
 @NoArgsConstructor
+@EntityListeners(InstitutionAuditListener.class)
 public class Institution extends Auditable<String> {
 
     @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL)

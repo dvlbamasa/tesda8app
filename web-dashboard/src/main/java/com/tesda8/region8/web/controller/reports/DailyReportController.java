@@ -123,7 +123,7 @@ public class DailyReportController extends DefaultController {
             default:
                 break;
         }
-        return "redirect:/dashboard";
+        return "redirect:/dashboard/daily";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/dailyReports/certificationRate/update")
@@ -135,7 +135,7 @@ public class DailyReportController extends DefaultController {
             //errors processing
         }
         certificationRateReportService.updateCertificationRateReports(certificationRateReportWrapper.getCertificationRateReportDtos());
-        return "redirect:/dashboard";
+        return "redirect:/dashboard/daily";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/dailyReports/roPerMode/{reportSourceType}/type/update")
@@ -153,7 +153,7 @@ public class DailyReportController extends DefaultController {
         } else {
             roPerModeReportService.updateROPerModeReports(roPerModeReportWrapper.getRoPerModeT2Reports());
         }
-        return "redirect:/dashboard";
+        return "redirect:/dashboard/daily";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/dailyReports/ttiReport/update")
@@ -165,6 +165,6 @@ public class DailyReportController extends DefaultController {
             //errors processing
         }
         ttiReportService.updateTTIReports(generalReportsDtoWrapper.getTtiReports());
-        return "redirect:/dashboard";
+        return "redirect:/dashboard/daily";
     }
 }

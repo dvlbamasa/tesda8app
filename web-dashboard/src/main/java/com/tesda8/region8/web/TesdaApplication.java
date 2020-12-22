@@ -16,6 +16,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 		"com.tesda8.region8.reports.repository"
 })
 @EntityScan(basePackages = {
+		"com.tesda8.region8.audit.model",
 		"com.tesda8.region8.planning.model",
 		"com.tesda8.region8.program.registration.model",
 		"com.tesda8.region8.scholarship.model",
@@ -23,6 +24,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 		"com.tesda8.region8.web.model"
 })
 @ComponentScan(basePackages = {
+		"com.tesda8.region8.audit",
 		"com.tesda8.region8.planning",
 		"com.tesda8.region8.program.registration",
 		"com.tesda8.region8.scholarship",

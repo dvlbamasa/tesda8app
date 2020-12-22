@@ -50,7 +50,7 @@ public class MonthlyReportController extends DefaultController {
             //errors processing
         }
         monthlyReportService.updateMonthlyReport(generalReportsDtoWrapper.getPoReports(), generalReportsDtoWrapper.getMonth(), LocalDateTime.now().getYear());
-        return "redirect:/monthly";
+        return "redirect:/dashboard/monthly";
     }
 
 }

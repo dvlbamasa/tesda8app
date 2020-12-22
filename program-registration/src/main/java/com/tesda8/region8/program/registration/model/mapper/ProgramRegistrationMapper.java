@@ -1,5 +1,6 @@
 package com.tesda8.region8.program.registration.model.mapper;
 
+import com.tesda8.region8.audit.model.entities.AuditLog;
 import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
 import com.tesda8.region8.program.registration.model.dto.NonTeachingStaffDto;
 import com.tesda8.region8.program.registration.model.dto.OfficialDto;
@@ -78,4 +79,24 @@ public interface ProgramRegistrationMapper {
     NonTeachingStaffDto nonTeachingStaffToDto(NonTeachingStaff nonTeachingStaff);
     @Mapping(target = "isDeleted", ignore = true)
     public abstract NonTeachingStaff updatedNonTeachingStaff(NonTeachingStaffDto nonTeachingStaffDto, @MappingTarget NonTeachingStaff nonTeachingStaff);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "official.id", target = "entityId")
+    AuditLog officialToAudit(Official official);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "trainer.id", target = "entityId")
+    AuditLog trainerToAudit(Trainer trainer);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "nonTeachingStaff.id", target = "entityId")
+    AuditLog nonTeachingStaffToAudit(NonTeachingStaff nonTeachingStaff);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "registeredProgram.id", target = "entityId")
+    AuditLog registeredProgramToAudit(RegisteredProgram registeredProgram);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "institution.id", target = "entityId")
+    AuditLog institutionToAudit(Institution institution);
 }

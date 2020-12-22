@@ -221,7 +221,8 @@ public class PapDataServiceImpl implements PapDataService {
                             operatingUnitDataDto -> {
                                 OperatingUnitData operatingUnitData1 =
                                         operatingUnitDataRepository.getOne(operatingUnitDataDto.getId());
-                                setValues(operatingUnitData1, operatingUnitDataDto);
+                                planningMapper.updatedOperatingUnitData(operatingUnitDataDto, operatingUnitData1);
+                                operatingUnitData1.setRate(ReportUtil.calculateRate(operatingUnitData1.getTarget(), operatingUnitData1.getOutput()));
                                 operatingUnitDataRepository.save(operatingUnitData1);
                                 calculateTotal(total, operatingUnitDataDto);
                             }
@@ -231,7 +232,8 @@ public class PapDataServiceImpl implements PapDataService {
                         total.setOutput(total.getOutput()/7);
                     }
                     total.setRate(ReportUtil.calculateRate(total.getTarget(), total.getOutput()));
-                    setValues(oldTotal, total);
+                    planningMapper.updatedOperatingUnitData(total, oldTotal);
+                    oldTotal.setRate(ReportUtil.calculateRate(oldTotal.getTarget(), oldTotal.getOutput()));
                     operatingUnitDataRepository.save(oldTotal);
                  }
         );
@@ -244,8 +246,8 @@ public class PapDataServiceImpl implements PapDataService {
                 successIndicatorDataDto -> {
                     SuccessIndicatorData successIndicatorData =
                             successIndicatorDataRepository.getOne(successIndicatorDataDto.getId());
-                    setValues(successIndicatorData, successIndicatorDataDto);
-                    successIndicatorDataRepository.save(successIndicatorData);
+                    successIndicatorDataRepository.save(planningMapper
+                            .updatedSuccessIndicatorData(successIndicatorDataDto, successIndicatorData));
                     OperatingUnitData oldTotal = successIndicatorData.getOperatingUnitDataList()
                             .stream()
                             .filter(operatingUnitData -> operatingUnitData.getOperatingUnitType().equals(OperatingUnitPOType.TOTAL))
@@ -309,22 +311,6 @@ public class PapDataServiceImpl implements PapDataService {
         PapData papData = papDataRepository.getOne(papDataDto.getId());
         papData.setIsDeleted(true);
         papDataRepository.save(papData);
-    }
-
-    private void setValues(SuccessIndicatorData successIndicatorData, SuccessIndicatorDataDto successIndicatorDataDto) {
-        successIndicatorData.setIsAccumulated(successIndicatorDataDto.getIsAccumulated());
-        successIndicatorData.setIsPercentage(successIndicatorDataDto.getIsPercentage());
-        successIndicatorData.setIsDeleted(successIndicatorDataDto.getIsDeleted());
-        successIndicatorData.setMeasures(successIndicatorDataDto.getMeasures());
-        successIndicatorData.setTarget(successIndicatorDataDto.getTarget());
-        successIndicatorData.setUpdatedDate(LocalDateTime.now());
-    }
-
-    private void setValues(OperatingUnitData operatingUnitData, OperatingUnitDataDto operatingUnitDataDto) {
-        operatingUnitData.setTarget(operatingUnitDataDto.getTarget());
-        operatingUnitData.setOutput(operatingUnitDataDto.getOutput());
-        operatingUnitData.setRate(ReportUtil.calculateRate(operatingUnitDataDto.getTarget(), operatingUnitDataDto.getOutput()));
-        operatingUnitData.setUpdatedDate(LocalDateTime.now());
     }
 
     private void calculateTotal(OperatingUnitDataDto total, OperatingUnitDataDto operatingUnitDataDto) {

@@ -1,5 +1,6 @@
 package com.tesda8.region8.scholarship.model.mapper;
 
+import com.tesda8.region8.audit.model.entities.AuditLog;
 import com.tesda8.region8.scholarship.model.dto.ScholarshipAccomplishmentDto;
 import com.tesda8.region8.scholarship.model.entities.ScholarshipAccomplishment;
 import org.mapstruct.Mapper;
@@ -33,4 +34,9 @@ public interface ScholarshipMapper {
     @Mapping(source = "scholarshipAccomplishmentDto.financialAccomplishmentDto.roFinancialAccomplishmentDto", target = "financialAccomplishment.roFinancialAccomplishment")
     public abstract ScholarshipAccomplishment updatedScholarshipAccomplishmentToEntity(ScholarshipAccomplishmentDto scholarshipAccomplishmentDto,
                                                                                        @MappingTarget ScholarshipAccomplishment scholarshipAccomplishment);
+
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "scholarshipAccomplishment.id", target = "entityId")
+    AuditLog scholarshipAccomplishmentToAudit(ScholarshipAccomplishment scholarshipAccomplishment);
 }

@@ -11,10 +11,6 @@ import java.util.Date;
 public class CertificationRateReportDto {
 
     private long id;
-    private Date createdDate;
-    private Date updatedDate;
-    private String createdBy;
-    private String updatedBy;
     private OperatingUnitType operatingUnitType;
     private long assessed;
     private long certified;
