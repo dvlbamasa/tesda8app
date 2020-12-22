@@ -30,6 +30,7 @@ public abstract class AbstractEntityListener<E>{
                     }
                 });
     }
+    
     private void persist(E entity, AuditAction action) {
         EntityManagerFactory entityManagerFactory =
                 AuditUtil.getBean(EntityManagerFactory.class);
