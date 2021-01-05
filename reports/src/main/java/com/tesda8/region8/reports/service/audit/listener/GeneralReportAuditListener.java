@@ -28,10 +28,10 @@ public class GeneralReportAuditListener extends AbstractEntityListener<GeneralRe
     public AuditBase mapAuditEntity(GeneralReport entity) {
         AuditLog auditLog = reportMapper.generalReportToAudit(entity);
         Map<String, Object> attributes = new HashMap<>();
-        attributes.put("operatingUnit", entity.getOperatingUnitType().label);
-        attributes.put("reportType", entity.getDailyReportType().label);
-        attributes.put("reportSourceType", entity.getReportSourceType().label);
-        attributes.put("egacType", entity.getEgacData().getEgacType().label);
+        attributes.put("Operating Unit", entity.getOperatingUnitType().label);
+        attributes.put("Report Type", entity.getDailyReportType().label);
+        attributes.put("Report Source Type", entity.getReportSourceType().label);
+        attributes.put("EGAC Type", entity.getEgacData().getEgacType().label);
         auditLog.setEntityAttributes(attributes);
         return auditLog;
     }

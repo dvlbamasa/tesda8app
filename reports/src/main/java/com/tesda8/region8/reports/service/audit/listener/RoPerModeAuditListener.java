@@ -28,10 +28,10 @@ public class RoPerModeAuditListener extends AbstractEntityListener<ROPerModeRepo
     public AuditBase mapAuditEntity(ROPerModeReport entity) {
         AuditLog auditLog = reportMapper.roPerModeReportToAudit(entity);
         Map<String, Object> attributes = new HashMap<>();
-        attributes.put("deliveryMode", entity.getDeliveryMode().label);
-        attributes.put("reportType", "RO Per Mode");
-        attributes.put("reportSourceType", entity.getReportSourceType().label);
-        attributes.put("egacType", entity.getEgacData().getEgacType().label);
+        attributes.put("Delivery Mode", entity.getDeliveryMode().label);
+        attributes.put("Report Type", "RO Per Mode");
+        attributes.put("Report Source Type", entity.getReportSourceType().label);
+        attributes.put("EGAC Type", entity.getEgacData().getEgacType().label);
         auditLog.setEntityAttributes(attributes);
         return auditLog;
     }

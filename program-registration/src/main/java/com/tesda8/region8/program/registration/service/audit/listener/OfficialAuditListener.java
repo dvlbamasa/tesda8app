@@ -38,10 +38,10 @@ public class OfficialAuditListener extends AbstractEntityListener<Official> {
     public AuditBase mapAuditEntity(Official entity) {
         AuditLog auditLog = programRegistrationMapper.officialToAudit(entity);
         Map<String, Object> attributes = new HashMap<>();
-        attributes.put("officialName", entity.getName());
-        attributes.put("contactNumber", entity.getContactNumber());
-        attributes.put("registeredProgram", entity.getRegisteredProgram().getName());
-        attributes.put("registeredProgramRegNo", entity.getRegisteredProgram().getProgramRegistrationNumber());
+        attributes.put("Official's Name", entity.getName());
+        attributes.put("Official's Contact Number", entity.getContactNumber());
+        attributes.put("Registered Program Name", entity.getRegisteredProgram().getName());
+        attributes.put("Program Registration Number", entity.getRegisteredProgram().getProgramRegistrationNumber());
         auditLog.setEntityAttributes(attributes);
         return auditLog;
     }

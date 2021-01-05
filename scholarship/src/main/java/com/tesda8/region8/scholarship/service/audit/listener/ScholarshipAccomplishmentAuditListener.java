@@ -34,10 +34,10 @@ public class ScholarshipAccomplishmentAuditListener extends AbstractEntityListen
     public AuditBase mapAuditEntity(ScholarshipAccomplishment entity) {
         AuditLog auditLog =  scholarshipMapper.scholarshipAccomplishmentToAudit(entity);
         Map<String, Object> attributes = new HashMap<>();
-        attributes.put("scholarshipType", entity.getScholarshipType());
-        attributes.put("operatinUnit", entity.getOperatingUnitType().label);
-        attributes.put("month", entity.getMonth());
-        attributes.put("year", entity.getYear());
+        attributes.put("Scholarship Type", entity.getScholarshipType());
+        attributes.put("Operating Unit", entity.getOperatingUnitType().label);
+        attributes.put("Month", entity.getMonth());
+        attributes.put("Year", entity.getYear());
         auditLog.setEntityAttributes(attributes);
         return auditLog;
     }

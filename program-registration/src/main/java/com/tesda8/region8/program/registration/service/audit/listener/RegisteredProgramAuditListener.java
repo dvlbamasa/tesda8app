@@ -34,9 +34,9 @@ public class RegisteredProgramAuditListener extends AbstractEntityListener<Regis
     public AuditBase mapAuditEntity(RegisteredProgram entity) {
         AuditLog auditLog =  programRegistrationMapper.registeredProgramToAudit(entity);
         Map<String, Object> attributes = new HashMap<>();
-        attributes.put("registeredProgram", entity.getName());
-        attributes.put("registeredProgramRegNo", entity.getProgramRegistrationNumber());
-        attributes.put("institutionName", entity.getInstitution().getName());
+        attributes.put("Registered Program Name", entity.getName());
+        attributes.put("Program Registration Number", entity.getProgramRegistrationNumber());
+        attributes.put("Institution Name", entity.getInstitution().getName());
         auditLog.setEntityAttributes(attributes);
         return auditLog;
     }

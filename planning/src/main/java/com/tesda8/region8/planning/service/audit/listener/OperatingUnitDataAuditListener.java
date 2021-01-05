@@ -28,11 +28,11 @@ public class OperatingUnitDataAuditListener extends AbstractEntityListener<Opera
     public AuditBase mapAuditEntity(OperatingUnitData entity) {
         AuditLog auditLog = planningMapper.operatingUnitDataToAudit(entity);
         Map<String, Object> attributes = new HashMap<>();
-        attributes.put("operatingUnit", entity.getOperatingUnitType().label);
-        attributes.put("target", entity.getTarget());
-        attributes.put("output", entity.getOutput());
-        attributes.put("papName", entity.getSuccessIndicatorData().getPapData().getName());
-        attributes.put("papGroupType", entity.getSuccessIndicatorData().getPapData().getPapGroupType());
+        attributes.put("Operating Unit", entity.getOperatingUnitType().label);
+        attributes.put("P/A/P Name", entity.getSuccessIndicatorData().getPapData().getName());
+        attributes.put("P/A/P Group Type", entity.getSuccessIndicatorData().getPapData().getPapGroupType());
+        attributes.put("Target", entity.getTarget());
+        attributes.put("Output", entity.getOutput());
         auditLog.setEntityAttributes(attributes);
         return auditLog;
     }

@@ -28,10 +28,10 @@ public class MonthlyReportAuditListener extends AbstractEntityListener<MonthlyRe
     public AuditBase mapAuditEntity(MonthlyReport entity) {
         AuditLog auditLog = reportMapper.monthlyReportToAudit(entity);
         Map<String, Object> attributes = new HashMap<>();
-        attributes.put("operatingUnit", entity.getOperatingUnit().getOperatingUnitType().label);
-        attributes.put("month", entity.getMonth());
-        attributes.put("year", entity.getYear());
-        attributes.put("egacType", entity.getEgacData().getEgacType());
+        attributes.put("Operating Unit", entity.getOperatingUnit().getOperatingUnitType().label);
+        attributes.put("Month", entity.getMonth());
+        attributes.put("Year", entity.getYear());
+        attributes.put("EGAC Type", entity.getEgacData().getEgacType());
         auditLog.setEntityAttributes(attributes);
         return auditLog;
     }

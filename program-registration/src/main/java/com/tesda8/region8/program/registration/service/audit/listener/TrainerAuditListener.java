@@ -34,9 +34,9 @@ public class TrainerAuditListener extends AbstractEntityListener<Trainer> {
     public AuditBase mapAuditEntity(Trainer entity) {
         AuditLog auditLog =  programRegistrationMapper.trainerToAudit(entity);
         Map<String, Object> attributes = new HashMap<>();
-        attributes.put("trainerName", entity.getName());
-        attributes.put("registeredProgram", entity.getRegisteredProgram().getName());
-        attributes.put("registeredProgramRegNo", entity.getRegisteredProgram().getProgramRegistrationNumber());
+        attributes.put("Trainer Name", entity.getName());
+        attributes.put("Registered Program Name", entity.getRegisteredProgram().getName());
+        attributes.put("Program Registration Number", entity.getRegisteredProgram().getProgramRegistrationNumber());
         auditLog.setEntityAttributes(attributes);
         return auditLog;
 
