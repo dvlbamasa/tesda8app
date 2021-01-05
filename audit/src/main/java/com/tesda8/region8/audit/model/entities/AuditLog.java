@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.Map;
 
 @Entity
@@ -29,4 +30,14 @@ public class AuditLog extends AuditBase {
 
     @Convert(converter = HashMapConverter.class)
     private Map<String, Object> entityAttributes;
+
+    @Transient
+    public String getAuditLogDetails() {
+        StringBuilder details = new StringBuilder();
+        for (Map.Entry<String, Object> entry : entityAttributes.entrySet()) {
+            details.append(entry.getKey()).append(": ").append(entry.getValue());
+            details.append(" \n ");
+        }
+        return details.toString();
+    }
 }

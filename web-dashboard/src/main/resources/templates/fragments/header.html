@@ -1,4 +1,5 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <div th:fragment="header-css">
 
@@ -51,20 +52,20 @@
                         <a class="dropdown-item header-dropdown-item" th:href="@{/dashboard/scholarship/live}">Scholarship Accomplishment Data from SPMOR <span class="danger">(Live)</span></a>
                     </div>
                 </li>
-                <li class="nav-item dropdown navDropdown">
+                <li sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" class="nav-item dropdown navDropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Planning
                     </a>
-                    <div class="dropdown-menu nav-dropdown" aria-labelledby="navbarDropdown2">
+                    <div  class="dropdown-menu nav-dropdown" aria-labelledby="navbarDropdown2">
                         <a class="dropdown-item header-dropdown-item" th:href="@{/planning}">OPCR Summary</a>
                         <a class="dropdown-item header-dropdown-item" th:href="@{/planning/opcr/update}">Update OPCR</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item header-dropdown-item" th:href="@{/planning/successIndicator/create}">Add Success Indicators</a>
                         <a class="dropdown-item header-dropdown-item" th:href="@{/planning/successIndicator/update}">Update Success Indicators</a>
                         <a class="dropdown-item header-dropdown-item" th:href="@{/planning/pap/manage}">Manage P/A/P</a>
-                    </div>
+                    </div >
                 </li>
-                <li class="nav-item dropdown navDropdown">
+                <li sec:authorize="hasAnyRole('ADMIN', 'PROGRAM_REG')" class="nav-item dropdown navDropdown">
                     <th:block th:if="${statusCounter > 0}">
                         <span class="badge badge-pill badge-danger" style="float:right;margin-bottom:-10px;" th:text="${statusCounter}"></span>
                     </th:block>
@@ -82,7 +83,7 @@
                         <a class="dropdown-item header-dropdown-item" th:href="@{/program_registration/institution/create}">Add Institution</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown navDropdown">
+                <li sec:authorize="hasAnyRole('ADMIN', 'SCHOLARSHIP')" class="nav-item dropdown navDropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Scholarship
                     </a>
@@ -91,9 +92,14 @@
                         <a class="dropdown-item header-dropdown-item" th:href="@{/scholarship/update(year = 2020, month = 'DECEMBER')}">Update Scholarship Accomplishment</a>
                     </div>
                 </li>
-                <li class="nav-item">
+                <li sec:authorize="hasAnyRole('ADMIN', 'CERTIFICATION', 'PLANNING')"  class="nav-item">
                     <a class="nav-link" th:href="@{/certification}">Certification</a>
                 </li>
+                <div sec:authorize="hasRole('ADMIN')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/audit}">System Audit</a>
+                    </li>
+                </div>
             </ul>
             <span th:if="${#httpServletRequest.remoteUser}" class="navbar-text">
                 Hello [[${#httpServletRequest.remoteUser}]]! |

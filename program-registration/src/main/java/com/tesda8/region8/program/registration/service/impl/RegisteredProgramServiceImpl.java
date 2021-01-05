@@ -23,6 +23,7 @@ import com.tesda8.region8.util.enums.InstitutionType;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.Sector;
 import com.tesda8.region8.util.enums.SortOrder;
+import com.tesda8.region8.util.service.ApplicationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -168,12 +169,12 @@ public class RegisteredProgramServiceImpl implements RegisteredProgramService {
 
         if (registeredProgramFilter.getDateIssuedFrom() != null) {
             booleanBuilder.and(QRegisteredProgram.registeredProgram.dateIssued
-                    .goe(convertToLocalDateTimeViaInstant(registeredProgramFilter.getDateIssuedFrom())));
+                    .goe(ApplicationUtil.convertToLocalDateTimeViaInstant(registeredProgramFilter.getDateIssuedFrom())));
         }
 
         if (registeredProgramFilter.getDateIssuedTo() != null) {
             booleanBuilder.and(QRegisteredProgram.registeredProgram.dateIssued
-                    .loe(convertToLocalDateTimeViaInstant(registeredProgramFilter.getDateIssuedTo())));
+                    .loe(ApplicationUtil.convertToLocalDateTimeViaInstant(registeredProgramFilter.getDateIssuedTo())));
         }
 
         Predicate predicate = booleanBuilder.getValue();
@@ -186,12 +187,6 @@ public class RegisteredProgramServiceImpl implements RegisteredProgramService {
                 .collect(Collectors.toList());
 
         return sortRegisteredPrograms(registeredProgramDtoList, registeredProgramFilter.getSortOrder());
-    }
-
-    public LocalDateTime convertToLocalDateTimeViaInstant(Date dateToConvert) {
-        return dateToConvert.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime();
     }
 
     private List<RegisteredProgramDto> sortRegisteredPrograms(List<RegisteredProgramDto> registeredProgramDtoList, SortOrder sortOrder) {
@@ -307,7 +302,7 @@ public class RegisteredProgramServiceImpl implements RegisteredProgramService {
         registeredProgram.setInstitution(institution);
         registeredProgram.setIsClosed(false);
         registeredProgram.setIsDeleted(false);
-        registeredProgram.setDateIssued(convertToLocalDateTimeViaInstant(registeredProgramDto.getDateIssued()));
+        registeredProgram.setDateIssued(ApplicationUtil.convertToLocalDateTimeViaInstant(registeredProgramDto.getDateIssued()));
         institution.getRegisteredPrograms().add(registeredProgram);
         Institution savedInstitution = institutionRepository.save(institution);
         return savedInstitution.getRegisteredPrograms()
@@ -339,7 +334,7 @@ public class RegisteredProgramServiceImpl implements RegisteredProgramService {
     public void updateRegisteredProgram(RegisteredProgramRequestDto registeredProgramRequestDto) {
         RegisteredProgram registeredProgram = registeredProgramRepository.findById(registeredProgramRequestDto.getId()).orElseThrow(EntityNotFoundException::new);
         registeredProgram = programRegistrationMapper.updatedRegisteredProgramToEntity(registeredProgramRequestDto, registeredProgram);
-        registeredProgram.setDateIssued(convertToLocalDateTimeViaInstant(registeredProgramRequestDto.getDateIssued()));
+        registeredProgram.setDateIssued(ApplicationUtil.convertToLocalDateTimeViaInstant(registeredProgramRequestDto.getDateIssued()));
         registeredProgram.setUpdatedDate(LocalDateTime.now());
         registeredProgramRepository.save(registeredProgram);
     }

@@ -3,6 +3,8 @@ package com.tesda8.region8.util.service;
 import com.tesda8.region8.util.enums.Month;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 public class ApplicationUtil {
 
@@ -12,5 +14,11 @@ public class ApplicationUtil {
 
     public static Long getCurrentYear() {
         return (long) LocalDateTime.now().getYear();
+    }
+
+    public static LocalDateTime convertToLocalDateTimeViaInstant(Date dateToConvert) {
+        return dateToConvert.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
     }
 }

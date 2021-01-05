@@ -10,6 +10,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 @EnableJpaRepositories(basePackages = {
+		"com.tesda8.region8.audit.repository",
 		"com.tesda8.region8.planning.repository",
 		"com.tesda8.region8.program.registration.repository",
 		"com.tesda8.region8.scholarship.repository",

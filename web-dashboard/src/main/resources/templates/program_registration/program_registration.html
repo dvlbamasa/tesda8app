@@ -86,16 +86,16 @@
                                         <optgroup label="All">
                                             <option value="0" text="All" selected>All Institutions</option>
                                         </optgroup>
-                                            <optgroup th:each="operatingUnit : ${T(com.tesda8.region8.util.enums.OperatingUnitType).values()}"
-                                                    th:label="${operatingUnit.label}">
-                                                <th:block th:each="institution : ${ttiList}">
-                                                    <th:block th:if="${institution.operatingUnitType == operatingUnit}">
-                                                        <option th:value="${institution.id}"
-                                                                th:text="${institution.name}">
-                                                        </option>
-                                                    </th:block>
+                                        <optgroup th:each="operatingUnit : ${T(com.tesda8.region8.util.enums.OperatingUnitType).values()}"
+                                                th:label="${operatingUnit.label}">
+                                            <th:block th:each="institution : ${ttiList}">
+                                                <th:block th:if="${institution.operatingUnitType == operatingUnit}">
+                                                    <option th:value="${institution.id}"
+                                                            th:text="${institution.name}">
+                                                    </option>
                                                 </th:block>
-                                            </optgroup>
+                                            </th:block>
+                                        </optgroup>
                                     </select>
                                 </div>
                             </div>
