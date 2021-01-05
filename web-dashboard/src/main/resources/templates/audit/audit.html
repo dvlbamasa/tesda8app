@@ -124,10 +124,10 @@
                                 <td><span th:text="${auditLog.auditAction.label}"></span></td>
                                 <td><span th:text="${auditLog.updatedBy}"></span></td>
                                 <td><span th:text="${#temporals.format(auditLog.auditDate, 'MM/dd/yyyy hh:mm:ss a')}"></span></td>
-                                <td><span th:text="${auditLog.isDeleted}"></span></td>
+                                <td><span th:text="${auditLog.isDeleted == false ? 'No' : 'Yes'}"></span></td>
                                 <td>
                                     <!-- Button trigger modal -->
-                                    <a type="button" class="btn btn-primary" th:onclick="'javascript:detailsModal(\'' + ${auditLog.id} + '\');'">Details</a>
+                                    <a type="button" class="btn btn-primary" th:onclick="'javascript:detailsModal(\'' + ${auditLog.id} + '\');'"><i class="fa fa-info-circle" aria-hidden="true"></i> Details</a>
                                 </td>
                             </tr>
                         </th:block>
