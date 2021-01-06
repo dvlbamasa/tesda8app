@@ -208,13 +208,14 @@ public class GraphDataFetcherServiceImpl implements GraphDataFetcherService {
     }
 
     @Override
-    public List<DataPoints> fetchMonthlyReportsData(DataPointType dataPointType, OperatingUnitType operatingUnitType, EgacType egacType) {
+    public List<DataPoints> fetchMonthlyReportsData(DataPointType dataPointType, OperatingUnitType operatingUnitType, EgacType egacType, int year) {
         List<DataPoints> dataPoints = Lists.newArrayList();
         List<MonthlyReportDto> monthlyReportsResult;
         List<MonthlyReportDto> monthlyReports = operatingUnitService.getOperatingUnit(operatingUnitType).getMonthlyReports();
-        monthlyReportsResult = monthlyReports.stream().filter(
-                monthlyReportDto -> monthlyReportDto.getEgacDataDto().getEgacType().equals(egacType)
-        ).collect(Collectors.toList());
+        monthlyReportsResult = monthlyReports.stream()
+                .filter(monthlyReportDto -> monthlyReportDto.getEgacDataDto().getEgacType().equals(egacType))
+                .filter(monthlyReportDto -> monthlyReportDto.getYear() == year)
+                .collect(Collectors.toList());
         List<MonthlyReportDto> sortedMonthlyReports = Lists.newArrayList();
         Arrays.asList(Month.values()).forEach(
                 month -> {
@@ -286,11 +287,11 @@ public class GraphDataFetcherServiceImpl implements GraphDataFetcherService {
     }
 
     @Override
-    public GraphDataList fetchMonthlyReportDataList(EgacType egacType, OperatingUnitType operatingUnitType) {
+    public GraphDataList fetchMonthlyReportDataList(EgacType egacType, OperatingUnitType operatingUnitType, int year) {
         GraphDataList graphDataList = new GraphDataList().build();
-        graphDataList.getTargetData().setDataPoints(fetchMonthlyReportsData(DataPointType.TARGET, operatingUnitType, egacType));
-        graphDataList.getOutputData().setDataPoints(fetchMonthlyReportsData(DataPointType.OUTPUT, operatingUnitType, egacType));
-        graphDataList.getRateData().setDataPoints(fetchMonthlyReportsData(DataPointType.RATE, operatingUnitType, egacType));
+        graphDataList.getTargetData().setDataPoints(fetchMonthlyReportsData(DataPointType.TARGET, operatingUnitType, egacType, year));
+        graphDataList.getOutputData().setDataPoints(fetchMonthlyReportsData(DataPointType.OUTPUT, operatingUnitType, egacType, year));
+        graphDataList.getRateData().setDataPoints(fetchMonthlyReportsData(DataPointType.RATE, operatingUnitType, egacType, year));
         return graphDataList;
     }
 

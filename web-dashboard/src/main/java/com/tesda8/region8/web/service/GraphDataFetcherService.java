@@ -21,7 +21,7 @@ public interface GraphDataFetcherService {
     List<DataPoints> fetchGeneralReportsData(DataPointType dataPointType, EgacType egacType, ReportSourceType reportSourceType,
                                              DailyReportType dailyReportType);
 
-    List<DataPoints> fetchMonthlyReportsData(DataPointType dataPointType, OperatingUnitType operatingUnitType, EgacType egacType);
+    List<DataPoints> fetchMonthlyReportsData(DataPointType dataPointType, OperatingUnitType operatingUnitType, EgacType egacType, int year);
 
 
     GraphDataList fetchGeneralDataList(EgacType egacType, ReportSourceType reportSourceType,
@@ -33,5 +33,5 @@ public interface GraphDataFetcherService {
 
     GraphDataList fetchROPerModeReportsDataList(EgacType egacType, ReportSourceType reportSourceType);
 
-    GraphDataList fetchMonthlyReportDataList(EgacType egacType, OperatingUnitType operatingUnitType);
+    GraphDataList fetchMonthlyReportDataList(EgacType egacType, OperatingUnitType operatingUnitType, int year);
 }

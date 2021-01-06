@@ -1,6 +1,8 @@
 package com.tesda8.region8.web.controller.reports;
 
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
+import com.tesda8.region8.reports.model.dto.MonthlyGraphFilter;
+import com.tesda8.region8.util.service.ApplicationUtil;
 import com.tesda8.region8.web.controller.DefaultController;
 import com.tesda8.region8.web.model.dto.wrapper.GeneralReportsDtoWrapper;
 import com.tesda8.region8.util.enums.DailyReportType;
@@ -13,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 
@@ -49,8 +52,16 @@ public class MonthlyReportController extends DefaultController {
         if (bindingResult.hasErrors()) {
             //errors processing
         }
-        monthlyReportService.updateMonthlyReport(generalReportsDtoWrapper.getPoReports(), generalReportsDtoWrapper.getMonth(), LocalDateTime.now().getYear());
+        monthlyReportService.updateMonthlyReport(generalReportsDtoWrapper.getPoReports(), generalReportsDtoWrapper.getMonth(), generalReportsDtoWrapper.getYear());
+        model.addAttribute("filter", new MonthlyGraphFilter(Math.toIntExact(ApplicationUtil.getCurrentYear())));
         return "redirect:/dashboard/monthly";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/monthlyReports/graph")
+    public String filterGraph(@RequestParam("year") int year, Model model) {
+        model.addAttribute("filter", new MonthlyGraphFilter(year));
+        addStatusCounterToModel(model);
+        return "dashboard/monthly_reports";
     }
 
 }

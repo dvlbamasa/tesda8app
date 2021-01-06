@@ -17,4 +17,5 @@ public class GeneralReportsDtoWrapper {
     private List<GeneralReportDto> communityBasedReports;
     private List<TTIReportDto> ttiReports;
     private Month month;
+    private int year;
 }

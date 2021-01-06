@@ -81,11 +81,12 @@ public class GraphDataRestController {
         return graphDataFetcherService.fetchTTIReportDataList(egacType);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/monthlyReports/{operatingUnitType}/operatingUnitType/{egacType}/egacType")
+    @RequestMapping(method = RequestMethod.GET, value = "/monthlyReports/{operatingUnitType}/operatingUnitType/{egacType}/egacType/{year}/year")
     @ResponseBody
     public GraphDataList fetchMonthlyReportDataList(@PathVariable("operatingUnitType") OperatingUnitType operatingUnitType,
-                                                    @PathVariable("egacType")EgacType egacType) {
-        return graphDataFetcherService.fetchMonthlyReportDataList(egacType, operatingUnitType);
+                                                    @PathVariable("egacType")EgacType egacType,
+                                                    @PathVariable("year") int year) {
+        return graphDataFetcherService.fetchMonthlyReportDataList(egacType, operatingUnitType, year);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/successIndicator/{id}/dataPoints")
