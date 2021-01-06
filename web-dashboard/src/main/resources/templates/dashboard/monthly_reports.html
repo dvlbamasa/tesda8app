@@ -42,7 +42,7 @@
                 </nav>
             </nav>
         </div>
-        <form th:object="${filter}" th:action="@{/monthlyReports/graph(year=${filter.year})}" method="get">
+        <form th:object="${filter}" th:action="@{/dashboard/monthly/graph(year=${filter.year})}" method="get">
             <input type="hidden" id="yearValue" th:value="${filter.year}"/>
             <div class="container">
                 <h1 class="display-5 text-black-50 mb-5">Search Scholarship Accomplishments</h1>

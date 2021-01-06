@@ -64,7 +64,7 @@ public class MonthlyReportController extends DefaultController {
         return "redirect:/dashboard/monthly";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/monthlyReports/graph")
+    @RequestMapping(method = RequestMethod.GET, value = "/dashboard/monthly/graph")
     public String filterGraph(@RequestParam("year") int year, Model model) {
         model.addAttribute("filter", new MonthlyGraphFilter(year));
         model.addAttribute("reports", monthlyReportService.fetchMonthlyReport(year));
