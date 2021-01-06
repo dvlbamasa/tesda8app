@@ -28,6 +28,7 @@ public class TTIReportAuditListener extends AbstractEntityListener<TTIReport> {
     public AuditBase mapAuditEntity(TTIReport entity) {
         AuditLog auditLog = reportMapper.ttiReportReportToAudit(entity);
         Map<String, Object> attributes = new HashMap<>();
+        attributes.put("Entity Id", entity.getId());
         attributes.put("TTI", entity.getTtiType().label);
         attributes.put("Report Type", "Per TTI");
         attributes.put("Report Source Type", entity.getReportSourceType().label);

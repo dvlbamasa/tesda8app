@@ -35,6 +35,7 @@ public class PapDataAuditListener extends AbstractEntityListener<PapData> {
     public AuditBase mapAuditEntity(PapData entity) {
         AuditLog auditLog = planningMapper.papDataToAudit(entity);
         Map<String, Object> attributes = new HashMap<>();
+        attributes.put("Entity Id", entity.getId());
         attributes.put("P/A/P Name", entity.getName());
         attributes.put("P/A/P Group Type", entity.getPapGroupType());
         attributes.put("Year", entity.getYear());

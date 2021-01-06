@@ -34,6 +34,7 @@ public class InstitutionAuditListener extends AbstractEntityListener<Institution
     public AuditBase mapAuditEntity(Institution entity) {
         AuditLog auditLog = programRegistrationMapper.institutionToAudit(entity);
         Map<String, Object> attributes = new HashMap<>();
+        attributes.put("Entity Id", entity.getId());
         attributes.put("Institution Name", entity.getName());
         attributes.put("Short Name", entity.getShortName());
         attributes.put("Operating Unit", entity.getOperatingUnitType().label);

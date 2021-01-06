@@ -34,6 +34,7 @@ public class NonTeachingStaffAuditListener extends AbstractEntityListener<NonTea
     public AuditBase mapAuditEntity(NonTeachingStaff entity) {
         AuditLog auditLog =  programRegistrationMapper.nonTeachingStaffToAudit(entity);
         Map<String, Object> attributes = new HashMap<>();
+        attributes.put("Entity Id", entity.getId());
         attributes.put("Non-Teaching Staff Name", entity.getName());
         attributes.put("Registered Program Name", entity.getRegisteredProgram().getName());
         attributes.put("Program Registration Number", entity.getRegisteredProgram().getProgramRegistrationNumber());

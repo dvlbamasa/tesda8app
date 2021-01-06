@@ -28,6 +28,7 @@ public class GeneralReportAuditListener extends AbstractEntityListener<GeneralRe
     public AuditBase mapAuditEntity(GeneralReport entity) {
         AuditLog auditLog = reportMapper.generalReportToAudit(entity);
         Map<String, Object> attributes = new HashMap<>();
+        attributes.put("Entity Id", entity.getId());
         attributes.put("Operating Unit", entity.getOperatingUnitType().label);
         attributes.put("Report Type", entity.getDailyReportType().label);
         attributes.put("Report Source Type", entity.getReportSourceType().label);

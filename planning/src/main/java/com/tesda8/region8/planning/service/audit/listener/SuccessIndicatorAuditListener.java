@@ -34,6 +34,7 @@ public class SuccessIndicatorAuditListener extends AbstractEntityListener<Succes
     public AuditBase mapAuditEntity(SuccessIndicatorData entity) {
         AuditLog auditLog = planningMapper.successIndicatorDataToAudit(entity);
         Map<String, Object> attributes = new HashMap<>();
+        attributes.put("Entity Id", entity.getId());
         attributes.put("P/A/P Name", entity.getPapData().getName());
         attributes.put("Target", entity.getTarget());
         attributes.put("Measure", entity.getMeasures());

@@ -28,6 +28,7 @@ public class MonthlyReportAuditListener extends AbstractEntityListener<MonthlyRe
     public AuditBase mapAuditEntity(MonthlyReport entity) {
         AuditLog auditLog = reportMapper.monthlyReportToAudit(entity);
         Map<String, Object> attributes = new HashMap<>();
+        attributes.put("Entity Id", entity.getId());
         attributes.put("Operating Unit", entity.getOperatingUnit().getOperatingUnitType().label);
         attributes.put("Month", entity.getMonth());
         attributes.put("Year", entity.getYear());

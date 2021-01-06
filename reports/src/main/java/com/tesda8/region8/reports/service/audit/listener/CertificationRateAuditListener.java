@@ -28,6 +28,7 @@ public class CertificationRateAuditListener extends AbstractEntityListener<Certi
     public AuditBase mapAuditEntity(CertificationRateReport entity) {
         AuditLog auditLog = reportMapper.certificationRateReportToAudit(entity);
         Map<String, Object> attributes = new HashMap<>();
+        attributes.put("Entity Id", entity.getId());
         attributes.put("Operating Unit", entity.getOperatingUnitType().label);
         attributes.put("Report Type", "Certification Rate");
         attributes.put("Report Source Type", "T2MIS");
