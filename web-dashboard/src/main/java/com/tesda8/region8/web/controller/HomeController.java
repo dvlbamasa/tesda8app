@@ -44,13 +44,6 @@ public class HomeController extends DefaultController{
         return "dashboard/daily_reports";
     }
 
-    @GetMapping("/dashboard/monthly")
-    public String monthly(Model model) {
-        addStatusCounterToModel(model);
-        model.addAttribute("filter", new MonthlyGraphFilter(Math.toIntExact(ApplicationUtil.getCurrentYear())));
-        return "dashboard/monthly_reports";
-    }
-
     @GetMapping("/certification")
     public String certification(Model model) {
         addStatusCounterToModel(model);

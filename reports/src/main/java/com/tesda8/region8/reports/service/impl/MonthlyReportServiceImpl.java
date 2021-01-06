@@ -43,6 +43,13 @@ public class MonthlyReportServiceImpl implements MonthlyReportService {
     }
 
     @Override
+    public List<MonthlyReportDto> fetchMonthlyReport(int year) {
+        return monthlyReportRepository.findAllByYear(year).stream()
+                .map(monthlyReport -> reportMapper.monthlyReportToDto(monthlyReport))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void updateMonthlyReport(List<GeneralReportDto> monthlyReports, Month month, int year) {
 
         // delete previous data

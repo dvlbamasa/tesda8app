@@ -12,12 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.time.LocalDateTime;
 
 @Controller
 public class MonthlyReportController extends DefaultController {
@@ -32,6 +31,14 @@ public class MonthlyReportController extends DefaultController {
         super(registeredProgramStatusService);
         this.monthlyReportService = monthlyReportService;
         this.generalReportService = generalReportService;
+    }
+
+    @GetMapping("/dashboard/monthly")
+    public String monthly(Model model) {
+        addStatusCounterToModel(model);
+        model.addAttribute("filter", new MonthlyGraphFilter(Math.toIntExact(ApplicationUtil.getCurrentYear())));
+        model.addAttribute("reports", monthlyReportService.fetchMonthlyReport(Math.toIntExact(ApplicationUtil.getCurrentYear())));
+        return "dashboard/monthly_reports";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/monthlyReports")
@@ -60,6 +67,7 @@ public class MonthlyReportController extends DefaultController {
     @RequestMapping(method = RequestMethod.GET, value = "/monthlyReports/graph")
     public String filterGraph(@RequestParam("year") int year, Model model) {
         model.addAttribute("filter", new MonthlyGraphFilter(year));
+        model.addAttribute("reports", monthlyReportService.fetchMonthlyReport(year));
         addStatusCounterToModel(model);
         return "dashboard/monthly_reports";
     }
