@@ -45,7 +45,7 @@ public class RegisteredProgram extends Auditable<String> {
 
     @ManyToOne
     @JoinColumn(name = "institution_id", nullable = false)
-    @JsonBackReference
+    @JsonManagedReference
     private Institution institution;
 
     private Long numberOfTeachers;
@@ -60,14 +60,14 @@ public class RegisteredProgram extends Auditable<String> {
     private RegistrationRequirement registrationRequirement;
 
     @OneToMany(mappedBy = "registeredProgram", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonBackReference
     private List<Trainer> trainerList;
 
     @OneToMany(mappedBy = "registeredProgram", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonBackReference
     private List<Official> officialList;
 
     @OneToMany(mappedBy = "registeredProgram", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonBackReference
     private List<NonTeachingStaff> nonTeachingStaffList;
 }

@@ -1,5 +1,6 @@
 package com.tesda8.region8.planning.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tesda8.region8.planning.service.audit.listener.PapDataAuditListener;
 import com.tesda8.region8.util.enums.PapGroupType;
@@ -24,7 +25,7 @@ public class PapData extends Auditable<String> {
     private String name;
 
     @OneToMany(mappedBy = "papData")
-    @JsonManagedReference
+    @JsonBackReference
     List<SuccessIndicatorData> successIndicatorDataList;
 
     @Enumerated(EnumType.STRING)

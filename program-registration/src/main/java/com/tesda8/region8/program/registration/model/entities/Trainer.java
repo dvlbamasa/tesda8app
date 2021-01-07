@@ -1,6 +1,7 @@
 package com.tesda8.region8.program.registration.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tesda8.region8.program.registration.service.audit.listener.OfficialAuditListener;
 import com.tesda8.region8.program.registration.service.audit.listener.TrainerAuditListener;
 import com.tesda8.region8.util.enums.EducationalAttainment;
@@ -35,7 +36,7 @@ public class Trainer extends Auditable<String> {
 
     @ManyToOne
     @JoinColumn(name = "REGISTERED_PROGRAM_ID", nullable = false)
-    @JsonBackReference
+    @JsonManagedReference
     private RegisteredProgram registeredProgram;
 
     @Type(type = "yes_no")

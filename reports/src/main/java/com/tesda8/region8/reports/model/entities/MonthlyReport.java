@@ -1,6 +1,7 @@
 package com.tesda8.region8.reports.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tesda8.region8.reports.service.audit.listener.MonthlyReportAuditListener;
 import com.tesda8.region8.util.enums.Month;
 import com.tesda8.region8.util.model.Auditable;
@@ -30,7 +31,7 @@ public class MonthlyReport extends Auditable<String> {
 
     @ManyToOne
     @JoinColumn(name = "operating_unit_id", nullable = false)
-    @JsonBackReference
+    @JsonManagedReference
     private OperatingUnit operatingUnit;
 
     @Enumerated(EnumType.STRING)

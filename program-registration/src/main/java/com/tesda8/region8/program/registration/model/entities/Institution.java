@@ -1,5 +1,6 @@
 package com.tesda8.region8.program.registration.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tesda8.region8.program.registration.service.audit.listener.InstitutionAuditListener;
 import com.tesda8.region8.program.registration.service.audit.listener.NonTeachingStaffAuditListener;
@@ -27,7 +28,7 @@ import java.util.List;
 public class Institution extends Auditable<String> {
 
     @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonBackReference
     private List<RegisteredProgram> registeredPrograms;
 
     private String name;

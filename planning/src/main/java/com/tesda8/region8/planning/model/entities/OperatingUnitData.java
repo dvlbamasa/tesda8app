@@ -1,6 +1,7 @@
 package com.tesda8.region8.planning.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tesda8.region8.planning.service.audit.listener.OperatingUnitDataAuditListener;
 import com.tesda8.region8.util.enums.OperatingUnitPOType;
 import com.tesda8.region8.util.model.Auditable;
@@ -31,6 +32,6 @@ public class OperatingUnitData extends Auditable<String> {
 
     @ManyToOne
     @JoinColumn(name = "success_indicator_data_id", nullable = false)
-    @JsonBackReference
+    @JsonManagedReference
     private SuccessIndicatorData successIndicatorData;
 }

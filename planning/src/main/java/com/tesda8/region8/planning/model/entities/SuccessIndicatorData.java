@@ -36,12 +36,12 @@ public class SuccessIndicatorData extends Auditable<String> {
     private Boolean isDeleted = false;
 
     @OneToMany(mappedBy = "successIndicatorData", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonBackReference
     private List<OperatingUnitData> operatingUnitDataList;
 
     @ManyToOne
     @JoinColumn(name = "pap_data_id", nullable = false)
-    @JsonBackReference
+    @JsonManagedReference
     private PapData papData;
 
 }
