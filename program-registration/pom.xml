@@ -5,19 +5,19 @@
     <parent>
         <artifactId>tesda8-app</artifactId>
         <groupId>com.tesda.region8</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>program-registration</artifactId>
-    <version>1.0</version>
     <packaging>jar</packaging>
+    <version>${revision}</version>
 
     <dependencies>
         <dependency>
             <groupId>com.tesda.region8</groupId>
             <artifactId>planning</artifactId>
-            <version>1.0</version>
+            <version>${revision}</version>
         </dependency>
 
         <dependency>
@@ -34,7 +34,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-rest</artifactId>
         </dependency>
-
     </dependencies>
 
     <build>

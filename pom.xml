@@ -4,13 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
     <modules>
-        <module>web-dashboard</module>
         <module>util</module>
+        <module>audit</module>
         <module>planning</module>
         <module>program-registration</module>
-        <module>reports</module>
         <module>scholarship</module>
-        <module>audit</module>
+        <module>reports</module>
+        <module>web-dashboard</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -20,11 +20,12 @@
     </parent>
     <groupId>com.tesda.region8</groupId>
     <artifactId>tesda8-app</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}</version>
     <name>tesda8-app</name>
     <description>Tesda Region 8 Reports App</description>
 
     <properties>
+        <revision>1.0.0-SNAPSHOT</revision>
     </properties>
 
     <build>
