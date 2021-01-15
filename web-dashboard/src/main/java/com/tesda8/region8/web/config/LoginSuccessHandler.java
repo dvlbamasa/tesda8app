@@ -38,7 +38,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         WebAuthenticationDetails details = (WebAuthenticationDetails) authentication.getDetails();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
-        String formattedDate = LocalDateTime.now().format(formatter);
+        String formattedDate = LocalDateTime.now().plusHours(8).format(formatter);
 
         AuditLog auditLog = new AuditLog();
         auditLog.setIsDeleted(false);

@@ -37,7 +37,7 @@ public abstract class AbstractEntityListener<E>{
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         AuditBase auditEntity = mapAuditEntity(entity);
         auditEntity.setAuditAction(action);
-        auditEntity.setAuditDate(LocalDateTime.now());
+        auditEntity.setAuditDate(LocalDateTime.now().plusHours(8));
         entityManager.getTransaction().begin();
         entityManager.persist(auditEntity);
         entityManager.flush();
