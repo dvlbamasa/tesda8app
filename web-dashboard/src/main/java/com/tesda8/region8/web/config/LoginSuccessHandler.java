@@ -38,14 +38,15 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         WebAuthenticationDetails details = (WebAuthenticationDetails) authentication.getDetails();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
-        String formattedDate = LocalDateTime.now().plusHours(8).format(formatter);
+        LocalDateTime now = LocalDateTime.now().plusHours(8);
+        String formattedDate = now.format(formatter);
 
         AuditLog auditLog = new AuditLog();
         auditLog.setIsDeleted(false);
         auditLog.setAuditAction(AuditAction.LOGIN);
-        auditLog.setAuditDate(LocalDateTime.now());
+        auditLog.setAuditDate(now);
         auditLog.setUpdatedBy(username);
-        auditLog.setUpdatedDate(LocalDateTime.now());
+        auditLog.setUpdatedDate(now);
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("Username", username);
         attributes.put("Date", formattedDate);
