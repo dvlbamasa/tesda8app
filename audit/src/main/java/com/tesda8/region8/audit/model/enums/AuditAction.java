@@ -3,6 +3,8 @@ package com.tesda8.region8.audit.model.enums;
 public enum AuditAction {
     ALL("All", "ALL"),
 
+    LOGIN("User Login", "LOGIN"),
+
     CREATE_OFFICIAL_ENTITY_AUDIT_EVENT("Create Official Entity", "PROGRAM_REGISTRATION"),
     UPDATE_OFFICIAL_ENTITY_AUDIT_EVENT("Update Official Entity", "PROGRAM_REGISTRATION"),
 

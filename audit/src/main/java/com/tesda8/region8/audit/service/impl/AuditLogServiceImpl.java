@@ -19,6 +19,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
@@ -29,6 +30,12 @@ public class AuditLogServiceImpl implements AuditLogService {
 
     private static Logger logger = LoggerFactory.getLogger(AuditLogServiceImpl.class);
 
+
+    @Override
+    @Transactional
+    public void saveAuditLog(AuditLog auditLog) {
+        auditLogRepository.save(auditLog);
+    }
 
     @Override
     public Page<AuditLog> findAll(int pageNumber, int pageSize, AuditLogFilter auditLogFilter) {

@@ -1,6 +1,7 @@
 package com.tesda8.region8.util.enums;
 
 public enum Module {
+    LOGIN("LOGIN", "Login"),
     REPORTS("REPORTS", "Reports/Dashboard"),
     PLANNING("PLANNING", "Planning"),
     PROGRAM_REGISTRATION("PROGRAM_REGISTRATION", "Program Registration"),

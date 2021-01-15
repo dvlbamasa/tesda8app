@@ -6,6 +6,8 @@ import org.springframework.data.domain.Page;
 
 public interface AuditLogService {
 
+    void saveAuditLog(AuditLog auditLog);
+
     Page<AuditLog> findAll(int pageNumber, int pageSize, AuditLogFilter auditLogFilter);
 
     AuditLog findAuditLogById(Long id);
