@@ -275,12 +275,10 @@ $("#downloadGraphButton").click(function(){
 
             for (var i = 1; i <= totalPDFPages; i++) {
                 var offset;
-                if (i === 3) {
-                    offset = 60;
-                } else if (i > 3) {
-                    offset += 30;
+                if (i > 2) {
+                    offset += -20;
                 } else {
-                    offset = 0;
+                    offset = -50;
                 }
                 pdf.addPage(PDF_Width, PDF_Height);
                 pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4) + offset,canvas_image_width,canvas_image_height);

@@ -193,6 +193,9 @@ function addUAQTEARows(uaqteaObject, tableBodyId) {
 }
 
 function calculateRate(dividend, divisor) {
+    if (divisor < 1 || isNaN(divisor) || divisor === '-') {
+        return 0.00;
+    }
     return numberWithCommas((100 * (dividend / divisor)).toFixed(2));
 }
 
