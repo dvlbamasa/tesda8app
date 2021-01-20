@@ -1,5 +1,6 @@
 package com.tesda8.region8.reports.model.entities;
 
+import com.tesda8.region8.util.model.Auditable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,13 +13,6 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @NoArgsConstructor
-public class DailyReportInfo {
+public class DailyReportInfo extends Auditable<String> {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-
-    private LocalDateTime updatedDate;
-
-    private String updatedBy;
 }

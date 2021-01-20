@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard - Daily as of Accomplishment Reports - Per PO</title>
+    <div th:replace="fragments/header :: header-css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+<body data-spy="scroll" data-target="#daily-po-navbar" data-offset="50">
+
+<div th:replace="fragments/header :: header(${statusCounter})"/>
+
+<div id="page-container">
+    <div id = "content-wrap">
+        <header class="bg-primary py-5 mb-5">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <div class="col-lg-12">
+                        <h1 class="display-4 text-white mt-5 mb-2">Daily ao Accomplishment Reports (Per PO)</h1>
+                        <p class="lead text-white-50">Graphical representation of EGAC accomplishment reports per PO.</p>
+                        <div class="btn-group mr-2 float-right" role="group">
+                            <a th:href="@{/dashboard/daily}" class="a-header btn btn-info btn-lg" role="button" aria-pressed="true">Back to Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="sidebar">
+            <nav id="daily-po-navbar" class="navbar navbar-light bg-light">
+                <a class="navbar-brand" href="#">Operating Units</a>
+                <nav class="nav nav-pills flex-column">
+                    <a class="nav-link" href="#leyte">Leyte</a>
+                    <a class="nav-link" href="#southernLeyte">Southern Leyte</a>
+                    <a class="nav-link" href="#biliran">Biliran</a>
+                    <a class="nav-link" href="#samar">Samar</a>
+                    <a class="nav-link" href="#easternSamar">Eastern Samar</a>
+                    <a class="nav-link" href="#northernSamar">Northern Samar</a>
+                </nav>
+            </nav>
+        </div>
+        <div class="container">
+            <div class="btn-group mr-2" role="group">
+                <button class="btn btn-danger btn-lg" id="downloadGraphButton" type="button"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Export as PDF</button>
+            </div>
+        </div>
+        <div class="container canvas_div_pdf">
+            <div class="col text-center ">
+                <h1 id="leyte" class="display-3 text-black-50 mt-5 mb-2">Leyte Province</h1>
+            </div>
+            <div id="leyteGraphContainer">
+                <div class="row">
+                    <div id="leyteGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                </div>
+            </div>
+            <div class="col text-center ">
+                <h1 id="southernLeyte" class="display-3 text-black-50 mt-3 mb-2">Southern Leyte Province</h1>
+            </div>
+            <div id="southern-leyteGraphContainer">
+                <div class="row">
+                    <div id="southernLeyteGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                </div>
+            </div>
+            <div class="col text-center ">
+                <h1 id="biliran" class="display-3 text-black-50 mt-3 mb-2">Biliran Province</h1>
+            </div>
+            <div id="biliranGraphContainer">
+                <div class="row">
+                    <div id="biliranGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                </div>
+            </div>
+            <div class="col text-center ">
+                <h1 id="samar" class="display-3 text-black-50 mt-3 mb-2">Samar Province</h1>
+            </div>
+            <div id="samarGraphContainer">
+                <div class="row">
+                    <div id="samarGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                </div>
+            </div>
+            <div class="col text-center ">
+                <h1 id="easternSamar" class="display-3 text-black-50 mt-3 mb-2">Eastern Samar Province</h1>
+            </div>
+            <div id="easternSamarGraphContainer">
+                <div class="row">
+                    <div id="easternSamarGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                </div>
+            </div>
+            <div class="col text-center ">
+                <h1 id="northernSamar" class="display-3 text-black-50 mt-3 mb-2">Northern Samar Province</h1>
+            </div>
+            <div id="northernSamarGraphContainer">
+                <div class="row">
+                    <div id="northernSamarGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container -->
+
+<script type='text/javascript' th:src="@{/js/graph/graph_po_daily.js}"></script>
+
+
+
+<div th:replace="fragments/footer :: footer"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+</body>
+</html>

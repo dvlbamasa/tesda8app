@@ -39,9 +39,16 @@ public class HomeController extends DefaultController{
     public String daily(Model model) {
         addStatusCounterToModel(model);
         DailyReportInfo dailyReportInfo = dailyReportInfoService.getLatestDailyReportInfo();
-        model.addAttribute("dailyReportInfo", dailyReportInfo.getUpdatedDate().plusHours(8));
+        model.addAttribute("updatedDate", dailyReportInfo.getUpdatedDate().plusHours(8));
+        model.addAttribute("updatedBy", dailyReportInfo.getUpdatedBy());
         model.addAttribute("dateTimeNow", LocalDateTime.now().plusHours(8));
         return "dashboard/daily_reports";
+    }
+
+    @GetMapping("/dashboard/daily-po")
+    public String dailyPo(Model model) {
+        addStatusCounterToModel(model);
+        return "dashboard/daily_po_report";
     }
 
     @GetMapping("/certification")

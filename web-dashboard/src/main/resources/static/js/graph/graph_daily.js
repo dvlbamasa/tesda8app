@@ -181,6 +181,10 @@ function generateGraph(urlTarget, requestParameters, chartName, title, legend1, 
         title:{
             text:title
         },
+        axisX: {
+            interval: chartName.includes("tti") ? 1 : 0,
+            labelAngle: chartName.includes("tti") ? -70 : 0
+        },
         axisY: {
             lineColor: "#369EAD",
             titleFontColor: "#369EAD",

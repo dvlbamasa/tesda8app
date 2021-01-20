@@ -100,28 +100,27 @@ public class GraphDataFetcherServiceImpl implements GraphDataFetcherService {
         RateData rateData = new RateData();
         ttiReports.forEach(
                 ttiReportDto -> {
-                    if (ttiReportDto.getEgacDataDto().getTarget() != 0) {
-                        DataPoints newDataPoints = new DataPoints();
-                        newDataPoints.setLabel(ttiReportDto.getTtiType().label);
-                        switch (dataPointType) {
-                            case TARGET:
-                                newDataPoints.setValue(ttiReportDto.getEgacDataDto().getTarget());
-                                total.setValue(total.getValue()+ttiReportDto.getEgacDataDto().getTarget());
-                                break;
-                            case OUTPUT:
-                                newDataPoints.setValue(ttiReportDto.getEgacDataDto().getOutput());
-                                total.setValue(total.getValue()+ttiReportDto.getEgacDataDto().getOutput());
-                                break;
-                            case RATE:
-                                newDataPoints.setValue(Double.valueOf(ttiReportDto.getEgacDataDto().getRate()).longValue());
-                                rateData.setOutputs(rateData.getOutputs()+ttiReportDto.getEgacDataDto().getOutput());
-                                rateData.setTargets(rateData.getTargets()+ttiReportDto.getEgacDataDto().getTarget());
-                                break;
-                            default:
-                                break;
-                        }
-                        dataPoints.add(newDataPoints);
+                    DataPoints newDataPoints = new DataPoints();
+                    newDataPoints.setLabel(ttiReportDto.getTtiType().label);
+                    switch (dataPointType) {
+                        case TARGET:
+                            newDataPoints.setValue(ttiReportDto.getEgacDataDto().getTarget());
+                            total.setValue(total.getValue()+ttiReportDto.getEgacDataDto().getTarget());
+                            break;
+                        case OUTPUT:
+                            newDataPoints.setValue(ttiReportDto.getEgacDataDto().getOutput());
+                            total.setValue(total.getValue()+ttiReportDto.getEgacDataDto().getOutput());
+                            break;
+                        case RATE:
+                            newDataPoints.setValue(Double.valueOf(ttiReportDto.getEgacDataDto().getRate()).longValue());
+                            rateData.setOutputs(rateData.getOutputs()+ttiReportDto.getEgacDataDto().getOutput());
+                            rateData.setTargets(rateData.getTargets()+ttiReportDto.getEgacDataDto().getTarget());
+                            break;
+                        default:
+                            break;
                     }
+                    dataPoints.add(newDataPoints);
+
                 }
         );
         if (dataPointType.equals(DataPointType.RATE)) {
@@ -204,6 +203,40 @@ public class GraphDataFetcherServiceImpl implements GraphDataFetcherService {
             total.setValue(Double.valueOf(ReportUtil.calculateRate(rateData.getTargets(), rateData.getOutputs())).longValue());
         }
         dataPoints.add(total);
+        return dataPoints;
+    }
+
+    private List<DataPoints> fetchPoReportsByOperatingUnitType(DataPointType dataPointType, OperatingUnitType operatingUnitType) {
+        List<DataPoints> dataPoints = Lists.newArrayList();
+        List<GeneralReportDto> poReportDtos = generalReportService.findAllGeneralReportByDailyReportTypeAndOperatingUnit(DailyReportType.PO_REPORT, operatingUnitType);
+        RateData rateData = new RateData();
+        poReportDtos.forEach(
+                generalReportDto -> {
+                    Arrays.asList(EgacType.values()).forEach(
+                            egacType -> {
+                                if (egacType.equals(generalReportDto.getEgacDataDto().getEgacType())) {
+                                    DataPoints newDataPoints = new DataPoints();
+                                    newDataPoints.setLabel(generalReportDto.getEgacDataDto().getEgacType().label);
+                                    switch (dataPointType){
+                                        case OUTPUT:
+                                            newDataPoints.setValue(generalReportDto.getEgacDataDto().getOutput());
+                                            break;
+                                        case TARGET:
+                                            newDataPoints.setValue(generalReportDto.getEgacDataDto().getTarget());
+                                            break;
+                                        case RATE:
+                                            newDataPoints.setValue(Double.valueOf(generalReportDto.getEgacDataDto().getRate()).longValue());
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    dataPoints.add(newDataPoints);
+                                }
+                            }
+                    );
+
+                }
+        );
         return dataPoints;
     }
 
@@ -292,6 +325,15 @@ public class GraphDataFetcherServiceImpl implements GraphDataFetcherService {
         graphDataList.getTargetData().setDataPoints(fetchMonthlyReportsData(DataPointType.TARGET, operatingUnitType, egacType, year));
         graphDataList.getOutputData().setDataPoints(fetchMonthlyReportsData(DataPointType.OUTPUT, operatingUnitType, egacType, year));
         graphDataList.getRateData().setDataPoints(fetchMonthlyReportsData(DataPointType.RATE, operatingUnitType, egacType, year));
+        return graphDataList;
+    }
+
+    @Override
+    public GraphDataList fetchPoReportsByOperatingUnit(OperatingUnitType operatingUnitType) {
+        GraphDataList graphDataList = new GraphDataList().build();
+        graphDataList.getTargetData().setDataPoints(fetchPoReportsByOperatingUnitType(DataPointType.TARGET, operatingUnitType));
+        graphDataList.getOutputData().setDataPoints(fetchPoReportsByOperatingUnitType(DataPointType.OUTPUT, operatingUnitType));
+        graphDataList.getRateData().setDataPoints(fetchPoReportsByOperatingUnitType(DataPointType.RATE, operatingUnitType));
         return graphDataList;
     }
 

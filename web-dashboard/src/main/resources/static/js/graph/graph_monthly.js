@@ -127,6 +127,7 @@ function generateGraph(urlTarget, chartName, title, legend1, legend2) {
     var dataPointsRate = [];
     var chart = new CanvasJS.Chart(chartName, {
         animationEnabled: true,
+        zoomEnabled: true,
         title:{
             text:title
         },
@@ -138,6 +139,7 @@ function generateGraph(urlTarget, chartName, title, legend1, legend2) {
         axisY2:{
             title: "Percent (%)",
             lineColor: "#7F6084",
+            minimum: -100,
             titleFontColor: "#7F6084",
             labelFontColor: "#7F6084"
         },
@@ -149,26 +151,27 @@ function generateGraph(urlTarget, chartName, title, legend1, legend2) {
             showInLegend: true,
             dataPoints : dataPointsTarget,
         },
-            {
-                type: "column",
-                name: legend2,
-                indexLabel: "{y}",
-                indexLabelFontSize: 12,
-                showInLegend: true,
-                dataPoints : dataPointsOutput,
+        {
+            type: "column",
+            name: legend2,
+            indexLabel: "{y}",
+            indexLabelFontSize: 12,
+            showInLegend: true,
+            dataPoints : dataPointsOutput,
+        },
+        {
+            type: "line",
+            name: "Rate",
+            indexLabelFormatter: function(e){
+                return e.dataPoint.y + " " + "%" ;
             },
-            {
-                type: "line",
-                name: "Rate",
-                indexLabelFormatter: function(e){
-                    return e.dataPoint.y + " " + "%" ;
-                },
-                axisYType: "secondary",
-                indexLabel: "{y}",
-                indexLabelFontSize: 12,
-                showInLegend: true,
-                dataPoints : dataPointsRate,
-            }
+            axisYType: "secondary",
+            indexLabel: "{y}",
+            indexLabelFontSize: 12,
+            indexLabelFontColor: "red",
+            showInLegend: true,
+            dataPoints : dataPointsRate,
+        }
         ]
     });
     $.getJSON(urlTarget, function(data) {

@@ -3,6 +3,7 @@ package com.tesda8.region8.reports.service;
 import com.tesda8.region8.reports.model.dto.GeneralReportDto;
 import com.tesda8.region8.util.enums.DailyReportType;
 import com.tesda8.region8.util.enums.EgacType;
+import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.ReportSourceType;
 
 import java.util.List;
@@ -15,6 +16,8 @@ public interface GeneralReportService {
                                                                             DailyReportType dailyReportType);
 
     List<GeneralReportDto> findAllGeneralReportByDailyReportType(DailyReportType dailyReportType);
+
+    List<GeneralReportDto> findAllGeneralReportByDailyReportTypeAndOperatingUnit(DailyReportType dailyReportType, OperatingUnitType operatingUnitType);
 
     List<GeneralReportDto> findAllGeneralReportByDailyReportTypeAndReportSourceType(DailyReportType dailyReportType,
                                                                                     ReportSourceType reportSourceType);

@@ -6,15 +6,15 @@ public enum TTIType {
     PTC_LEYTE("PTC-Leyte"),
     CNSAT("CNSAT-Leyte"),
     PTC_BILIRAN("PTC-Biliran"),
-    PTC_SOUTHERN_LEYTE("PTC-Southern Leyte"),
+    PTC_SOUTHERN_LEYTE("PTC-S.Leyte"),
     PTC_SAMAR("PTC-Samar"),
-    PTC_EASTERN_SAMAR("PTC-Eastern Samar"),
-    SNSAT("SNSAT-Eastern Samar"),
-    BNAS("BNAS-Eastern Samar"),
-    ANAS("ANAS-Eastern Samar"),
-    PTC_NORTHERN_SAMAR("PTC-Northern Samar"),
-    BCAT("BCAT-Northern Samar"),
-    LNAIS("LNAIS-Northern Samar"),
+    PTC_EASTERN_SAMAR("PTC-E.Samar"),
+    SNSAT("SNSAT-E.Samar"),
+    BNAS("BNAS-E.Samar"),
+    ANAS("ANAS-E.Samar"),
+    PTC_NORTHERN_SAMAR("PTC-N.Samar"),
+    BCAT("BCAT-N.Samar"),
+    LNAIS("LNAIS-N.Samar"),
 
     TOTAL("Region 8");
 

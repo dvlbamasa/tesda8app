@@ -3,6 +3,7 @@ package com.tesda8.region8.reports.repository;
 import com.tesda8.region8.reports.model.entities.GeneralReport;
 import com.tesda8.region8.util.enums.DailyReportType;
 import com.tesda8.region8.util.enums.EgacType;
+import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.ReportSourceType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -16,6 +17,8 @@ public interface GeneralReportRepository extends JpaRepository<GeneralReport, Lo
                                                                                  DailyReportType dailyReportType);
 
     List<GeneralReport> findAllByDailyReportTypeOrderById(DailyReportType dailyReportType);
+
+    List<GeneralReport> findAllByDailyReportTypeAndOperatingUnitTypeOrderById(DailyReportType dailyReportType, OperatingUnitType operatingUnitType);
 
     List<GeneralReport> findAllByDailyReportTypeAndReportSourceTypeOrderById(DailyReportType dailyReportType,
                                                                     ReportSourceType reportSourceType);

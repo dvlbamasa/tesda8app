@@ -34,4 +34,6 @@ public interface GraphDataFetcherService {
     GraphDataList fetchROPerModeReportsDataList(EgacType egacType, ReportSourceType reportSourceType);
 
     GraphDataList fetchMonthlyReportDataList(EgacType egacType, OperatingUnitType operatingUnitType, int year);
+
+    GraphDataList fetchPoReportsByOperatingUnit(OperatingUnitType operatingUnitType);
 }

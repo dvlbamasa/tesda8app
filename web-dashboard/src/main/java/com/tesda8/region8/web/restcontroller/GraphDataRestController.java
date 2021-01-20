@@ -75,6 +75,12 @@ public class GraphDataRestController {
         return graphDataFetcherService.fetchGeneralDataList(egacType, reportSourceType, dailyReportType);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/poReport")
+    @ResponseBody
+    public GraphDataList fetchPoReportsByOperatingUnit(@RequestParam("operatingUnit") OperatingUnitType operatingUnitType) {
+        return graphDataFetcherService.fetchPoReportsByOperatingUnit(operatingUnitType);
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/ttiReport")
     @ResponseBody
     public GraphDataList fetchTTIReportDataList(@RequestParam("egacType") EgacType egacType) {

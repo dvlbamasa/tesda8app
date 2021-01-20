@@ -1,5 +1,6 @@
 package com.tesda8.region8.reports.service.impl;
 
+import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.service.ReportUtil;
 import com.tesda8.region8.reports.model.dto.GeneralReportDto;
 import com.tesda8.region8.reports.model.entities.DailyReportInfo;
@@ -68,6 +69,15 @@ public class GeneralReportServiceImpl implements GeneralReportService {
     }
 
     @Override
+    public List<GeneralReportDto> findAllGeneralReportByDailyReportTypeAndOperatingUnit(DailyReportType dailyReportType, OperatingUnitType operatingUnitType) {
+        List<GeneralReport> generalReports = generalReportRepository
+                .findAllByDailyReportTypeAndOperatingUnitTypeOrderById(dailyReportType, operatingUnitType);
+        return generalReports.stream()
+                .map(generalReport -> reportMapper.generalReportToDto(generalReport))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<GeneralReportDto> findAllGeneralReportByDailyReportTypeAndReportSourceType(DailyReportType dailyReportType, ReportSourceType reportSourceType) {
         List<GeneralReport> generalReports;
         generalReports = generalReportRepository.findAllByDailyReportTypeAndReportSourceTypeOrderById(dailyReportType, reportSourceType);
@@ -96,7 +106,6 @@ public class GeneralReportServiceImpl implements GeneralReportService {
 
         DailyReportInfo dailyReportInfo = new DailyReportInfo();
         dailyReportInfo.setUpdatedDate(LocalDateTime.now());
-        dailyReportInfo.setUpdatedBy("SYSTEM");
         dailyReportInfoService.saveDailyReportInfo(dailyReportInfo);
         return generalReports;
     }
