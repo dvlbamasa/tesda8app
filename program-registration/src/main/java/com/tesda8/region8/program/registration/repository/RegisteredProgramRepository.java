@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RegisteredProgramRepository extends JpaRepository<RegisteredProgram, Long>, QuerydslPredicateExecutor<RegisteredProgram> {
 
-    @Query("select rp from RegisteredProgram rp join rp.officialList rpos join rp.trainerList rpts where rp.id = :id and rpos.isDeleted = false and rpts.isDeleted = false")
-    @EntityGraph(attributePaths = {"officialList", "trainerList"}, type = EntityGraph.EntityGraphType.LOAD)
+    @Query("select rp from RegisteredProgram rp join rp.officialList rpos join rp.trainerList rpts join rp.nonTeachingStaffList rpnts where rp.id = :id and rpos.isDeleted = false and rpts.isDeleted = false and rpnts.isDeleted = false")
+    @EntityGraph(attributePaths = {"officialList", "trainerList", "nonTeachingStaffList"}, type = EntityGraph.EntityGraphType.LOAD)
     RegisteredProgram getByIdNotDeleted(@Param("id") Long id);
 }

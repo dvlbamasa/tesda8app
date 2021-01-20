@@ -8,7 +8,9 @@ import com.tesda8.region8.util.enums.CourseStatus;
 import com.tesda8.region8.util.enums.Sector;
 import com.tesda8.region8.util.model.Auditable;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.CascadeType;
@@ -22,8 +24,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
 @EntityListeners(RegisteredProgramAuditListener.class)
@@ -61,13 +65,13 @@ public class RegisteredProgram extends Auditable<String> {
 
     @OneToMany(mappedBy = "registeredProgram", cascade = CascadeType.ALL)
     @JsonBackReference
-    private List<Trainer> trainerList;
+    private Set<Trainer> trainerList;
 
     @OneToMany(mappedBy = "registeredProgram", cascade = CascadeType.ALL)
     @JsonBackReference
-    private List<Official> officialList;
+    private Set<Official> officialList;
 
     @OneToMany(mappedBy = "registeredProgram", cascade = CascadeType.ALL)
     @JsonBackReference
-    private List<NonTeachingStaff> nonTeachingStaffList;
+    private Set<NonTeachingStaff> nonTeachingStaffList;
 }
