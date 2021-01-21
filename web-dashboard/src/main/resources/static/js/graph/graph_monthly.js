@@ -146,6 +146,8 @@ function generateGraph(urlTarget, chartName, title, legend1, legend2) {
         data: [{
             type: "column",
             name: legend1,
+            color: "#4978FF",
+            indexLabelFontColor: "#black",
             indexLabel: "{y}",
             indexLabelFontSize: 12,
             showInLegend: true,
@@ -154,6 +156,8 @@ function generateGraph(urlTarget, chartName, title, legend1, legend2) {
         {
             type: "column",
             name: legend2,
+            color: "#FF4972",
+            indexLabelFontColor: "black",
             indexLabel: "{y}",
             indexLabelFontSize: 12,
             showInLegend: true,
@@ -168,7 +172,8 @@ function generateGraph(urlTarget, chartName, title, legend1, legend2) {
             axisYType: "secondary",
             indexLabel: "{y}",
             indexLabelFontSize: 12,
-            indexLabelFontColor: "red",
+            color: "#A00000",
+            indexLabelFontColor: "#A00000",
             showInLegend: true,
             dataPoints : dataPointsRate,
         }
