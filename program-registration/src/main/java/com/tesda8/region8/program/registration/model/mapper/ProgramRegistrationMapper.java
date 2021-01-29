@@ -1,12 +1,14 @@
 package com.tesda8.region8.program.registration.model.mapper;
 
 import com.tesda8.region8.audit.model.entities.AuditLog;
+import com.tesda8.region8.program.registration.model.dto.CertificateDto;
 import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
 import com.tesda8.region8.program.registration.model.dto.NonTeachingStaffDto;
 import com.tesda8.region8.program.registration.model.dto.OfficialDto;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramDto;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramRequestDto;
 import com.tesda8.region8.program.registration.model.dto.TrainerDto;
+import com.tesda8.region8.program.registration.model.entities.Certificate;
 import com.tesda8.region8.program.registration.model.entities.Institution;
 import com.tesda8.region8.program.registration.model.entities.NonTeachingStaff;
 import com.tesda8.region8.program.registration.model.entities.Official;
@@ -79,6 +81,12 @@ public interface ProgramRegistrationMapper {
     NonTeachingStaffDto nonTeachingStaffToDto(NonTeachingStaff nonTeachingStaff);
     @Mapping(target = "isDeleted", ignore = true)
     public abstract NonTeachingStaff updatedNonTeachingStaff(NonTeachingStaffDto nonTeachingStaffDto, @MappingTarget NonTeachingStaff nonTeachingStaff);
+
+    Certificate certificateToEntity(CertificateDto certificateDto);
+    @Mapping(source = "certificate.trainer.id", target = "trainerId")
+    CertificateDto certificateToDto(Certificate certificate);
+    @Mapping(target = "isDeleted", ignore = true)
+    public abstract Certificate updatedCertificate(CertificateDto certificateDto, @MappingTarget Certificate certificate);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "official.id", target = "entityId")

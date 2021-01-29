@@ -92,8 +92,14 @@
                         <a class="dropdown-item header-dropdown-item" th:href="@{/scholarship/update(year = 2020, month = 'DECEMBER')}">Update Scholarship Accomplishment</a>
                     </div>
                 </li>
-                <li sec:authorize="hasAnyRole('ADMIN', 'CERTIFICATION', 'PLANNING')"  class="nav-item">
-                    <a class="nav-link" th:href="@{/certification}">Certification</a>
+                <li sec:authorize="hasAnyRole('ADMIN', 'CERTIFICATION', 'PLANNING')"  class="nav-item dropdown navDropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown5" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Certification
+                    </a>
+                    <div class="dropdown-menu nav-dropdown" aria-labelledby="navbarDropdown5">
+                        <a class="dropdown-item header-dropdown-item" th:href="@{/certification}">Registry of Certified TVET Trainers</a>
+                        <a class="dropdown-item header-dropdown-item" th:href="@{/certification/trainer/create}">Add New TVET Trainer</a>
+                    </div>
                 </li>
                 <div sec:authorize="hasRole('ADMIN')">
                     <li class="nav-item">

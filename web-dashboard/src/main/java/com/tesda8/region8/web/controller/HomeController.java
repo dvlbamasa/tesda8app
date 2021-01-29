@@ -51,12 +51,6 @@ public class HomeController extends DefaultController{
         return "dashboard/daily_po_report";
     }
 
-    @GetMapping("/certification")
-    public String certification(Model model) {
-        addStatusCounterToModel(model);
-        return "certification/certification";
-    }
-
     @GetMapping("/payroll")
     public String payroll() {
         return "payroll/payroll";

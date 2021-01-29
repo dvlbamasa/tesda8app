@@ -8,6 +8,7 @@
         <module>audit</module>
         <module>planning</module>
         <module>program-registration</module>
+        <module>certification</module>
         <module>scholarship</module>
         <module>reports</module>
         <module>web-dashboard</module>

@@ -24,6 +24,8 @@ import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.Sector;
 import com.tesda8.region8.util.enums.SortOrder;
 import com.tesda8.region8.util.service.ApplicationUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +44,8 @@ import java.util.stream.Collectors;
 public class RegisteredProgramServiceImpl implements RegisteredProgramService {
 
     private static final String ALL = "ALL";
+    private static Logger logger = LoggerFactory.getLogger(RegisteredProgramServiceImpl.class);
+
 
     private InstitutionRepository institutionRepository;
     private RegisteredProgramRepository registeredProgramRepository;
@@ -341,9 +345,28 @@ public class RegisteredProgramServiceImpl implements RegisteredProgramService {
 
     @Override
     public RegisteredProgramRequestDto getRegisteredProgramDto(Long id) {
-        RegisteredProgram registeredProgram = registeredProgramRepository.getByIdNotDeleted(id);
-        return programRegistrationMapper
+        RegisteredProgram registeredProgram = registeredProgramRepository.getOne(id);
+        RegisteredProgramRequestDto registeredProgramRequestDto = programRegistrationMapper
                 .registeredProgramToRequestDto(registeredProgram);
+        registeredProgramRequestDto.setNonTeachingStaffDtoList(
+                registeredProgramRequestDto.getNonTeachingStaffDtoList()
+                        .stream()
+                        .filter(nonTeachingStaffDto -> !nonTeachingStaffDto.getIsDeleted())
+                        .collect(Collectors.toList())
+        );
+        registeredProgramRequestDto.setOfficialDtoList(
+                registeredProgramRequestDto.getOfficialDtoList()
+                        .stream()
+                        .filter(officialDto -> !officialDto.getIsDeleted())
+                        .collect(Collectors.toList())
+        );
+        registeredProgramRequestDto.setTrainerDtoList(
+                registeredProgramRequestDto.getTrainerDtoList()
+                        .stream()
+                        .filter(trainerDto -> !trainerDto.getIsDeleted())
+                        .collect(Collectors.toList())
+        );
+        return registeredProgramRequestDto;
     }
 
     @Override

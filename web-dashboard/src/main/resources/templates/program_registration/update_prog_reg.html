@@ -227,7 +227,7 @@
                             <td><span th:text="${official.natureOfAppointment}"></span></td>
                             <td><span th:text="${official.educationalAttainment.label}"></span></td>
                             <td><a th:href="@{/program_registration/official/{id}/update(id=${official.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
-                            <td><a class="deleteOfficial" th:href="@{/program_registration/{registeredProgramId}/official/{id}/delete(id=${official.id}, registeredProgramId=${registeredProgram.id})}"><button class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
+                            <td><a class="deleteCertificate" th:href="@{/program_registration/{registeredProgramId}/official/{id}/delete(id=${official.id}, registeredProgramId=${registeredProgram.id})}"><button class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
                         </tr>
                     </th:block>
                     </tbody>
@@ -247,25 +247,11 @@
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col"> Name</th>
-                        <th scope="col"> Position</th>
                         <th scope="col"> Nature of Appointment</th>
                         <th scope="col"> Educational Attainment</th>
                         <th scope="col"> Years of Teaching Exp.</th>
                         <th scope="col"> Years of Industry Exp.</th>
-                        <th scope="col" colspan="2"> Trainers Qualification</th>
                         <th scope="col" colspan="2"> Action</th>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th>NTTC Number</th>
-                        <th>Validity</th>
-                        <th></th>
-                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -276,16 +262,13 @@
                     </th:block>
                     <th:block th:each="trainer : ${registeredProgram.trainerDtoList}">
                         <tr>
-                            <td><span th:text="${trainer.name}"></span></td>
-                            <td><span th:text="${trainer.position}"></span></td>
+                            <td><span th:text="${trainer.fullName}"></span></td>
                             <td><span th:text="${trainer.natureOfAppointment}"></span></td>
                             <td><span th:text="${trainer.educationalAttainment.label}"></span></td>
                             <td><span th:text="${trainer.teachingExperienceYear}"></span></td>
                             <td><span th:text="${trainer.industryExperienceYear}"></span></td>
-                            <td><span th:text="${trainer.trainerQualification.nttcNumber}"></span></td>
-                            <td><span th:text="${#dates.format(trainer.trainerQualification.validity, 'yyyy/MM/dd')}"></span></td>
                             <td><a th:href="@{/program_registration/trainer/{id}/update(id=${trainer.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
-                            <td><a class="deleteTrainer" th:href="@{/program_registration/{registeredProgramId}/trainer/{id}/delete(id=${trainer.id}, registeredProgramId=${registeredProgram.id})}"><button class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
+                            <td><a class="deleteCertificate" th:href="@{/program_registration/{registeredProgramId}/trainer/{id}/delete(id=${trainer.id}, registeredProgramId=${registeredProgram.id})}"><button class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
                         </tr>
                     </th:block>
                     </tbody>
@@ -326,7 +309,7 @@
                             <td><span th:text="${staff.educationalAttainment.label}"></span></td>
                             <td><span th:text="${staff.positionExperience}"></span></td>
                             <td><a th:href="@{/program_registration/staff/{id}/update(id=${staff.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
-                            <td><a class="deleteStaff" th:href="@{/program_registration/{registeredProgramId}/staff/{id}/delete(id=${staff.id}, registeredProgramId=${registeredProgram.id})}"><button id="deleteStaff" class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
+                            <td><a class="deleteCertificate" th:href="@{/program_registration/{registeredProgramId}/staff/{id}/delete(id=${staff.id}, registeredProgramId=${registeredProgram.id})}"><button id="deleteStaff" class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
                         </tr>
                     </th:block>
                     </tbody>

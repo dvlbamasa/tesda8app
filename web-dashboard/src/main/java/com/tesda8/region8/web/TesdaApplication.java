@@ -12,6 +12,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EnableJpaRepositories(basePackages = {
 		"com.tesda8.region8.audit.repository",
 		"com.tesda8.region8.planning.repository",
+		"com.tesda8.region8.certification.repository",
 		"com.tesda8.region8.program.registration.repository",
 		"com.tesda8.region8.scholarship.repository",
 		"com.tesda8.region8.reports.repository"
@@ -19,6 +20,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EntityScan(basePackages = {
 		"com.tesda8.region8.audit.model",
 		"com.tesda8.region8.planning.model",
+		"com.tesda8.region8.certification.model",
 		"com.tesda8.region8.program.registration.model",
 		"com.tesda8.region8.scholarship.model",
 		"com.tesda8.region8.reports.model",
@@ -27,6 +29,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @ComponentScan(basePackages = {
 		"com.tesda8.region8.audit",
 		"com.tesda8.region8.planning",
+		"com.tesda8.region8.certification",
 		"com.tesda8.region8.program.registration",
 		"com.tesda8.region8.scholarship",
 		"com.tesda8.region8.reports",

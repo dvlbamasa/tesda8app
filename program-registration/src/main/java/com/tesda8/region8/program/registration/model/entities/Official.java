@@ -1,6 +1,5 @@
 package com.tesda8.region8.program.registration.model.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tesda8.region8.program.registration.service.audit.listener.OfficialAuditListener;
 import com.tesda8.region8.util.enums.EducationalAttainment;
@@ -9,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;

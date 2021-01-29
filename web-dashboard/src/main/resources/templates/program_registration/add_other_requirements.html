@@ -99,12 +99,6 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="trainerPosition" class="col-sm-2 col-form-label">Position</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" placeholder="Enter Position" id="trainerPosition" name="trainerPosition" type="text" th:field="*{trainerDtoList[__${itemstat.index}__].position}" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
                                     <label for="trainerNatureOfAppointment" class="col-sm-2 col-form-label">Nature of Appointment</label>
                                     <div class="col-sm-10">
                                         <input class="form-control" placeholder="Enter Official Nature of Appointment" id="trainerNatureOfAppointment" name="trainerNatureOfAppointment" type="text" th:field="*{trainerDtoList[__${itemstat.index}__].natureOfAppointment}" />
@@ -120,36 +114,6 @@
                                                 </option>
                                             </th:block>
                                         </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="teachingExperienceYear" class="col-sm-2 col-form-label">No. of Years of Teaching Experience</label>
-                                    <div class="col-sm-10">
-                                        <input type="number" onkeypress="return isNumberKey(event)"  class="form-control" placeholder="Enter Duration Hours" id="teachingExperienceYear" name="teachingExperienceYear" th:field="*{trainerDtoList[__${itemstat.index}__].teachingExperienceYear}"/>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="industryExperienceYear" class="col-sm-2 col-form-label">No. of Years of Industry Experience Relevant to Qualification</label>
-                                    <div class="col-sm-10">
-                                        <input type="number" onkeypress="return isNumberKey(event)"  class="form-control" placeholder="Enter Duration Hours" id="industryExperienceYear" name="teachingExperienceYear" th:field="*{trainerDtoList[__${itemstat.index}__].industryExperienceYear}"/>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Trainers Qualification</label>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="nttcNumber" class="col-sm-2 col-form-label">NTTC Number</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" placeholder="Enter Official Nature of Appointment" id="nttcNumber" name="nttcNumber" type="text" th:field="*{trainerDtoList[__${itemstat.index}__].trainerQualification.nttcNumber}" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="validity" class="col-sm-2 col-form-label">Validity</label>
-                                    <div class="input-group date  col-sm-10" id="validity" data-target-input="nearest">
-                                        <input th:field="*{trainerDtoList[__${itemstat.index}__].trainerQualification.validity}" type="text" class="form-control datetimepicker-input" data-target="#validity"/>
-                                        <div class="input-group-append" data-target="#validity" data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                        </div>
                                     </div>
                                 </div>
                                 <script type="text/javascript">
