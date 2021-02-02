@@ -17,7 +17,7 @@
             <div class="container h-100">
                 <div class="row h-100 align-items-center">
                     <div class="col-lg-12">
-                        <h1 class="display-4 text-white mt-5 mb-2">Update Trainer</h1>
+                        <h1 class="display-4 text-white mt-5 mb-2">TVET Trainer Details</h1>
                         <p class="lead text-white-50">Update the TVET Trainer Details and view the trainer's certificates' details</p>
                         <div class="btn-group mr-2 float-right" role="group">
                             <a th:href="@{/certification}" class="a-header btn btn-info btn-lg" role="button" aria-pressed="true">Back to TVET Trainers Registry</a>
@@ -26,225 +26,226 @@
                 </div>
             </div>
         </header>
-        <div>
-            <div class="container mb-5">
-                <form id="updateTrainerForm" th:action="@{/certification/trainer/update/save}" th:object="${trainer}" method="post">
-                    <fieldset>
-                        <div class="container">
-                            <h1 class="display-5 text-black-50 mb-5">Update TVET Trainer Details</h1>
-                            <input type="hidden" th:field="*{id}"/>
-                            <input type="hidden" th:field="*{isDeleted}"/>
-                            <div class="form-group row">
-                                <label for="fullName" class="col-sm-2 col-form-label">Full Name<span class="input-required">*</span></label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="Enter Full Name" id="fullName" name="fullName" th:field="*{fullName}" th:value="${trainer.fullName}" required/>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="birthdateRequest" class="col-sm-2 col-form-label">Birth Date<span class="input-required">*</span></label>
-                                <div class="input-group date  col-sm-10" id="birthdateRequest" data-target-input="nearest">
-                                    <input th:field="*{birthdateRequest}" th:value="${trainer.birthdateRequest}" type="text" class="form-control datetimepicker-input" data-target="#birthdateRequest" required/>
-                                    <div class="input-group-append" data-target="#birthdateRequest" data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+        <div id="parent">
+            <div id="wide">
+                <div class="container mb-5">
+                    <form id="updateTrainerForm" th:action="@{/certification/trainer/update/save}" th:object="${trainer}" method="post">
+                        <fieldset>
+                            <div class="container">
+                                <h1 class="display-5 text-black-50 mb-5">Update TVET Trainer Details</h1>
+                                <input type="hidden" th:field="*{id}"/>
+                                <input type="hidden" th:field="*{isDeleted}"/>
+                                <div class="form-group row">
+                                    <label for="fullName" class="col-sm-2 col-form-label">Full Name<span class="input-required">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="Enter Full Name" id="fullName" name="fullName" th:field="*{fullName}" th:value="${trainer.fullName}" required/>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="sex" class="col-sm-2 col-form-label">Sex<span class="input-required">*</span></label>
-                                <div class="col-sm-10">
-                                    <select class="form-control selectpicker" id="sex" name="sex" required>
-                                        <th:block th:each="sex : ${T(com.tesda8.region8.util.enums.Sex).values()}">
-                                            <th:block th:if="${sex != T(com.tesda8.region8.util.enums.Sex).ALL}">
-                                                <option th:value="${sex}"
-                                                        th:text="${sex.label}"
-                                                        th:selected="${sex == trainer.sex}">
-                                                </option>
+                                <div class="form-group row">
+                                    <label for="birthdateRequest" class="col-sm-2 col-form-label">Birth Date<span class="input-required">*</span></label>
+                                    <div class="input-group date  col-sm-10" id="birthdateRequest" data-target-input="nearest">
+                                        <input th:field="*{birthdateRequest}" th:value="${trainer.birthdateRequest}" type="text" class="form-control datetimepicker-input" data-target="#birthdateRequest" required/>
+                                        <div class="input-group-append" data-target="#birthdateRequest" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="sex" class="col-sm-2 col-form-label">Sex<span class="input-required">*</span></label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control selectpicker" id="sex" name="sex" required>
+                                            <th:block th:each="sex : ${T(com.tesda8.region8.util.enums.Sex).values()}">
+                                                <th:block th:if="${sex != T(com.tesda8.region8.util.enums.Sex).ALL}">
+                                                    <option th:value="${sex}"
+                                                            th:text="${sex.label}"
+                                                            th:selected="${sex == trainer.sex}">
+                                                    </option>
+                                                </th:block>
                                             </th:block>
-                                        </th:block>
-                                    </select>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="address" class="col-sm-2 col-form-label">Address<span class="input-required">*</span></label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" placeholder="Enter Address" id="address" name="address" type="text" th:field="*{address}" th:value="${trainer.address}" required/>
+                                <div class="form-group row">
+                                    <label for="address" class="col-sm-2 col-form-label">Address<span class="input-required">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" placeholder="Enter Address" id="address" name="address" type="text" th:field="*{address}" th:value="${trainer.address}" required/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="emailAddress" class="col-sm-2 col-form-label">Email Address</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" placeholder="Enter Email Address" id="emailAddress" name="emailAddress" type="email" th:field="*{emailAddress}" th:value="${trainer.emailAddress}"/>
+                                <div class="form-group row">
+                                    <label for="emailAddress" class="col-sm-2 col-form-label">Email Address</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" placeholder="Enter Email Address" id="emailAddress" name="emailAddress" type="email" th:field="*{emailAddress}" th:value="${trainer.emailAddress}"/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="contactNumber" class="col-sm-2 col-form-label">Contact Number</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" placeholder="Enter Contact Number" id="contactNumber" name="contactNumber" type="text" th:field="*{contactNumber}" th:value="${trainer.contactNumber}"/>
+                                <div class="form-group row">
+                                    <label for="contactNumber" class="col-sm-2 col-form-label">Contact Number</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" placeholder="Enter Contact Number" id="contactNumber" name="contactNumber" type="text" th:field="*{contactNumber}" th:value="${trainer.contactNumber}"/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="trainingInstitution" class="col-sm-2 col-form-label">Training Institution</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" placeholder="Enter Training Institution" id="trainingInstitution" name="trainingInstitution" type="text" th:field="*{trainingInstitution}" th:value="${trainer.trainingInstitution}"/>
+                                <div class="form-group row">
+                                    <label for="trainingInstitution" class="col-sm-2 col-form-label">Training Institution</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" placeholder="Enter Training Institution" id="trainingInstitution" name="trainingInstitution" type="text" th:field="*{trainingInstitution}" th:value="${trainer.trainingInstitution}"/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="teachingExperienceYear" class="col-sm-2 col-form-label">Years of Training Experience</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="Enter Number of Years of Training Experience" id="teachingExperienceYear" name="teachingExperienceYear" th:field="*{teachingExperienceYear}" th:value="${trainer.teachingExperienceYear}" />
+                                <div class="form-group row">
+                                    <label for="teachingExperienceYear" class="col-sm-2 col-form-label">Years of Training Experience</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="Enter Number of Years of Training Experience" id="teachingExperienceYear" name="teachingExperienceYear" th:field="*{teachingExperienceYear}" th:value="${trainer.teachingExperienceYear}" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="industryExperienceYear" class="col-sm-2 col-form-label">Years of Practicing the Qualification</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="Enter Number of Years of Practicing the Qualification" id="industryExperienceYear" name="industryExperienceYear" th:field="*{industryExperienceYear}" th:value="${trainer.industryExperienceYear}" />
+                                <div class="form-group row">
+                                    <label for="industryExperienceYear" class="col-sm-2 col-form-label">Years of Practicing the Qualification</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="Enter Number of Years of Practicing the Qualification" id="industryExperienceYear" name="industryExperienceYear" th:field="*{industryExperienceYear}" th:value="${trainer.industryExperienceYear}" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="educationalAttainment" class="col-sm-2 col-form-label">Educational Attainment<span class="input-required">*</span></label>
-                                <div class="col-sm-10">
-                                    <select class="form-control selectpicker" id="educationalAttainment" name="educationalAttainment" required>
-                                        <th:block th:each="educationalAttainment : ${T(com.tesda8.region8.util.enums.EducationalAttainment).values()}">
-                                            <th:block th:if="${educationalAttainment != T(com.tesda8.region8.util.enums.EducationalAttainment).ALL}">
-                                                <option th:value="${educationalAttainment}"
-                                                        th:text="${educationalAttainment.label}"
-                                                        th:selected="${educationalAttainment == trainer.educationalAttainment}">
-                                                </option>
+                                <div class="form-group row">
+                                    <label for="educationalAttainment" class="col-sm-2 col-form-label">Educational Attainment<span class="input-required">*</span></label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control selectpicker" id="educationalAttainment" name="educationalAttainment" required>
+                                            <th:block th:each="educationalAttainment : ${T(com.tesda8.region8.util.enums.EducationalAttainment).values()}">
+                                                <th:block th:if="${educationalAttainment != T(com.tesda8.region8.util.enums.EducationalAttainment).ALL}">
+                                                    <option th:value="${educationalAttainment}"
+                                                            th:text="${educationalAttainment.label}"
+                                                            th:selected="${educationalAttainment == trainer.educationalAttainment}">
+                                                    </option>
+                                                </th:block>
                                             </th:block>
-                                        </th:block>
-                                    </select>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <script type="text/javascript">
-                                $(function () {
-                                    $('#birthdateRequest').datetimepicker({
-                                        format: 'L'
+                                <script type="text/javascript">
+                                    $(function () {
+                                        $('#birthdateRequest').datetimepicker({
+                                            format: 'L'
+                                        });
                                     });
-                                });
-                            </script>
-                        </div>
-                        <div class="container mt-5">
-                            <div class="btn-group" role="group">
-                                <button class="btn btn-primary btn-lg flo1at-right" type="submit" id="submitButton" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button>
-                                <a th:href="@{/certification/trainer/{id}/delete(id=${trainer.id})}" id="deleteTvetTrainer"><button class="btn-lg btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete TVET Trainer</button></a>
+                                </script>
                             </div>
-                        </div>
-                    </fieldset>
-                </form>
+                            <div class="container mt-5">
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-primary btn-lg flo1at-right" type="submit" id="submitButton" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button>
+                                    <a th:href="@{/certification/trainer/{id}/delete(id=${trainer.id})}" id="deleteTvetTrainer"><button class="btn-lg btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete TVET Trainer</button></a>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
             </div>
-        </div>
-        <div class="container mt-5">
-            <hr class="border"/>
-        </div>
-        <div class="container mb-5">
-            <div class="btn-group float-right" role="group">
-                <a th:href="@{/certification/{id}/certificate/create(id=${trainer.id})}" id="createOfficial"><button class="btn-lg btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Certificate</button></a>
+            <div id="narrow">
+                <div class="container mb-5">
+                    <div class="btn-group float-right" role="group">
+                        <a th:href="@{/certification/{id}/certificate/create(id=${trainer.id})}" id="createOfficial"><button class="btn-lg btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Certificate</button></a>
 
-            </div>
-            <h1 class="display-5 text-black-50 mb-5">List of National Certificates</h1>
-            <div class="table-responsive">
-                <table id="nc-table" class="table table-bordered table-striped table-sm">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col"> Qualification Title</th>
-                        <th scope="col"> Certificate Number</th>
-                        <th scope="col"> Date Issued</th>
-                        <th scope="col"> Expiration Date</th>
-                        <th colspan="2"> Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <th:block th:if="${trainer.ncCertificates.isEmpty()}">
-                        <tr>
-                            <td style="text-align:center" colspan="9">No Data Available</td>
-                        </tr>
-                    </th:block>
-                    <th:block th:each="certificate : ${trainer.ncCertificates}">
-                        <tr>
-                            <td><span th:text="${certificate.qualificationTitle}"></span></td>
-                            <td><span th:text="${certificate.certificateNumber}"></span></td>
-                            <td><span th:text="${#temporals.format(certificate.dateIssued, 'MMM. dd, yyyy')}"></span></td>
-                            <td><span th:text="${#temporals.format(certificate.expirationDate, 'MMM. dd, yyyy')}"></span></td>
-                            <td><a th:href="@{/certification/{id}/certificate/update(id=${certificate.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
-                            <td><a class="deleteCertificate" th:href="@{/certification/{trainerId}/trainer/{id}/certificate/delete(id=${certificate.id}, trainerId=${trainer.id})}"><button class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
-                        </tr>
-                    </th:block>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="container mt-5">
-            <hr class="border"/>
-        </div>
-        <div class="container mb-5">
-            <div class="btn-group float-right" role="group">
-            </div>
-            <h1 class="display-5 text-black-50 mb-5">List of TM Certificates</h1>
-            <div class="table-responsive">
-                <table id="tm-table" class="table table-bordered table-striped table-sm">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col"> Certificate Number</th>
-                        <th scope="col"> Date Issued</th>
-                        <th scope="col"> Expiration Date</th>
-                        <th colspan="2"> Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <th:block th:if="${trainer.tmCertificates.isEmpty()}">
-                        <tr>
-                            <td style="text-align:center" colspan="9">No Data Available</td>
-                        </tr>
-                    </th:block>
-                    <th:block th:each="certificate : ${trainer.tmCertificates}">
-                        <tr>
-                            <td><span th:text="${certificate.certificateNumber}"></span></td>
-                            <td><span th:text="${#temporals.format(certificate.dateIssued, 'MMM. dd, yyyy')}"></span></td>
-                            <td><span th:text="${#temporals.format(certificate.expirationDate, 'MMM. dd, yyyy')}"></span></td>
-                            <td><a th:href="@{/certification/{id}/certificate/update(id=${certificate.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
-                            <td><a class="deleteCertificate" th:href="@{/certification/{trainerId}/trainer/{id}/certificate/delete(id=${certificate.id}, trainerId=${trainer.id})}"><button class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
-                        </tr>
-                    </th:block>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="container mt-5">
-            <hr class="border"/>
-        </div>
-        <div class="container mb-5">
-            <div class="btn-group float-right" role="group">
-            </div>
-            <h1 class="display-5 text-black-50 mb-5">List of National TVET Trainers Certificates</h1>
-            <div class="table-responsive">
-                <table id="nttc-table" class="table table-bordered table-striped table-sm">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col"> Certificate Number</th>
-                        <th scope="col"> Date Issued</th>
-                        <th scope="col"> Expiration Date</th>
-                        <th scope="col"> CLN-NTC No.</th>
-                        <th colspan="2"> Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <th:block th:if="${trainer.nttcCertificates.isEmpty()}">
-                        <tr>
-                            <td style="text-align:center" colspan="9">No Data Available</td>
-                        </tr>
-                    </th:block>
-                    <th:block th:each="certificate : ${trainer.nttcCertificates}">
-                        <tr>
-                            <td><span th:text="${certificate.certificateNumber}"></span></td>
-                            <td><span th:text="${#temporals.format(certificate.dateIssued, 'MMM. dd, yyyy')}"></span></td>
-                            <td><span th:text="${#temporals.format(certificate.expirationDate, 'MMM. dd, yyyy')}"></span></td>
-                            <td><span th:text="${certificate.clnNtcNumber}"></span></td>
-                            <td><a th:href="@{/certification/{id}/certificate/update(id=${certificate.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
-                            <td><a class="deleteCertificate" th:href="@{/certification/{trainerId}/trainer/{id}/certificate/delete(id=${certificate.id}, trainerId=${trainer.id})}"><button class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
-                        </tr>
-                    </th:block>
-                    </tbody>
-                </table>
+                    </div>
+                    <h1 class="display-5 text-black-50 mb-5">List of National Certificates</h1>
+                    <div class="table-responsive">
+                        <table id="nc-table" class="table table-bordered table-striped table-sm">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col"> Qualification Title</th>
+                                <th scope="col"> Certificate Number</th>
+                                <th scope="col"> Date Issued</th>
+                                <th scope="col"> Expiration Date</th>
+                                <th colspan="2"> Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <th:block th:if="${trainer.ncCertificates.isEmpty()}">
+                                <tr>
+                                    <td style="text-align:center" colspan="9">No Data Available</td>
+                                </tr>
+                            </th:block>
+                            <th:block th:each="certificate : ${trainer.ncCertificates}">
+                                <tr>
+                                    <td><span th:text="${certificate.qualificationTitle}"></span></td>
+                                    <td><span th:text="${certificate.certificateNumber}"></span></td>
+                                    <td><span th:text="${#temporals.format(certificate.dateIssued, 'MMM. dd, yyyy')}"></span></td>
+                                    <td><span th:text="${#temporals.format(certificate.expirationDate, 'MMM. dd, yyyy')}"></span></td>
+                                    <td><a th:href="@{/certification/{id}/certificate/update(id=${certificate.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
+                                    <td><a class="deleteCertificate" th:href="@{/certification/{trainerId}/trainer/{id}/certificate/delete(id=${certificate.id}, trainerId=${trainer.id})}"><button class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
+                                </tr>
+                            </th:block>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="container mt-5">
+                    <hr class="border"/>
+                </div>
+                <div class="container mb-5">
+                    <div class="btn-group float-right" role="group">
+                    </div>
+                    <h1 class="display-5 text-black-50 mb-5">List of TM Certificates</h1>
+                    <div class="table-responsive">
+                        <table id="tm-table" class="table table-bordered table-striped table-sm">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col"> Certificate Number</th>
+                                <th scope="col"> Date Issued</th>
+                                <th scope="col"> Expiration Date</th>
+                                <th colspan="2"> Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <th:block th:if="${trainer.tmCertificates.isEmpty()}">
+                                <tr>
+                                    <td style="text-align:center" colspan="9">No Data Available</td>
+                                </tr>
+                            </th:block>
+                            <th:block th:each="certificate : ${trainer.tmCertificates}">
+                                <tr>
+                                    <td><span th:text="${certificate.certificateNumber}"></span></td>
+                                    <td><span th:text="${#temporals.format(certificate.dateIssued, 'MMM. dd, yyyy')}"></span></td>
+                                    <td><span th:text="${#temporals.format(certificate.expirationDate, 'MMM. dd, yyyy')}"></span></td>
+                                    <td><a th:href="@{/certification/{id}/certificate/update(id=${certificate.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
+                                    <td><a class="deleteCertificate" th:href="@{/certification/{trainerId}/trainer/{id}/certificate/delete(id=${certificate.id}, trainerId=${trainer.id})}"><button class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
+                                </tr>
+                            </th:block>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="container mt-5">
+                    <hr class="border"/>
+                </div>
+                <div class="container mb-5">
+                    <div class="btn-group float-right" role="group">
+                    </div>
+                    <h1 class="display-5 text-black-50 mb-5">List of National TVET Trainers Certificates</h1>
+                    <div class="table-responsive">
+                        <table id="nttc-table" class="table table-bordered table-striped table-sm">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col"> Certificate Number</th>
+                                <th scope="col"> Date Issued</th>
+                                <th scope="col"> Expiration Date</th>
+                                <th scope="col"> CLN-NTC No.</th>
+                                <th colspan="2"> Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <th:block th:if="${trainer.nttcCertificates.isEmpty()}">
+                                <tr>
+                                    <td style="text-align:center" colspan="9">No Data Available</td>
+                                </tr>
+                            </th:block>
+                            <th:block th:each="certificate : ${trainer.nttcCertificates}">
+                                <tr>
+                                    <td><span th:text="${certificate.certificateNumber}"></span></td>
+                                    <td><span th:text="${#temporals.format(certificate.dateIssued, 'MMM. dd, yyyy')}"></span></td>
+                                    <td><span th:text="${#temporals.format(certificate.expirationDate, 'MMM. dd, yyyy')}"></span></td>
+                                    <td><span th:text="${certificate.clnNtcNumber}"></span></td>
+                                    <td><a th:href="@{/certification/{id}/certificate/update(id=${certificate.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
+                                    <td><a class="deleteCertificate" th:href="@{/certification/{trainerId}/trainer/{id}/certificate/delete(id=${certificate.id}, trainerId=${trainer.id})}"><button class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
+                                </tr>
+                            </th:block>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

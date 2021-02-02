@@ -9,5 +9,11 @@ public interface TrainerService {
 
     TrainerDto createTrainer(TrainerDto trainerDto);
 
+    void updateLinkedTrainer(TrainerDto trainerDto);
+
+    void unlinkTrainer(Long id);
+
+    List<TrainerDto> getAllTrainer();
+
     List<TrainerDto> getAllTrainerByFilter(TrainerFilter trainerFilter);
 }

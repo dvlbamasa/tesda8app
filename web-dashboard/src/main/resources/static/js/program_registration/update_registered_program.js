@@ -76,15 +76,15 @@ $(".deleteTrainer").click(function(event) {
     event.preventDefault();
     var currentElement = $(this);
     swal({
-        title: "Delete Trainer?",
-        text: "Once deleted, the trainer will not be available.",
+        title: "Unlink TVET Trainer?",
+        text: "Once unlinked, you will need to link the TVET trainer again.",
         icon: "warning",
         buttons: ["No", "Yes"],
         dangerMode: true,
     })
         .then((willDelete) => {
             if (willDelete) {
-                swal("Trainer successfully deleted!", {
+                swal("Trainer successfully unlinked!", {
                     icon: "success",
                 }).then((value) => {
                     window.location.href = currentElement.attr('href');

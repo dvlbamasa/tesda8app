@@ -48,13 +48,19 @@ public class TrainerServiceImpl implements RegistrationRequirementsCrudService<T
         this.programRegistrationMapper = programRegistrationMapper;
     }
 
+    /**
+     * Link TVET Trainer to Registered Program
+     * @param dto
+     */
     @Override
     @Transactional
     public void create(TrainerDto dto) {
         RegisteredProgram registeredProgram = registeredProgramRepository
                 .findById(dto.getRegisteredProgramId()).orElseThrow(EntityNotFoundException::new);
-        Trainer trainer = programRegistrationMapper.trainerToEntity(dto);
+        Trainer trainer = trainerRepository.findById(dto.getId()).orElseThrow(EntityNotFoundException::new);
         trainer.setRegisteredProgram(registeredProgram);
+        trainer.setNatureOfAppointmentDetails(dto.getNatureOfAppointmentDetails());
+        trainer.setRemarkDetails(dto.getRemarkDetails());
         trainer.setIsDeleted(false);
         registeredProgram.getTrainerList().add(trainer);
         trainerRepository.save(trainer);
@@ -74,7 +80,6 @@ public class TrainerServiceImpl implements RegistrationRequirementsCrudService<T
     public void delete(Long id) {
         Trainer trainer = trainerRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         trainer.setIsDeleted(true);
-        logger.info("IS DELETED?? : {}", trainer.getIsDeleted());
         trainerRepository.save(trainer);
     }
 
@@ -108,12 +113,38 @@ public class TrainerServiceImpl implements RegistrationRequirementsCrudService<T
     }
 
 
+    /**
+     * Create TVET Trainer in Certification Feature
+     * @param trainerDto
+     * @return
+     */
     @Override
+    @Transactional
     public TrainerDto createTrainer(TrainerDto trainerDto) {
         Trainer trainer = programRegistrationMapper.trainerToEntity(trainerDto);
         trainer.setBirthdate(ApplicationUtil.convertToLocalDateTimeViaInstant(trainerDto.getBirthdateRequest()));
         trainer.setIsDeleted(false);
         return programRegistrationMapper.trainerToDto(trainerRepository.save(trainer));
+    }
+
+    @Override
+    public void updateLinkedTrainer(TrainerDto trainerDto) {
+        Trainer trainer = trainerRepository.findById(trainerDto.getId()).orElseThrow(EntityNotFoundException::new);
+        trainer.setNatureOfAppointmentDetails(trainerDto.getNatureOfAppointmentDetails());
+        trainer.setRemarkDetails(trainerDto.getRemarkDetails());
+        trainerRepository.save(trainer);
+    }
+
+    @Override
+    public void unlinkTrainer(Long id) {
+        Trainer trainer = trainerRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        trainer.setRegisteredProgram(null);
+        trainerRepository.save(trainer);
+    }
+
+    @Override
+    public List<TrainerDto> getAllTrainer() {
+        return getAllTrainerByFilter(new TrainerFilter());
     }
 
     @Override

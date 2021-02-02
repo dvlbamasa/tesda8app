@@ -7,6 +7,10 @@ window.onload = function () {
 
             $('#sector').prop("disabled", true);
             $('.selectpicker').selectpicker('refresh');
+
+            document.getElementById('clnNtcNumberDiv').style.display="";
+            document.getElementById('qualificationTitleDiv').style.display="none";
+            document.getElementById('sectorDiv').style.display="none";
         } else if (selectValue.value === "TM") {
             document.getElementById('clnNtcNumber').disabled=true;
             document.getElementById('qualificationTitle').disabled=true;
@@ -14,6 +18,10 @@ window.onload = function () {
 
             $('#sector').prop("disabled", true);
             $('.selectpicker').selectpicker('refresh');
+
+            document.getElementById('clnNtcNumberDiv').style.display="none";
+            document.getElementById('qualificationTitleDiv').style.display="none";
+            document.getElementById('sectorDiv').style.display="none";
         } else if (selectValue.value === "NC") {
             document.getElementById('clnNtcNumber').disabled=true;
             document.getElementById('qualificationTitle').disabled=false;
@@ -21,6 +29,10 @@ window.onload = function () {
 
             $('#sector').prop("disabled", false);
             $('.selectpicker').selectpicker('refresh');
+
+            document.getElementById('clnNtcNumberDiv').style.display="none";
+            document.getElementById('qualificationTitleDiv').style.display="";
+            document.getElementById('sectorDiv').style.display="";
         }
 
 };

@@ -26,294 +26,293 @@
                 </div>
             </div>
         </header>
-        <div>
-            <div class="container mb-5">
-                <form id="updateProgRegForm" th:action="@{/program_registration/registeredProgram/update/save}" th:object="${registeredProgram}" method="post">
-                    <fieldset>
-                        <div class="container">
-                            <h1 class="display-5 text-black-50 mb-5">Update Registered Program</h1>
-                            <input type="hidden" th:field="*{id}"/>
-                            <input type="hidden" th:field="*{isDeleted}"/>
-                            <div class="form-group row">
-                                <label for="institutionName" class="col-sm-2 col-form-label">Institution Name</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" id="institutionName" name="institutionName" type="text" th:value="${registeredProgram.institutionName}" disabled/>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="sector" class="col-sm-2 col-form-label">Select Course Sector<span class="input-required">*</span></label>
-                                <div class="col-sm-10">
-                                    <select class="form-control selectpicker" data-live-search="true"  id="sector" name="sector" required>
-                                        <optgroup label="Non-Bundled Programs">
-                                            <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
-                                                <th:block th:if="${sector.sectorType != 'BUNDLED' and sector != T(com.tesda8.region8.util.enums.Sector).ALL}">
-                                                    <option th:value="${sector}"
-                                                            th:text="${sector.label}"
-                                                            th:selected="${sector == registeredProgram.sector}">
-                                                    </option>
-                                                </th:block>
-                                            </th:block>
-                                        </optgroup>
-                                        <optgroup label="Bundled Programs">
-                                            <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
-                                                <th:block th:if="${sector.sectorType == 'BUNDLED' and sector != T(com.tesda8.region8.util.enums.Sector).ALL}">
-                                                    <option th:value="${sector}"
-                                                            th:text="${sector.label}"
-                                                            th:selected="${sector == registeredProgram.sector}">
-                                                    </option>
-                                                </th:block>
-                                            </th:block>
-                                        </optgroup>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="name" class="col-sm-2 col-form-label">Qualification Title<span class="input-required">*</span></label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" placeholder="Enter Qualification Title" id="name" name="name" type="text" th:field="*{name}" th:value="${registeredProgram.name}" required/>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="duration" class="col-sm-2 col-form-label">Duration in Hours<span class="input-required">*</span></label>
-                                <div class="col-sm-10">
-                                    <input type="number" onkeypress="return isNumberKey(event)"  class="form-control" placeholder="Enter Duration Hours" id="duration" name="duration" th:field="*{duration}" th:value="${registeredProgram.duration}" required/>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="programRegistrationNumber" class="col-sm-2 col-form-label">Program Registration Number<span class="input-required">*</span></label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" placeholder="Enter Program Registration Number" id="programRegistrationNumber" name="programRegistrationNumber" type="text" th:field="*{programRegistrationNumber}" th:value="${registeredProgram.programRegistrationNumber}" required/>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="dateIssued" class="col-sm-2 col-form-label">Date Issued<span class="input-required">*</span></label>
-                                <div class="input-group date  col-sm-10" id="dateIssued" data-target-input="nearest">
-                                    <input th:field="*{dateIssued}" th:value="${registeredProgram.dateIssued}" type="text" class="form-control datetimepicker-input" data-target="#dateIssued" required/>
-                                    <div class="input-group-append" data-target="#dateIssued" data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+        <div id="parent">
+            <div id="wide">
+                <div class="container-md mb-5">
+                    <form id="updateProgRegForm" th:action="@{/program_registration/registeredProgram/update/save}" th:object="${registeredProgram}" method="post">
+                        <fieldset>
+                            <div class="container">
+                                <h1 class="display-5 text-black-50 mb-5">Update Registered Program</h1>
+                                <input type="hidden" th:field="*{id}"/>
+                                <input type="hidden" th:field="*{isDeleted}"/>
+                                <div class="form-group row">
+                                    <label for="institutionName" class="col-sm-2 col-form-label">Institution Name</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" id="institutionName" name="institutionName" type="text" th:value="${registeredProgram.institutionName}" disabled/>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="courseStatus" class="col-sm-2 col-form-label">Course Status<span class="input-required">*</span></label>
-                                <div class="col-sm-10">
-                                    <select class="form-control selectpicker" id="courseStatus" name="courseStatus" required>
-                                        <th:block th:each="courseStatus : ${T(com.tesda8.region8.util.enums.CourseStatus).values()}">
-                                            <th:block th:if="${courseStatus != T(com.tesda8.region8.util.enums.CourseStatus).ALL}">
-                                                <option th:value="${courseStatus}"
-                                                        th:text="${courseStatus.label}"
-                                                        th:selected="${courseStatus == registeredProgram.courseStatus}">
+                                <div class="form-group row">
+                                    <label for="sector" class="col-sm-2 col-form-label">Select Course Sector<span class="input-required">*</span></label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control selectpicker" data-live-search="true"  id="sector" name="sector" required>
+                                            <optgroup label="Non-Bundled Programs">
+                                                <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
+                                                    <th:block th:if="${sector.sectorType != 'BUNDLED' and sector != T(com.tesda8.region8.util.enums.Sector).ALL}">
+                                                        <option th:value="${sector}"
+                                                                th:text="${sector.label}"
+                                                                th:selected="${sector == registeredProgram.sector}">
+                                                        </option>
+                                                    </th:block>
+                                                </th:block>
+                                            </optgroup>
+                                            <optgroup label="Bundled Programs">
+                                                <th:block th:each="sector : ${T(com.tesda8.region8.util.enums.Sector).values()}">
+                                                    <th:block th:if="${sector.sectorType == 'BUNDLED' and sector != T(com.tesda8.region8.util.enums.Sector).ALL}">
+                                                        <option th:value="${sector}"
+                                                                th:text="${sector.label}"
+                                                                th:selected="${sector == registeredProgram.sector}">
+                                                        </option>
+                                                    </th:block>
+                                                </th:block>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="name" class="col-sm-2 col-form-label">Qualification Title<span class="input-required">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" placeholder="Enter Qualification Title" id="name" name="name" type="text" th:field="*{name}" th:value="${registeredProgram.name}" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="duration" class="col-sm-2 col-form-label">Duration in Hours<span class="input-required">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="number" onkeypress="return isNumberKey(event)"  class="form-control" placeholder="Enter Duration Hours" id="duration" name="duration" th:field="*{duration}" th:value="${registeredProgram.duration}" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="programRegistrationNumber" class="col-sm-2 col-form-label">Program Registration Number<span class="input-required">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" placeholder="Enter Program Registration Number" id="programRegistrationNumber" name="programRegistrationNumber" type="text" th:field="*{programRegistrationNumber}" th:value="${registeredProgram.programRegistrationNumber}" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="dateIssued" class="col-sm-2 col-form-label">Date Issued<span class="input-required">*</span></label>
+                                    <div class="input-group date  col-sm-10" id="dateIssued" data-target-input="nearest">
+                                        <input th:field="*{dateIssued}" th:value="${registeredProgram.dateIssued}" type="text" class="form-control datetimepicker-input" data-target="#dateIssued" required/>
+                                        <div class="input-group-append" data-target="#dateIssued" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="courseStatus" class="col-sm-2 col-form-label">Course Status<span class="input-required">*</span></label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control selectpicker" id="courseStatus" name="courseStatus" required>
+                                            <th:block th:each="courseStatus : ${T(com.tesda8.region8.util.enums.CourseStatus).values()}">
+                                                <th:block th:if="${courseStatus != T(com.tesda8.region8.util.enums.CourseStatus).ALL}">
+                                                    <option th:value="${courseStatus}"
+                                                            th:text="${courseStatus.label}"
+                                                            th:selected="${courseStatus == registeredProgram.courseStatus}">
+                                                    </option>
+                                                </th:block>
+                                            </th:block>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="numberOfTeachers" class="col-sm-2 col-form-label">Number of Teachers<span class="input-required">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="number" onkeypress="return isNumberKey(event)"  class="form-control" placeholder="Enter Number of Teachers" id="numberOfTeachers" name="numberOfTeachers" th:field="*{numberOfTeachers}" th:value="${registeredProgram.numberOfTeachers}" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="buildingOwnershipDateIssued" class="col-sm-2 col-form-label">Building Ownership Date Issued<span class="input-required">*</span></label>
+                                    <div class="input-group date  col-sm-10" id="buildingOwnershipDateIssued" data-target-input="nearest">
+                                        <input th:field="*{registrationRequirement.buildingOwnershipDateIssued}" type="text" class="form-control datetimepicker-input" data-target="#buildingOwnershipDateIssued" required/>
+                                        <div class="input-group-append" data-target="#buildingOwnershipDateIssued" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="fireSafetyDateIssued" class="col-sm-2 col-form-label">Fire Safety Certificate Date Issued<span class="input-required">*</span></label>
+                                    <div class="input-group date  col-sm-10" id="fireSafetyDateIssued" data-target-input="nearest">
+                                        <input th:field="*{registrationRequirement.fireSafetyDateIssued}" type="text" class="form-control datetimepicker-input" data-target="#fireSafetyDateIssued" required/>
+                                        <div class="input-group-append" data-target="#fireSafetyDateIssued" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="moaValidity" class="col-sm-2 col-form-label">MOA Validity Date Issued<span class="input-required">*</span></label>
+                                    <div class="input-group date  col-sm-10" id="moaValidity" data-target-input="nearest">
+                                        <input th:field="*{registrationRequirement.moaValidity}" type="text" class="form-control datetimepicker-input" data-target="#moaValidity" required/>
+                                        <div class="input-group-append" data-target="#moaValidity" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="registrationRequirement.moaValidityType" class="col-sm-2 col-form-label">MOA Validity Years<span class="input-required">*</span></label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control selectpicker" id="registrationRequirement.moaValidityType" name="registrationRequirement.moaValidityType" required>
+                                            <th:block th:each="moaValidityType : ${T(com.tesda8.region8.util.enums.MoaValidityType).values()}">
+                                                <option th:value="${moaValidityType}"
+                                                        th:text="${moaValidityType.label}"
+                                                        th:selected="${moaValidityType == registeredProgram.registrationRequirement.moaValidityType}">
                                                 </option>
                                             </th:block>
-                                        </th:block>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="numberOfTeachers" class="col-sm-2 col-form-label">Number of Teachers<span class="input-required">*</span></label>
-                                <div class="col-sm-10">
-                                    <input type="number" onkeypress="return isNumberKey(event)"  class="form-control" placeholder="Enter Number of Teachers" id="numberOfTeachers" name="numberOfTeachers" th:field="*{numberOfTeachers}" th:value="${registeredProgram.numberOfTeachers}" required/>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="buildingOwnershipDateIssued" class="col-sm-2 col-form-label">Building Ownership Date Issued<span class="input-required">*</span></label>
-                                <div class="input-group date  col-sm-10" id="buildingOwnershipDateIssued" data-target-input="nearest">
-                                    <input th:field="*{registrationRequirement.buildingOwnershipDateIssued}" type="text" class="form-control datetimepicker-input" data-target="#buildingOwnershipDateIssued" required/>
-                                    <div class="input-group-append" data-target="#buildingOwnershipDateIssued" data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="fireSafetyDateIssued" class="col-sm-2 col-form-label">Fire Safety Certificate Date Issued<span class="input-required">*</span></label>
-                                <div class="input-group date  col-sm-10" id="fireSafetyDateIssued" data-target-input="nearest">
-                                    <input th:field="*{registrationRequirement.fireSafetyDateIssued}" type="text" class="form-control datetimepicker-input" data-target="#fireSafetyDateIssued" required/>
-                                    <div class="input-group-append" data-target="#fireSafetyDateIssued" data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                <div class="form-group row">
+                                    <label for="isClosed" class="col-sm-2 col-form-label">Closed</label>
+                                    <div class="col-sm-10">
+                                        <input type="checkbox" th:field="*{isClosed}" th:value="${registeredProgram.isClosed}" id="isClosed"/>
+                                        <span>Check if the registered program has been closed</span>
                                     </div>
                                 </div>
+                                <script type="text/javascript">
+                                    $(function () {
+                                        $('#dateIssued').datetimepicker({
+                                            format: 'L'
+                                        });
+                                        $('#buildingOwnershipDateIssued').datetimepicker({
+                                            format: 'L'
+                                        });
+                                        $('#fireSafetyDateIssued').datetimepicker({
+                                            format: 'L'
+                                        });
+                                        $('#moaValidity').datetimepicker({
+                                            format: 'L'
+                                        });
+                                    });
+                                </script>
                             </div>
-                            <div class="form-group row">
-                                <label for="moaValidity" class="col-sm-2 col-form-label">MOA Validity Date Issued<span class="input-required">*</span></label>
-                                <div class="input-group date  col-sm-10" id="moaValidity" data-target-input="nearest">
-                                    <input th:field="*{registrationRequirement.moaValidity}" type="text" class="form-control datetimepicker-input" data-target="#moaValidity" required/>
-                                    <div class="input-group-append" data-target="#moaValidity" data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                    </div>
+                            <div class="container mt-5">
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-primary btn-lg flo1at-right" type="submit" id="submitButton" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button>
+                                    <a th:href="@{/program_registration/registeredProgram/{id}/delete(id=${registeredProgram.id})}" id="deleteButton"><button class="btn-lg btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete Registered Program</button></a>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="registrationRequirement.moaValidityType" class="col-sm-2 col-form-label">MOA Validity Years<span class="input-required">*</span></label>
-                                <div class="col-sm-10">
-                                    <select class="form-control selectpicker" id="registrationRequirement.moaValidityType" name="registrationRequirement.moaValidityType" required>
-                                        <th:block th:each="moaValidityType : ${T(com.tesda8.region8.util.enums.MoaValidityType).values()}">
-                                            <option th:value="${moaValidityType}"
-                                                    th:text="${moaValidityType.label}"
-                                                    th:selected="${moaValidityType == registeredProgram.registrationRequirement.moaValidityType}">
-                                            </option>
-                                        </th:block>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="isClosed" class="col-sm-2 col-form-label">Closed</label>
-                                <div class="col-sm-10">
-                                    <input type="checkbox" th:field="*{isClosed}" th:value="${registeredProgram.isClosed}" id="isClosed"/>
-                                    <span>Check if the registered program has been closed</span>
-                                </div>
-                            </div>
-                            <script type="text/javascript">
-                                $(function () {
-                                    $('#dateIssued').datetimepicker({
-                                        format: 'L'
-                                    });
-                                    $('#buildingOwnershipDateIssued').datetimepicker({
-                                        format: 'L'
-                                    });
-                                    $('#fireSafetyDateIssued').datetimepicker({
-                                        format: 'L'
-                                    });
-                                    $('#moaValidity').datetimepicker({
-                                        format: 'L'
-                                    });
-                                });
-                            </script>
-                        </div>
-                        <div class="container mt-5">
-                            <div class="btn-group" role="group">
-                                <button class="btn btn-primary btn-lg flo1at-right" type="submit" id="submitButton" th:value="Update"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button>
-                                <a th:href="@{/program_registration/registeredProgram/{id}/delete(id=${registeredProgram.id})}" id="deleteButton"><button class="btn-lg btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete Registered Program</button></a>
-                            </div>
-                        </div>
-                    </fieldset>
-                </form>
+                        </fieldset>
+                    </form>
+                </div>
             </div>
-        </div>
-        <div class="container mt-5">
-            <hr class="border"/>
-        </div>
-        <div class="container mb-5">
-            <div class="btn-group float-right" role="group">
-                <a th:href="@{/program_registration/registeredProgram/{id}/official/create(id=${registeredProgram.id})}" id="createOfficial"><button class="btn-lg btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Official</button></a>
-            </div>
-            <h1 class="display-5 text-black-50 mb-5">List of Officials</h1>
-            <div class="table-responsive">
-                <table id="official-table" class="table table-bordered table-striped table-sm">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col"> Name</th>
-                        <th scope="col"> Position</th>
-                        <th scope="col"> Address</th>
-                        <th scope="col"> Contact Number</th>
-                        <th scope="col"> Email</th>
-                        <th scope="col"> Nature of Appointment</th>
-                        <th scope="col"> Educational Attainment</th>
-                        <th scope="col" colspan="2"> Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <th:block th:if="${registeredProgram.officialDtoList.isEmpty()}">
-                        <tr>
-                            <td style="text-align:center" colspan="9">No Data Available</td>
-                        </tr>
-                    </th:block>
-                    <th:block th:each="official : ${registeredProgram.officialDtoList}">
-                        <tr>
-                            <td><span th:text="${official.name}"></span></td>
-                            <td><span th:text="${official.position}"></span></td>
-                            <td><span th:text="${official.address}"></span></td>
-                            <td><span th:text="${official.contactNumber}"></span></td>
-                            <td><span th:text="${official.email}"></span></td>
-                            <td><span th:text="${official.natureOfAppointment}"></span></td>
-                            <td><span th:text="${official.educationalAttainment.label}"></span></td>
-                            <td><a th:href="@{/program_registration/official/{id}/update(id=${official.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
-                            <td><a class="deleteCertificate" th:href="@{/program_registration/{registeredProgramId}/official/{id}/delete(id=${official.id}, registeredProgramId=${registeredProgram.id})}"><button class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
-                        </tr>
-                    </th:block>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="container mt-5">
-            <hr class="border"/>
-        </div>
-        <div class="container mb-5">
-            <div class="btn-group float-right" role="group">
-                <a th:href="@{/program_registration/registeredProgram/{id}/trainer/create(id=${registeredProgram.id})}" id="createTrainer"><button class="btn-lg btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Trainer</button></a>
-            </div>
-            <h1 class="display-5 text-black-50 mb-5">List of Trainers</h1>
-            <div class="table-responsive">
-                <table id="trainer-table" class="table table-bordered table-striped table-sm">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col"> Name</th>
-                        <th scope="col"> Nature of Appointment</th>
-                        <th scope="col"> Educational Attainment</th>
-                        <th scope="col"> Years of Teaching Exp.</th>
-                        <th scope="col"> Years of Industry Exp.</th>
-                        <th scope="col" colspan="2"> Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <th:block th:if="${registeredProgram.trainerDtoList.isEmpty()}">
-                        <tr>
-                            <td style="text-align:center" colspan="10">No Data Available</td>
-                        </tr>
-                    </th:block>
-                    <th:block th:each="trainer : ${registeredProgram.trainerDtoList}">
-                        <tr>
-                            <td><span th:text="${trainer.fullName}"></span></td>
-                            <td><span th:text="${trainer.natureOfAppointment}"></span></td>
-                            <td><span th:text="${trainer.educationalAttainment.label}"></span></td>
-                            <td><span th:text="${trainer.teachingExperienceYear}"></span></td>
-                            <td><span th:text="${trainer.industryExperienceYear}"></span></td>
-                            <td><a th:href="@{/program_registration/trainer/{id}/update(id=${trainer.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
-                            <td><a class="deleteCertificate" th:href="@{/program_registration/{registeredProgramId}/trainer/{id}/delete(id=${trainer.id}, registeredProgramId=${registeredProgram.id})}"><button class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
-                        </tr>
-                    </th:block>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="container mt-5">
-            <hr class="border"/>
-        </div>
-        <div class="container mb-5">
-            <div class="btn-group float-right" role="group">
-                <a th:href="@{/program_registration/registeredProgram/{id}/staff/create(id=${registeredProgram.id})}" id="createStaff"><button class="btn-lg btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Staff</button></a>
-            </div>
-            <h1 class="display-5 text-black-50 mb-5">List of Non-Teaching Staff</h1>
-            <div class="table-responsive">
-                <table id="staff-table" class="table table-bordered table-striped table-sm">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col"> Name</th>
-                        <th scope="col"> Position</th>
-                        <th scope="col"> Nature of Appointment</th>
-                        <th scope="col"> Educational Attainment</th>
-                        <th scope="col"> Experience relative to position</th>
-                        <th scope="col" colspan="2"> Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <th:block th:if="${registeredProgram.nonTeachingStaffDtoList.isEmpty()}">
-                        <tr>
-                            <td style="text-align:center" colspan="7">No Data Available</td>
-                        </tr>
-                    </th:block>
-                    <th:block th:each="staff : ${registeredProgram.nonTeachingStaffDtoList}">
-                        <tr>
-                            <td><span th:text="${staff.name}"></span></td>
-                            <td><span th:text="${staff.position}"></span></td>
-                            <td><span th:text="${staff.natureOfAppointment}"></span></td>
-                            <td><span th:text="${staff.educationalAttainment.label}"></span></td>
-                            <td><span th:text="${staff.positionExperience}"></span></td>
-                            <td><a th:href="@{/program_registration/staff/{id}/update(id=${staff.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
-                            <td><a class="deleteCertificate" th:href="@{/program_registration/{registeredProgramId}/staff/{id}/delete(id=${staff.id}, registeredProgramId=${registeredProgram.id})}"><button id="deleteStaff" class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
-                        </tr>
-                    </th:block>
-                    </tbody>
-                </table>
+            <div id="narrow">
+                <div class="container mb-5">
+                    <div class="btn-group float-right" role="group">
+                        <a th:href="@{/program_registration/registeredProgram/{id}/official/create(id=${registeredProgram.id})}" id="createOfficial"><button class="btn-lg btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Official</button></a>
+                    </div>
+                    <h1 class="display-5 text-black-50 mb-5">List of Officials</h1>
+                    <div class="table-responsive">
+                        <table id="official-table" class="table table-bordered table-striped table-sm">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col"> Name</th>
+                                <th scope="col"> Position</th>
+                                <th scope="col"> Address</th>
+                                <th scope="col"> Contact Number</th>
+                                <th scope="col"> Email</th>
+                                <th scope="col"> Nature of Appointment</th>
+                                <th scope="col"> Educational Attainment</th>
+                                <th scope="col" colspan="2"> Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <th:block th:if="${registeredProgram.officialDtoList.isEmpty()}">
+                                <tr>
+                                    <td style="text-align:center" colspan="9">No Data Available</td>
+                                </tr>
+                            </th:block>
+                            <th:block th:each="official : ${registeredProgram.officialDtoList}">
+                                <tr>
+                                    <td><span th:text="${official.name}"></span></td>
+                                    <td><span th:text="${official.position}"></span></td>
+                                    <td><span th:text="${official.address}"></span></td>
+                                    <td><span th:text="${official.contactNumber}"></span></td>
+                                    <td><span th:text="${official.email}"></span></td>
+                                    <td><span th:text="${official.natureOfAppointment}"></span></td>
+                                    <td><span th:text="${official.educationalAttainment.label}"></span></td>
+                                    <td><a th:href="@{/program_registration/official/{id}/update(id=${official.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
+                                    <td><a class="deleteOfficial" th:href="@{/program_registration/{registeredProgramId}/official/{id}/delete(id=${official.id}, registeredProgramId=${registeredProgram.id})}"><button class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
+                                </tr>
+                            </th:block>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="container mt-5">
+                    <hr class="border"/>
+                </div>
+                <div class="container mb-5">
+                    <div class="btn-group float-right" role="group">
+                        <a th:href="@{/program_registration/registeredProgram/{id}/trainer/create(id=${registeredProgram.id})}" id="createTrainer"><button class="btn-lg btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i> Link TVET Trainer</button></a>
+                    </div>
+                    <h1 class="display-5 text-black-50 mb-5">List of TVET Trainers</h1>
+                    <div class="table-responsive">
+                        <table id="trainer-table" class="table table-bordered table-striped table-sm">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col"> Name</th>
+                                <th scope="col"> Nature of Appointment</th>
+                                <th scope="col"> Educational Attainment</th>
+                                <th scope="col"> Remarks</th>
+                                <th scope="col" colspan="2"> Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <th:block th:if="${registeredProgram.trainerDtoList.isEmpty()}">
+                                <tr>
+                                    <td style="text-align:center" colspan="10">No Data Available</td>
+                                </tr>
+                            </th:block>
+                            <th:block th:each="trainer : ${registeredProgram.trainerDtoList}">
+                                <tr>
+                                    <td><span th:text="${trainer.fullName}"></span></td>
+                                    <td><span th:text="${trainer.natureOfAppointmentDetails.natureOfAppointmentType.label}"></span></td>
+                                    <td><span th:text="${trainer.educationalAttainment.label}"></span></td>
+                                    <td><span th:text="${trainer.remarkDetails.remarkType.label}"></span></td>
+                                    <td><a th:href="@{/program_registration/trainer/{id}/update(id=${trainer.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
+                                    <td><a class="deleteTrainer" th:href="@{/program_registration/{registeredProgramId}/trainer/{id}/delete(id=${trainer.id}, registeredProgramId=${registeredProgram.id})}"><button class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Unlink</button></a></td>
+                                </tr>
+                            </th:block>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="container mt-5">
+                    <hr class="border"/>
+                </div>
+                <div class="container mb-5">
+                    <div class="btn-group float-right" role="group">
+                        <a th:href="@{/program_registration/registeredProgram/{id}/staff/create(id=${registeredProgram.id})}" id="createStaff"><button class="btn-lg btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Staff</button></a>
+                    </div>
+                    <h1 class="display-5 text-black-50 mb-5">List of Non-Teaching Staff</h1>
+                    <div class="table-responsive">
+                        <table id="staff-table" class="table table-bordered table-striped table-sm">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col"> Name</th>
+                                <th scope="col"> Position</th>
+                                <th scope="col"> Nature of Appointment</th>
+                                <th scope="col"> Educational Attainment</th>
+                                <th scope="col"> Experience relative to position</th>
+                                <th scope="col" colspan="2"> Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <th:block th:if="${registeredProgram.nonTeachingStaffDtoList.isEmpty()}">
+                                <tr>
+                                    <td style="text-align:center" colspan="7">No Data Available</td>
+                                </tr>
+                            </th:block>
+                            <th:block th:each="staff : ${registeredProgram.nonTeachingStaffDtoList}">
+                                <tr>
+                                    <td><span th:text="${staff.name}"></span></td>
+                                    <td><span th:text="${staff.position}"></span></td>
+                                    <td><span th:text="${staff.natureOfAppointment}"></span></td>
+                                    <td><span th:text="${staff.educationalAttainment.label}"></span></td>
+                                    <td><span th:text="${staff.positionExperience}"></span></td>
+                                    <td><a th:href="@{/program_registration/staff/{id}/update(id=${staff.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
+                                    <td><a class="deleteStaff" th:href="@{/program_registration/{registeredProgramId}/staff/{id}/delete(id=${staff.id}, registeredProgramId=${registeredProgram.id})}"><button id="deleteStaff" class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
+                                </tr>
+                            </th:block>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

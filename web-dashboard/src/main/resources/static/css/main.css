@@ -2,6 +2,17 @@ body {
     padding-top: 56px;
 }
 
+#parent {
+    display: flex;
+}
+#narrow {
+    width: 50%;
+}
+#wide {
+    flex: 1;
+    /* Grow to rest of container */
+}
+
 #page-container {
     position: relative;
     min-height: 100vh;
@@ -369,4 +380,14 @@ th {
     font-weight: bold;
     color: red;
 
+}
+
+div.tesda-logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width:200px; /*width of your image*/
+    height:200px;
+    background-image:url("../images/tesda_logo2.jpg");
+    background-repeat: no-repeat;
 }

@@ -1,5 +1,7 @@
 package com.tesda8.region8.program.registration.model.dto;
 
+import com.tesda8.region8.program.registration.model.entities.NatureOfAppointmentDetails;
+import com.tesda8.region8.program.registration.model.entities.RemarkDetails;
 import com.tesda8.region8.util.enums.EducationalAttainment;
 import com.tesda8.region8.util.enums.InstitutionType;
 import com.tesda8.region8.util.enums.Sector;
@@ -32,7 +34,8 @@ public class TrainerDto {
     private String emailAddress;
     private String contactNumber;
 
-    private String natureOfAppointment;
+    private NatureOfAppointmentDetails natureOfAppointmentDetails;
+    private RemarkDetails remarkDetails;
 
     private EducationalAttainment educationalAttainment;
     private String trainingInstitution;

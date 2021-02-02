@@ -61,12 +61,14 @@
                 </div>
             </div>
         </header>
-        <div>
-            <div class="container mb-5">
-                <form th:action="@{/program_registration/registeredProgram/search}" th:object="${registeredProgramFilter}" method="post">
-                    <fieldset>
+        <div class="ml-3">
+            <h1 class="display-5 text-black-50 mb-5">Search Registered Programs</h1>
+        </div>
+        <form th:action="@{/program_registration/registeredProgram/search}" th:object="${registeredProgramFilter}" method="post">
+            <fieldset>
+                <div id="parent">
+                    <div id="wide">
                         <div class="container">
-                            <h1 class="display-5 text-black-50 mb-5">Search Registered Programs</h1>
                             <div class="form-group row">
                                 <label for="operatingUnitType" class="col-sm-2 col-form-label">Select Province</label>
                                 <div class="col-sm-10">
@@ -87,7 +89,7 @@
                                             <option value="0" text="All" selected>All Institutions</option>
                                         </optgroup>
                                         <optgroup th:each="operatingUnit : ${T(com.tesda8.region8.util.enums.OperatingUnitType).values()}"
-                                                th:label="${operatingUnit.label}">
+                                                  th:label="${operatingUnit.label}">
                                             <th:block th:each="institution : ${ttiList}">
                                                 <th:block th:if="${institution.operatingUnitType == operatingUnit}">
                                                     <option th:value="${institution.id}"
@@ -153,6 +155,10 @@
                                     <input class="form-control" placeholder="Enter Program Registration Number" id="registeredProgramNumber" name="registeredProgramNumber" type="text" th:value="${registeredProgramFilter.registeredProgramNumber}" />
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div id="narrow">
+                        <div class="container">
                             <div class="form-group row">
                                 <label for="dateIssuedFrom" class="col-sm-2 col-form-label">Date Issued From</label>
                                 <div class="input-group date  col-sm-10" id="dateIssuedFrom" data-target-input="nearest">
@@ -226,10 +232,10 @@
                                 <button onclick="exportTableToExcel('prog-reg-table', 'Registered Programs')"  class="btn btn-success btn-lg" id="downloadTable" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
                             </div>
                         </div>
-                    </fieldset>
-                </form>
-            </div>
-        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
         <div class="container">
             <hr class="border"/>
         </div>
