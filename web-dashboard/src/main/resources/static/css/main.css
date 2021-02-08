@@ -13,6 +13,17 @@ body {
     /* Grow to rest of container */
 }
 
+.parent {
+    display: flex;
+}
+.narrow {
+    width: 50%;
+}
+.wide {
+    flex: 1;
+    /* Grow to rest of container */
+}
+
 #page-container {
     position: relative;
     min-height: 100vh;
@@ -162,10 +173,6 @@ body {
 
 .nav-pills .nav-link.active {
     background-color: #002761 !important;
-}
-
-tbody:hover td[rowspan], tr:hover td {
-    background: #5098d5;
 }
 
 .a-header:link {
@@ -390,4 +397,59 @@ div.tesda-logo {
     height:200px;
     background-image:url("../images/tesda_logo2.jpg");
     background-repeat: no-repeat;
+}
+
+
+.rating-selector input{
+    margin:0;padding:0;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+}
+
+.rating-selector-2 input{
+    position: absolute;
+    z-index: 999;
+}
+
+.rating-selector-2 input:active +.rating, .rating-selector input:active +.rating{
+    opacity: .9;
+}
+.rating-selector-2 input:checked +.rating, .rating-selector input:checked +.rating{
+    opacity: .9;
+    -webkit-filter: none;
+    -moz-filter: none;
+    filter: none;
+}
+
+.rating{
+    cursor:pointer;
+    background-size:contain;
+    background-repeat:no-repeat;
+    display:inline-block;
+    width:60px;height:60px;
+    -webkit-transition: all 100ms ease-in;
+    -moz-transition: all 100ms ease-in;
+    transition: all 100ms ease-in;
+    -webkit-filter: brightness(1.8) grayscale(1) opacity(.7);
+    -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
+    filter: brightness(1.8) grayscale(1) opacity(.7);
+}
+.rating:hover{
+    -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
+    -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
+    filter: brightness(1.2) grayscale(.5) opacity(.9);
+}
+
+
+.very-satisfactory {
+    background-image: url('../images/very_satisfactory.png');
+}
+
+.satisfactory {
+    background-image: url('../images/satisfactory.png');
+}
+
+.poor {
+    background-image: url('../images/poor.png');
 }

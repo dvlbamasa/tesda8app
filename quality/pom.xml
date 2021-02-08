@@ -9,14 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>reports</artifactId>
+    <artifactId>quality</artifactId>
     <packaging>jar</packaging>
     <version>${revision}</version>
 
     <dependencies>
         <dependency>
             <groupId>com.tesda.region8</groupId>
-            <artifactId>quality</artifactId>
+            <artifactId>scholarship</artifactId>
             <version>${revision}</version>
         </dependency>
 

@@ -10,6 +10,7 @@
         <module>program-registration</module>
         <module>certification</module>
         <module>scholarship</module>
+        <module>quality</module>
         <module>reports</module>
         <module>web-dashboard</module>
     </modules>

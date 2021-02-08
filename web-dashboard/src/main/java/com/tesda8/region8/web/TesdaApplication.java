@@ -15,6 +15,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 		"com.tesda8.region8.certification.repository",
 		"com.tesda8.region8.program.registration.repository",
 		"com.tesda8.region8.scholarship.repository",
+		"com.tesda8.region8.quality.repository",
 		"com.tesda8.region8.reports.repository"
 })
 @EntityScan(basePackages = {
@@ -23,6 +24,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 		"com.tesda8.region8.certification.model",
 		"com.tesda8.region8.program.registration.model",
 		"com.tesda8.region8.scholarship.model",
+		"com.tesda8.region8.quality.model",
 		"com.tesda8.region8.reports.model",
 		"com.tesda8.region8.web.model"
 })
@@ -32,6 +34,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 		"com.tesda8.region8.certification",
 		"com.tesda8.region8.program.registration",
 		"com.tesda8.region8.scholarship",
+		"com.tesda8.region8.quality",
 		"com.tesda8.region8.reports",
 		"com.tesda8.region8.web"
 })

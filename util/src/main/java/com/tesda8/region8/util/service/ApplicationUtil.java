@@ -4,9 +4,12 @@ import com.tesda8.region8.util.enums.Month;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class ApplicationUtil {
+
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
     public static Month getCurrentMonth() {
         return Month.valueOf(LocalDateTime.now().getMonth().name());
@@ -26,5 +29,9 @@ public class ApplicationUtil {
         return java.util.Date
                 .from(dateToConvert.atZone(ZoneId.systemDefault())
                         .toInstant());
+    }
+
+    public static String formatLocalDateTime(LocalDateTime dateToConvert) {
+        return dateToConvert.format(formatter);
     }
 }

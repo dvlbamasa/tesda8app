@@ -101,6 +101,14 @@
                         <a class="dropdown-item header-dropdown-item" th:href="@{/certification/trainer/create}">Add New TVET Trainer</a>
                     </div>
                 </li>
+                <li sec:authorize="hasAnyRole('ADMIN', 'QUALITY')"  class="nav-item dropdown navDropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown6" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Quality
+                    </a>
+                    <div class="dropdown-menu nav-dropdown" aria-labelledby="navbarDropdown5">
+                        <a class="dropdown-item header-dropdown-item" th:href="@{/quality}">Customer Satisfaction Management System</a>
+                    </div>
+                </li>
                 <div sec:authorize="hasRole('ADMIN')">
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/audit}">System Audit</a>
@@ -112,6 +120,7 @@
               <a th:href="@{/logout}">Sign Out</a>
             </span>
             <span th:if="!${#httpServletRequest.remoteUser}" class="navbar-text">
+                <a th:href="@{/customer_satisfaction}">Customer Feedback</a> |
               <a th:href="@{/login}">Log In</a>
             </span>
         </div>
