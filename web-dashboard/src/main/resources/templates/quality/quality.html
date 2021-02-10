@@ -124,20 +124,22 @@
                 <div class="table-responsive">
                     <table id="prog-reg-table" class="table table-bordered table-striped table-sm">
                         <thead class="thead-dark">
-                        <tr>
-                            <th scope="col"> Full Name</th>
-                            <th scope="col"> Gender</th>
-                            <th scope="col"> Address</th>
-                            <th scope="col"> Contact Number</th>
-                            <th scope="col"> Email Address</th>
-                            <th scope="col"> Date</th>
-                        </tr>
+                            <tr>
+                                <th scope="col"> Full Name</th>
+                                <th scope="col"> Gender</th>
+                                <th scope="col"> Age</th>
+                                <th scope="col"> Address</th>
+                                <th scope="col"> Contact Number</th>
+                                <th scope="col"> Email Address</th>
+                                <th scope="col"> Date</th>
+                            </tr>
                         </thead>
                         <tbody>
                         <th:block th:each="feedback : ${feedbacks}">
                             <tr>
                                 <td><span th:text="${feedback.customer.fullName}"></span></td>
                                 <td><span th:text="${feedback.customer.gender.label}"></span></td>
+                                <td><span th:text="${feedback.customer.age}"></span></td>
                                 <td><span th:text="${feedback.customer.address}"></span></td>
                                 <td><span th:text="${feedback.customer.contactNumber}"></span></td>
                                 <td><span th:text="${feedback.customer.emailAddress}"></span></td>

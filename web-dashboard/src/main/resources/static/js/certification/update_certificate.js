@@ -38,7 +38,7 @@ window.onload = function () {
 };
 
 $("#submitButton").click(function(event) {
-    if ( $('#updateCertificateForm').valid()) {
+    if ($('#updateCertificateForm').valid()) {
         event.preventDefault();
         swal({
             title: "Update Certificate?",

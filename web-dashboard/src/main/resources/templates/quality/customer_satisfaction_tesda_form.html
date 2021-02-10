@@ -3,10 +3,8 @@
 <head>
     <title>Customer Satisfaction</title>
     <div th:replace="fragments/header :: header-css"/>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-PMjWzHVtwxdq7m7GIxBot5vdxUY+5aKP9wpKtvnNBZrVv1srI8tU6xvFMzG8crLNcMj/8Xl/WWmo/oAP/40p1g==" crossorigin="anonymous" />
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
 </head>
 <body>
 
@@ -28,179 +26,199 @@
         </header>
         <div>
             <div class="container">
-                <form th:action="@{/customer_satisfaction/save}" th:object="${feedbackForm}" method="post">
-                    <input type="hidden" th:field="*{customer.firstName}"/>
-                    <input type="hidden" th:field="*{customer.middleName}"/>
-                    <input type="hidden" th:field="*{customer.lastName}"/>
-                    <input type="hidden" th:field="*{customer.age}"/>
-                    <input type="hidden" th:field="*{customer.gender}"/>
-                    <input type="hidden" th:field="*{customer.address}"/>
-                    <input type="hidden" th:field="*{customer.contactNumber}"/>
-                    <input type="hidden" th:field="*{customer.emailAddress}"/>
-                    <input type="hidden" th:field="*{isRecommended}"/>
-                    <input type="hidden" th:field="*{suggestion}"/>
-                    <th:block th:each="feedbackRequest, itemstat : ${feedbackForm.feedbackRequests}">
-                        <input type="hidden" th:field="*{feedbackRequests[__${itemstat.index}__].feedbackResponse}"/>
-                        <input type="hidden" th:field="*{feedbackRequests[__${itemstat.index}__].feedbackQuery}"/>
-                    </th:block>
+                <form id="customerSatisfactionForm" th:action="@{/customer_satisfaction/save}" th:object="${feedbackForm}" method="post">
+                    <fieldset>
+                        <input type="hidden" th:field="*{customer.firstName}"/>
+                        <input type="hidden" th:field="*{customer.middleName}"/>
+                        <input type="hidden" th:field="*{customer.lastName}"/>
+                        <input type="hidden" th:field="*{customer.age}"/>
+                        <input type="hidden" th:field="*{customer.gender}"/>
+                        <input type="hidden" th:field="*{customer.address}"/>
+                        <input type="hidden" th:field="*{customer.contactNumber}"/>
+                        <input type="hidden" th:field="*{customer.emailAddress}"/>
+                        <input type="hidden" th:field="*{isRecommended}"/>
+                        <input type="hidden" th:field="*{suggestion}"/>
+                        <input type="hidden" th:field="*{totalRating}"/>
+                        <th:block th:each="feedbackRequest, itemstat : ${feedbackForm.feedbackRequests}">
+                            <input type="hidden" th:field="*{feedbackRequests[__${itemstat.index}__].feedbackResponse}"/>
+                            <input type="hidden" th:field="*{feedbackRequests[__${itemstat.index}__].feedbackQuery}"/>
+                        </th:block>
 
-                    <div class="container">
-                        <p class="text-black-50 mt-5"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> PANUTO: Piliin ang tumpak na serbisyong iyong natanggap at ang kawani at opisina ng departamento na promoseso sa iyo.</p>
-                    </div>
-                    <div class="container">
-                        <hr class="border"/>
-                    </div>
-                    <div class="container">
-                        <div class="row">
-                            <label class="col col-form-label"><p class="lead text-black-50">SERVICE/S RENDERED</p></label>
+                        <div class="container">
+                            <p class="text-black-50 mt-5"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> PANUTO: Piliin ang tumpak na serbisyong iyong natanggap at ang kawani at opisina ng departamento na promoseso sa iyo.</p>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-4 form-check">
-                                <label class="col col-form-label"><p class="lead text-black-50">Assessment and Certification</p></label>
-                                <th:block th:each="service : ${T(com.tesda8.region8.util.enums.TesdaServiceRendered).values()}">
-                                    <div class="col">
-                                        <th:block th:if="${service.serviceType == 'Assessment and Certification'}">
-                                            <input type="checkbox"
-                                                   class="form-check-input"
-                                                   th:id="${service}"
-                                                   th:value="${service}"
-                                                   th:field="*{tesdaForm.serviceRenderedList}"/>
-                                            <label class="form-check-label"
-                                                   th:text="${service.label}"
-                                                   th:for="${service}"></label>
-
-                                        </th:block>
-                                    </div>
-                                </th:block>
+                        <div class="container">
+                            <hr class="border"/>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <label class="col col-form-label"><p class="lead text-black-50">SERVICE/S RENDERED</p></label>
                             </div>
-                            <div class="col-3 form-check">
-                                <label class="col col-form-label"><p class="lead text-black-50">Program Registration</p></label>
-                                <th:block th:each="service : ${T(com.tesda8.region8.util.enums.TesdaServiceRendered).values()}">
-                                    <div class="col">
-                                        <th:block th:if="${service.serviceType == 'Program Registration'}">
-                                            <input type="checkbox"
-                                                   class="form-check-input"
-                                                   th:id="${service}"
-                                                   th:value="${service}"
-                                                   th:field="*{tesdaForm.serviceRenderedList}"/>
-                                            <label class="form-check-label"
-                                                   th:text="${service.label}"
-                                                   th:for="${service}"></label>
+                            <div class="form-group row">
+                                <div class="col-4 form-check">
+                                    <label class="col col-form-label"><p class="lead text-black-50">Assessment and Certification</p></label>
+                                    <th:block th:each="service : ${T(com.tesda8.region8.util.enums.TesdaServiceRendered).values()}">
+                                        <div class="col">
+                                            <th:block th:if="${service.serviceType == 'Assessment and Certification'}">
+                                                <input type="checkbox"
+                                                       class="form-check-input"
+                                                       th:id="${service}"
+                                                       th:value="${service}"
+                                                       th:field="*{tesdaForm.serviceRenderedList}"/>
+                                                <label class="form-check-label"
+                                                       th:text="${service.label}"
+                                                       th:for="${service}"></label>
 
-                                        </th:block>
-                                    </div>
-                                </th:block>
-                            </div>
-                            <div class="col form-check">
-                                <label class="col col-form-label"><p class="lead text-black-50">Training</p></label>
-                                <th:block th:each="service : ${T(com.tesda8.region8.util.enums.TesdaServiceRendered).values()}">
-                                    <div class="col">
-                                        <th:block th:if="${service.serviceType == 'Training'}">
-                                            <input type="checkbox"
-                                                   class="form-check-input"
-                                                   th:value="${service}"
-                                                   th:id="${service}"
-                                                   th:field="*{tesdaForm.serviceRenderedList}"/>
-                                            <label class="form-check-label"
-                                                   th:text="${service.label}"
-                                                   th:for="${service}"></label>
+                                            </th:block>
+                                        </div>
+                                    </th:block>
+                                </div>
+                                <div class="col-3 form-check">
+                                    <label class="col col-form-label"><p class="lead text-black-50">Program Registration</p></label>
+                                    <th:block th:each="service : ${T(com.tesda8.region8.util.enums.TesdaServiceRendered).values()}">
+                                        <div class="col">
+                                            <th:block th:if="${service.serviceType == 'Program Registration'}">
+                                                <input type="checkbox"
+                                                       class="form-check-input"
+                                                       th:id="${service}"
+                                                       th:value="${service}"
+                                                       th:field="*{tesdaForm.serviceRenderedList}"/>
+                                                <label class="form-check-label"
+                                                       th:text="${service.label}"
+                                                       th:for="${service}"></label>
 
-                                        </th:block>
-                                    </div>
-                                </th:block>
-                            </div>
-                            <div class="col form-check">
-                                <label class="col col-form-label"><p class="lead text-black-50">Employment</p></label>
-                                <th:block th:each="service : ${T(com.tesda8.region8.util.enums.TesdaServiceRendered).values()}">
-                                    <div class="col">
-                                        <th:block th:if="${service.serviceType == 'Employment'}">
-                                            <input type="checkbox"
-                                                   class="form-check-input"
-                                                   th:value="${service}"
-                                                   th:id="${service}"
-                                                   th:field="*{tesdaForm.serviceRenderedList}"/>
-                                            <label class="form-check-label"
-                                                   th:text="${service.label}"
-                                                   th:for="${service}"></label>
+                                            </th:block>
+                                        </div>
+                                    </th:block>
+                                </div>
+                                <div class="col form-check">
+                                    <label class="col col-form-label"><p class="lead text-black-50">Training</p></label>
+                                    <th:block th:each="service : ${T(com.tesda8.region8.util.enums.TesdaServiceRendered).values()}">
+                                        <div class="col">
+                                            <th:block th:if="${service.serviceType == 'Training'}">
+                                                <input type="checkbox"
+                                                       class="form-check-input"
+                                                       th:value="${service}"
+                                                       th:id="${service}"
+                                                       th:field="*{tesdaForm.serviceRenderedList}"/>
+                                                <label class="form-check-label"
+                                                       th:text="${service.label}"
+                                                       th:for="${service}"></label>
 
-                                        </th:block>
-                                    </div>
-                                </th:block>
+                                            </th:block>
+                                        </div>
+                                    </th:block>
+                                </div>
+                                <div class="col form-check">
+                                    <label class="col col-form-label"><p class="lead text-black-50">Employment</p></label>
+                                    <th:block th:each="service : ${T(com.tesda8.region8.util.enums.TesdaServiceRendered).values()}">
+                                        <div class="col">
+                                            <th:block th:if="${service.serviceType == 'Employment'}">
+                                                <input type="checkbox"
+                                                       class="form-check-input"
+                                                       th:if="${service == T(com.tesda8.region8.util.enums.TesdaServiceRendered).OTHERS_EMPLOYMENT}"
+                                                       th:value="${service}"
+                                                       th:id="${service}"
+                                                       th:field="*{tesdaForm.serviceRenderedList}"
+                                                       onclick="othersOnclick()"/>
+                                                <input type="checkbox"
+                                                       class="form-check-input"
+                                                       th:if="${service == T(com.tesda8.region8.util.enums.TesdaServiceRendered).ADMIN}"
+                                                       th:value="${service}"
+                                                       th:id="${service}"
+                                                       th:field="*{tesdaForm.serviceRenderedList}"
+                                                       onclick="adminOnclick()"/>
+                                                <label class="form-check-label"
+                                                       th:text="${service.label}"
+                                                       th:for="${service}"></label>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       th:if="${service == T(com.tesda8.region8.util.enums.TesdaServiceRendered).OTHERS_EMPLOYMENT}"
+                                                       th:field="*{tesdaForm.employmentOthers}">
+                                                <input type="text"
+                                                       class="form-control"
+                                                       th:if="${service == T(com.tesda8.region8.util.enums.TesdaServiceRendered).ADMIN}"
+                                                       th:field="*{tesdaForm.employmentAdmin}">
+                                            </th:block>
+                                        </div>
+                                    </th:block>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="container">
-                        <hr class="border"/>
-                    </div>
-                    <div class="container">
-                        <div class="row">
-                            <label class="col col-form-label"><p class="lead text-black-50">ACTION TAKEN</p></label>
+                        <div class="container">
+                            <hr class="border"/>
                         </div>
-                        <div class="form-group row">
-                            <label for="tesdaForm.referredTo" class="col-sm-2 col-form-label">Referred To</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" placeholder="Enter Referred To" id="tesdaForm.referredTo" name="tesdaForm.referredTo" type="text" th:field="*{tesdaForm.referredTo}" />
+                        <div class="container">
+                            <div class="row">
+                                <label class="col col-form-label"><p class="lead text-black-50">ACTION TAKEN</p></label>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="tesdaForm.tesdaOffice" class="col-sm-2 col-form-label">Office Visited</label>
-                            <div class="col-sm-10">
-                                <select class="form-control selectpicker" id="tesdaForm.tesdaOffice" name="tesdaForm.tesdaOffice">
-                                    <th:block th:each="office : ${T(com.tesda8.region8.util.enums.TesdaOffice).values()}">
+                            <div class="form-group row">
+                                <label for="tesdaForm.referredTo" class="col-sm-2 col-form-label">Referred To</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" placeholder="Enter Referred To" id="tesdaForm.referredTo" name="tesdaForm.referredTo" type="text" th:field="*{tesdaForm.referredTo}" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="tesdaForm.tesdaOffice" class="col-sm-2 col-form-label">Office Visited</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control selectpicker" id="tesdaForm.tesdaOffice" name="tesdaForm.tesdaOffice">
+                                        <th:block th:each="office : ${T(com.tesda8.region8.util.enums.TesdaOffice).values()}">
                                             <option th:value="${office}"
                                                     th:text="${office.label}">
                                             </option>
-                                    </th:block>
-                                </select>
+                                        </th:block>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="tesdaForm.actionTaken" class="col-sm-2 col-form-label">Action Taken</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control selectpicker" id="tesdaForm.actionTaken" name="tesdaForm.actionTaken">
+                                        <th:block th:each="action : ${T(com.tesda8.region8.util.enums.ActionTaken).values()}">
+                                            <option th:value="${action}"
+                                                    th:text="${action.label}">
+                                            </option>
+                                        </th:block>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="tesdaForm.actionTaken" class="col-sm-2 col-form-label">Action Taken</label>
-                            <div class="col-sm-10">
-                                <select class="form-control selectpicker" id="tesdaForm.actionTaken" name="tesdaForm.actionTaken">
-                                    <th:block th:each="action : ${T(com.tesda8.region8.util.enums.ActionTaken).values()}">
-                                        <option th:value="${action}"
-                                                th:text="${action.label}">
-                                        </option>
-                                    </th:block>
-                                </select>
+                        <div class="container mb-5">
+                            <hr class="border"/>
+                        </div>
+                        <div class="container">
+                            <div class="form-check form-check-inline col d-flex justify-content-center">
+                                <input type="checkbox"
+                                       id="agreement2"
+                                       class="form-check-input" required/>
+                                <label class="form-check-label"
+                                       for="agreement2"> I hereby confirm that all the above information are true and correct to the best of my knowledge and ability.</label>
                             </div>
                         </div>
-                    </div>
-                    <div class="container mb-5">
-                        <hr class="border"/>
-                    </div>
-                    <div class="container">
-                        <div class="form-check form-check-inline col d-flex justify-content-center">
-                            <input type="checkbox"
-                                   id="agreement2"
-                                   class="form-check-input" required/>
-                            <label class="form-check-label"
-                                    for="agreement2"> I hereby confirm that all the above information are true and correct to the best of my knowledge and ability.</label>
+                        <div class="container mt-5">
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton" th:value="Update"><i class="fa fa-check-square-o" aria-hidden="true"></i> Submit</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="container mt-5">
-                        <div class="btn-group" role="group">
-                            <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton" th:value="Update"><i class="fa fa-check-square-o" aria-hidden="true"></i> Submit</button>
-                        </div>
-                    </div>
+                    </fieldset>
                 </form>
             </div>
         </div>
     </div>
 </div>
 <!-- /.container -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-<script type='text/javascript' src="../../static/js/table_to_excel.js" th:src="@{/js/table_to_excel.js}"></script>
+<script  type='text/javascript' src="../../static/js/main.js" th:src="@{/js/main.js}"></script>
 
 <div th:replace="fragments/footer :: footer"/>
-<script type='text/javascript' th:src="@{/js/certification/certification.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-2JBCbWoMJPH+Uj7Wq5OLub8E5edWHlTM4ar/YJkZh3plwB2INhhOC3eDoqHm1Za/ZOSksrLlURLoyXVdfQXqwg==" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/sticky-table-headers"></script>
-<script  type='text/javascript' src="../../static/js/doubleScroll/jquery.doubleScroll.js" th:src="@{/js/doubleScroll/jquery.doubleScroll.js}"></script>
-<script type='text/javascript' src="../../static/js/table_event_handlers.js" th:src="@{/js/table_event_handlers.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script th:src="@{/js/quality/customer_satisfaction_tesda_form.js}"></script>
+
 
 </body>
 </html>

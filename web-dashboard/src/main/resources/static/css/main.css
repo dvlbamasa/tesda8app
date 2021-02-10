@@ -441,6 +441,23 @@ div.tesda-logo {
     filter: brightness(1.2) grayscale(.5) opacity(.9);
 }
 
+.total-rating {
+    background-size:contain;
+    background-repeat:no-repeat;
+    display:inline-block;
+    width:75px;height:75px;
+}
+
+.total-rating-blur {
+    background-size:contain;
+    background-repeat:no-repeat;
+    display:inline-block;
+    width:80px;height:80px;
+    -webkit-filter: brightness(1.8) grayscale(1) opacity(.7);
+    -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
+    filter: brightness(1.8) grayscale(1) opacity(.7);
+}
+
 
 .very-satisfactory {
     background-image: url('../images/very_satisfactory.png');
@@ -452,4 +469,16 @@ div.tesda-logo {
 
 .poor {
     background-image: url('../images/poor.png');
+}
+
+.very-satisfactory-label {
+    color: green;
+}
+
+.satisfactory-label {
+    color: yellow;
+}
+
+.poor-label {
+    color: red;
 }

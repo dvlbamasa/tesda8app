@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.tesda8.region8.quality.model.entities.Customer;
 import com.tesda8.region8.quality.model.entities.TesdaForm;
 import com.tesda8.region8.util.enums.FeedbackQuery;
+import com.tesda8.region8.util.enums.FeedbackResponse;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,8 @@ public class FeedbackDto {
     private String suggestion;
     private String controlNumber;
     private Boolean isRecommended;
+
+    private FeedbackResponse totalRating;
 
     private List<FeedbackRequestDto> feedbackRequests;
 

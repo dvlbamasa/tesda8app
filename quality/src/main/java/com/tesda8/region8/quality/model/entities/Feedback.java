@@ -1,6 +1,7 @@
 package com.tesda8.region8.quality.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.tesda8.region8.util.enums.FeedbackResponse;
 import com.tesda8.region8.util.model.Auditable;
 import lombok.Data;
 import lombok.Getter;
@@ -11,6 +12,8 @@ import org.hibernate.annotations.Type;
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -32,6 +35,9 @@ public class Feedback extends Auditable<String> {
     @OneToMany(mappedBy = "feedback", cascade = CascadeType.ALL)
     @JsonBackReference
     private List<FeedbackRequest> feedbackRequests;
+
+    @Enumerated(EnumType.STRING)
+    private FeedbackResponse totalRating;
 
     @Embedded
     private TesdaForm tesdaForm;

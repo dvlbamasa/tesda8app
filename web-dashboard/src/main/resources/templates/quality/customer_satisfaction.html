@@ -25,6 +25,8 @@
             </div>
         </header>
         <form th:action="@{/customer_satisfaction/tesdaForm}" th:object="${feedbackForm}" method="post">
+            <input id="totalRatingInput" type="hidden" th:field="*{totalRating}"/>
+
             <div class="container">
                 <p class="text-black-50 mt-5"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> PANUTO: Isulat sa patlang ang mga hinihinging personal na impormasyon.</p>
             </div>
@@ -101,7 +103,7 @@
                 <hr class="border"/>
             </div>
             <div class="container">
-                <table class="table table-borderless">
+                <table class="table table-striped table-borderless">
                     <thead>
                         <tr>
                             <th scope="col" style="width: 40%">Legend</th>
@@ -124,19 +126,34 @@
                                                th:id="${'query' + itemstat.index + feedbackResponse}"
                                                th:field="*{feedbackRequests[__${itemstat.index}__].feedbackResponse}"
                                                th:value="${feedbackResponse}"
+                                               onchange="onRadioChange();"
                                                class="form-check-input"/>
                                         <label th:class="${feedbackResponse == T(com.tesda8.region8.util.enums.FeedbackResponse).VERY_SATISFACTORY ?
                                        'rating very-satisfactory' : (feedbackResponse == T(com.tesda8.region8.util.enums.FeedbackResponse).SATISFACTORY ?
-                                       'rating satisfactory' : 'rating poor')}" th:for="${'query' + itemstat.index + feedbackResponse}"
-                                               >
+                                       'rating satisfactory' : 'rating poor')}" th:for="${'query' + itemstat.index + feedbackResponse}">
                                         </label>
                                     </div>
-
                                 </td>
                             </tr>
                         </th:block>
                     </tbody>
                 </table>
+            </div>
+            <div class="container">
+                <hr class="border"/>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 mt-4 justify-content-center">
+                        <p class="text-black">Kabuuang antas ng kasiyahan sa serbisyong natanggap.</p>
+                        <p class="text-black-50">(Ito ay awtomatikong nag-iiba ayon sa mga sagot sa itaas)</p>
+                    </div>
+                    <div class="col">
+                        <p class="mt-3 d-flex justify-content-center"><label id="totalRating" class="total-rating-blur poor"></label></p>
+                        <p class="d-flex justify-content-center lead"><label id="totalLabel"></label></p>
+                    </div>
+                </div>
+
             </div>
             <div class="container">
                 <hr class="border"/>
@@ -153,6 +170,11 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="container">
+                <hr class="border"/>
+            </div>
+            <div class="container">
                 <div class="form-group row">
                     <label for="suggestion" class="col-12 col-form-label">Mahalaga po sa amin ang iyong suhestiyon. Pakisulat lamang po sa baba</label>
                     <div class="col-12">
@@ -172,6 +194,12 @@
                     ko ang TESDA na isama sa kanilang database bilang bahagi ng kanilang records at monitoring ang mga detalyeng ito.</label>
                 </div>
             </div>
+            <div class="container">
+                <hr class="border"/>
+            </div>
+            <div class="container">
+                <p class="lead d-flex justify-content-center">Maraming Salamat Po!</p>
+            </div>
             <div class="container mt-5">
                 <div class="btn-group" role="group">
                     <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton" th:value="Update"><i class="fa fa-check-square-o" aria-hidden="true"></i> Next</button>
@@ -184,6 +212,8 @@
 
 <div th:replace="fragments/footer :: footer"/>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+<script type='text/javascript' th:src="@{/js/main.js}"></script>
+<script type='text/javascript' th:src="@{/js/quality/customer_satisfaction.js}"></script>
 
 </body>
 </html>
