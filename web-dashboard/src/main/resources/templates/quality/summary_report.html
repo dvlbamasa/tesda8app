@@ -154,6 +154,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <tr th:if="${monitoringReport.isEmpty()}">
+                                    <td style="text-align: center" colspan="15">No data available.</td>
+                                </tr>
                                 <th:block th:each="feedback : ${monitoringReport}">
                                     <tr>
                                         <td style="text-align:center"><span th:text="${feedback.id}"></span></td>

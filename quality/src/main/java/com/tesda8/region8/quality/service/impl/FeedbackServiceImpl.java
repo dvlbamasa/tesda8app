@@ -270,6 +270,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         List<SummaryData> summaryDataList = Lists.newArrayList();
         SummaryData summaryDataNetTotal = new SummaryData();
         summaryDataNetTotal.setLabel("Net Satisfaction Rating");
+        summaryDataNetTotal.setCount(null);
         Arrays.asList(FeedbackResponse.values()).forEach(
                 feedbackResponse -> {
                     SummaryData summaryData = new SummaryData();
@@ -290,7 +291,7 @@ public class FeedbackServiceImpl implements FeedbackService {
                 }
         );
         SummaryData summaryDataTotal = getSummaryDataTotal(feedbackList);
-        summaryDataTotal.setPercentage(100.0);
+        summaryDataTotal.setPercentage(feedbackList.size() > 0 ? 100.0 : 0.0);
         summaryDataList.add(summaryDataTotal);
         summaryDataList.add(summaryDataNetTotal);
         return summaryDataList;
