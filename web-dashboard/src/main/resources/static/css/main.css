@@ -482,3 +482,10 @@ div.tesda-logo {
 .poor-label {
     color: red;
 }
+
+.align-left {
+    float: left;
+}
+.align-right {
+    float: right;
+}

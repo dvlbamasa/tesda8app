@@ -6,9 +6,8 @@ import com.tesda8.region8.quality.model.entities.TesdaForm;
 import com.tesda8.region8.util.enums.FeedbackQuery;
 import com.tesda8.region8.util.enums.FeedbackResponse;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -18,7 +17,8 @@ import java.util.List;
 @NoArgsConstructor
 public class FeedbackDto {
 
-    private int id;
+    private long id;
+    private long number;
     private Customer customer;
     private LocalDateTime date;
     private String suggestion;

@@ -13,6 +13,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Transient;
 import java.util.Collection;
 
 @Data
@@ -30,4 +31,21 @@ public class TesdaForm {
     private TesdaOffice tesdaOffice;
     @Enumerated(EnumType.STRING)
     private ActionTaken actionTaken;
+
+    @Transient
+    public String getServiceRequested() {
+        if (serviceRenderedList.isEmpty()) {
+            return "";
+        }
+        StringBuilder stringBuilder = new StringBuilder("");
+        serviceRenderedList.forEach(
+                tesdaServiceRendered -> {
+                    stringBuilder.append(tesdaServiceRendered.label.equals("Others") ?
+                            tesdaServiceRendered.serviceType + " - " + tesdaServiceRendered.label :
+                            tesdaServiceRendered.label)
+                            .append(", ");
+                }
+        );
+        return stringBuilder.substring(0, stringBuilder.length()-2);
+    }
 }

@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Transient;
 
 @Data
 @NoArgsConstructor
@@ -28,5 +29,14 @@ public class Customer {
 
     public String fetchFullName() {
         return firstName + " " + middleName + " " + lastName;
+    }
+
+    @Transient
+    public String getContactDetails() {
+        StringBuilder stringBuilder = new StringBuilder("");
+        stringBuilder.append(fullName)
+                .append(address == null ? "" : address.equals("") ? "" : ", " + address)
+                .append(contactNumber == null ? "" : contactNumber.equals("") ? "" :  ", " + contactNumber);
+        return stringBuilder.toString();
     }
 }

@@ -116,7 +116,10 @@
                         <th:block th:each="feedbackRequest, itemstat : ${feedbackForm.feedbackRequests}">
                             <tr>
                                 <td scope="row">
-                                    <label class="col col-form-label" th:text="${feedbackRequest.feedbackQuery.label}"></label>
+                                    <label class="col col-form-label">
+                                        <span th:text="${feedbackRequest.feedbackQuery.label}"></span>
+                                        <span class="input-required">*</span>
+                                    </label>
                                 </td>
                                 <td th:each="feedbackResponse : ${T(com.tesda8.region8.util.enums.FeedbackResponse).values()}">
                                     <div class="rating-selector d-flex justify-content-center">
@@ -127,7 +130,7 @@
                                                th:field="*{feedbackRequests[__${itemstat.index}__].feedbackResponse}"
                                                th:value="${feedbackResponse}"
                                                onchange="onRadioChange();"
-                                               class="form-check-input"/>
+                                               class="form-check-input" required/>
                                         <label th:class="${feedbackResponse == T(com.tesda8.region8.util.enums.FeedbackResponse).VERY_SATISFACTORY ?
                                        'rating very-satisfactory' : (feedbackResponse == T(com.tesda8.region8.util.enums.FeedbackResponse).SATISFACTORY ?
                                        'rating satisfactory' : 'rating poor')}" th:for="${'query' + itemstat.index + feedbackResponse}">
