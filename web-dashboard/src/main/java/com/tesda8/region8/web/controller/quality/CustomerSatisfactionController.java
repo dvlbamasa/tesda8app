@@ -62,6 +62,6 @@ public class CustomerSatisfactionController extends DefaultController {
         addExpiredDocumentsListToModel(model);
         model.addAttribute("feedbackForm", feedbackDto);
         feedbackService.createFeedback(feedbackDto);
-        return "/home";
+        return "redirect:/home";
     }
 }
