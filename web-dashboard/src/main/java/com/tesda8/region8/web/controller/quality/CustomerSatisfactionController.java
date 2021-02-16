@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
 @Controller
@@ -51,8 +52,10 @@ public class CustomerSatisfactionController extends DefaultController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/customer_satisfaction/save")
     public String customerSatisfactionSave(@ModelAttribute FeedbackDto feedbackDto, BindingResult bindingResult,
-                                       Model model) throws Exception {
-        Boolean isValidCaptcha = captchaValidator.validateCaptcha(feedbackDto.getCaptchaResponse());
+                                           HttpServletRequest request,
+                                           Model model) throws Exception {
+        logger.info(request.getParameter("g-recaptcha-response"));
+        Boolean isValidCaptcha = captchaValidator.validateCaptcha(request.getParameter("g-recaptcha-response"));
         if(!isValidCaptcha){
             throw new Exception("Captcha is not valid");
         }
