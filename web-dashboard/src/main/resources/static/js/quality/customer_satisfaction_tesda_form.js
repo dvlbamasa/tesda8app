@@ -3,6 +3,14 @@ $(document).ready(function(){
     document.getElementById("tesdaForm.employmentAdmin").onkeyup = function() {checkRadioButtonAdmin()};
 });
 
+window.onload = function() {
+    var $recaptcha = document.querySelector('#g-recaptcha-response');
+
+    if($recaptcha) {
+        $recaptcha.setAttribute("required", "required");
+    }
+};
+
 function checkRadioButtonOthers() {
     $("#OTHERS_EMPLOYMENT").prop("checked", true);
 }
