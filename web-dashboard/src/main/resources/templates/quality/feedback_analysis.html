@@ -1,11 +1,14 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Quality Unit - Summary Report</title>
+    <title>Quality Unit - Feedback and Analysis</title>
     <div th:replace="fragments/header :: header-css"/>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-PMjWzHVtwxdq7m7GIxBot5vdxUY+5aKP9wpKtvnNBZrVv1srI8tU6xvFMzG8crLNcMj/8Xl/WWmo/oAP/40p1g==" crossorigin="anonymous" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 </head>
 <body>
@@ -21,6 +24,7 @@
                         <h1 class="display-4 text-white mt-5 mb-2">Feedback and Analysis</h1>
                         <p class="lead mb-5 text-white-50">Monitoring report and feedback analysis from the customer satisfaction management system</p>
                         <div class="btn-group mr-2 float-right" role="group">
+                            <a th:href="@{/quality}" class="a-header btn btn-info btn-lg" role="button" aria-pressed="true">Back to CSMS</a>
                         </div>
                     </div>
                 </div>
@@ -91,30 +95,34 @@
             </div>
             <div class="tab-content" id="pills-tabContent-report">
                 <div class="tab-pane fade show active" id="monitoring" role="tabpanel" aria-labelledby="monitoring-tab">
-                    <div class="container">
-                        <div class="text-center">
-                            <h3 class="text-black-50 mb-4">MONITORING REPORT OF CUSTOMER FEEDBACK FORM RESULTS</h3>
-
+                    <div class="canvas_div_pdf">
+                        <div class="mb-5 mt-5 container">
+                            <a class="btn btn-lg btn-success" th:href="@{/quality/monitoring-report/download(dateFrom = ${summaryFilter.dateFrom}, dateTo = ${summaryFilter.dateTo})}"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Download Excel</a>
                         </div>
-                    </div>
-                    <div class="mb-5">
-                        <div class="table-responsive">
-                            <div class="">
-                                <p class="ml-3 text-black align-left">Attached Agency: TESDA Regional Office 8</p>
-                                <p class="mr-3 text-black align-right">TESDA-OP-AS-03-F02</p>
-                                <div style="clear: both;"></div>
+                        <div class="container">
+                            <div class="text-center">
+                                <h3 class="text-black-50 mb-4">MONITORING REPORT OF CUSTOMER FEEDBACK FORM RESULTS</h3>
+
                             </div>
-                            <div class="">
-                                <p class="ml-3 text-black align-left">Period Covered:
-                                    <span th:text="${#dates.format(summaryFilter.dateFrom, 'MMM. dd, yyyy')}"></span>
-                                    <span> - </span>
-                                    <span th:text="${#dates.format(summaryFilter.dateTo, 'MMM. dd, yyyy')}"></span>
-                                </p>
-                                <p class="mr-3 text-black align-right">Rev. No. 01-10/01/20</p>
-                                <div style="clear: both;"></div>
-                            </div>
-                            <table id="monitor-table" class="table table-bordered table-striped table-sm">
-                                <thead class="thead-dark">
+                        </div>
+                        <div class="mb-5">
+                            <div class="table-responsive">
+                                <div class="">
+                                    <p class="ml-3 text-black align-left">Attached Agency: TESDA Regional Office 8</p>
+                                    <p class="mr-3 text-black align-right">TESDA-OP-AS-03-F02</p>
+                                    <div style="clear: both;"></div>
+                                </div>
+                                <div class="">
+                                    <p class="ml-3 text-black align-left">Period Covered:
+                                        <span th:text="${#dates.format(summaryFilter.dateFrom, 'MMM. dd, yyyy')}"></span>
+                                        <span> - </span>
+                                        <span th:text="${#dates.format(summaryFilter.dateTo, 'MMM. dd, yyyy')}"></span>
+                                    </p>
+                                    <p class="mr-3 text-black align-right">Rev. No. 01-10/01/20</p>
+                                    <div style="clear: both;"></div>
+                                </div>
+                                <table id="monitor-table" class="table table-bordered table-striped table-sm">
+                                    <thead class="thead-dark">
                                     <tr>
                                         <th scope="col" colspan="3"> Feedback Box Location</th>
                                         <th scope="col" colspan="6">Public Assistance and Complaints Deck (PACD)</th>
@@ -152,36 +160,40 @@
                                         <th></th>
                                         <th></th>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:if="${monitoringReport.isEmpty()}">
-                                    <td style="text-align: center" colspan="15">No data available.</td>
-                                </tr>
-                                <th:block th:each="feedback : ${monitoringReport}">
-                                    <tr>
-                                        <td style="text-align:center"><span th:text="${feedback.id}"></span></td>
-                                        <td style="text-align:center"><span th:text="${#temporals.format(feedback.date, 'MMM. dd, yyyy')}"></span></td>
-                                        <td style="text-align:center"><span th:text="${feedback.controlNumber}"></span></td>
-                                        <td style="text-align:center"><span th:text="${feedback.customer.contactDetails}"></span></td>
-                                        <td style="text-align:center"><span th:text="${feedback.customer.age}"></span></td>
-                                        <td style="text-align:center"><span th:text="${feedback.customer.gender.label}"></span></td>
-                                        <td style="text-align:center"><span th:text="${feedback.customer.emailAddress}"></span></td>
-                                        <td style="text-align:center"><span th:text="${feedback.tesdaForm.tesdaOffice.label}"></span></td>
-                                        <td style="text-align:center"><span th:text="${feedback.tesdaForm.serviceRequested}"></span></td>
-                                        <td style="text-align:center"><span th:text="${feedback.tesdaForm.actionTaken.label}"></span></td>
-                                        <td style="text-align:center"><span th:if="${feedback.totalRating == T(com.tesda8.region8.util.enums.FeedbackResponse).VERY_SATISFACTORY}"><i class="fa fa-check" aria-hidden="true"></i></span></td>
-                                        <td style="text-align:center"><span th:if="${feedback.totalRating == T(com.tesda8.region8.util.enums.FeedbackResponse).SATISFACTORY}"><i class="fa fa-check" aria-hidden="true"></i></span></td>
-                                        <td style="text-align:center"><span th:if="${feedback.totalRating == T(com.tesda8.region8.util.enums.FeedbackResponse).POOR}"><i class="fa fa-check" aria-hidden="true"></i></span></td>
-                                        <td style="text-align:center"><span th:text="${feedback.suggestion}"></span></td>
-                                        <td style="text-align:center"><span></span></td>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:if="${monitoringReport.isEmpty()}">
+                                        <td style="text-align: center" colspan="15">No data available.</td>
                                     </tr>
-                                </th:block>
-                                </tbody>
-                            </table>
+                                    <th:block th:each="feedback : ${monitoringReport}">
+                                        <tr>
+                                            <td style="text-align:center"><span th:text="${feedback.id}"></span></td>
+                                            <td style="text-align:center"><span th:text="${#temporals.format(feedback.date, 'MMM. dd, yyyy')}"></span></td>
+                                            <td style="text-align:center"><span th:text="${feedback.controlNumber}"></span></td>
+                                            <td style="text-align:center"><span th:text="${feedback.customer.contactDetails}"></span></td>
+                                            <td style="text-align:center"><span th:text="${feedback.customer.age}"></span></td>
+                                            <td style="text-align:center"><span th:text="${feedback.customer.gender.label}"></span></td>
+                                            <td style="text-align:center"><span th:text="${feedback.customer.emailAddress}"></span></td>
+                                            <td style="text-align:center"><span th:text="${feedback.tesdaForm.tesdaOffice.label}"></span></td>
+                                            <td style="text-align:center"><span th:text="${feedback.tesdaForm.serviceRequested}"></span></td>
+                                            <td style="text-align:center"><span th:text="${feedback.tesdaForm.actionTaken.label}"></span></td>
+                                            <td style="text-align:center"><span th:if="${feedback.totalRating == T(com.tesda8.region8.util.enums.FeedbackResponse).VERY_SATISFACTORY}"><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                                            <td style="text-align:center"><span th:if="${feedback.totalRating == T(com.tesda8.region8.util.enums.FeedbackResponse).SATISFACTORY}"><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                                            <td style="text-align:center"><span th:if="${feedback.totalRating == T(com.tesda8.region8.util.enums.FeedbackResponse).POOR}"><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                                            <td style="text-align:center"><span th:text="${feedback.suggestion}"></span></td>
+                                            <td style="text-align:center"><span></span></td>
+                                        </tr>
+                                    </th:block>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="tab-pane fade show" id="summary" role="tabpanel" aria-labelledby="summary-tab">
+                    <div class="mb-5 mt-5 container">
+                        <a class="btn btn-lg btn-success" th:href="@{/quality/summary-report/download(dateFrom = ${summaryFilter.dateFrom}, dateTo = ${summaryFilter.dateTo})}"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Download Excel</a>
+                    </div>
                     <div class="container">
                         <div class="text-center">
                             <h3 class="text-black-50 mb-4">SUMMARY REPORT FOR FACE TO FACE TRANSACTION</h3>
@@ -366,6 +378,10 @@
 <script src="https://unpkg.com/sticky-table-headers"></script>
 <script  type='text/javascript' src="../../static/js/doubleScroll/jquery.doubleScroll.js" th:src="@{/js/doubleScroll/jquery.doubleScroll.js}"></script>
 <script type='text/javascript' src="../../static/js/table_event_handlers.js" th:src="@{/js/table_event_handlers.js}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script type='text/javascript' th:src="@{/js/quality/summary_report.js}"></script>
+
 
 </body>
 </html>

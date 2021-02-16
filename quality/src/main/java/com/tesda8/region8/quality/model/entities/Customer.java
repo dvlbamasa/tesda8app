@@ -35,8 +35,8 @@ public class Customer {
     public String getContactDetails() {
         StringBuilder stringBuilder = new StringBuilder("");
         stringBuilder.append(fullName)
-                .append(address == null ? "" : address.equals("") ? "" : ", " + address)
-                .append(contactNumber == null ? "" : contactNumber.equals("") ? "" :  ", " + contactNumber);
+                .append(address == null ? "" : address.equals("") ? "" : ",\n " + address)
+                .append(contactNumber == null ? "" : contactNumber.equals("") ? "" :  ",\n" + contactNumber);
         return stringBuilder.toString();
     }
 }

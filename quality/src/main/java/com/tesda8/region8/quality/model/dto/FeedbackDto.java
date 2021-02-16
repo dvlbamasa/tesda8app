@@ -31,11 +31,14 @@ public class FeedbackDto {
 
     private TesdaForm tesdaForm;
 
-    public static FeedbackDto build() {
+    private String captchaResponse;
+
+    public static FeedbackDto build(String controlNumber) {
         FeedbackDto feedbackDto = new FeedbackDto();
         feedbackDto.setFeedbackRequests(Lists.newArrayList());
         feedbackDto.setCustomer(new Customer());
         feedbackDto.setTesdaForm(new TesdaForm());
+        feedbackDto.setControlNumber(controlNumber);
         Arrays.asList(FeedbackQuery.values()).forEach(
                 feedbackQuery -> {
                     feedbackDto.getFeedbackRequests().add(new FeedbackRequestDto(feedbackQuery));

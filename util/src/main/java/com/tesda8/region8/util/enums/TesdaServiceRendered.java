@@ -17,12 +17,14 @@ public enum TesdaServiceRendered {
     OTHERS_TRAINING("Others", "Training"),
 
     OTHERS_EMPLOYMENT("Others", "Employment"),
-    ADMIN("Admin", "Employment");
+    ADMIN("Admin", "Employment"),
+
+    TOTAL("Total", "Total");
 
     public final String label;
     public final String serviceType;
 
-    private TesdaServiceRendered(String label, String serviceType) {
+    TesdaServiceRendered(String label, String serviceType) {
         this.label = label;
         this.serviceType = serviceType;
     }

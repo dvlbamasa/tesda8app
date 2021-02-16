@@ -28,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -48,6 +49,18 @@ public class FeedbackServiceImpl implements FeedbackService {
     private final FeedbackMapper feedbackMapper;
 
     @Override
+    public String generateControlNumber(LocalDateTime localDateTime) {
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        booleanBuilder.and(QFeedback.feedback.date.goe(localDateTime.truncatedTo(ChronoUnit.DAYS)));
+        Predicate predicate = booleanBuilder.getValue();
+
+        List<Feedback> feedbackList = predicate == null ?
+                feedbackRepository.findAll() : (List<Feedback>) feedbackRepository.findAll(predicate);
+        long count = feedbackList.size() + 1;
+        return ApplicationUtil.formatLocalDateTime(LocalDateTime.now()) + count;
+    }
+
+    @Override
     @Transactional
     public void createFeedback(FeedbackDto feedbackDto) {
         Feedback feedback = feedbackMapper.feedbackToEntity(feedbackDto);
@@ -55,9 +68,7 @@ public class FeedbackServiceImpl implements FeedbackService {
                 feedbackRequest -> feedbackRequest.setFeedback(feedback));
         feedback.setDate(LocalDateTime.now().truncatedTo(ChronoUnit.DAYS));
         feedback.getCustomer().setFullName(feedbackDto.getCustomer().fetchFullName());
-        Feedback savedFeedback = feedbackRepository.save(feedback);
-        savedFeedback.setControlNumber(ApplicationUtil.formatLocalDateTime(LocalDateTime.now()) + savedFeedback.getId());
-        feedbackRepository.save(savedFeedback);
+        feedbackRepository.save(feedback);
     }
 
     @Override
@@ -85,7 +96,6 @@ public class FeedbackServiceImpl implements FeedbackService {
             booleanBuilder.and(QFeedback.feedback.customer.emailAddress.containsIgnoreCase(customerFilter.getEmailAddress()));
         }
 
-
         Predicate predicate = booleanBuilder.getValue();
 
         List<Feedback> feedbackList = predicate == null ?
@@ -94,6 +104,12 @@ public class FeedbackServiceImpl implements FeedbackService {
         return feedbackList.stream()
                 .map(feedback -> feedbackMapper.feedbackToDto(feedback))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public FeedbackDto getFeedback(Long id) {
+        return feedbackRepository.findById(id)
+                .map(feedbackMapper::feedbackToDto).orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
@@ -187,19 +203,22 @@ public class FeedbackServiceImpl implements FeedbackService {
         List<SummaryData> summaryDataList = Lists.newArrayList();
         Arrays.asList(TesdaServiceRendered.values()).forEach(
                 tesdaServiceRendered -> {
-                    SummaryData summaryData = new SummaryData();
-                    summaryData.setLabel(tesdaServiceRendered.label);
-                    summaryData.setType(tesdaServiceRendered.serviceType);
-                    summaryData.setCount(
-                            feedbackList.stream()
-                            .filter(feedback -> feedback.getTesdaForm().getServiceRenderedList().contains(tesdaServiceRendered))
-                            .count()
-                    );
-                    summaryDataList.add(summaryData);
+                    if (!tesdaServiceRendered.equals(TesdaServiceRendered.TOTAL)) {
+                        SummaryData summaryData = new SummaryData();
+                        summaryData.setLabel(tesdaServiceRendered.label);
+                        summaryData.setType(tesdaServiceRendered.serviceType);
+                        summaryData.setCount(
+                                feedbackList.stream()
+                                        .filter(feedback -> feedback.getTesdaForm().getServiceRenderedList().contains(tesdaServiceRendered))
+                                        .count()
+                        );
+                        summaryDataList.add(summaryData);
+                    }
                 }
         );
         SummaryData summaryDataTotal = new SummaryData();
         summaryDataTotal.setLabel(TOTAL);
+        summaryDataTotal.setType(TesdaServiceRendered.TOTAL.serviceType);
         feedbackList.forEach(
             feedback -> {
                 summaryDataTotal.setCount(summaryDataTotal.getCount() + feedback.getTesdaForm().getServiceRenderedList().size());

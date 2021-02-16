@@ -4,11 +4,12 @@ public enum TesdaServiceType {
     ASSESSMENT("Assessment and Certification"),
     PROGRAM_REGISTRATION("Program Registration"),
     TRAINING("Training"),
-    EMPLOYMENT("Employment");
+    EMPLOYMENT("Employment"),
+    TOTAL("Total");
 
     public final String type;
 
-    private TesdaServiceType(String type) {
+    TesdaServiceType(String type) {
         this.type = type;
     }
 }

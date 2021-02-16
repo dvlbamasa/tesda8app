@@ -43,7 +43,7 @@ public class TesdaForm {
                     stringBuilder.append(tesdaServiceRendered.label.equals("Others") ?
                             tesdaServiceRendered.serviceType + " - " + tesdaServiceRendered.label :
                             tesdaServiceRendered.label)
-                            .append(", ");
+                            .append(",\n");
                 }
         );
         return stringBuilder.substring(0, stringBuilder.length()-2);

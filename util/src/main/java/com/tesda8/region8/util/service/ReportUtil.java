@@ -10,7 +10,7 @@ import java.text.DecimalFormat;
 
 public class ReportUtil {
 
-    private static DecimalFormat df2 = new DecimalFormat("#");
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
     private static Logger logger = LoggerFactory.getLogger(ReportUtil.class);
 
 

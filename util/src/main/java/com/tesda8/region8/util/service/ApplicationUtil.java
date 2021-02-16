@@ -10,6 +10,7 @@ import java.util.Date;
 public class ApplicationUtil {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+    private static final DateTimeFormatter stringFormatter = DateTimeFormatter.ofPattern("MMM. dd, yyyy");
 
     public static Month getCurrentMonth() {
         return Month.valueOf(LocalDateTime.now().getMonth().name());
@@ -33,5 +34,9 @@ public class ApplicationUtil {
 
     public static String formatLocalDateTime(LocalDateTime dateToConvert) {
         return dateToConvert.format(formatter);
+    }
+
+    public static String formatLocalDateTimeToString(LocalDateTime dateToConvert) {
+        return dateToConvert.format(stringFormatter);
     }
 }

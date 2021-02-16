@@ -26,6 +26,7 @@
         </header>
         <form th:action="@{/customer_satisfaction/tesdaForm}" th:object="${feedbackForm}" method="post">
             <input id="totalRatingInput" type="hidden" th:field="*{totalRating}"/>
+            <input type="hidden" th:field="*{controlNumber}"/>
 
             <div class="container">
                 <p class="text-black-50 mt-5"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> PANUTO: Isulat sa patlang ang mga hinihinging personal na impormasyon.</p>
