@@ -140,11 +140,6 @@ public class ExcelParserServiceImpl implements ExcelParserService {
             Iterator<Cell> cellIterator = currentRow.iterator();
             for (int i = 0; cellIterator.hasNext(); i++) {
                 Cell currentCell = cellIterator.next();
-                if (currentCell.getCellType() == CellType.STRING) {
-                    System.out.println("J: " + j + " I: " + i + " " + currentCell.getStringCellValue());
-                } if (currentCell.getCellType() == CellType.NUMERIC) {
-                    System.out.println("J: " + j + " I: " + i + " " + currentCell.getNumericCellValue());
-                }
                 if (j == 3 && i == 3) {
                     currentCell.setCellValue(ApplicationUtil.formatLocalDateTimeToString(feedbackDto.getDate()));
                 } else if (j == 5 && i == 2) {
@@ -191,9 +186,9 @@ public class ExcelParserServiceImpl implements ExcelParserService {
                     }
                 } else if (j == 28) {
                     if (i == 1) {
-                        currentCell.setCellValue(feedbackDto.getIsRecommended() ? "✓" : "");
+                        currentCell.setCellValue(feedbackDto.getIsRecommended() == null ? "" : feedbackDto.getIsRecommended() ? "✓" : "");
                     } else if (i == 4) {
-                        currentCell.setCellValue(feedbackDto.getIsRecommended() ? "" : "✓");
+                        currentCell.setCellValue(feedbackDto.getIsRecommended() == null ? "" : feedbackDto.getIsRecommended() ? "" : "✓");
                     }
                 } else if (j == 32) {
                     currentCell.setCellValue(feedbackDto.getSuggestion());
@@ -311,38 +306,38 @@ public class ExcelParserServiceImpl implements ExcelParserService {
         for (FeedbackDto feedbackDto : feedbackDtoList) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
-            createCell(sheet, row, columnCount++, dataCount++);
-            createCell(sheet, row, columnCount++, ApplicationUtil.formatLocalDateTimeToString(feedbackDto.getDate()));
-            createCell(sheet, row, columnCount++, feedbackDto.getControlNumber());
-            createCell(sheet, row, columnCount++, feedbackDto.getCustomer().getContactDetails());
-            createCell(sheet, row, columnCount++, feedbackDto.getCustomer().getAge());
-            createCell(sheet, row, columnCount++, feedbackDto.getCustomer().getGender().label);
-            createCell(sheet, row, columnCount++, feedbackDto.getCustomer().getEmailAddress());
-            createCell(sheet, row, columnCount++, feedbackDto.getTesdaForm().getTesdaOffice().label);
-            createCell(sheet, row, columnCount++, feedbackDto.getTesdaForm().getServiceRequested());
-            createCell(sheet, row, columnCount++, feedbackDto.getTesdaForm().getActionTaken().label);
+            createCell(row, columnCount++, dataCount++);
+            createCell(row, columnCount++, ApplicationUtil.formatLocalDateTimeToString(feedbackDto.getDate()));
+            createCell(row, columnCount++, feedbackDto.getControlNumber());
+            createCell(row, columnCount++, feedbackDto.getCustomer().getContactDetails());
+            createCell(row, columnCount++, feedbackDto.getCustomer().getAge());
+            createCell(row, columnCount++, feedbackDto.getCustomer().getGender().label);
+            createCell(row, columnCount++, feedbackDto.getCustomer().getEmailAddress());
+            createCell(row, columnCount++, feedbackDto.getTesdaForm().getTesdaOffice().label);
+            createCell(row, columnCount++, feedbackDto.getTesdaForm().getServiceRequested());
+            createCell(row, columnCount++, feedbackDto.getTesdaForm().getActionTaken().label);
             switch (feedbackDto.getTotalRating()) {
                 case VERY_SATISFACTORY:
-                    createCell(sheet, row, columnCount++, "✓");
+                    createCell(row, columnCount++, "✓");
                     columnCount+=2;
                     break;
                 case SATISFACTORY:
-                    createCell(sheet, row, ++columnCount, "✓");
+                    createCell(row, ++columnCount, "✓");
                     columnCount+=2;
                     break;
                 case POOR:
                     columnCount+=2;
-                    createCell(sheet, row, columnCount++, "✓");
+                    createCell(row, columnCount++, "✓");
                     break;
                 default:
                     break;
             }
-            createCell(sheet, row, columnCount++, feedbackDto.getSuggestion());
-            createCell(sheet, row, columnCount, "");
+            createCell(row, columnCount++, feedbackDto.getSuggestion());
+            createCell(row, columnCount, "");
         }
     }
 
-    private void createCell(Sheet sheet, Row row, int columnCount, Object value) {
+    private void createCell(Row row, int columnCount, Object value) {
         Cell cell = row.createCell(columnCount);
         if (value instanceof Integer) {
             cell.setCellValue((Integer) value);

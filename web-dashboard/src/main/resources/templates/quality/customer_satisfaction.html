@@ -66,7 +66,7 @@
                     <div class="form-group row mr-5">
                         <label for="age" class="col-sm-2 col-form-label">Edad<span class="input-required">*</span></label>
                         <div class="col-sm-10">
-                            <input class="form-control" onkeypress="return isNumberKey(event)" placeholder="Isulat ang iyong Edad" id="age" name="age" type="number" th:field="*{customer.age}" required/>
+                            <input class="form-control" onkeypress="return isNumberKey(event)" placeholder="Isulat ang iyong Edad" id="age" name="age" type="number" min="15" max="99" th:field="*{customer.age}" required/>
                         </div>
                     </div>
                     <div class="form-group row mr-5">

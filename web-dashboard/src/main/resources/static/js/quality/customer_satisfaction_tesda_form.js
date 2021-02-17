@@ -1,15 +1,39 @@
-$(document).ready(function(){
-    document.getElementById("tesdaForm.employmentOthers").onkeyup = function() {checkRadioButtonOthers()};
-    document.getElementById("tesdaForm.employmentAdmin").onkeyup = function() {checkRadioButtonAdmin()};
-});
-
 window.onload = function() {
     var $recaptcha = document.querySelector('#g-recaptcha-response');
 
     if($recaptcha) {
         $recaptcha.setAttribute("required", "required");
     }
+    document.getElementById("tesdaForm.employmentOthers").onkeyup = function() {checkRadioButtonOthers()};
+    document.getElementById("tesdaForm.employmentAdmin").onkeyup = function() {checkRadioButtonAdmin()};
 };
+
+/*
+$("#submitButton").click(function(event) {
+    if ($('#customerSatisfactionForm').valid()) {
+        event.preventDefault();
+        swal({
+            title: "Submit Customer Satisfaction Form?",
+            text: "Pakitingnan kung tama ang lahat ng tugon na inyong inilagay.",
+            icon: "warning",
+            buttons: ["No", "Yes"],
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    swal("Maraming Salamat sa Pagtugon!", {
+                        icon: "success",
+                    }).then((value) => {
+                        $('#customerSatisfactionForm').submit();
+                    });
+                } else {
+                    swal("Verify the details before saving.");
+                }
+            });
+    }
+});
+
+*/
 
 function checkRadioButtonOthers() {
     $("#OTHERS_EMPLOYMENT").prop("checked", true);
@@ -32,29 +56,5 @@ function adminOnclick() {
         document.getElementById("tesdaForm.employmentAdmin").value = "";
     }
 }
-/*
-$("#submitButton").click(function(event) {
-    if ($('#customerSatisfactionForm').valid()) {
-        event.preventDefault();
-        swal({
-            title: "Submit Customer Satisfaction Form?",
-            text: "Pakitingnan kung tama ang lahat ng tugon na inyong sinumite.",
-            icon: "warning",
-            buttons: ["No", "Yes"],
-            dangerMode: true,
-        })
-            .then((willDelete) => {
-                if (willDelete) {
-                    swal("Maraming Salamat sa Pagtugon!", {
-                        icon: "success",
-                    }).then((value) => {
-                        $('#customerSatisfactionForm').submit();
-                    });
-                } else {
-                    swal("Verify the details before saving.");
-                }
-            });
-    }
-});
 
- */
+

@@ -6,7 +6,7 @@ public enum AgeGroup {
     GROUP_3("36-45", 36, 45),
     GROUP_4("46-55", 46, 55),
     GROUP_5("56-65", 56, 65),
-    GROUP_6("66 and Above", 66, 100);
+    GROUP_6("66 and Above", 66, 99);
 
     public final String label;
     public final int min;

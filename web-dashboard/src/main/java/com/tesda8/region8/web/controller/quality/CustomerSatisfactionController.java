@@ -54,7 +54,6 @@ public class CustomerSatisfactionController extends DefaultController {
     public String customerSatisfactionSave(@ModelAttribute FeedbackDto feedbackDto, BindingResult bindingResult,
                                            HttpServletRequest request,
                                            Model model) throws Exception {
-        logger.info(request.getParameter("g-recaptcha-response"));
         Boolean isValidCaptcha = captchaValidator.validateCaptcha(request.getParameter("g-recaptcha-response"));
         if(!isValidCaptcha){
             throw new Exception("Captcha is not valid");
@@ -62,6 +61,6 @@ public class CustomerSatisfactionController extends DefaultController {
         addExpiredDocumentsListToModel(model);
         model.addAttribute("feedbackForm", feedbackDto);
         feedbackService.createFeedback(feedbackDto);
-        return "redirect:/home";
+        return "quality/customer_satisfaction_success";
     }
 }

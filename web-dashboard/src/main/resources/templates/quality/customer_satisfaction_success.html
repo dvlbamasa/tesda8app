@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer Satisfaction</title>
+    <div th:replace="fragments/header :: header-css"/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+</head>
+<body>
+
+<div th:replace="fragments/header :: header(${statusCounter})"/>
+
+<div id="page-container">
+    <div id = "content-wrap">
+        <div class="container mt-5">
+            <div class="col text-center ">
+                <h1><i class="fa fa-check-circle-o fa-6" aria-hidden="true"></i></h1>
+                <h1 class="display-3 mt-5 mb-2">Maraming Salamat sa Pagtugon!</h1>
+                <h3 class="text-black-50 mt-5 mb-2">Customer Feedback Successfully Submitted.</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container -->
+
+<div th:replace="fragments/footer :: footer"/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+<script type='text/javascript' th:src="@{/js/main.js}"></script>
+<script type='text/javascript' th:src="@{/js/quality/customer_satisfaction.js}"></script>
+
+</body>
+</html>
