@@ -140,6 +140,11 @@ public class ExcelParserServiceImpl implements ExcelParserService {
             Iterator<Cell> cellIterator = currentRow.iterator();
             for (int i = 0; cellIterator.hasNext(); i++) {
                 Cell currentCell = cellIterator.next();
+                if (currentCell.getCellType() == CellType.STRING) {
+                    System.out.println("J: " + j + " I: " + i + " " + currentCell.getStringCellValue());
+                } if (currentCell.getCellType() == CellType.NUMERIC) {
+                    System.out.println("J: " + j + " I: " + i + " " + currentCell.getNumericCellValue());
+                }
                 if (j == 3 && i == 3) {
                     currentCell.setCellValue(ApplicationUtil.formatLocalDateTimeToString(feedbackDto.getDate()));
                 } else if (j == 5 && i == 2) {
@@ -159,7 +164,7 @@ public class ExcelParserServiceImpl implements ExcelParserService {
                 } else if (j == 7 && i == 6) {
                     currentCell.setCellValue(Strings.isNullOrEmpty(feedbackDto.getCustomer().getEmailAddress()) ? "" :
                             feedbackDto.getCustomer().getEmailAddress());
-                } else if (j >= 10 && j <= 20) {
+                } else if (j >= 10 && j <= 24 && j % 2 == 0) {
                     if (i == 1) {
                         currentCell.setCellValue(feedbackDto.getFeedbackRequests()
                                 .get(satisfactionCounter).getFeedbackResponse()
@@ -173,7 +178,7 @@ public class ExcelParserServiceImpl implements ExcelParserService {
                                 .get(satisfactionCounter++).getFeedbackResponse()
                                 .equals(FeedbackResponse.POOR) ? "✓" : "");
                     }
-                } else if (j == 22) {
+                } else if (j == 26) {
                     if (i == 1) {
                         currentCell.setCellValue(feedbackDto.getTotalRating()
                                 .equals(FeedbackResponse.VERY_SATISFACTORY) ? "✓" : "");
@@ -184,13 +189,13 @@ public class ExcelParserServiceImpl implements ExcelParserService {
                         currentCell.setCellValue(feedbackDto.getTotalRating()
                                 .equals(FeedbackResponse.POOR) ? "✓" : "");
                     }
-                } else if (j == 23) {
+                } else if (j == 28) {
                     if (i == 1) {
                         currentCell.setCellValue(feedbackDto.getIsRecommended() ? "✓" : "");
                     } else if (i == 4) {
                         currentCell.setCellValue(feedbackDto.getIsRecommended() ? "" : "✓");
                     }
-                } else if (j == 27) {
+                } else if (j == 32) {
                     currentCell.setCellValue(feedbackDto.getSuggestion());
                 }
             }
