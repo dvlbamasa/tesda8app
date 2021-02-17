@@ -12,8 +12,7 @@ public class CaptchaValidator {
 
     private static final String GOOGLE_RECAPTCHA_ENDPOINT = "https://www.google.com/recaptcha/api/siteverify";
 
-    @Value("${google.recaptcha.secret}")
-    private String recaptchaSecret;
+    private String recaptchaSecret = "6Lc2P1oaAAAAANrdcXK-s-t7SzM1itqzFg-idGmA";
 
     public boolean validateCaptcha(String captchaResponse){
         RestTemplate restTemplate = new RestTemplate();
