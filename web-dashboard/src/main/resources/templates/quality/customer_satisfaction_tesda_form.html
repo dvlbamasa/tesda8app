@@ -51,15 +51,15 @@
                             <input type="hidden" th:field="*{feedbackRequests[__${itemstat.index}__].feedbackQuery}"/>
                         </th:block>
 
-                        <div class="container">
-                            <p class="text-black-50"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> PANUTO: Piliin ang tumpak na serbisyong iyong natanggap at ang kawani at opisina ng departamento na promoseso sa iyo.</p>
+                        <div class="container container-dark">
+                            <p class="text-white py-2  d-flex justify-content-center"><i class="fa fa-exclamation-triangle fa-1 mr-2" aria-hidden="true"></i> PANUTO: Piliin ang tumpak na serbisyong iyong natanggap at ang kawani at opisina ng departamento na promoseso sa iyo.</p>
                         </div>
                         <div class="container">
                             <hr class="border"/>
                         </div>
-                        <div class="container">
+                        <div class="container container-gray py-3">
                             <div class="row">
-                                <label class="col col-form-label"><p class="lead text-black-50">SERVICE/S RENDERED</p></label>
+                                <label class="col col-form-label"><p class="lead">SERVICE/S RENDERED</p></label>
                                 <label class="mr-4 col-form-label align-right"><p class="lead">Control No. <span th:text="${feedbackForm.controlNumber}"></span></p></label>
 
                             </div>
@@ -157,9 +157,9 @@
                         <div class="container">
                             <hr class="border"/>
                         </div>
-                        <div class="container">
+                        <div class="container container-gray py-3">
                             <div class="row">
-                                <label class="col col-form-label"><p class="lead text-black-50">ACTION TAKEN</p></label>
+                                <label class="col col-form-label"><p class="lead">ACTION TAKEN</p></label>
                             </div>
                             <div class="form-group row">
                                 <label for="tesdaForm.referredTo" class="col-sm-2 col-form-label">Referred To</label>

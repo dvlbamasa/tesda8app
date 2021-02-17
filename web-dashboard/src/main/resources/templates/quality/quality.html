@@ -137,6 +137,9 @@
                             </tr>
                         </thead>
                         <tbody>
+                        <tr th:if="${feedbacks.isEmpty()}">
+                            <td style="text-align: center" colspan="8">No data available.</td>
+                        </tr>
                         <th:block th:each="feedback : ${feedbacks}">
                             <tr>
                                 <td><span th:text="${feedback.customer.fullName}"></span></td>

@@ -208,157 +208,160 @@
                     <div class="container">
                         <hr class="border"/>
                     </div>
-                    <div class="container mb-5">
-                        <div class="table-responsive">
-                            <p class="lead text-black-50">A. Total Number of Clients Served by Gender</p>
-                            <table id="gender-table" class="table table-bordered table-striped table-sm">
-                                <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col"> Sex</th>
-                                    <th scope="col" style="width: 20%;"> No. of Clients</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <th:block th:each="report : ${summaryReport.numberOfClientsByGender}">
-                                    <tr th:class="${report.label == 'Total' ? 'total-col' : ''}">
-                                        <td style="text-align:center"><span th:text="${report.label}"></span></td>
-                                        <td style="text-align:center"><span th:text="${report.count}"></span></td>
-                                    </tr>
-                                </th:block>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="container">
-                        <hr class="border"/>
-                    </div>
-                    <div class="container mb-5">
-                        <div class="table-responsive">
-                            <p class="lead text-black-50">B. Distribution of Clients Served by Age Group</p>
-                            <table id="age-group-table" class="table table-bordered table-striped table-sm">
-                                <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col"> Age Group</th>
-                                    <th scope="col" style="width: 20%;"> No. of Clients</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <th:block th:each="report : ${summaryReport.numberOfClientsByAgeGroup}">
-                                    <tr th:class="${report.label == 'Total' ? 'total-col' : ''}">
-                                        <td style="text-align:center"><span th:text="${report.label}"></span></td>
-                                        <td style="text-align:center"><span th:text="${report.count}"></span></td>
-                                    </tr>
-                                </th:block>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="container">
-                        <hr class="border"/>
-                    </div>
-                    <div class="container mb-5">
-                        <div class="table-responsive">
-                            <p class="lead text-black-50">C. Total Number of Clients by Nature of Inquiry</p>
-                            <table id="inquiry-table" class="table table-bordered table-striped table-sm">
-                                <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col"> Nature of Inquiry</th>
-                                    <th scope="col" style="width: 20%;"> No. of Clients</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <th:block th:each="service : ${T(com.tesda8.region8.util.enums.TesdaServiceType).values()}">
-                                    <tr>
-                                        <th><span th:text="${service.type}"></span></th>
-                                        <td></td>
-                                    </tr>
-                                    <th:block th:each="report : ${summaryReport.numberOfClientsByNatureOfInquiry}">
-                                        <tr th:if="${service.type == report.type}">
-                                            <td><span th:text="${report.label}"></span></td>
-                                            <td style="text-align:center"><span th:text="${report.count}"></span></td>
+                    <div id="parent">
+                        <div id="wide" class="container-sm">
+                            <div class="container mb-5">
+                                <div class="table-responsive">
+                                    <p class="lead text-black-50">A. Total Number of Clients Served by Gender</p>
+                                    <table id="gender-table" class="table table-bordered table-striped table-sm">
+                                        <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col"> Sex</th>
+                                            <th scope="col" style="width: 20%;"> No. of Clients</th>
                                         </tr>
-                                    </th:block>
-                                </th:block>
-                                </tbody>
-                            </table>
+                                        </thead>
+                                        <tbody>
+                                        <th:block th:each="report : ${summaryReport.numberOfClientsByGender}">
+                                            <tr th:class="${report.label == 'Total' ? 'total-col' : ''}">
+                                                <td style="text-align:center"><span th:text="${report.label}"></span></td>
+                                                <td style="text-align:center"><span th:text="${report.count}"></span></td>
+                                            </tr>
+                                        </th:block>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <hr class="border"/>
+                            </div>
+                            <div class="container mb-5">
+                                <div class="table-responsive">
+                                    <p class="lead text-black-50">B. Distribution of Clients Served by Age Group</p>
+                                    <table id="age-group-table" class="table table-bordered table-striped table-sm">
+                                        <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col"> Age Group</th>
+                                            <th scope="col" style="width: 20%;"> No. of Clients</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <th:block th:each="report : ${summaryReport.numberOfClientsByAgeGroup}">
+                                            <tr th:class="${report.label == 'Total' ? 'total-col' : ''}">
+                                                <td style="text-align:center"><span th:text="${report.label}"></span></td>
+                                                <td style="text-align:center"><span th:text="${report.count}"></span></td>
+                                            </tr>
+                                        </th:block>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <hr class="border"/>
+                            </div>
+                            <div class="container mb-5">
+                                <div class="table-responsive">
+                                    <p class="lead text-black-50">C. Total Number of Clients by Nature of Inquiry</p>
+                                    <table id="inquiry-table" class="table table-bordered table-striped table-sm">
+                                        <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col"> Nature of Inquiry</th>
+                                            <th scope="col" style="width: 20%;"> No. of Clients</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <th:block th:each="service : ${T(com.tesda8.region8.util.enums.TesdaServiceType).values()}">
+                                            <tr>
+                                                <th><span th:text="${service.type}"></span></th>
+                                                <td></td>
+                                            </tr>
+                                            <th:block th:each="report : ${summaryReport.numberOfClientsByNatureOfInquiry}">
+                                                <tr th:if="${service.type == report.type}">
+                                                    <td><span th:text="${report.label}"></span></td>
+                                                    <td style="text-align:center"><span th:text="${report.count}"></span></td>
+                                                </tr>
+                                            </th:block>
+                                        </th:block>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="container">
-                        <hr class="border"/>
-                    </div>
-                    <div class="container mb-5">
-                        <div class="table-responsive">
-                            <p class="lead text-black-50">D. Action Provided Relative to Purpose of Visit</p>
-                            <table id="action-table" class="table table-bordered table-striped table-sm">
-                                <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col"> Action Provided</th>
-                                    <th scope="col" style="width: 20%;"> No. of Clients</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <th:block th:each="report : ${summaryReport.numberOfClientsByActionProvided}">
-                                    <tr th:class="${report.label == 'Total' ? 'total-col' : ''}">
-                                        <td><span th:text="${report.label}"></span></td>
-                                        <td style="text-align:center"><span th:text="${report.count}"></span></td>
-                                    </tr>
-                                </th:block>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="container">
-                        <hr class="border"/>
-                    </div>
-                    <div class="container mb-5">
-                        <div class="table-responsive">
-                            <p class="lead text-black-50">E. Drivers of Satisfaction</p>
-                            <table id="satisfaction-table" class="table table-bordered table-striped table-sm">
-                                <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col"> Other Areas Related</th>
-                                    <th scope="col" style="width: 15%;"> VS</th>
-                                    <th scope="col" style="width: 15%;"> S</th>
-                                    <th scope="col" style="width: 15%;"> P</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <th:block th:each="report : ${summaryReport.satisfactionData}">
-                                    <tr th:class="${report.feedbackQuery == 'Total' ? 'total-col' : ''}">
-                                        <td><span th:text="${report.feedbackQuery}"></span></td>
-                                        <td style="text-align:center"><span th:text="${report.verySatisfiedCount}"></span></td>
-                                        <td style="text-align:center"><span th:text="${report.satisfiedCount}"></span></td>
-                                        <td style="text-align:center"><span th:text="${report.poorCount}"></span></td>
-                                    </tr>
-                                </th:block>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="container">
-                        <hr class="border"/>
-                    </div>
-                    <div class="container mb-5">
-                        <div class="table-responsive">
-                            <p class="lead text-black-50">F. Overall Rating</p>
-                            <table id="overall-rating-table" class="table table-bordered table-striped table-sm">
-                                <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col"> Rating</th>
-                                    <th scope="col" style="width: 30%;"> No of Clients</th>
-                                    <th scope="col" style="width: 30%;"> Percentage</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <th:block th:each="report : ${summaryReport.overallRatingData}">
-                                    <tr th:class="${report.label == 'Net Satisfaction Rating' ? 'total-col' : ''}">
-                                        <td style="text-align:center"><span th:text="${report.label}"></span></td>
-                                        <td style="text-align:center"><span th:text="${report.count}"></span></td>
-                                        <td style="text-align:center"><span th:text="${report.percentage}"></span><span>&#37;</span></td>
-                                    </tr>
-                                </th:block>
-                                </tbody>
-                            </table>
+                        <div id="narrow" class="container">
+                            <div class="container mb-5">
+                                <div class="table-responsive">
+                                    <p class="lead text-black-50">D. Action Provided Relative to Purpose of Visit</p>
+                                    <table id="action-table" class="table table-bordered table-striped table-sm">
+                                        <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col"> Action Provided</th>
+                                            <th scope="col" style="width: 20%;"> No. of Clients</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <th:block th:each="report : ${summaryReport.numberOfClientsByActionProvided}">
+                                            <tr th:class="${report.label == 'Total' ? 'total-col' : ''}">
+                                                <td><span th:text="${report.label}"></span></td>
+                                                <td style="text-align:center"><span th:text="${report.count}"></span></td>
+                                            </tr>
+                                        </th:block>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <hr class="border"/>
+                            </div>
+                            <div class="container mb-5">
+                                <div class="table-responsive">
+                                    <p class="lead text-black-50">E. Drivers of Satisfaction</p>
+                                    <table id="satisfaction-table" class="table table-bordered table-striped table-sm">
+                                        <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col"> Other Areas Related</th>
+                                            <th scope="col" style="width: 15%;"> VS</th>
+                                            <th scope="col" style="width: 15%;"> S</th>
+                                            <th scope="col" style="width: 15%;"> P</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <th:block th:each="report : ${summaryReport.satisfactionData}">
+                                            <tr th:class="${report.feedbackQuery == 'Total' ? 'total-col' : ''}">
+                                                <td><span th:text="${report.feedbackQuery}"></span></td>
+                                                <td style="text-align:center"><span th:text="${report.verySatisfiedCount}"></span></td>
+                                                <td style="text-align:center"><span th:text="${report.satisfiedCount}"></span></td>
+                                                <td style="text-align:center"><span th:text="${report.poorCount}"></span></td>
+                                            </tr>
+                                        </th:block>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <hr class="border"/>
+                            </div>
+                            <div class="container mb-5">
+                                <div class="table-responsive">
+                                    <p class="lead text-black-50">F. Overall Rating</p>
+                                    <table id="overall-rating-table" class="table table-bordered table-striped table-sm">
+                                        <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col"> Rating</th>
+                                            <th scope="col" style="width: 30%;"> No of Clients</th>
+                                            <th scope="col" style="width: 30%;"> Percentage</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <th:block th:each="report : ${summaryReport.overallRatingData}">
+                                            <tr th:class="${report.label == 'Net Satisfaction Rating' ? 'total-col' : ''}">
+                                                <td style="text-align:center"><span th:text="${report.label}"></span></td>
+                                                <td style="text-align:center"><span th:text="${report.count}"></span></td>
+                                                <td style="text-align:center"><span th:text="${report.percentage}"></span><span>&#37;</span></td>
+                                            </tr>
+                                        </th:block>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

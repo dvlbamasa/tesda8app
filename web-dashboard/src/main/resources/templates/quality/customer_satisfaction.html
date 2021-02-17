@@ -24,96 +24,96 @@
                 </div>
             </div>
         </header>
-        <form th:action="@{/customer_satisfaction/tesdaForm}" th:object="${feedbackForm}" method="post">
-            <input id="totalRatingInput" type="hidden" th:field="*{totalRating}"/>
-            <input type="hidden" th:field="*{controlNumber}"/>
+        <div>
+            <form th:action="@{/customer_satisfaction/tesdaForm}" th:object="${feedbackForm}" method="post">
+                <input id="totalRatingInput" type="hidden" th:field="*{totalRating}"/>
+                <input type="hidden" th:field="*{controlNumber}"/>
 
-            <div class="container">
-                <p class="text-black-50 mt-5"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> PANUTO: Isulat sa patlang ang mga hinihinging personal na impormasyon.</p>
-            </div>
-            <div class="container mb-5">
-                <hr class="border"/>
-            </div>
-            <div id="parent">
-                <div id="wide" class="container-sm">
-                    <div class="form-group row ml-5">
-                        <label for="firstName" class="col-sm-2 col-form-label">First Name<span class="input-required">*</span></label>
-                        <div class="col-sm-10">
-                            <input class="form-control" placeholder="Isulat ang iyong First Name" id="firstName" name="firstName" type="text" th:field="*{customer.firstName}" required/>
-                        </div>
-                    </div>
-                    <div class="form-group row ml-5">
-                        <label for="middleName" class="col-sm-2 col-form-label">Middle Name<span class="input-required">*</span></label>
-                        <div class="col-sm-10">
-                            <input class="form-control" placeholder="Isulat ang iyong Middle Name" id="middleName" name="middleName" type="text" th:field="*{customer.middleName}" required/>
-                        </div>
-                    </div>
-                    <div class="form-group row ml-5">
-                        <label for="lastName" class="col-sm-2 col-form-label">Apelyido<span class="input-required">*</span></label>
-                        <div class="col-sm-10">
-                            <input class="form-control" placeholder="Isulat ang iyong Apelyido" id="lastName" name="lastName" type="text" th:field="*{customer.lastName}" required />
-                        </div>
-                    </div>
-                    <div class="form-group row ml-5">
-                        <label for="address" class="col-sm-2 col-form-label">Tirahan / Tanggapan</label>
-                        <div class="col-sm-10">
-                            <input class="form-control" placeholder="Isulat ang iyong Tirahan / Tanggapan" id="address" name="address" type="text" th:field="*{customer.address}" />
-                        </div>
-                    </div>
-
+                <div class="container container-dark">
+                    <p class="text-white py-2 d-flex justify-content-center"><i class="fa fa-exclamation-triangle fa-1 mr-2" aria-hidden="true"></i> PANUTO: Isulat sa patlang ang mga hinihinging personal na impormasyon.</p>
                 </div>
-                <div id="narrow" class="container">
-                    <div class="form-group row mr-5">
-                        <label for="age" class="col-sm-2 col-form-label">Edad<span class="input-required">*</span></label>
-                        <div class="col-sm-10">
-                            <input class="form-control" onkeypress="return isNumberKey(event)" placeholder="Isulat ang iyong Edad" id="age" name="age" type="number" min="15" max="99" th:field="*{customer.age}" required/>
+                <div class="container mb-5">
+                    <hr class="border"/>
+                </div>
+                <div id="parent">
+                    <div id="wide" class="container-gray py-5 container-sm">
+                        <div class="form-group row ml-5">
+                            <label for="firstName" class="col-sm-2 col-form-label">First Name<span class="input-required">*</span></label>
+                            <div class="col-sm-10">
+                                <input class="form-control" placeholder="Isulat ang iyong First Name" id="firstName" name="firstName" type="text" th:field="*{customer.firstName}" required/>
+                            </div>
+                        </div>
+                        <div class="form-group row ml-5">
+                            <label for="middleName" class="col-sm-2 col-form-label">Middle Name<span class="input-required">*</span></label>
+                            <div class="col-sm-10">
+                                <input class="form-control" placeholder="Isulat ang iyong Middle Name" id="middleName" name="middleName" type="text" th:field="*{customer.middleName}" required/>
+                            </div>
+                        </div>
+                        <div class="form-group row ml-5">
+                            <label for="lastName" class="col-sm-2 col-form-label">Apelyido<span class="input-required">*</span></label>
+                            <div class="col-sm-10">
+                                <input class="form-control" placeholder="Isulat ang iyong Apelyido" id="lastName" name="lastName" type="text" th:field="*{customer.lastName}" required />
+                            </div>
+                        </div>
+                        <div class="form-group row ml-5">
+                            <label for="address" class="col-sm-2 col-form-label">Tirahan / Tanggapan</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" placeholder="Isulat ang iyong Tirahan / Tanggapan" id="address" name="address" type="text" th:field="*{customer.address}" />
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row mr-5">
-                        <label for="customer.gender" class="col-sm-2 col-form-label">Kasarian<span class="input-required">*</span></label>
-                        <div class="col-sm-10">
-                            <select class="form-control selectpicker" id="customer.gender" name="customer.gender" required>
-                                <th:block th:each="gender : ${T(com.tesda8.region8.util.enums.Sex).values()}">
-                                    <th:block th:if="${gender != T(com.tesda8.region8.util.enums.Sex).ALL}">
-                                        <option th:value="${gender}"
-                                                th:text="${gender.label2}">
-                                        </option>
+                    <div id="narrow" class="container container-gray py-5">
+                        <div class="form-group row mr-5">
+                            <label for="age" class="col-sm-2 col-form-label">Edad<span class="input-required">*</span></label>
+                            <div class="col-sm-10">
+                                <input class="form-control" onkeypress="return isNumberKey(event)" placeholder="Isulat ang iyong Edad" id="age" name="age" type="number" min="15" max="99" th:field="*{customer.age}" required/>
+                            </div>
+                        </div>
+                        <div class="form-group row mr-5">
+                            <label for="customer.gender" class="col-sm-2 col-form-label">Kasarian<span class="input-required">*</span></label>
+                            <div class="col-sm-10">
+                                <select class="form-control selectpicker" id="customer.gender" name="customer.gender" required>
+                                    <th:block th:each="gender : ${T(com.tesda8.region8.util.enums.Sex).values()}">
+                                        <th:block th:if="${gender != T(com.tesda8.region8.util.enums.Sex).ALL}">
+                                            <option th:value="${gender}"
+                                                    th:text="${gender.label2}">
+                                            </option>
+                                        </th:block>
                                     </th:block>
-                                </th:block>
-                            </select>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row mr-5">
-                        <label for="contactNumber" class="col-sm-2 col-form-label">Telepono / CP#</label>
-                        <div class="col-sm-10">
-                            <input class="form-control" placeholder="Isulat ang iyong Telepono / CP#" id="contactNumber" name="contactNumber" type="text" th:field="*{customer.contactNumber}" />
+                        <div class="form-group row mr-5">
+                            <label for="contactNumber" class="col-sm-2 col-form-label">Telepono / CP#</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" placeholder="Isulat ang iyong Telepono / CP#" id="contactNumber" name="contactNumber" type="text" th:field="*{customer.contactNumber}" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row mr-5">
-                        <label for="emailAddress" class="col-sm-2 col-form-label">Email Address</label>
-                        <div class="col-sm-10">
-                            <input class="form-control" placeholder="Isulat ang iyong Email Address" id="emailAddress" name="emailAddress" type="text" th:field="*{customer.emailAddress}" />
+                        <div class="form-group row mr-5">
+                            <label for="emailAddress" class="col-sm-2 col-form-label">Email Address</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" placeholder="Isulat ang iyong Email Address" id="emailAddress" name="emailAddress" type="text" th:field="*{customer.emailAddress}" />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="container">
-                <p class="text-black-50 mt-5"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> PANUTO: Piliin ang angkop na mukha ayon sa antas ng serbisyong natanggap.</p>
-            </div>
-            <div class="container">
-                <hr class="border"/>
-            </div>
-            <div class="container">
-                <table class="table table-striped table-borderless">
-                    <thead>
+                <div class="container container-dark">
+                    <p class="text-white py-2 mt-5 d-flex justify-content-center"><i class="fa fa-exclamation-triangle fa-1 mr-2" aria-hidden="true"></i> PANUTO: Piliin ang angkop na mukha ayon sa antas ng serbisyong natanggap.</p>
+                </div>
+                <div class="container">
+                    <hr class="border"/>
+                </div>
+                <div class="container">
+                    <table class="table table-striped table-borderless">
+                        <thead>
                         <tr>
                             <th scope="col" style="width: 40%">Legend</th>
                             <th scope="col" style="width: 20%">Very Satisfied</th>
                             <th scope="col" style="width: 20%">Satisfied</th>
                             <th scope="col" style="width: 20%">Poor</th>
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
                         <th:block th:each="feedbackRequest, itemstat : ${feedbackForm.feedbackRequests}">
                             <tr>
                                 <td scope="row">
@@ -140,76 +140,77 @@
                                 </td>
                             </tr>
                         </th:block>
-                    </tbody>
-                </table>
-            </div>
-            <div class="container">
-                <hr class="border"/>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-6 mt-4 justify-content-center">
-                        <p class="text-black">Kabuuang antas ng kasiyahan sa serbisyong natanggap.</p>
-                        <p class="text-black-50">(Ito ay awtomatikong nag-iiba ayon sa mga sagot sa itaas)</p>
-                    </div>
-                    <div class="col">
-                        <p class="mt-3 d-flex justify-content-center"><label id="totalRating" class="total-rating-blur poor"></label></p>
-                        <p class="d-flex justify-content-center lead"><label id="totalLabel"></label></p>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
+                <div class="container">
+                    <hr class="border"/>
+                </div>
+                <div class="container container-gray py-3">
+                    <div class="row">
+                        <div class="col-6 mt-4 justify-content-center">
+                            <p class="text-black">Kabuuang antas ng kasiyahan sa serbisyong natanggap.</p>
+                            <p class="text-black-50">(Ito ay awtomatikong nag-iiba ayon sa mga sagot sa itaas)</p>
+                        </div>
+                        <div class="col">
+                            <p class="mt-3 d-flex justify-content-center"><label id="totalRating" class="total-rating-blur poor"></label></p>
+                            <p class="d-flex justify-content-center lead"><label id="totalLabel"></label></p>
+                        </div>
+                    </div>
 
-            </div>
-            <div class="container">
-                <hr class="border"/>
-            </div>
-            <div class="container">
-                <div class="form-group row">
-                    <label for="isRecommended" class="col-8 col-form-label">Irerekomenda niyo po ba ang TESDA sa inyong kamag-anak o kaibigan?</label>
-                    <div class="col mt-1">
-                        <div class="form-check form-check-inline">
-                            <input type="radio" th:field="*{isRecommended}" th:value="${true}" id="isRecommended" name="isRecommended" class="form-check-input">
-                            <label class="form-check-label mr-5" for="isRecommended">Oo (Yes)</label>
-                            <input type="radio" th:field="*{isRecommended}" th:value="${false}" id="isRecommended2" name="isRecommended2" class="form-check-input">
-                            <label class="form-check-label" for="isRecommended2">Hindi (No)</label>
+                </div>
+                <div class="container">
+                    <hr class="border"/>
+                </div>
+                <div class="container">
+                    <div class="form-group row">
+                        <label for="isRecommended" class="col-8 col-form-label">Irerekomenda niyo po ba ang TESDA sa inyong kamag-anak o kaibigan?</label>
+                        <div class="col mt-1">
+                            <div class="form-check form-check-inline">
+                                <input type="radio" th:field="*{isRecommended}" th:value="${true}" id="isRecommended" name="isRecommended" class="form-check-input">
+                                <label class="form-check-label mr-5" for="isRecommended">Oo (Yes)</label>
+                                <input type="radio" th:field="*{isRecommended}" th:value="${false}" id="isRecommended2" name="isRecommended2" class="form-check-input">
+                                <label class="form-check-label" for="isRecommended2">Hindi (No)</label>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="container">
-                <hr class="border"/>
-            </div>
-            <div class="container">
-                <div class="form-group row">
-                    <label for="suggestion" class="col-12 col-form-label">Mahalaga po sa amin ang iyong suhestiyon. Pakisulat lamang po sa baba</label>
-                    <div class="col-12">
-                        <textarea class="form-control" placeholder="Isulat ang inyong suhestiyon" id="suggestion" name="suggestion" rows="3" th:value="*{suggestion}"></textarea>
+                <div class="container">
+                    <hr class="border"/>
+                </div>
+                <div class="container container-gray py-3">
+                    <div class="form-group row">
+                        <label for="suggestion" class="col-12 col-form-label">Mahalaga po sa amin ang iyong suhestiyon. Pakisulat lamang po sa baba</label>
+                        <div class="col-12">
+                            <textarea class="form-control" placeholder="Isulat ang inyong suhestiyon" id="suggestion" name="suggestion" rows="3" th:value="*{suggestion}"></textarea>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="container">
-                <hr class="border"/>
-            </div>
-            <div class="container">
-                <div class="form-check form-check-inline col d-flex justify-content-center">
-                    <input type="checkbox"
-                           id="agreement"
-                           class="form-check-input col-sm-1" required/>
-                    <label class="form-check-label col-sm-11" for="agreement"> Ang mga impormasyon na aking inilahad sa form na ito ay tama at totoo. Boluntaryo kong pinagkaloob ang mga hinihinging impormasyon ng form na ito. Pinapayagan
-                    ko ang TESDA na isama sa kanilang database bilang bahagi ng kanilang records at monitoring ang mga detalyeng ito.</label>
+                <div class="container">
+                    <hr class="border"/>
                 </div>
-            </div>
-            <div class="container">
-                <hr class="border"/>
-            </div>
-            <div class="container">
-                <p class="lead d-flex justify-content-center">Maraming Salamat Po!</p>
-            </div>
-            <div class="container mt-5">
-                <div class="btn-group" role="group">
-                    <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton" th:value="Update"><i class="fa fa-check-square-o" aria-hidden="true"></i> Next</button>
+                <div class="container">
+                    <div class="form-check form-check-inline col d-flex justify-content-center">
+                        <input type="checkbox"
+                               id="agreement"
+                               class="form-check-input col-sm-1" required/>
+                        <label class="form-check-label col-sm-11" for="agreement"> Ang mga impormasyon na aking inilahad sa form na ito ay tama at totoo. Boluntaryo kong pinagkaloob ang mga hinihinging impormasyon ng form na ito. Pinapayagan
+                            ko ang TESDA na isama sa kanilang database bilang bahagi ng kanilang records at monitoring ang mga detalyeng ito.</label>
+                    </div>
                 </div>
-            </div>
-        </form>
+                <div class="container">
+                    <hr class="border"/>
+                </div>
+                <div class="container">
+                    <p class="lead d-flex justify-content-center">Maraming Salamat Po!</p>
+                </div>
+                <div class="container mt-5">
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton" th:value="Update"><i class="fa fa-check-square-o" aria-hidden="true"></i> Next</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 <!-- /.container -->

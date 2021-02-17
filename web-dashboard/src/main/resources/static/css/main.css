@@ -508,3 +508,16 @@ div.tesda-logo {
     font-size: 10em;
     color: #0c7ff7;
 }
+
+.fa-1 {
+    font-size: 1.4em;
+}
+
+.container-gray {
+    background-color: #f6f6f6;
+}
+
+
+.container-dark {
+    background-color: #353a3f;
+}
