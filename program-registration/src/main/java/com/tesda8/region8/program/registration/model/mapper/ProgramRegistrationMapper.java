@@ -107,4 +107,8 @@ public interface ProgramRegistrationMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "institution.id", target = "entityId")
     AuditLog institutionToAudit(Institution institution);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "certificate.id", target = "entityId")
+    AuditLog certificateToAudit(Certificate certificate);
 }

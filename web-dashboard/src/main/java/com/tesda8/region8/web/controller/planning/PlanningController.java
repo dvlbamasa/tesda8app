@@ -1,6 +1,7 @@
 package com.tesda8.region8.web.controller.planning;
 
 import com.google.common.collect.Lists;
+import com.tesda8.region8.certification.service.ExpiredCertificateService;
 import com.tesda8.region8.planning.model.dto.OperatingUnitDataDto;
 import com.tesda8.region8.planning.model.dto.PapDataDto;
 import com.tesda8.region8.planning.model.dto.SuccessIndicatorDataDto;
@@ -11,7 +12,7 @@ import com.tesda8.region8.program.registration.service.RegisteredProgramStatusSe
 import com.tesda8.region8.util.enums.OperatingUnitPOType;
 import com.tesda8.region8.util.enums.PapGroupType;
 import com.tesda8.region8.util.service.ApplicationUtil;
-import com.tesda8.region8.web.controller.DefaultController;
+import com.tesda8.region8.web.controller.HeaderController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,14 +28,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class PlanningController extends DefaultController {
+public class PlanningController extends HeaderController {
 
     private PapDataService papDataService;
     private final Long CURRENT_YEAR = ApplicationUtil.getCurrentYear();
 
     @Autowired
-    public PlanningController(PapDataService papDataService, RegisteredProgramStatusService registeredProgramStatusService) {
-        super(registeredProgramStatusService);
+    public PlanningController(PapDataService papDataService, RegisteredProgramStatusService registeredProgramStatusService,
+                              ExpiredCertificateService expiredCertificateService) {
+        super(registeredProgramStatusService, expiredCertificateService);
         this.papDataService = papDataService;
     }
 

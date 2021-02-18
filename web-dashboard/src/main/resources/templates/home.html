@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<div th:replace="fragments/header :: header(${statusCounter})"/>
+<div th:replace="fragments/header :: header" th:with="statusCounter=${statusCounter}, expiredCertificateCount=${expiredCertificateCount}"/>
 
 <!-- Header -->
 <div id="page-container">
@@ -20,12 +20,21 @@
         <div class="background">
             <div class="blur"></div>
         </div>
-        <div id="web-header" class="col bg-text">
-            <h1 class="display-2 mt-2 mb-2">TESDA Eastern Visayas</h1>
-            <h2 class="display-4 mt-2 mb-2">Regional Office Internal Application</h2>
-            <p class="lead">TESDA Region 8's back office application for accomplishment report summaries, program registration, certification and planning unit services, etc.</p>
-            <a th:href="@{/dashboard/daily}"><button role="button" aria-pressed="true" class="mt-5 btn btn-primary btn-lg">Go to Dashboard &raquo;</button></a>
+        <div id="web-header" >
+            <div class="col bg-text">
+                <div class="tesda-logo mb-5"></div>
+                <h1 class="text-center display-2 mt-2 mb-2">TESDA Eastern Visayas</h1>
+                <h2 class="text-center display-5 mt-2 mb-5">Regional Office Internal Application</h2>
+                <div class="text-center">
+                    <a th:href="@{/dashboard/daily}"><button role="button" aria-pressed="true" class=" btn btn-primary btn-lg">Dashboard <i class="fa fa-area-chart" aria-hidden="true"></i></button></a>
+                    <span th:if="!${#httpServletRequest.remoteUser}">
+                        <a th:href="@{/customer_satisfaction}"><button role="button" aria-pressed="true" class=" btn btn-primary btn-lg">Customer Feedback <i class="fa fa-comments-o" aria-hidden="true"></i></button></a>
+                        <a th:href="@{/login}"><button role="button" aria-pressed="true" class=" btn btn-primary btn-lg">Login <i class="fa fa-sign-in" aria-hidden="true"></i></button></a>
+                    </span>
+                </div>
+            </div>
         </div>
+
         <div id="media-header" class="col bg-text2">
             <h1 class="display-4 mt-2 mb-2">TESDA Eastern Visayas</h1>
             <h2 class="display-5 mt-2 mb-2">Regional Office Internal Application</h2>

@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<div th:replace="fragments/header :: header(${statusCounter})"/>
+<div th:replace="fragments/header :: header" th:with="statusCounter=(${statusCounter})"/>
 
 <div id="page-container">
     <div id = "content-wrap">
@@ -102,13 +102,10 @@
                             <script type="text/javascript">
                                 $(function () {
                                     $('#dateIssuedRequest').datetimepicker({
-                                        format: 'L',
-                                        maxDate:new Date()
-
+                                        format: 'L'
                                     });
                                     $('#expirationDateRequest').datetimepicker({
-                                        format: 'L',
-                                        minDate:new Date(),
+                                        format: 'L'
                                     });
                                 });
                             </script>

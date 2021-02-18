@@ -1,13 +1,12 @@
 package com.tesda8.region8.web.controller.certification;
 
-import com.tesda8.region8.program.registration.model.dto.CertificateDto;
+import com.tesda8.region8.certification.service.ExpiredCertificateService;
 import com.tesda8.region8.program.registration.model.dto.TrainerDto;
 import com.tesda8.region8.program.registration.model.dto.TrainerFilter;
-import com.tesda8.region8.program.registration.model.entities.Certificate;
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.program.registration.service.RegistrationRequirementsCrudService;
 import com.tesda8.region8.program.registration.service.TrainerService;
-import com.tesda8.region8.web.controller.DefaultController;
+import com.tesda8.region8.web.controller.HeaderController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -21,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 
-public class CertificationController extends DefaultController {
+public class CertificationController extends HeaderController {
 
     private TrainerService trainerService;
     private RegistrationRequirementsCrudService registrationRequirementsCrudService;
@@ -29,11 +28,13 @@ public class CertificationController extends DefaultController {
     @Autowired
     public CertificationController(TrainerService trainerService,
                                    @Qualifier("trainer") RegistrationRequirementsCrudService registrationRequirementsCrudService,
-                                   RegisteredProgramStatusService registeredProgramStatusService) {
-        super(registeredProgramStatusService);
+                                   RegisteredProgramStatusService registeredProgramStatusService,
+                                   ExpiredCertificateService expiredCertificateService) {
+        super(registeredProgramStatusService, expiredCertificateService);
         this.registrationRequirementsCrudService = registrationRequirementsCrudService;
         this.trainerService = trainerService;
     }
+
 
     @GetMapping("/certification")
     public String certification(Model model) {
@@ -50,6 +51,13 @@ public class CertificationController extends DefaultController {
         model.addAttribute("trainerFilter", trainerFilter);
         addStatusCounterToModel(model);
         return "certification/certification";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/certification/expired")
+    public String getExpiredCertificates(Model model){
+        addStatusCounterToModel(model);
+        addExpiredCertificateListToModel(model);
+        return "certification/expired_certificates";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/certification/trainer/{id}/details")

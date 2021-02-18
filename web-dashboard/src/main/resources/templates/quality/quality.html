@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<div th:replace="fragments/header :: header(${statusCounter})"/>
+<div th:replace="fragments/header :: header" th:with="statusCounter=(${statusCounter})"/>
 
 <div id="page-container">
     <div id = "content-wrap">
@@ -149,7 +149,7 @@
                                 <td><span th:text="${feedback.customer.contactNumber}"></span></td>
                                 <td><span th:text="${feedback.customer.emailAddress}"></span></td>
                                 <td><span th:text="${#temporals.format(feedback.date, 'MMM. dd, yyyy')}"></span></td>
-                                <td style="width: 10%;"><a th:href="@{/quality/customer-feedback/download(id=${feedback.id})}"><button class="btn btn-primary"><i class="fa fa-download" aria-hidden="true"></i> Download Feedback</button></a></td>
+                                <td style="width: 15%; text-align:center;"><a th:href="@{/quality/customer-feedback/download(id=${feedback.id})}"><button class="btn btn-primary"><i class="fa fa-download" aria-hidden="true"></i> Download Feedback</button></a></td>
                             </tr>
                         </th:block>
                         </tbody>

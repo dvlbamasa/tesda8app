@@ -1,9 +1,10 @@
 package com.tesda8.region8.web.controller.certification;
 
+import com.tesda8.region8.certification.service.ExpiredCertificateService;
 import com.tesda8.region8.program.registration.model.dto.CertificateDto;
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.program.registration.service.RegistrationRequirementsCrudService;
-import com.tesda8.region8.web.controller.DefaultController;
+import com.tesda8.region8.web.controller.HeaderController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -15,14 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class CertificateController extends DefaultController {
+public class CertificateController extends HeaderController {
 
     private RegistrationRequirementsCrudService registrationRequirementsCrudService;
 
     @Autowired
     public CertificateController(@Qualifier("certificate") RegistrationRequirementsCrudService registrationRequirementsCrudService,
-                                 RegisteredProgramStatusService registeredProgramStatusService) {
-        super(registeredProgramStatusService);
+                                 RegisteredProgramStatusService registeredProgramStatusService,
+                                 ExpiredCertificateService expiredCertificateService) {
+        super(registeredProgramStatusService, expiredCertificateService);
         this.registrationRequirementsCrudService = registrationRequirementsCrudService;
     }
 

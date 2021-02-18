@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -32,6 +33,7 @@ public class CertificateServiceImpl implements RegistrationRequirementsCrudServi
 
     @Override
     @Transactional
+    @CacheEvict(value={"expiredCertificatesCount", "expiredCertificates"}, allEntries=true)
     public void create(CertificateDto dto) {
         Trainer trainer = trainerRepository.findById(dto.getTrainerId()).orElseThrow(EntityNotFoundException::new);
         Certificate certificate = programRegistrationMapper.certificateToEntity(dto);
@@ -44,6 +46,8 @@ public class CertificateServiceImpl implements RegistrationRequirementsCrudServi
     }
 
     @Override
+    @Transactional
+    @CacheEvict(value={"expiredCertificatesCount", "expiredCertificates"}, allEntries=true)
     public void update(CertificateDto dto) {
         Certificate certificate = certificateRepository.findById(dto.getId()).orElseThrow(EntityNotFoundException::new);
         programRegistrationMapper.updatedCertificate(dto, certificate);
@@ -53,6 +57,8 @@ public class CertificateServiceImpl implements RegistrationRequirementsCrudServi
     }
 
     @Override
+    @Transactional
+    @CacheEvict(value={"expiredCertificatesCount", "expiredCertificates"}, allEntries=true)
     public void delete(Long id) {
         Certificate certificate = certificateRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         certificate.setIsDeleted(true);

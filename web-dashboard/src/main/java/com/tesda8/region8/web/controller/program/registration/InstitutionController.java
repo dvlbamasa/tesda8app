@@ -1,11 +1,12 @@
 package com.tesda8.region8.web.controller.program.registration;
 
+import com.tesda8.region8.certification.service.ExpiredCertificateService;
 import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
 import com.tesda8.region8.program.registration.model.dto.InstitutionFilter;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramRequestDto;
 import com.tesda8.region8.program.registration.service.InstitutionService;
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
-import com.tesda8.region8.web.controller.DefaultController;
+import com.tesda8.region8.web.controller.HeaderController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,13 +20,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 @Controller
-public class InstitutionController extends DefaultController {
+public class InstitutionController extends HeaderController {
 
     private InstitutionService institutionService;
 
     @Autowired
-    public InstitutionController(InstitutionService institutionService, RegisteredProgramStatusService registeredProgramStatusService) {
-        super(registeredProgramStatusService);
+    public InstitutionController(InstitutionService institutionService,
+                                 RegisteredProgramStatusService registeredProgramStatusService,
+                                 ExpiredCertificateService expiredCertificateService) {
+        super(registeredProgramStatusService, expiredCertificateService);
         this.institutionService = institutionService;
     }
 

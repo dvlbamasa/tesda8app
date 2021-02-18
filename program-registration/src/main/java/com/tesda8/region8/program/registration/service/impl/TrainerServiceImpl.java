@@ -21,6 +21,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -77,6 +79,7 @@ public class TrainerServiceImpl implements RegistrationRequirementsCrudService<T
 
     @Override
     @Transactional
+    @CacheEvict(value = "trainer", allEntries = true)
     public void delete(Long id) {
         Trainer trainer = trainerRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         trainer.setIsDeleted(true);
@@ -120,6 +123,7 @@ public class TrainerServiceImpl implements RegistrationRequirementsCrudService<T
      */
     @Override
     @Transactional
+    @CacheEvict(value = "trainer", allEntries = true)
     public TrainerDto createTrainer(TrainerDto trainerDto) {
         Trainer trainer = programRegistrationMapper.trainerToEntity(trainerDto);
         trainer.setBirthdate(ApplicationUtil.convertToLocalDateTimeViaInstant(trainerDto.getBirthdateRequest()));
@@ -148,6 +152,7 @@ public class TrainerServiceImpl implements RegistrationRequirementsCrudService<T
     }
 
     @Override
+    @Cacheable("trainer")
     public List<TrainerDto> getAllTrainerByFilter(TrainerFilter trainerFilter) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 

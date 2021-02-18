@@ -9911,3 +9911,6 @@ INSERT INTO trainer (id, last_name, first_name, middle_initial, name_ext, full_n
 INSERT INTO certificate (id, sector, qualification_title, certificate_number, date_issued, expiration_date, cln_ntc_number, certificate_type, trainer_id, is_deleted) VALUES (nextval('hibernate_sequence'), 'GARMENTS', 'DRESSMAKING NC II', '16084802003208', '2016-08-18', '2021-08-17', null, 'NC', 2824, 'N');
 INSERT INTO certificate (id, sector, qualification_title, certificate_number, date_issued, expiration_date, cln_ntc_number, certificate_type, trainer_id, is_deleted) VALUES (nextval('hibernate_sequence'), null, null, '16084801000072', '2016-12-03', '2021-12-03', null, 'TM', 2824, 'N');
 INSERT INTO certificate (id, sector, qualification_title, certificate_number, date_issued, expiration_date, cln_ntc_number, certificate_type, trainer_id, is_deleted) VALUES (nextval('hibernate_sequence'), null, null, '161608481200915', '2016-12-29', '2021-08-17', 55080, 'NTTC', 2824, 'N');
+
+
+update certificate set is_expired = 'N';

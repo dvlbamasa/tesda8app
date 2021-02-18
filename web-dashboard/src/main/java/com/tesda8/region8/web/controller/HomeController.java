@@ -1,10 +1,9 @@
 package com.tesda8.region8.web.controller;
 
+import com.tesda8.region8.certification.service.ExpiredCertificateService;
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
-import com.tesda8.region8.reports.model.dto.MonthlyGraphFilter;
 import com.tesda8.region8.reports.model.entities.DailyReportInfo;
 import com.tesda8.region8.reports.service.DailyReportInfoService;
-import com.tesda8.region8.util.service.ApplicationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,14 +12,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.time.LocalDateTime;
 
 @Controller
-public class HomeController extends DefaultController{
+public class HomeController extends HeaderController {
 
     private DailyReportInfoService dailyReportInfoService;
 
     @Autowired
     public HomeController(DailyReportInfoService dailyReportInfoService,
-                          RegisteredProgramStatusService registeredProgramStatusService) {
-        super(registeredProgramStatusService);
+                          RegisteredProgramStatusService registeredProgramStatusService,
+                          ExpiredCertificateService expiredCertificateService) {
+        super(registeredProgramStatusService, expiredCertificateService);
         this.dailyReportInfoService = dailyReportInfoService;
     }
 

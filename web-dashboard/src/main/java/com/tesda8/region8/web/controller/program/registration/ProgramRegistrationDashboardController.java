@@ -1,5 +1,6 @@
 package com.tesda8.region8.web.controller.program.registration;
 
+import com.tesda8.region8.certification.service.ExpiredCertificateService;
 import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramDto;
 import com.tesda8.region8.program.registration.model.wrapper.ProgramRegistrationWrapper;
@@ -10,7 +11,7 @@ import com.tesda8.region8.program.registration.service.RegisteredProgramStatusSe
 import com.tesda8.region8.util.enums.InstitutionClassification;
 import com.tesda8.region8.util.enums.InstitutionType;
 import com.tesda8.region8.util.enums.Sector;
-import com.tesda8.region8.web.controller.DefaultController;
+import com.tesda8.region8.web.controller.HeaderController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ import java.util.List;
 
 
 @Controller
-public class ProgramRegistrationDashboardController extends DefaultController {
+public class ProgramRegistrationDashboardController extends HeaderController {
 
     private static Logger logger = LoggerFactory.getLogger(ProgramRegistrationDashboardController.class);
     private static final String ALL = "ALL";
@@ -37,8 +38,9 @@ public class ProgramRegistrationDashboardController extends DefaultController {
     @Autowired
     public ProgramRegistrationDashboardController(RegisteredProgramService registeredProgramService,
                                                   InstitutionService institutionService,
-                                                  RegisteredProgramStatusService registeredProgramStatusService) {
-        super(registeredProgramStatusService);
+                                                  RegisteredProgramStatusService registeredProgramStatusService,
+                                                  ExpiredCertificateService expiredCertificateService) {
+        super(registeredProgramStatusService, expiredCertificateService);
         this.registeredProgramService = registeredProgramService;
         this.institutionService = institutionService;
     }

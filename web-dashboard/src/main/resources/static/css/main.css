@@ -12,6 +12,13 @@ body {
     flex: 1;
     /* Grow to rest of container */
 }
+#wide2 {
+    width: 33%;
+}
+
+#wide3 {
+    width: 33%;
+}
 
 .parent {
     display: flex;
@@ -270,7 +277,7 @@ body {
 
 .blur {
     background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(20px);
     height: 100vh;
     width: 100%;
 }
@@ -283,13 +290,28 @@ body {
     font-weight: bold;
     /*border: 10px solid #f1f1f1;*/
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
     width: 80%;
     padding: 40px;
     font-family: 'Open Sans', sans-serif;
+}
+
+.bg-text-2 {
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+    color: white;
+    font-weight: bold;
+    /*border: 10px solid #f1f1f1;*/
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 80%;
+    padding: 40px;
 }
 
 .sidebar {
@@ -396,6 +418,16 @@ div.tesda-logo {
     width:200px; /*width of your image*/
     height:200px;
     background-image:url("../images/tesda_logo2.jpg");
+    background-repeat: no-repeat;
+}
+
+div.tesda-logo2 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width:200px; /*width of your image*/
+    height:200px;
+    background-image:url("../images/tesda_logo.png");
     background-repeat: no-repeat;
 }
 

@@ -25,6 +25,7 @@ public class CertificateDto {
     private CertificateType certificateType;
     private Boolean isDeleted;
     private Sector sector;
+    private Boolean isExpired;
 
     @DateTimeFormat(pattern = "MM/dd/yyyy")
     private Date dateIssuedRequest;

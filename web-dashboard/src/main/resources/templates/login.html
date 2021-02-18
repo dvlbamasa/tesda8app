@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<div th:replace="fragments/header :: header(${statusCounter})"/>
+<div th:replace="fragments/header :: header" th:with="statusCounter=(${statusCounter})"/>
 
 <div id="page-container">
     <div class="container-fluid">
@@ -19,7 +19,7 @@
                         <div class="row">
                             <div class="col-md-9 col-lg-8 mx-auto">
                                 <div class="tesda-logo mb-5"></div>
-                                <h3 class="login-heading mb-4">Please login to access this page.</h3>
+                                <h3 class="text-center login-heading mb-4">Please login to access this page.</h3>
                                 <form th:action="@{/login}" method="post">
                                     <fieldset>
                                         <div th:if="${param.error}">

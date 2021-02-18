@@ -1,6 +1,7 @@
 package com.tesda8.region8.web.controller.program.registration;
 
 import com.google.common.collect.Lists;
+import com.tesda8.region8.certification.service.ExpiredCertificateService;
 import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
 import com.tesda8.region8.program.registration.model.dto.NonTeachingStaffDto;
 import com.tesda8.region8.program.registration.model.dto.OfficialDto;
@@ -17,7 +18,7 @@ import com.tesda8.region8.util.enums.InstitutionClassification;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.Sector;
 import com.tesda8.region8.util.enums.SortOrder;
-import com.tesda8.region8.web.controller.DefaultController;
+import com.tesda8.region8.web.controller.HeaderController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 @Controller
-public class ProgramRegistrationController extends DefaultController {
+public class ProgramRegistrationController extends HeaderController {
 
     private InstitutionService institutionService;
     private RegisteredProgramService registeredProgramService;
@@ -42,8 +43,9 @@ public class ProgramRegistrationController extends DefaultController {
     @Autowired
     public ProgramRegistrationController(InstitutionService institutionService,
                                          RegisteredProgramService registeredProgramService,
-                                         RegisteredProgramStatusService registeredProgramStatusService) {
-        super(registeredProgramStatusService);
+                                         RegisteredProgramStatusService registeredProgramStatusService,
+                                         ExpiredCertificateService expiredCertificateService) {
+        super(registeredProgramStatusService, expiredCertificateService);
         this.institutionService = institutionService;
         this.registeredProgramService = registeredProgramService;
     }

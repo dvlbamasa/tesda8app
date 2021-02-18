@@ -1,12 +1,13 @@
 package com.tesda8.region8.web.controller.quality;
 
+import com.tesda8.region8.certification.service.ExpiredCertificateService;
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.quality.model.dto.CustomerFilter;
 import com.tesda8.region8.quality.model.dto.SummaryReportFilter;
 import com.tesda8.region8.quality.service.ExcelParserService;
 import com.tesda8.region8.quality.service.FeedbackService;
 import com.tesda8.region8.util.service.ApplicationUtil;
-import com.tesda8.region8.web.controller.DefaultController;
+import com.tesda8.region8.web.controller.HeaderController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,16 +26,17 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 @Controller
-public class QualityController extends DefaultController {
+public class QualityController extends HeaderController {
 
     private FeedbackService feedbackService;
     private ExcelParserService excelParserService;
 
     @Autowired
     public QualityController(RegisteredProgramStatusService registeredProgramStatusService,
+                             ExpiredCertificateService expiredCertificateService,
                              FeedbackService feedbackService,
                              ExcelParserService excelParserService) {
-        super(registeredProgramStatusService);
+        super(registeredProgramStatusService, expiredCertificateService);
         this.feedbackService = feedbackService;
         this.excelParserService = excelParserService;
     }

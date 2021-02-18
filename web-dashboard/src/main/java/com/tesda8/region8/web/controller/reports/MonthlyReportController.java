@@ -1,9 +1,10 @@
 package com.tesda8.region8.web.controller.reports;
 
+import com.tesda8.region8.certification.service.ExpiredCertificateService;
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.reports.model.dto.MonthlyGraphFilter;
 import com.tesda8.region8.util.service.ApplicationUtil;
-import com.tesda8.region8.web.controller.DefaultController;
+import com.tesda8.region8.web.controller.HeaderController;
 import com.tesda8.region8.web.model.dto.wrapper.GeneralReportsDtoWrapper;
 import com.tesda8.region8.util.enums.DailyReportType;
 import com.tesda8.region8.reports.service.GeneralReportService;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class MonthlyReportController extends DefaultController {
+public class MonthlyReportController extends HeaderController {
 
     private MonthlyReportService monthlyReportService;
     private GeneralReportService generalReportService;
@@ -27,8 +28,9 @@ public class MonthlyReportController extends DefaultController {
     @Autowired
     public MonthlyReportController(MonthlyReportService monthlyReportService,
                                    GeneralReportService generalReportService,
-                                   RegisteredProgramStatusService registeredProgramStatusService) {
-        super(registeredProgramStatusService);
+                                   RegisteredProgramStatusService registeredProgramStatusService,
+                                   ExpiredCertificateService expiredCertificateService) {
+        super(registeredProgramStatusService, expiredCertificateService);
         this.monthlyReportService = monthlyReportService;
         this.generalReportService = generalReportService;
     }

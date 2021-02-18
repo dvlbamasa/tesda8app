@@ -32,6 +32,9 @@ public enum AuditAction {
     CREATE_OPCR_ENTITY_AUDIT_EVENT("Create OPCR Entity", "PLANNING"),
     UPDATE_OPCR_ENTITY_AUDIT_EVENT("Update OPCR Entity", "PLANNING"),
 
+    CREATE_CERTIFICATE_AUDIT_EVENT("Create Certificate Entity", "CERTIFICATION"),
+    UPDATE_CERTIFICATE_AUDIT_EVENT("Update Certificate Entity", "CERTIFICATION"),
+
     UPDATE_REPORT_ENTITY_AUDIT_EVENT("Update Daily Accomplishment Report Entity", "REPORTS"),
 
     CREATE_MONTHLY_REPORT_ENTITY_AUDIT_EVENT("Create Monthly Accomplishment Report Entity", "REPORTS");

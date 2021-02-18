@@ -1,5 +1,6 @@
 package com.tesda8.region8.web.controller.scholarship;
 
+import com.tesda8.region8.certification.service.ExpiredCertificateService;
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.scholarship.model.dto.ScholarshipFilter;
 import com.tesda8.region8.scholarship.model.dto.ScholarshipGraphFilter;
@@ -8,7 +9,7 @@ import com.tesda8.region8.scholarship.service.ScholarshipAccomplishmentService;
 import com.tesda8.region8.util.enums.Month;
 import com.tesda8.region8.util.enums.ScholarshipType;
 import com.tesda8.region8.util.service.ApplicationUtil;
-import com.tesda8.region8.web.controller.DefaultController;
+import com.tesda8.region8.web.controller.HeaderController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +24,7 @@ import java.time.LocalDateTime;
 
 
 @Controller
-public class ScholarshipController extends DefaultController {
+public class ScholarshipController extends HeaderController {
 
     private final ScholarshipAccomplishmentService scholarshipAccomplishmentService;
     private final Month CURRENT_MONTH = ApplicationUtil.getCurrentMonth();
@@ -31,8 +32,9 @@ public class ScholarshipController extends DefaultController {
 
     @Autowired
     public ScholarshipController(ScholarshipAccomplishmentService scholarshipAccomplishmentService,
-                                 RegisteredProgramStatusService registeredProgramStatusService) {
-        super(registeredProgramStatusService);
+                                 RegisteredProgramStatusService registeredProgramStatusService,
+                                 ExpiredCertificateService expiredCertificateService) {
+        super(registeredProgramStatusService, expiredCertificateService);
         this.scholarshipAccomplishmentService = scholarshipAccomplishmentService;
     }
 

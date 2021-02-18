@@ -1,9 +1,10 @@
 package com.tesda8.region8.web.controller.program.registration;
 
+import com.tesda8.region8.certification.service.ExpiredCertificateService;
 import com.tesda8.region8.program.registration.model.dto.NonTeachingStaffDto;
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.program.registration.service.RegistrationRequirementsCrudService;
-import com.tesda8.region8.web.controller.DefaultController;
+import com.tesda8.region8.web.controller.HeaderController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -15,14 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class NonTeachingStaffController extends DefaultController {
+public class NonTeachingStaffController extends HeaderController {
 
     private RegistrationRequirementsCrudService<NonTeachingStaffDto> registrationRequirementsCrudService;
 
     @Autowired
     public NonTeachingStaffController(RegisteredProgramStatusService registeredProgramStatusService,
+                                      ExpiredCertificateService expiredCertificateService,
                                       @Qualifier("staff") RegistrationRequirementsCrudService registrationRequirementsCrudService) {
-        super(registeredProgramStatusService);
+        super(registeredProgramStatusService, expiredCertificateService);
         this.registrationRequirementsCrudService = registrationRequirementsCrudService;
     }
 

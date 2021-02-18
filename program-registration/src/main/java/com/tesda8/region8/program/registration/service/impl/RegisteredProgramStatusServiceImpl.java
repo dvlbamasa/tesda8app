@@ -7,6 +7,7 @@ import com.tesda8.region8.program.registration.repository.RegisteredProgramRepos
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.util.enums.MoaValidityType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -27,7 +28,15 @@ public class RegisteredProgramStatusServiceImpl implements RegisteredProgramStat
         this.registeredProgramRepository = registeredProgramRepository;
     }
 
+
     @Override
+    @Cacheable("expiredDocumentsCount")
+    public long getExpiredDocumentsCount() {
+        return getExpiredDocuments().getTotalCount();
+    }
+
+    @Override
+    @Cacheable("expiredDocuments")
     public ExpiredDocumentsWrapper getExpiredDocuments() {
         List<RegisteredProgram> registeredProgramList = registeredProgramRepository.findAll();
         ExpiredDocumentsWrapper expiredDocumentsWrapper = new ExpiredDocumentsWrapper();

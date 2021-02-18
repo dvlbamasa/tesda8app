@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<div th:replace="fragments/header :: header(${statusCounter})"/>
+<div th:replace="fragments/header :: header" th:with="statusCounter=(${statusCounter})"/>
 <div id="page-container">
     <input type="hidden" id="expiredDocumentSize" th:value="${expiredDocuments.getTotalCount()}"/>
     <div id="myToast" class="toast" style="position: absolute; top: 0; right: 0;">

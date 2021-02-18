@@ -1,7 +1,8 @@
 package com.tesda8.region8.web.controller.reports;
 
+import com.tesda8.region8.certification.service.ExpiredCertificateService;
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
-import com.tesda8.region8.web.controller.DefaultController;
+import com.tesda8.region8.web.controller.HeaderController;
 import com.tesda8.region8.web.model.dto.wrapper.GeneralReportTableWrapper;
 import com.tesda8.region8.util.enums.DailyReportType;
 import com.tesda8.region8.util.enums.ReportSourceType;
@@ -13,14 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class TableDataController extends DefaultController {
+public class TableDataController extends HeaderController {
 
     private TableDataFetcherService tableDataFetcherService;
 
     @Autowired
     public TableDataController(TableDataFetcherService tableDataFetcherService,
-                               RegisteredProgramStatusService registeredProgramStatusService) {
-        super(registeredProgramStatusService);
+                               RegisteredProgramStatusService registeredProgramStatusService,
+                               ExpiredCertificateService expiredCertificateService) {
+        super(registeredProgramStatusService, expiredCertificateService);
         this.tableDataFetcherService = tableDataFetcherService;
     }
 

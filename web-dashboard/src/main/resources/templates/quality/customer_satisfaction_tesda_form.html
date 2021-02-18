@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<div th:replace="fragments/header :: header(${statusCounter})"/>
+<div th:replace="fragments/header :: header" th:with="statusCounter=(${statusCounter})"/>
 
 <div id="page-container">
     <div id = "content-wrap">

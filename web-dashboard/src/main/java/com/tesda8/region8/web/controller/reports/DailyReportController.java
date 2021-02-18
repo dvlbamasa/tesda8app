@@ -1,7 +1,8 @@
 package com.tesda8.region8.web.controller.reports;
 
+import com.tesda8.region8.certification.service.ExpiredCertificateService;
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
-import com.tesda8.region8.web.controller.DefaultController;
+import com.tesda8.region8.web.controller.HeaderController;
 import com.tesda8.region8.web.model.dto.wrapper.CertificationRateReportWrapper;
 import com.tesda8.region8.web.model.dto.wrapper.GeneralReportsDtoWrapper;
 import com.tesda8.region8.web.model.dto.wrapper.ROPerModeReportWrapper;
@@ -26,7 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
-public class DailyReportController extends DefaultController {
+public class DailyReportController extends HeaderController {
 
     private static Logger logger = LoggerFactory.getLogger(DailyReportController.class);
 
@@ -40,8 +41,9 @@ public class DailyReportController extends DefaultController {
                                  CertificationRateReportService certificationRateReportService,
                                  ROPerModeReportService roPerModeReportService,
                                  TTIReportService ttiReportService,
-                                 RegisteredProgramStatusService registeredProgramStatusService) {
-        super(registeredProgramStatusService);
+                                 RegisteredProgramStatusService registeredProgramStatusService,
+                                 ExpiredCertificateService expiredCertificateService) {
+        super(registeredProgramStatusService, expiredCertificateService);
         this.generalReportService = generalReportService;
         this.certificationRateReportService = certificationRateReportService;
         this.roPerModeReportService = roPerModeReportService;

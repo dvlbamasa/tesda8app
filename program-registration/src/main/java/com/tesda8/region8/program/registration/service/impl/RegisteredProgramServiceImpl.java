@@ -27,6 +27,7 @@ import com.tesda8.region8.util.service.ApplicationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -300,6 +301,7 @@ public class RegisteredProgramServiceImpl implements RegisteredProgramService {
 
     @Override
     @Transactional
+    @CacheEvict(value={"expiredDocumentsCount", "expiredDocuments"}, allEntries=true)
     public RegisteredProgram createRegisteredProgram(RegisteredProgramRequestDto registeredProgramDto) {
         Institution institution = institutionRepository.getOne(registeredProgramDto.getInstitutionId());
         RegisteredProgram registeredProgram = programRegistrationMapper.registeredProgramToEntity(registeredProgramDto);
@@ -335,6 +337,7 @@ public class RegisteredProgramServiceImpl implements RegisteredProgramService {
 
     @Override
     @Transactional
+    @CacheEvict(value={"expiredDocumentsCount", "expiredDocuments"}, allEntries=true)
     public void updateRegisteredProgram(RegisteredProgramRequestDto registeredProgramRequestDto) {
         RegisteredProgram registeredProgram = registeredProgramRepository.findById(registeredProgramRequestDto.getId()).orElseThrow(EntityNotFoundException::new);
         registeredProgram = programRegistrationMapper.updatedRegisteredProgramToEntity(registeredProgramRequestDto, registeredProgram);

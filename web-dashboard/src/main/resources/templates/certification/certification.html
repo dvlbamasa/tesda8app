@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<div th:replace="fragments/header :: header(${statusCounter})"/>
+<div th:replace="fragments/header :: header" th:with="statusCounter=(${statusCounter})"/>
 
 <div id="page-container">
     <div id = "content-wrap">
@@ -21,6 +21,7 @@
                         <h1 class="display-4 text-white mt-5 mb-2">Certification Unit</h1>
                         <p class="lead mb-5 text-white-50">Registry of Certified TVET Trainers</p>
                         <div class="btn-group mr-2 float-right" role="group">
+                            <a th:href="@{/certification/expired}" class="a-header btn btn-info btn-lg" role="button" aria-pressed="true">Expired Certificates</a>
                             <a th:href="@{/certification/trainer/create}" class="a-header btn btn-info btn-lg" role="button" aria-pressed="true">Add Tvet Trainer</a>
                         </div>
                     </div>
