@@ -122,6 +122,9 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <tr th:if="${trainers.isEmpty()}">
+                            <td style="text-align: center" colspan="8">No data available.</td>
+                        </tr>
                         <th:block th:each="trainer : ${trainers}">
                             <tr>
                                 <td><span th:text="${trainer.fullName}"></span></td>
