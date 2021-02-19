@@ -28,7 +28,7 @@
         </div>
         <div class="table-responsive">
             <fieldset>
-                <table class="table table-bordered table-sm" id="prog-reg-dashboard-table">
+                <table class="table table-hover table-bordered table-sm" id="prog-reg-dashboard-table">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col"> Operating Unit</th>
@@ -49,7 +49,7 @@
                                 <th:block th:if="${institution.institutionShortName == 'RTC'}">
                                     <th scope="row"><span th:text="${institution.institutionShortName}"></span></th>
                                         <th:block th:each="course : ${institution.courseCountList}">
-                                            <td>
+                                            <td class="text-center">
                                                 <span th:text="${course.count}"></span>
                                             </td>
                                         </th:block>
@@ -61,7 +61,7 @@
                                 <tr>
                                     <th scope="row"><span th:text="${institution.institutionShortName}"></span></th>
                                         <th:block th:each="course : ${institution.courseCountList}">
-                                            <td>
+                                            <td class="text-center">
                                                 <span th:text="${course.count}"></span>
                                             </td>
                                         </th:block>
@@ -77,7 +77,7 @@
                                 <th:block th:if="${institution.institutionShortName == 'CNSAT'}">
                                     <th scope="row"><span th:text="${institution.institutionShortName}"></span></th>
                                         <th:block th:each="course : ${institution.courseCountList}">
-                                            <td>
+                                            <td class="text-center">
                                                 <span th:text="${course.count}"></span>
                                             </td>
                                         </th:block>
@@ -89,7 +89,7 @@
                                 <tr>
                                     <th scope="row"><span th:text="${institution.institutionShortName}"></span></th>
                                         <th:block th:each="course : ${institution.courseCountList}">
-                                            <td>
+                                            <td class="text-center">
                                                 <span th:text="${course.count}"></span>
                                             </td>
                                         </th:block>
@@ -104,7 +104,7 @@
                             <th:block th:each="institution : ${institutionsList.southernLeyteInstitutionWrapperList}">
                                 <th scope="row"><span th:text="${institution.institutionShortName}"></span></th>
                                     <th:block th:each="course : ${institution.courseCountList}">
-                                        <td>
+                                        <td class="text-center">
                                             <span th:text="${course.count}"></span>
                                         </td>
                                     </th:block>
@@ -118,7 +118,7 @@
                             <th:block th:each="institution : ${institutionsList.samarInstitutionWrapperList}">
                                 <th scope="row"><span th:text="${institution.institutionShortName}"></span></th>
                                     <th:block th:each="course : ${institution.courseCountList}">
-                                        <td>
+                                        <td class="text-center">
                                             <span th:text="${course.count}"></span>
                                         </td>
                                     </th:block>
@@ -133,7 +133,7 @@
                                 <th:block th:if="${institution.institutionShortName == 'PTC'}">
                                     <th scope="row"><span th:text="${institution.institutionShortName}"></span></th>
                                         <th:block th:each="course : ${institution.courseCountList}">
-                                            <td>
+                                            <td class="text-center">
                                                 <span th:text="${course.count}"></span>
                                             </td>
                                         </th:block>
@@ -145,7 +145,7 @@
                                 <tr>
                                     <th scope="row"><span th:text="${institution.institutionShortName}"></span></th>
                                         <th:block th:each="course : ${institution.courseCountList}">
-                                            <td>
+                                            <td class="text-center">
                                                 <span th:text="${course.count}"></span>
                                             </td>
                                         </th:block>
@@ -161,7 +161,7 @@
                             <th:block th:if="${institution.institutionShortName == 'PTC'}">
                                 <th scope="row"><span th:text="${institution.institutionShortName}"></span></th>
                                     <th:block th:each="course : ${institution.courseCountList}">
-                                        <td>
+                                        <td class="text-center">
                                             <span th:text="${course.count}"></span>
                                         </td>
                                     </th:block>
@@ -173,7 +173,7 @@
                             <tr>
                                 <th scope="row"><span th:text="${institution.institutionShortName}"></span></th>
                                     <th:block th:each="course : ${institution.courseCountList}">
-                                        <td>
+                                        <td class="text-center">
                                             <span th:text="${course.count}"></span>
                                         </td>
                                     </th:block>
@@ -188,7 +188,7 @@
                         <th:block th:each="institution : ${institutionsList.totalInstitutionWrapperList}">
                             <td scope="row"><b><span th:text="${institution.institutionShortName}"></span></b></td>
                                 <th:block th:each="course : ${institution.courseCountList}">
-                                    <td><b><span th:text="${course.count}"></span></b>
+                                    <td class="text-center"><b><span th:text="${course.count}"></span></b>
                                     </td>
                                 </th:block>
                         </th:block>

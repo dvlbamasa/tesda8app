@@ -4,6 +4,7 @@ import com.tesda8.region8.certification.service.ExpiredCertificateService;
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.reports.model.entities.DailyReportInfo;
 import com.tesda8.region8.reports.service.DailyReportInfoService;
+import com.tesda8.region8.util.service.ApplicationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,7 +42,7 @@ public class HomeController extends HeaderController {
         DailyReportInfo dailyReportInfo = dailyReportInfoService.getLatestDailyReportInfo();
         model.addAttribute("updatedDate", dailyReportInfo.getUpdatedDate().plusHours(8));
         model.addAttribute("updatedBy", dailyReportInfo.getUpdatedBy());
-        model.addAttribute("dateTimeNow", LocalDateTime.now().plusHours(8));
+        model.addAttribute("dateTimeNow", ApplicationUtil.getLocalDateTimeNow());
         return "dashboard/daily_reports";
     }
 

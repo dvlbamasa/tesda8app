@@ -91,7 +91,7 @@ public class ScholarshipController extends HeaderController {
     public String scholarshipLive(Model model) {
         ScholarshipWrapper scholarshipWrapper = scholarshipAccomplishmentService.getAllScholarshipAccomplishment(CURRENT_YEAR, CURRENT_MONTH);
         model.addAttribute("scholarships", scholarshipWrapper);
-        model.addAttribute("dateTimeNow", LocalDateTime.now().plusHours(8));
+        model.addAttribute("dateTimeNow", ApplicationUtil.getLocalDateTimeNow());
         addStatusCounterToModel(model);
         return "dashboard/live_scholarship";
     }

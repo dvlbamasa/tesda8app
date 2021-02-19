@@ -16,6 +16,7 @@ import com.tesda8.region8.util.enums.InstitutionClassification;
 import com.tesda8.region8.util.enums.InstitutionType;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.Sector;
+import com.tesda8.region8.util.service.ApplicationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -144,7 +145,7 @@ public class InstitutionServiceImpl implements InstitutionService {
     public void updateInstitution(InstitutionDto institutionDto) {
         Institution institution = institutionRepository.findById(institutionDto.getId()).orElseThrow(EntityNotFoundException::new);
         institution = programRegistrationMapper.updatedInstitutionToEntity(institutionDto, institution);
-        institution.setUpdatedDate(LocalDateTime.now());
+        institution.setUpdatedDate(ApplicationUtil.getLocalDateTimeNow());
         institutionRepository.save(institution);
     }
 
@@ -159,7 +160,7 @@ public class InstitutionServiceImpl implements InstitutionService {
     public void deleteInstitution(Long id) {
         Institution institution = institutionRepository.getOne(id);
         institution.setIsDeleted(true);
-        institution.setUpdatedDate(LocalDateTime.now());
+        institution.setUpdatedDate(ApplicationUtil.getLocalDateTimeNow());
         institutionRepository.save(institution);
     }
 }

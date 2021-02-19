@@ -10,11 +10,9 @@ import java.util.List;
 @NoArgsConstructor
 public class ExpiredCertificateWrapper {
 
-    private List<ExpiredCertificateDetails> expiredNC = Lists.newArrayList();
-    private List<ExpiredCertificateDetails> expiredTMC = Lists.newArrayList();
-    private List<ExpiredCertificateDetails> expiredNTTC = Lists.newArrayList();
+    private List<ExpiredCertificateDetails> expiredTrainerCertificates = Lists.newArrayList();
 
     public int getTotalCount() {
-        return expiredNC.size() + expiredTMC.size() + expiredNTTC.size();
+        return expiredTrainerCertificates.size();
     }
 }

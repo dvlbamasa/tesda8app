@@ -5,6 +5,7 @@ import com.tesda8.region8.program.registration.service.RegisteredProgramStatusSe
 import com.tesda8.region8.quality.model.dto.FeedbackDto;
 import com.tesda8.region8.quality.service.CaptchaValidator;
 import com.tesda8.region8.quality.service.FeedbackService;
+import com.tesda8.region8.util.service.ApplicationUtil;
 import com.tesda8.region8.web.controller.HeaderController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +41,7 @@ public class CustomerSatisfactionController extends HeaderController {
     @RequestMapping(method = RequestMethod.GET, value = "/customer_satisfaction")
     public String customerSatisfaction(Model model) {
         addExpiredDocumentsListToModel(model);
-        model.addAttribute("feedbackForm", FeedbackDto.build(feedbackService.generateControlNumber(LocalDateTime.now())));
+        model.addAttribute("feedbackForm", FeedbackDto.build(feedbackService.generateControlNumber(ApplicationUtil.getLocalDateTimeNow())));
         return "quality/customer_satisfaction";
     }
 

@@ -13,6 +13,9 @@ public class ExpiredCertificateDetails {
 
     private String trainerName;
     private Long id;
+    private Boolean expiredNC = false;
+    private Boolean expiredNTTC = false;
+    private Boolean expiredTMC = false;
 
 
     @Override

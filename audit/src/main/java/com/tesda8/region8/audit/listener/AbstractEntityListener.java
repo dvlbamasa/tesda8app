@@ -3,6 +3,7 @@ package com.tesda8.region8.audit.listener;
 import com.tesda8.region8.audit.model.AuditBase;
 import com.tesda8.region8.audit.model.enums.AuditAction;
 import com.tesda8.region8.audit.service.AuditUtil;
+import com.tesda8.region8.util.service.ApplicationUtil;
 import org.springframework.transaction.support.TransactionSynchronizationAdapter;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
@@ -37,7 +38,7 @@ public abstract class AbstractEntityListener<E>{
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         AuditBase auditEntity = mapAuditEntity(entity);
         auditEntity.setAuditAction(action);
-        auditEntity.setAuditDate(LocalDateTime.now().plusHours(8));
+        auditEntity.setAuditDate(ApplicationUtil.getLocalDateTimeNow());
         entityManager.getTransaction().begin();
         entityManager.persist(auditEntity);
         entityManager.flush();

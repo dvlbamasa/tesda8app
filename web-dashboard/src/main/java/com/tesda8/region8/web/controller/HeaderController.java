@@ -24,7 +24,7 @@ public class HeaderController {
         model.addAttribute("expiredDocuments", registeredProgramStatusService.getExpiredDocuments());
     }
 
-    protected void addExpiredCertificateListToModel(Model model) {
-        model.addAttribute("expiredCertificatesWrapper", expiredCertificateService.getExpiredCertificates());
+    protected void addExpiredCertificateListToModel(Model model, String trainerName) {
+        model.addAttribute("expiredCertificatesWrapper", expiredCertificateService.getExpiredCertificates(trainerName));
     }
 }

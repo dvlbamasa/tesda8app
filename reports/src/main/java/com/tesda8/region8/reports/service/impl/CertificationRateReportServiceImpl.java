@@ -1,5 +1,6 @@
 package com.tesda8.region8.reports.service.impl;
 
+import com.tesda8.region8.util.service.ApplicationUtil;
 import com.tesda8.region8.util.service.ReportUtil;
 import com.tesda8.region8.reports.model.dto.CertificationRateReportDto;
 import com.tesda8.region8.reports.model.entities.CertificationRateReport;
@@ -52,7 +53,7 @@ public class CertificationRateReportServiceImpl implements CertificationRateRepo
                 }
         );
         DailyReportInfo dailyReportInfo = new DailyReportInfo();
-        dailyReportInfo.setUpdatedDate(LocalDateTime.now());
+        dailyReportInfo.setUpdatedDate(ApplicationUtil.getLocalDateTimeNow());
         dailyReportInfo.setUpdatedBy("SYSTEM");
         dailyReportInfoService.saveDailyReportInfo(dailyReportInfo);
         return certificationRateReportDtos;

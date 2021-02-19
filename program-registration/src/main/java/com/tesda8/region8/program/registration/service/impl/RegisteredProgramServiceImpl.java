@@ -342,7 +342,7 @@ public class RegisteredProgramServiceImpl implements RegisteredProgramService {
         RegisteredProgram registeredProgram = registeredProgramRepository.findById(registeredProgramRequestDto.getId()).orElseThrow(EntityNotFoundException::new);
         registeredProgram = programRegistrationMapper.updatedRegisteredProgramToEntity(registeredProgramRequestDto, registeredProgram);
         registeredProgram.setDateIssued(ApplicationUtil.convertToLocalDateTimeViaInstant(registeredProgramRequestDto.getDateIssued()));
-        registeredProgram.setUpdatedDate(LocalDateTime.now());
+        registeredProgram.setUpdatedDate(ApplicationUtil.getLocalDateTimeNow());
         registeredProgramRepository.save(registeredProgram);
     }
 
@@ -377,7 +377,7 @@ public class RegisteredProgramServiceImpl implements RegisteredProgramService {
     public void deleteRegisteredProgram(Long id) {
         RegisteredProgram registeredProgram = registeredProgramRepository.getOne(id);
         registeredProgram.setIsDeleted(true);
-        registeredProgram.setUpdatedDate(LocalDateTime.now());
+        registeredProgram.setUpdatedDate(ApplicationUtil.getLocalDateTimeNow());
         registeredProgramRepository.save(registeredProgram);
     }
 }

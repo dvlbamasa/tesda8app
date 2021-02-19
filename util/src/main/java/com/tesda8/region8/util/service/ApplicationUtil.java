@@ -20,6 +20,10 @@ public class ApplicationUtil {
         return (long) LocalDateTime.now().getYear();
     }
 
+    public static LocalDateTime getLocalDateTimeNow() {
+        return LocalDateTime.now().plusHours(8);
+    }
+
     public static LocalDateTime convertToLocalDateTimeViaInstant(Date dateToConvert) {
         return dateToConvert.toInstant()
                 .atZone(ZoneId.systemDefault())

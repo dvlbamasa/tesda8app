@@ -22,9 +22,9 @@
         </div>
         <div id="web-header" >
             <div class="col bg-text">
-                <div class="tesda-logo mb-5"></div>
-                <h1 class="text-center display-2 mt-2 mb-2">TESDA Eastern Visayas</h1>
-                <h2 class="text-center display-5 mt-2 mb-5">Regional Office Internal Application</h2>
+                <div class="tesda-logo2 mb-3"></div>
+                <h1 class="text-center display-3 mt-2 mb-2">TESDA Eastern Visayas</h1>
+                <h3 class="text-center display-5 mt-2 mb-5">Regional Office Internal Application</h3>
                 <div class="text-center">
                     <a th:href="@{/dashboard/daily}"><button role="button" aria-pressed="true" class=" btn btn-primary btn-lg">Dashboard <i class="fa fa-area-chart" aria-hidden="true"></i></button></a>
                     <span th:if="!${#httpServletRequest.remoteUser}">
@@ -36,10 +36,18 @@
         </div>
 
         <div id="media-header" class="col bg-text2">
-            <h1 class="display-4 mt-2 mb-2">TESDA Eastern Visayas</h1>
-            <h2 class="display-5 mt-2 mb-2">Regional Office Internal Application</h2>
-            <p>TESDA Region 8's back office application for accomplishment report summaries, program registration, certification and planning unit services, etc.</p>
-            <a th:href="@{/dashboard/daily}"><button role="button" aria-pressed="true" class="mt-5 btn btn-primary btn-lg">Go to Dashboard &raquo;</button></a>
+            <div class="col">
+                <div class="tesda-logo2 mb-3"></div>
+                <h3 class="text-center display-3 mt-2 mb-2">TESDA Eastern Visayas</h3>
+                <h5 class="text-center display-5 mt-2 mb-3">Regional Office Internal Application</h5>
+                <div class="text-center">
+                    <a th:href="@{/dashboard/daily}"><button role="button" aria-pressed="true" class=" btn btn-primary btn-sm">Dashboard <i class="fa fa-area-chart" aria-hidden="true"></i></button></a>
+                    <div th:if="!${#httpServletRequest.remoteUser}">
+                        <a th:href="@{/customer_satisfaction}"><button role="button" aria-pressed="true" class=" btn btn-primary btn-sm">Customer Feedback <i class="fa fa-comments-o" aria-hidden="true"></i></button></a>
+                        <a th:href="@{/login}"><button role="button" aria-pressed="true" class=" btn btn-primary btn-sm">Login <i class="fa fa-sign-in" aria-hidden="true"></i></button></a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

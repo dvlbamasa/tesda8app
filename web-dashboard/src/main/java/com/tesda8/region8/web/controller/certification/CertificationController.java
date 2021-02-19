@@ -1,5 +1,6 @@
 package com.tesda8.region8.web.controller.certification;
 
+import com.tesda8.region8.certification.model.dto.ExpiredCertificateFilter;
 import com.tesda8.region8.certification.service.ExpiredCertificateService;
 import com.tesda8.region8.program.registration.model.dto.TrainerDto;
 import com.tesda8.region8.program.registration.model.dto.TrainerFilter;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 
@@ -54,9 +56,19 @@ public class CertificationController extends HeaderController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/certification/expired")
-    public String getExpiredCertificates(Model model){
+    public String getExpiredCertificates(@RequestParam(value = "trainerName", required = false) String trainerName, Model model){
         addStatusCounterToModel(model);
-        addExpiredCertificateListToModel(model);
+        addExpiredCertificateListToModel(model, trainerName);
+        model.addAttribute("expiredCertificateFilter", new ExpiredCertificateFilter());
+        return "certification/expired_certificates";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/certification/expired/search")
+    public String searchExpiredCertificates(@ModelAttribute ExpiredCertificateFilter expiredCertificateFilter, BindingResult bindingResult,
+                                            Model model) {
+        addStatusCounterToModel(model);
+        addExpiredCertificateListToModel(model, expiredCertificateFilter.getTrainerName());
+        model.addAttribute("expiredCertificateFilter", expiredCertificateFilter);
         return "certification/expired_certificates";
     }
 

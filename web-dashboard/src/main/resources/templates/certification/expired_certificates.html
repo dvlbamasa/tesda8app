@@ -26,84 +26,62 @@
                 </div>
             </div>
         </header>
-        <div id="parent">
-            <div id="wide">
-                <div class="container mb-5">
-                    <h1 class="display-5 text-black-50 mb-5">Expired National Certificates</h1>
-                    <div class="table-responsive">
-                        <table id="nc-table" class="table table-bordered table-striped table-sm">
-                            <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Trainer Name</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <th:block th:if="${expiredCertificatesWrapper.expiredNC.isEmpty()}">
-                                <tr>
-                                    <td style="text-align:center" colspan="1">No Data Available</td>
-                                </tr>
-                            </th:block>
-                            <th:block th:each="certificate : ${expiredCertificatesWrapper.expiredNC}">
-                                <tr>
-                                    <td><a th:href="@{/certification/trainer/{id}/details(id=${certificate.id})}" th:text="${certificate.trainerName}"></a></td>
-                                </tr>
-                            </th:block>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+        <div>
+            <div class="container">
+                <form th:action="@{/certification/expired/search}" th:object="${expiredCertificateFilter}" method="post">
+                    <fieldset>
+                        <div>
+                            <h1 class="display-5 text-black-50 mb-5">Search TVET Trainer</h1>
+                            <div class="form-group row">
+                                <label for="trainerName" class="col-sm-2 col-form-label">Trainer Name</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" placeholder="Enter Trainer Name" id="trainerName" name="trainerName" type="text" th:value="${expiredCertificateFilter.trainerName}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container mt-5">
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton" th:value="Update"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
-            <div id="wide2">
-                <div class="container mb-5">
-                    <h1 class="display-5 text-black-50 mb-5">Expired TM Certificates</h1>
-                    <div class="table-responsive">
-                        <table id="tmc-table" class="table table-bordered table-striped table-sm">
-                            <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Trainer Name</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <th:block th:if="${expiredCertificatesWrapper.expiredTMC.isEmpty()}">
-                                <tr>
-                                    <td style="text-align:center" colspan="1">No Data Available</td>
-                                </tr>
-                            </th:block>
-                            <th:block th:each="certificate : ${expiredCertificatesWrapper.expiredTMC}">
-                                <tr>
-                                    <td><a th:href="@{/certification/trainer/{id}/details(id=${certificate.id})}" th:text="${certificate.trainerName}"></a></td>
-                                </tr>
-                            </th:block>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div id="wide3">
-                <div class="container mb-5">
-                    <h1 class="display-5 text-black-50 mb-5">Expired NTTC Certificates</h1>
-                    <div class="table-responsive">
-                        <table id="nttc-table" class="table table-bordered table-striped table-sm">
-                            <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Trainer Name</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <th:block th:if="${expiredCertificatesWrapper.expiredNTTC.isEmpty()}">
-                                <tr>
-                                    <td style="text-align:center" colspan="1">No Data Available</td>
-                                </tr>
-                            </th:block>
-                            <th:block th:each="certificate : ${expiredCertificatesWrapper.expiredNTTC}">
-                                <tr>
-                                    <td><a th:href="@{/certification/trainer/{id}/details(id=${certificate.id})}" th:text="${certificate.trainerName}"></a></td>
-                                </tr>
-                            </th:block>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+        </div>
+        <div class="container">
+            <hr class="border"/>
+        </div>
+        <div class="container mb-5">
+            <div class="container">
+                <p class="lead text-black-50">Total Number of Trainers with Expired Certificates:
+                    <span class="lead text-black" th:text="${expiredCertificatesWrapper.expiredTrainerCertificates.size()}"></span>
+                </p>
+            </div>            <div class="table-responsive">
+                <table id="nc-table" class="table table-bordered table-striped table-hover table-sm">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Trainer Name</th>
+                        <th scope="col">Expired NC</th>
+                        <th scope="col">Expired TMC</th>
+                        <th scope="col">Expired NTTC</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:if="${expiredCertificatesWrapper.expiredTrainerCertificates.isEmpty()}">
+                        <tr>
+                            <td style="text-align:center" colspan="4">No Data Available</td>
+                        </tr>
+                    </th:block>
+                    <th:block th:each="trainer : ${expiredCertificatesWrapper.expiredTrainerCertificates}">
+                        <tr>
+                            <td><a th:href="@{/certification/trainer/{id}/details(id=${trainer.id})}" th:text="${trainer.trainerName}"></a></td>
+                            <td class="text-center" ><span th:if="${trainer.expiredNC}"><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                            <td class="text-center" ><span th:if="${trainer.expiredTMC}"><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                            <td class="text-center" ><span th:if="${trainer.expiredNTTC}"><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -1,6 +1,7 @@
 package com.tesda8.region8.reports.service.impl;
 
 import com.tesda8.region8.util.enums.OperatingUnitType;
+import com.tesda8.region8.util.service.ApplicationUtil;
 import com.tesda8.region8.util.service.ReportUtil;
 import com.tesda8.region8.reports.model.dto.GeneralReportDto;
 import com.tesda8.region8.reports.model.entities.DailyReportInfo;
@@ -105,7 +106,7 @@ public class GeneralReportServiceImpl implements GeneralReportService {
         );
 
         DailyReportInfo dailyReportInfo = new DailyReportInfo();
-        dailyReportInfo.setUpdatedDate(LocalDateTime.now());
+        dailyReportInfo.setUpdatedDate(ApplicationUtil.getLocalDateTimeNow());
         dailyReportInfoService.saveDailyReportInfo(dailyReportInfo);
         return generalReports;
     }

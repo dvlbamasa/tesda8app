@@ -1,6 +1,7 @@
 package com.tesda8.region8.reports.service.impl;
 
 import com.tesda8.region8.util.enums.EgacType;
+import com.tesda8.region8.util.service.ApplicationUtil;
 import com.tesda8.region8.util.service.ReportUtil;
 import com.tesda8.region8.reports.model.dto.TTIReportDto;
 import com.tesda8.region8.reports.model.entities.DailyReportInfo;
@@ -57,7 +58,7 @@ public class TTIReportServiceImpl implements TTIReportService {
                 }
         );
         DailyReportInfo dailyReportInfo = new DailyReportInfo();
-        dailyReportInfo.setUpdatedDate(LocalDateTime.now());
+        dailyReportInfo.setUpdatedDate(ApplicationUtil.getLocalDateTimeNow());
         dailyReportInfo.setUpdatedBy("SYSTEM");
         dailyReportInfoService.saveDailyReportInfo(dailyReportInfo);
         return ttiReportDtos;

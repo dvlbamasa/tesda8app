@@ -62,8 +62,8 @@ public class QualityController extends HeaderController {
     @RequestMapping(method = RequestMethod.GET, value = "/quality/feedback-analysis")
     public String feedbackAnalysis(Model model) {
         SummaryReportFilter summaryReportFilter =
-                new SummaryReportFilter(ApplicationUtil.convertToDateViaInstant(LocalDateTime.now().truncatedTo(ChronoUnit.DAYS)),
-                        ApplicationUtil.convertToDateViaInstant(LocalDateTime.now().truncatedTo(ChronoUnit.DAYS)));
+                new SummaryReportFilter(ApplicationUtil.convertToDateViaInstant(ApplicationUtil.getLocalDateTimeNow().truncatedTo(ChronoUnit.DAYS)),
+                        ApplicationUtil.convertToDateViaInstant(ApplicationUtil.getLocalDateTimeNow().truncatedTo(ChronoUnit.DAYS)));
         model.addAttribute("summaryFilter", summaryReportFilter);
         model.addAttribute("summaryReport", feedbackService.fetchSummaryReport(summaryReportFilter));
         model.addAttribute("monitoringReport", feedbackService.fetchMonitoringReport(summaryReportFilter));

@@ -57,7 +57,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         List<Feedback> feedbackList = predicate == null ?
                 feedbackRepository.findAll() : (List<Feedback>) feedbackRepository.findAll(predicate);
         long count = feedbackList.size() + 1;
-        return ApplicationUtil.formatLocalDateTime(LocalDateTime.now()) + count;
+        return ApplicationUtil.formatLocalDateTime(ApplicationUtil.getLocalDateTimeNow()) + count;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         Feedback feedback = feedbackMapper.feedbackToEntity(feedbackDto);
         feedback.getFeedbackRequests().forEach(
                 feedbackRequest -> feedbackRequest.setFeedback(feedback));
-        feedback.setDate(LocalDateTime.now().truncatedTo(ChronoUnit.DAYS));
+        feedback.setDate(ApplicationUtil.getLocalDateTimeNow().truncatedTo(ChronoUnit.DAYS));
         feedback.getCustomer().setFullName(feedbackDto.getCustomer().fetchFullName());
         feedbackRepository.save(feedback);
     }

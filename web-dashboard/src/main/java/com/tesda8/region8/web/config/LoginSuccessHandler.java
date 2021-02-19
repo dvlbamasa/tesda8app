@@ -3,6 +3,7 @@ package com.tesda8.region8.web.config;
 import com.tesda8.region8.audit.model.entities.AuditLog;
 import com.tesda8.region8.audit.model.enums.AuditAction;
 import com.tesda8.region8.audit.service.AuditLogService;
+import com.tesda8.region8.util.service.ApplicationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -38,7 +39,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         WebAuthenticationDetails details = (WebAuthenticationDetails) authentication.getDetails();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
-        LocalDateTime now = LocalDateTime.now().plusHours(8);
+        LocalDateTime now = ApplicationUtil.getLocalDateTimeNow();
         String formattedDate = now.format(formatter);
 
         AuditLog auditLog = new AuditLog();
