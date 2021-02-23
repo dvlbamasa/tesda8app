@@ -22,6 +22,7 @@ import com.tesda8.region8.util.service.ReportUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -102,6 +103,7 @@ public class PapDataServiceImpl implements PapDataService {
     }
 
     @Override
+    @Cacheable("planning")
     public PapDataWrapper getAllPapDataWrapperByFilter(String measureFilter, String papNameFilter, Long year) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
