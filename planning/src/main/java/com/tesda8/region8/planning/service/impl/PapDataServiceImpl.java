@@ -228,8 +228,9 @@ public class PapDataServiceImpl implements PapDataService {
                     long emptyPoDataCount = successIndicatorDataDto.getOperatingUnitDataList().stream()
                             .filter(operatingUnitData -> operatingUnitData.getId() == 0)
                             .count();
-                    // if count is gt 0, means that a PO updated the OPCR
-                    if (emptyPoDataCount > 0) {
+                    // if count is gt 0, means that a PO updated the OPCR; other operatingUnitData are empty
+                    // if size eq 1, it's only from leyte_po
+                    if (emptyPoDataCount > 0 || successIndicatorDataDto.getOperatingUnitDataList().size() == 1) {
                         OperatingUnitDataDto operatingUnitDataDto = successIndicatorDataDto.getOperatingUnitDataList().stream()
                                 .filter(operatingUnitDataDto1 -> operatingUnitDataDto1.getId() != 0)
                                 .findFirst().orElseThrow(EntityNotFoundException::new);
