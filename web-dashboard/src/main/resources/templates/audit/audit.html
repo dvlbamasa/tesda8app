@@ -139,6 +139,17 @@
                 <!-- customers pagination -->
                 <nav aria-label="Pagination" th:if="${totalPages gt 0}">
                     <ul class="pagination justify-content-center font-weight-medium">
+                        <li class="page-item" th:classappend="${totalPages eq 1 or currentPage eq 1} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/audit/pagination(pageNumber = ${1},
+                                auditAction = ${auditLogFilter.auditAction},
+                                updatedBy = ${auditLogFilter.updatedBy},
+                                auditDateFrom = ${auditLogFilter.auditDateFrom},
+                                auditDateTo = ${auditLogFilter.auditDateTo})}"
+                               title="First Page" rel="tooltip">
+                                <span>First Page</span>
+                            </a>
+                        </li>
                         <li class="page-item" th:classappend="${currentPage eq 1} ? 'disabled'">
                             <a class="page-link"
                                th:href="@{/audit/pagination(pageNumber = ${currentPage eq 1 ? 1 : currentPage - 1},
@@ -153,7 +164,7 @@
                             </a>
                         </li>
                         <th:block
-                            th:each="i : ${#numbers.sequence(currentPage, ((totalPages > (10 + currentPage)) ? (currentPage + 10) : totalPages))}">
+                            th:each="i : ${#numbers.sequence(currentPage, ((totalPages > (9 + currentPage)) ? (currentPage + 9) : totalPages))}">
                             <li th:class="${i eq currentPage} ? 'page-item active' : 'page-item'" th:id="${i eq currentPage} ? 'active-pagenumber' : ''">
                                 <a class="page-link" th:href="@{/audit/pagination(pageNumber = ${i},
                                 auditAction = ${auditLogFilter.auditAction},
@@ -174,6 +185,17 @@
                                title="Next Page" rel="tooltip">
                                 <span aria-hidden="true">&raquo;</span>
                                 <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                        <li class="page-item" th:classappend="${totalPages eq currentPage} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/audit/pagination(pageNumber = ${totalPages},
+                                auditAction = ${auditLogFilter.auditAction},
+                                updatedBy = ${auditLogFilter.updatedBy},
+                                auditDateFrom = ${auditLogFilter.auditDateFrom},
+                                auditDateTo = ${auditLogFilter.auditDateTo})}"
+                               title="Last Page" rel="tooltip">
+                                <span>Last Page</span>
                             </a>
                         </li>
                     </ul>
