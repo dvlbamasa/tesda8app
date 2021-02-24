@@ -55,17 +55,17 @@
                         <a class="dropdown-item header-dropdown-item" th:href="@{/dashboard/scholarship/live}">Scholarship Accomplishment Data from SPMOR <span class="danger">(Live)</span></a>
                     </div>
                 </li>
-                <li sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" class="nav-item dropdown navDropdown">
+                <li sec:authorize="hasAnyRole('ADMIN', 'PLANNING', 'LEYTE_PO', 'SOUTHERN_LEYTE_PO', 'BILIRAN_PO', 'SAMAR_PO', 'NORTHERN_SAMAR_PO', 'EASTERN_SAMAR_PO')" class="nav-item dropdown navDropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Planning
                     </a>
                     <div  class="dropdown-menu nav-dropdown" aria-labelledby="navbarDropdown2">
                         <a class="dropdown-item header-dropdown-item" th:href="@{/planning}">OPCR Summary</a>
                         <a class="dropdown-item header-dropdown-item" th:href="@{/planning/opcr/update}">Update OPCR</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item header-dropdown-item" th:href="@{/planning/successIndicator/create}">Add Success Indicators</a>
-                        <a class="dropdown-item header-dropdown-item" th:href="@{/planning/successIndicator/update}">Update Success Indicators</a>
-                        <a class="dropdown-item header-dropdown-item" th:href="@{/planning/pap/manage}">Manage P/A/P</a>
+                        <div sec:authorize="hasAnyRole('ADMIN', 'PLANNING')"  class="dropdown-divider"></div>
+                        <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')"  class="dropdown-item header-dropdown-item" th:href="@{/planning/successIndicator/create}">Add Success Indicators</a>
+                        <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')"  class="dropdown-item header-dropdown-item" th:href="@{/planning/successIndicator/update}">Update Success Indicators</a>
+                        <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" s class="dropdown-item header-dropdown-item" th:href="@{/planning/pap/manage}">Manage P/A/P</a>
                     </div >
                 </li>
                 <li sec:authorize="hasAnyRole('ADMIN', 'PROGRAM_REG')" class="nav-item dropdown navDropdown">
@@ -95,7 +95,7 @@
                         <a class="dropdown-item header-dropdown-item" th:href="@{/scholarship/update(year = 2020, month = 'DECEMBER')}">Update Scholarship Accomplishment</a>
                     </div>
                 </li>
-                <li sec:authorize="hasAnyRole('ADMIN', 'CERTIFICATION', 'PLANNING')"  class="nav-item dropdown navDropdown">
+                <li sec:authorize="hasAnyRole('ADMIN', 'CERTIFICATION')"  class="nav-item dropdown navDropdown">
                     <th:block th:if="${expiredCertificateCount > 0}">
                         <span class="badge badge-pill badge-danger" style="float:right;margin-bottom:-10px;" th:text="${expiredCertificateCount}"></span>
                     </th:block>

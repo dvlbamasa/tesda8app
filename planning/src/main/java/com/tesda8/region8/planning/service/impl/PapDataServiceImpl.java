@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -207,8 +208,10 @@ public class PapDataServiceImpl implements PapDataService {
         successIndicatorDataDtoList.forEach(
                 successIndicatorDataDto -> {
                     // total initialize
-                    OperatingUnitDataDto total = new OperatingUnitDataDto();
                     SuccessIndicatorData successIndicatorData = successIndicatorDataRepository.getOne(successIndicatorDataDto.getId());
+
+
+                    OperatingUnitDataDto total = new OperatingUnitDataDto();
                     total.setTarget(successIndicatorData.getTarget());
                     total.setOutput(0);
 
@@ -217,16 +220,45 @@ public class PapDataServiceImpl implements PapDataService {
                             .filter(operatingUnitData -> operatingUnitData.getOperatingUnitType().equals(OperatingUnitPOType.TOTAL))
                             .findAny().get();
 
-                    successIndicatorDataDto.getOperatingUnitDataList().forEach(
-                            operatingUnitDataDto -> {
-                                OperatingUnitData operatingUnitData1 =
-                                        operatingUnitDataRepository.getOne(operatingUnitDataDto.getId());
-                                planningMapper.updatedOperatingUnitData(operatingUnitDataDto, operatingUnitData1);
-                                operatingUnitData1.setRate(ReportUtil.calculateRate(operatingUnitData1.getTarget(), operatingUnitData1.getOutput()));
-                                operatingUnitDataRepository.save(operatingUnitData1);
-                                calculateTotal(total, operatingUnitDataDto);
-                            }
-                    );
+                    /*
+                         Checks if the OPCR was updated by a PO or an Planning Admin
+                     */
+
+                    // counts if there are empty OperatingUnitData during update
+                    long emptyPoDataCount = successIndicatorDataDto.getOperatingUnitDataList().stream()
+                            .filter(operatingUnitData -> operatingUnitData.getId() == 0)
+                            .count();
+                    // if count is gt 0, means that a PO updated the OPCR
+                    if (emptyPoDataCount > 0) {
+                        OperatingUnitDataDto operatingUnitDataDto = successIndicatorDataDto.getOperatingUnitDataList().stream()
+                                .filter(operatingUnitDataDto1 -> operatingUnitDataDto1.getId() != 0)
+                                .findFirst().orElseThrow(EntityNotFoundException::new);
+                        OperatingUnitData operatingUnitData = operatingUnitDataRepository.getOne(operatingUnitDataDto.getId());
+                        planningMapper.updatedOperatingUnitData(operatingUnitDataDto, operatingUnitData);
+                        operatingUnitData.setRate(ReportUtil.calculateRate(operatingUnitData.getTarget(), operatingUnitData.getOutput()));
+                        operatingUnitDataRepository.save(operatingUnitData);
+
+                        SuccessIndicatorData successIndicator = successIndicatorDataRepository.getOne(successIndicatorDataDto.getId());
+
+                        successIndicator.getOperatingUnitDataList().forEach(
+                                operatingUnitData1 -> {
+                                    if (!operatingUnitData1.getOperatingUnitType().equals(OperatingUnitPOType.TOTAL)) {
+                                        calculateTotal(total, operatingUnitData1);
+                                    }
+                                }
+                        );
+                    } else {
+                        successIndicatorDataDto.getOperatingUnitDataList().forEach(
+                                operatingUnitDataDto -> {
+                                    OperatingUnitData operatingUnitData1 =
+                                            operatingUnitDataRepository.getOne(operatingUnitDataDto.getId());
+                                    planningMapper.updatedOperatingUnitData(operatingUnitDataDto, operatingUnitData1);
+                                    operatingUnitData1.setRate(ReportUtil.calculateRate(operatingUnitData1.getTarget(), operatingUnitData1.getOutput()));
+                                    operatingUnitDataRepository.save(operatingUnitData1);
+                                    calculateTotal(total, operatingUnitDataDto);
+                                }
+                        );
+                    }
 
                     if (!successIndicatorData.getIsAccumulated()) {
                         total.setOutput(total.getOutput()/7);
@@ -315,5 +347,10 @@ public class PapDataServiceImpl implements PapDataService {
 
     private void calculateTotal(OperatingUnitDataDto total, OperatingUnitDataDto operatingUnitDataDto) {
         total.setOutput(total.getOutput() + operatingUnitDataDto.getOutput());
+    }
+
+    private void calculateTotal(OperatingUnitDataDto total, OperatingUnitData operatingUnitData) {
+        total.setOutput(total.getOutput() + operatingUnitData.getOutput());
+
     }
 }

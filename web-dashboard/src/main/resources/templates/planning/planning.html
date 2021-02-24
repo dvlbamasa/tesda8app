@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Planning</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
@@ -21,7 +22,7 @@
                         <p class="lead mb-5 text-white-50">OPCR summary in table format</p>
                         <div class="btn-group mr-2 float-right" role="group">
                             <a th:href="@{/planning/opcr/update}" class="a-header btn btn-success btn-lg" role="button" aria-pressed="true">Update OPCR</a>
-                            <a th:href="@{/planning/successIndicator/update}" class="a-header btn btn-success btn-lg" role="button" aria-pressed="true">Update Success Indicators</a>
+                            <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/successIndicator/update}" class="a-header btn btn-success btn-lg" role="button" aria-pressed="true">Update Success Indicators</a>
                         </div>
                     </div>
                 </div>

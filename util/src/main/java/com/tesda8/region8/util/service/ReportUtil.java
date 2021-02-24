@@ -15,6 +15,9 @@ public class ReportUtil {
 
 
     public static double calculateRate(long target, long output) {
+        if (target == 0) {
+            return 0.0;
+        }
         return Double.parseDouble(df2.format(Math.round(100.0 * output/target)));
     }
 
