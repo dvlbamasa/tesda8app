@@ -56,7 +56,8 @@
                 <p class="lead text-black-50">Total Number of Trainers with Expired Certificates:
                     <span class="lead text-black" th:text="${expiredCertificatesWrapper.expiredTrainerCertificates.size()}"></span>
                 </p>
-            </div>            <div class="table-responsive">
+            </div>
+            <div class="table-responsive">
                 <table id="nc-table" class="table table-bordered table-striped table-hover table-sm">
                     <thead class="thead-dark">
                     <tr>
@@ -72,7 +73,7 @@
                             <td style="text-align:center" colspan="4">No Data Available</td>
                         </tr>
                     </th:block>
-                    <th:block th:each="trainer : ${expiredCertificatesWrapper.expiredTrainerCertificates}">
+                    <th:block th:each="trainer : ${expiredCertificates}">
                         <tr>
                             <td><a th:href="@{/certification/trainer/{id}/details(id=${trainer.id})}" th:text="${trainer.trainerName}"></a></td>
                             <td class="text-center" ><span th:if="${trainer.expiredNC}"><i class="fa fa-check" aria-hidden="true"></i></span></td>
@@ -83,6 +84,50 @@
                     </tbody>
                 </table>
             </div>
+            <nav aria-label="Pagination" th:if="${totalPages gt 0}">
+                <ul class="pagination justify-content-center font-weight-medium">
+                    <li class="page-item" th:classappend="${totalPages eq 1 or currentPage eq 1} ? 'disabled'">
+                        <a class="page-link"
+                           th:href="@{/certification/expired/pagination(pageNumber = ${1}, trainerName = ${expiredCertificateFilter.trainerName})}"
+                           title="First Page" rel="tooltip">
+                            <span>First Page</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:classappend="${currentPage eq 1} ? 'disabled'">
+                        <a class="page-link"
+                           th:href="@{/certification/expired/pagination(pageNumber = ${currentPage eq 1 ? 1 : currentPage - 1}, trainerName = ${expiredCertificateFilter.trainerName})}"
+                           aria-label="Previous"
+                           title="Previous Page" rel="tooltip">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <th:block
+                            th:each="i : ${#numbers.sequence(currentPage, ((totalPages > (9 + currentPage)) ? (currentPage + 9) : totalPages))}">
+                        <li th:class="${i eq currentPage} ? 'page-item active' : 'page-item'" th:id="${i eq currentPage} ? 'active-pagenumber' : ''">
+                            <a class="page-link" th:href="@{/certification/expired/pagination(pageNumber = ${i}, trainerName = ${expiredCertificateFilter.trainerName})}"
+                               th:text="${i}"
+                               th:title="${'Page '+ i}"
+                               rel="tooltip"><span class="sr-only">(current)</span></a>
+                        </li>
+                    </th:block>
+                    <li class="page-item" th:classappend="${currentPage eq totalPages} ? 'disabled'">
+                        <a class="page-link" th:href="@{/certification/expired/pagination(pageNumber = ${currentPage + 1}, trainerName = ${expiredCertificateFilter.trainerName})}"
+                           aria-label="Next"
+                           title="Next Page" rel="tooltip">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:classappend="${totalPages eq currentPage} ? 'disabled'">
+                        <a class="page-link"
+                           th:href="@{/certification/expired/pagination(pageNumber = ${totalPages}, trainerName = ${expiredCertificateFilter.trainerName})}"
+                           title="Last Page" rel="tooltip">
+                            <span>Last Page</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>

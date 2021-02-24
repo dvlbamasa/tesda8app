@@ -26,6 +26,10 @@ import com.tesda8.region8.util.service.ReportUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -72,7 +76,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public List<FeedbackDto> fetchAllCustomerFeedbacks(CustomerFilter customerFilter) {
+    public Page<FeedbackDto> fetchAllCustomerFeedbacks(int pageNumber, int pageSize, CustomerFilter customerFilter) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if (customerFilter.getName() != null) {
             booleanBuilder.and(QFeedback.feedback.customer.fullName.containsIgnoreCase(customerFilter.getName()));
@@ -96,14 +100,14 @@ public class FeedbackServiceImpl implements FeedbackService {
             booleanBuilder.and(QFeedback.feedback.customer.emailAddress.containsIgnoreCase(customerFilter.getEmailAddress()));
         }
 
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, Sort.by("date").descending());
+
         Predicate predicate = booleanBuilder.getValue();
 
-        List<Feedback> feedbackList = predicate == null ?
-                feedbackRepository.findAll() : (List<Feedback>) feedbackRepository.findAll(predicate);
+        Page<Feedback> feedbackList = predicate == null ?
+                feedbackRepository.findAll(pageable) : feedbackRepository.findAll(predicate, pageable);
 
-        return feedbackList.stream()
-                .map(feedback -> feedbackMapper.feedbackToDto(feedback))
-                .collect(Collectors.toList());
+        return feedbackList.map(feedbackMapper::feedbackToDto);
     }
 
     @Override

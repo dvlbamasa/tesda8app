@@ -1,6 +1,7 @@
 package com.tesda8.region8.quality.model.dto;
 
 import com.tesda8.region8.util.enums.Sex;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class CustomerFilter {
 
     private String name;

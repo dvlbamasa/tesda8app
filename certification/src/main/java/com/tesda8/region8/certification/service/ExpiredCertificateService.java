@@ -15,6 +15,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -36,7 +41,7 @@ public class ExpiredCertificateService {
     }
 
     @Cacheable("expiredCertificates")
-    public ExpiredCertificateWrapper getExpiredCertificates(String trainerName) {
+    public ExpiredCertificateWrapper getExpiredCertificates(int pageNumber, int pageSize, String trainerName) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
         booleanBuilder.and(QTrainer.trainer.fullName.containsIgnoreCase(Strings.isNullOrEmpty(trainerName) ? "" : trainerName));
@@ -44,18 +49,33 @@ public class ExpiredCertificateService {
         Predicate predicate = booleanBuilder.getValue();
 
         List<Trainer> trainerList = (List<Trainer>) trainerRepository.findAll(predicate);
+
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
+
+
         ExpiredCertificateWrapper expiredCertificateWrapper = new ExpiredCertificateWrapper();
         trainerList.forEach(
                 trainer -> {
                     checkExpiredCertificates(expiredCertificateWrapper, trainer);
                 }
         );
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), expiredCertificateWrapper.getExpiredTrainerCertificates().size());
+
+        Page<ExpiredCertificateDetails> expiredCertificateDetailsPage =
+                new PageImpl<ExpiredCertificateDetails>(
+                        expiredCertificateWrapper.getExpiredTrainerCertificates().subList(start, end), pageable,
+                        expiredCertificateWrapper.getTotalCount());
+
+        expiredCertificateWrapper.setExpiredCertificateDetailsPage(expiredCertificateDetailsPage);
+
         return expiredCertificateWrapper;
     }
 
     @Cacheable("expiredCertificatesCount")
     public long expiredCertificatesCount() {
-        return getExpiredCertificates("").getTotalCount();
+        return getExpiredCertificates(ApplicationUtil.getDefaultPageNumber(), ApplicationUtil.getDefaultPageSize(), "").getTotalCount();
     }
 
     private void checkExpiredCertificates(ExpiredCertificateWrapper expiredCertificateWrapper, Trainer trainer) {

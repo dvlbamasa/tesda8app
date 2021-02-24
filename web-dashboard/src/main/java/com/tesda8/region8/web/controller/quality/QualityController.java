@@ -3,12 +3,15 @@ package com.tesda8.region8.web.controller.quality;
 import com.tesda8.region8.certification.service.ExpiredCertificateService;
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.quality.model.dto.CustomerFilter;
+import com.tesda8.region8.quality.model.dto.FeedbackDto;
 import com.tesda8.region8.quality.model.dto.SummaryReportFilter;
 import com.tesda8.region8.quality.service.ExcelParserService;
 import com.tesda8.region8.quality.service.FeedbackService;
+import com.tesda8.region8.util.enums.Sex;
 import com.tesda8.region8.util.service.ApplicationUtil;
 import com.tesda8.region8.web.controller.HeaderController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,8 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
@@ -30,6 +33,8 @@ public class QualityController extends HeaderController {
 
     private FeedbackService feedbackService;
     private ExcelParserService excelParserService;
+    private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy");
+
 
     @Autowired
     public QualityController(RegisteredProgramStatusService registeredProgramStatusService,
@@ -43,8 +48,12 @@ public class QualityController extends HeaderController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/quality")
     public String quality(Model model) {
-        model.addAttribute("feedbacks", feedbackService.fetchAllCustomerFeedbacks(new CustomerFilter()));
+        Page<FeedbackDto> feedbackDtoPage = feedbackService.fetchAllCustomerFeedbacks(ApplicationUtil.getDefaultPageNumber(), ApplicationUtil.getDefaultPageSize(), new CustomerFilter());
+        model.addAttribute("feedbacks", feedbackDtoPage.getContent());
         model.addAttribute("customerFilter", new CustomerFilter());
+        model.addAttribute("totalPages", feedbackDtoPage.getTotalPages());
+        model.addAttribute("totalElements", feedbackDtoPage.getTotalElements());
+        model.addAttribute("currentPage", ApplicationUtil.getDefaultPageNumber());
         addStatusCounterToModel(model);
         return "quality/quality";
     }
@@ -52,8 +61,36 @@ public class QualityController extends HeaderController {
     @RequestMapping(method = RequestMethod.POST, value = "/quality/search")
     public String qualitySearch(@ModelAttribute CustomerFilter customerFilter, BindingResult bindingResult,
                                 Model model) {
+        Page<FeedbackDto> feedbackDtoPage = feedbackService.fetchAllCustomerFeedbacks(ApplicationUtil.getDefaultPageNumber(), ApplicationUtil.getDefaultPageSize(), customerFilter);
+        model.addAttribute("feedbacks", feedbackDtoPage.getContent());
+        model.addAttribute("totalPages", feedbackDtoPage.getTotalPages());
+        model.addAttribute("totalElements", feedbackDtoPage.getTotalElements());
+        model.addAttribute("currentPage", ApplicationUtil.getDefaultPageNumber());
+        model.addAttribute("customerFilter", customerFilter);
+        addStatusCounterToModel(model);
+        return "quality/quality";
+    }
 
-        model.addAttribute("feedbacks", feedbackService.fetchAllCustomerFeedbacks(customerFilter));
+    @RequestMapping(method = RequestMethod.GET, value = "/quality/pagination")
+    public String qualityPagination(@RequestParam("pageNumber") int pageNumber,
+                                    @RequestParam(value = "name", required = false) String name,
+                                    @RequestParam(value = "gender", required = false) Sex gender,
+                                    @RequestParam(value = "address", required = false) String address,
+                                    @RequestParam(value = "contactNumber", required = false) String contactNumber,
+                                    @RequestParam(value = "emailAddress", required = false) String emailAddress,
+                                    @RequestParam(value = "auditDateFrom", required = false)
+                                                String auditDateFrom,
+                                    @RequestParam(value = "auditDateTo", required = false)
+                                                String auditDateTo,
+                                    Model model) throws ParseException {
+        Date from = auditDateFrom.equals("") ? null : SIMPLE_DATE_FORMAT.parse(auditDateFrom);
+        Date to = auditDateTo.equals("") ? null : SIMPLE_DATE_FORMAT.parse(auditDateTo);
+        CustomerFilter customerFilter = new CustomerFilter(name, gender, address, contactNumber, emailAddress, from, to);
+        Page<FeedbackDto> feedbackDtoPage = feedbackService.fetchAllCustomerFeedbacks(pageNumber, ApplicationUtil.getDefaultPageSize(), customerFilter);
+        model.addAttribute("feedbacks", feedbackDtoPage.getContent());
+        model.addAttribute("totalPages", feedbackDtoPage.getTotalPages());
+        model.addAttribute("totalElements", feedbackDtoPage.getTotalElements());
+        model.addAttribute("currentPage", pageNumber);
         model.addAttribute("customerFilter", customerFilter);
         addStatusCounterToModel(model);
         return "quality/quality";

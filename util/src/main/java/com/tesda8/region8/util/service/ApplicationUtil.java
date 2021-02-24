@@ -12,6 +12,17 @@ public class ApplicationUtil {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
     private static final DateTimeFormatter stringFormatter = DateTimeFormatter.ofPattern("MMM. dd, yyyy");
 
+    private static final int DEFAULT_PAGE_NUMBER = 1;
+    private static final int DEFAULT_PAGE_SIZE = 10;
+
+    public static int getDefaultPageNumber() {
+        return DEFAULT_PAGE_NUMBER;
+    }
+
+    public static int getDefaultPageSize() {
+        return DEFAULT_PAGE_SIZE;
+    }
+
     public static Month getCurrentMonth() {
         return Month.valueOf(LocalDateTime.now().getMonth().name());
     }
