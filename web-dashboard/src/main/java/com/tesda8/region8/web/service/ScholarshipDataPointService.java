@@ -13,5 +13,9 @@ public interface ScholarshipDataPointService {
                                    List<ScholarshipAccomplishmentDto> scholarshipAccomplishmentDtoList,
                                    List<DataPoints> dataPointsList);
 
+    List<DataPoints> getDataPointsPerPo(DataPointType dataPointType,
+                                        List<ScholarshipAccomplishmentDto> scholarshipAccomplishmentDtoList,
+                                        List<DataPoints> dataPointsList);
+
     EgacType supports();
 }

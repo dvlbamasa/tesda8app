@@ -6,6 +6,9 @@ $(document).ready(function(){
         }
     });
 
-    $('li.active').removeClass('active');
+    var activeLink = $('li.active');
+    if (activeLink.attr('id') != 'active-pagenumber') {
+        activeLink.removeClass('active');
+    }
     $('a[href="' + location.pathname + '"]').closest('li').addClass('active');
 });

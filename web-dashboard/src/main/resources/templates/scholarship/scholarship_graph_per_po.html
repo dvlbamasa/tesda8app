@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Scholarship - Graphical Representation per PO</title>
+
+    <div th:replace="fragments/header :: header-css"/>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+</head>
+<body  data-spy="scroll" data-target="#monthly-navbar" data-offset="50">
+
+<div th:replace="fragments/header :: header" th:with="statusCounter=(${statusCounter})"/>
+
+<div id="page-container">
+    <div id = "content-wrap">
+        <header class="bg-primary py-5 mb-5">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <div class="col-lg-12">
+                        <h1 class="display-4 text-white mt-5 mb-2">Scholarship Accomplishment Graph per PO</h1>
+                        <p class="lead mb-5 text-white-50">Graphical representation of monthly scholarship accomplishment per PO</p>
+                        <div class="btn-group mr-2 float-right" role="group">
+                            <a th:href="@{/scholarship}" class="a-header btn btn-info btn-lg" role="button" aria-pressed="true">Back to Scholarship Summary</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <form th:object="${filter}" th:action="@{/scholarship/graph/perPO(month=${filter.month}, year=${filter.year}, scholarshipType=${filter.scholarshipType})}" method="get">
+            <input type="hidden" id="yearValue" th:value="${filter.year}"/>
+            <input type="hidden" id="scholarshipTypeValue" th:value="${filter.scholarshipType}"/>
+            <div class="container">
+                <h1 class="display-5 text-black-50 mb-5">Search Scholarship Accomplishments</h1>
+                <div class="form-group row">
+                    <label for="year" class="col-sm-2 col-form-label">Select Year</label>
+                    <div class="col-sm-10">
+                        <select class="form-control selectpicker" th:field="*{year}" id="year">
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="month" class="col-sm-2 col-form-label">Select Month</label>
+                    <div class="col-sm-10">
+                        <select class="form-control selectpicker" th:field="*{month}" id="month">
+                            <option th:each="month : ${T(com.tesda8.region8.util.enums.Month).values()}"
+                                    th:value="${month}"
+                                    th:text="${month.label}"
+                                    th:selected="${month == filter.month}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="scholarshipType" class="col-sm-2 col-form-label">Select Scholarship Type</label>
+                    <div class="col-sm-10">
+                        <select class="form-control selectpicker" th:field="*{scholarshipType}" id="scholarshipType">
+                            <option th:each="scholarshipType : ${T(com.tesda8.region8.util.enums.ScholarshipType).values()}"
+                                    th:value="${scholarshipType}"
+                                    th:text="${scholarshipType.label}"
+                                    th:selected="${scholarshipType == filter.scholarshipType}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="container mt-5">
+                <div class="btn-group ml-auto" role="group">
+                    <button class="btn btn-primary btn-lg" type="submit" id="submitButton" th:value="Update"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+                </div>
+            </div>
+        </form>
+        <div class="container">
+            <hr class="border"/>
+        </div>
+        <div class="container">
+            <div class="btn-group mr-2" role="group">
+                <button class="btn btn-danger btn-lg" id="downloadGraphButton" type="button"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Export as PDF</button>
+            </div>
+        </div>
+        <div class="container">
+            <div class="container canvas_div_pdf">
+                <div id="graphContainer">
+                    <div class="row">
+                        <div id="enrolledGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                        <div id="graduatedGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                        <div id="assessedGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                        <div id="certifiedGraph" class="mb-5 mt-5" style="height: 305px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"/>
+
+<script src="https://unpkg.com/sticky-table-headers"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+<script  type='text/javascript' src="../../static/js/main.js" th:src="@{/js/main.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+
+<script type='text/javascript' th:src="@{/js/graph/graph_scholarship_per_po.js}"></script>
+</body>
+</html>

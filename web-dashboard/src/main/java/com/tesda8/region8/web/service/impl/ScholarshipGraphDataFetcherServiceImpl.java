@@ -53,12 +53,34 @@ public class ScholarshipGraphDataFetcherServiceImpl implements ScholarshipGraphD
         return service.getDataPoints(dataPointType, sortedScholarshipAccomplishmentList, dataPointsList);
     }
 
+    private List<DataPoints> fetchPerPoDataPoints(DataPointType dataPointType,
+                                                  Long year, Month month, EgacType egacType,
+                                                  ScholarshipType scholarshipType) throws ServiceNotFoundException {
+        List<DataPoints> dataPointsList = Lists.newArrayList();
+        List<ScholarshipAccomplishmentDto> scholarshipAccomplishmentList = scholarshipAccomplishmentService
+                .getAllScholarshipAccomplishmentByMonthAndYearAndType(year, month, scholarshipType);
+        ScholarshipDataPointService service = scholarshipDataPointServiceList
+                .stream()
+                .filter(scholarshipDataPointService -> scholarshipDataPointService.supports().equals(egacType))
+                .findFirst().orElseThrow(ServiceNotFoundException::new);
+        return service.getDataPointsPerPo(dataPointType, scholarshipAccomplishmentList, dataPointsList);
+    }
+
     @Override
     public GraphDataList fetchMonthlyGraphDataList(Long year, EgacType egacType, OperatingUnitType operatingUnitType, ScholarshipType scholarshipType) throws ServiceNotFoundException {
         GraphDataList graphDataList = new GraphDataList().build();
         graphDataList.getTargetData().setDataPoints(fetchDataPoints(DataPointType.TARGET, egacType, year, operatingUnitType, scholarshipType));
         graphDataList.getOutputData().setDataPoints(fetchDataPoints(DataPointType.OUTPUT, egacType, year, operatingUnitType, scholarshipType));
         graphDataList.getRateData().setDataPoints(fetchDataPoints(DataPointType.RATE, egacType, year, operatingUnitType, scholarshipType));
+        return graphDataList;
+    }
+
+    @Override
+    public GraphDataList fetchPerPoGraphDataList(Long year, Month month, EgacType egacType, ScholarshipType scholarshipType) throws ServiceNotFoundException {
+        GraphDataList graphDataList = new GraphDataList().build();
+        graphDataList.getTargetData().setDataPoints(fetchPerPoDataPoints(DataPointType.TARGET, year, month, egacType, scholarshipType));
+        graphDataList.getOutputData().setDataPoints(fetchPerPoDataPoints(DataPointType.OUTPUT, year, month, egacType, scholarshipType));
+        graphDataList.getRateData().setDataPoints(fetchPerPoDataPoints(DataPointType.RATE, year, month, egacType, scholarshipType));
         return graphDataList;
     }
 }

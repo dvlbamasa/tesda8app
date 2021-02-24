@@ -1,5 +1,6 @@
 package com.tesda8.region8.web.restcontroller;
 
+import com.tesda8.region8.util.enums.Month;
 import com.tesda8.region8.util.enums.ScholarshipType;
 import com.tesda8.region8.util.model.DataPoints;
 import com.tesda8.region8.web.model.dto.graph.GraphDataList;
@@ -48,8 +49,8 @@ public class GraphDataRestController {
     @RequestMapping(method = RequestMethod.GET, value = "/generalReport/{dataPointType}/dataPointType/{egacType}/egacType/{reportSourceType}/reportSource/{dailyReportType}/reportType")
     @ResponseBody
     public List<DataPoints> fetchGeneralReportDataPoints(@PathVariable("dataPointType") DataPointType dataPointType,
-                                                         @PathVariable("egacType")EgacType egacType,
-                                                         @PathVariable("reportSourceType")ReportSourceType reportSourceType,
+                                                         @PathVariable("egacType") EgacType egacType,
+                                                         @PathVariable("reportSourceType") ReportSourceType reportSourceType,
                                                          @PathVariable("dailyReportType") DailyReportType dailyReportType) {
         return graphDataFetcherService.fetchGeneralReportsData(dataPointType, egacType, reportSourceType, dailyReportType);
     }
@@ -62,16 +63,16 @@ public class GraphDataRestController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/roPerMode")
     @ResponseBody
-    public GraphDataList fetchROPerModeDataList(@RequestParam("egacType")EgacType egacType,
-                                                @RequestParam("reportSourceType")ReportSourceType reportSourceType) {
+    public GraphDataList fetchROPerModeDataList(@RequestParam("egacType") EgacType egacType,
+                                                @RequestParam("reportSourceType") ReportSourceType reportSourceType) {
         return graphDataFetcherService.fetchROPerModeReportsDataList(egacType, reportSourceType);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/generalReport")
     @ResponseBody
-    public GraphDataList fetchGeneralDataList(@RequestParam("egacType")EgacType egacType,
-                                                    @RequestParam("reportSourceType")ReportSourceType reportSourceType,
-                                                    @RequestParam("dailyReportType")DailyReportType dailyReportType) {
+    public GraphDataList fetchGeneralDataList(@RequestParam("egacType") EgacType egacType,
+                                              @RequestParam("reportSourceType") ReportSourceType reportSourceType,
+                                              @RequestParam("dailyReportType") DailyReportType dailyReportType) {
         return graphDataFetcherService.fetchGeneralDataList(egacType, reportSourceType, dailyReportType);
     }
 
@@ -90,7 +91,7 @@ public class GraphDataRestController {
     @RequestMapping(method = RequestMethod.GET, value = "/monthlyReports/{operatingUnitType}/operatingUnitType/{egacType}/egacType/{year}/year")
     @ResponseBody
     public GraphDataList fetchMonthlyReportDataList(@PathVariable("operatingUnitType") OperatingUnitType operatingUnitType,
-                                                    @PathVariable("egacType")EgacType egacType,
+                                                    @PathVariable("egacType") EgacType egacType,
                                                     @PathVariable("year") int year) {
         return graphDataFetcherService.fetchMonthlyReportDataList(egacType, operatingUnitType, year);
     }
@@ -106,7 +107,16 @@ public class GraphDataRestController {
     public GraphDataList fetchScholarshipDataList(@RequestParam("year") Long year,
                                                   @RequestParam("egacType") EgacType egacType,
                                                   @RequestParam("operatingUnit") OperatingUnitType operatingUnitType,
-                                                  @RequestParam("scholarshipType")ScholarshipType scholarshipType) throws ServiceNotFoundException {
+                                                  @RequestParam("scholarshipType") ScholarshipType scholarshipType) throws ServiceNotFoundException {
         return scholarshipGraphDataFetcherService.fetchMonthlyGraphDataList(year, egacType, operatingUnitType, scholarshipType);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/scholarship/graphData/perPO")
+    @ResponseBody
+    public GraphDataList fetchScholarshipDataListPerPO(@RequestParam("month") Month month,
+                                                       @RequestParam("year") Long year,
+                                                       @RequestParam("egacType") EgacType egacType,
+                                                       @RequestParam("scholarshipType") ScholarshipType scholarshipType) throws ServiceNotFoundException {
+        return scholarshipGraphDataFetcherService.fetchPerPoGraphDataList(year, month, egacType, scholarshipType);
     }
 }

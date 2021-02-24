@@ -1,6 +1,7 @@
 package com.tesda8.region8.web.service;
 
 import com.tesda8.region8.util.enums.EgacType;
+import com.tesda8.region8.util.enums.Month;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.ScholarshipType;
 import com.tesda8.region8.web.model.dto.graph.GraphDataList;
@@ -13,4 +14,9 @@ public interface ScholarshipGraphDataFetcherService {
                                             EgacType egacType,
                                             OperatingUnitType operatingUnitType,
                                             ScholarshipType scholarshipType) throws ServiceNotFoundException;
+
+    GraphDataList fetchPerPoGraphDataList(Long year,
+                                          Month month,
+                                          EgacType egacType,
+                                          ScholarshipType scholarshipType) throws ServiceNotFoundException;
 }

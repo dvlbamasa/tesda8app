@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 
 @Controller
@@ -85,6 +86,17 @@ public class ScholarshipController extends HeaderController {
         model.addAttribute("filter", new ScholarshipGraphFilter(year, scholarshipType));
         addStatusCounterToModel(model);
         return "scholarship/scholarship_graph";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/scholarship/graph/perPO")
+    public String scholarshipGraph(@RequestParam(value = "month", required = false) Month month,
+                                   @RequestParam("year") Long year,
+                                   @RequestParam("scholarshipType") ScholarshipType scholarshipType,
+                                   Model model) {
+        model.addAttribute("filter", new ScholarshipGraphFilter(year,
+                Optional.ofNullable(month).orElse(ApplicationUtil.getCurrentMonth()), scholarshipType));
+        addStatusCounterToModel(model);
+        return "scholarship/scholarship_graph_per_po";
     }
 
     @GetMapping("/dashboard/scholarship/live")
