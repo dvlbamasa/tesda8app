@@ -21,13 +21,13 @@
                         <h1 class="display-4 text-white mt-5 mb-2">Update OPCR</h1>
                         <p class="lead mb-5 text-white-50">Update OPCR target and output values</p>
                         <div class="btn-group mr-2 float-right" role="group">
-                            <a th:href="@{/planning}" class="a-header btn btn-info btn-lg" role="button" aria-pressed="true">Back to OPCR Summary</a>
+                            <a th:href="@{/planning/tti}" class="a-header btn btn-info btn-lg" role="button" aria-pressed="true">Back to OPCR Summary</a>
                         </div>
                     </div>
                 </div>
             </div>
         </header>
-        <form th:object="${papFilter}" th:action="@{/planning/opcr/update/filter}" method="post">
+        <form th:object="${papFilter}" th:action="@{/planning/tti/opcr/update/filter}" method="post">
             <div class="container">
                 <h1 class="display-5 text-black-50 mb-5">Search Success Indicator</h1>
                 <div class="form-group row">
@@ -84,7 +84,7 @@
         </div>
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="tesdpp" role="tabpanel" aria-labelledby="tesdpp-tab">
-                <form id="tesdppForm" th:action="@{/planning/opcr/TESDPP/papGroup/save(updateType = 'PO')}"  th:object="${papData}" method="post">
+                <form id="tesdppForm" th:action="@{/planning/opcr/TESDPP/papGroup/save(updateType = 'TTI')}"  th:object="${papData}" method="post">
                     <fieldset>
                         <th:block th:if="${!papData.tesdppData.isEmpty()}">
                             <div class="container mb-5">
@@ -103,7 +103,7 @@
                                             <th  colspan="2" th:text="${opratingUnitType.label}"></th>
                                         </th:block>
                                         <th:block  sec:authorize="hasAnyRole('ADMIN', 'PLANNING')"
-                                                   th:if="${opratingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL and opratingUnitType.successIndicatorType eq 'PO'}">
+                                                   th:if="${opratingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL and opratingUnitType.successIndicatorType eq 'TTI'}">
                                             <th  colspan="2" th:text="${opratingUnitType.label}"></th>
                                         </th:block>
                                     </th:block>
@@ -126,8 +126,22 @@
                                     <th>Output</th>
                                     <th>Target</th>
                                     <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
                                 </tr>
-                                <tr sec:authorize="hasAnyRole('LEYTE_PO', 'SOUTHERN_LEYTE_PO', 'BILIRAN_PO', 'SAMAR_PO', 'NORTHERN_SAMAR_PO', 'EASTERN_SAMAR_PO')">
+                                <tr sec:authorize="hasAnyRole('RTC_TTI', 'CNVS_TTI', 'PTC_LEYTE_TTI', 'CNSAT_TTI', 'PTC_BILIRAN_TTI', 'PTC_SO_LEYTE_TTI', 'PTC_SAMAR_TTI', 'PTC_E_SAMAR_TTI', 'SNSAT_TTI', 'BNAS_TTI', 'ANAS_TTI', 'PTC_N_SAMAR_TTI', 'BCAT_TTI', 'LNAIS_TTI')">
                                     <th></th>
                                     <th>Target</th>
                                     <th>Measure</th>
@@ -136,44 +150,44 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <th:block th:if="${papData.tesdppData.isEmpty()}">
-                                        <tr>
-                                            <td style="text-align:center" colspan="17">No Data Available</td>
-                                        </tr>
-                                    </th:block>
-                                    <th:block th:each="successIndicator, itemstat : ${papData.tesdppData}">
-                                            <tr>
-                                                <td th:text="${successIndicator.papName}"></td>
-                                                <td>
-                                                    <span th:text="${successIndicator.target}"></span>
-                                                    <th:block th:if="${successIndicator.isPercentage}">
-                                                        <span>&#37;</span>
-                                                    </th:block>
-                                                </td>
-                                                <td th:text="${successIndicator.measures}"></td>
-                                                <th:block th:each="operatingUnitData, itemstat2 : ${successIndicator.operatingUnitDataList}">
-                                                    <th:block th:if="${#authorization.expression('hasAnyRole('''+operatingUnitData.operatingUnitType+''', ''ADMIN'', ''PLANNING'')') and
+                                <th:block th:if="${papData.tesdppData.isEmpty()}">
+                                    <tr>
+                                        <td style="text-align:center" colspan="31">No Data Available</td>
+                                    </tr>
+                                </th:block>
+                                <th:block th:each="successIndicator, itemstat : ${papData.tesdppData}">
+                                    <tr>
+                                        <td th:text="${successIndicator.papName}"></td>
+                                        <td>
+                                            <span th:text="${successIndicator.target}"></span>
+                                            <th:block th:if="${successIndicator.isPercentage}">
+                                                <span>&#37;</span>
+                                            </th:block>
+                                        </td>
+                                        <td th:text="${successIndicator.measures}"></td>
+                                        <th:block th:each="operatingUnitData, itemstat2 : ${successIndicator.ttiDataList}">
+                                            <th:block th:if="${#authorization.expression('hasAnyRole('''+operatingUnitData.operatingUnitType+''', ''ADMIN'', ''PLANNING'')') and
                                                                         operatingUnitData.operatingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                                        <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
-                                                            <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
-                                                                    type="number" onkeypress="return isNumberKey(event)"
-                                                                   th:field="*{tesdppData[__${itemstat.index}__]
-                                                               .operatingUnitDataList[__${itemstat2.index}__]
+                                                <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
+                                                    <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
+                                                           type="number" onkeypress="return isNumberKey(event)"
+                                                           th:field="*{tesdppData[__${itemstat.index}__]
+                                                               .ttiDataList[__${itemstat2.index}__]
                                                                .target}" required/></td>
-                                                        <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
-                                                            <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
-                                                                   type="number" onkeypress="return isNumberKey(event)"
-                                                                   th:field="*{tesdppData[__${itemstat.index}__]
-                                                               .operatingUnitDataList[__${itemstat2.index}__]
+                                                <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
+                                                    <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
+                                                           type="number" onkeypress="return isNumberKey(event)"
+                                                           th:field="*{tesdppData[__${itemstat.index}__]
+                                                               .ttiDataList[__${itemstat2.index}__]
                                                                .output}" required/></td>
-                                                        <input type="hidden" th:field="*{tesdppData[__${itemstat.index}__]
-                                                                        .operatingUnitDataList[__${itemstat2.index}__]
+                                                <input type="hidden" th:field="*{tesdppData[__${itemstat.index}__]
+                                                                        .ttiDataList[__${itemstat2.index}__]
                                                                         .id}" />
-                                                    </th:block>
-                                                </th:block>
-                                            </tr>
-                                            <input type="hidden" th:field="*{tesdppData[__${itemstat.index}__].id}" />
-                                    </th:block>
+                                            </th:block>
+                                        </th:block>
+                                    </tr>
+                                    <input type="hidden" th:field="*{tesdppData[__${itemstat.index}__].id}" />
+                                </th:block>
                                 </tbody>
                             </table>
                         </div>
@@ -181,7 +195,7 @@
                 </form>
             </div>
             <div class="tab-pane fade" id="tesdrp" role="tabpanel" aria-labelledby="tesdrp-tab">
-                <form id="tesdrpForm" th:action="@{/planning/opcr/TESDRP/papGroup/save(updateType = 'PO')}"  th:object="${papData}" method="post">
+                <form id="tesdrpForm" th:action="@{/planning/opcr/TESDRP/papGroup/save(updateType = 'TTI')}"  th:object="${papData}" method="post">
                     <fieldset>
                         <th:block th:if="${!papData.tesdrpData.isEmpty()}">
                             <div class="container mb-5">
@@ -200,7 +214,7 @@
                                             <th  colspan="2" th:text="${opratingUnitType.label}"></th>
                                         </th:block>
                                         <th:block  sec:authorize="hasAnyRole('ADMIN', 'PLANNING')"
-                                                   th:if="${opratingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL and opratingUnitType.successIndicatorType eq 'PO'}">
+                                                   th:if="${opratingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL and opratingUnitType.successIndicatorType eq 'TTI'}">
                                             <th  colspan="2" th:text="${opratingUnitType.label}"></th>
                                         </th:block>
                                     </th:block>
@@ -223,8 +237,22 @@
                                     <th>Output</th>
                                     <th>Target</th>
                                     <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
                                 </tr>
-                                <tr sec:authorize="hasAnyRole('LEYTE_PO', 'SOUTHERN_LEYTE_PO', 'BILIRAN_PO', 'SAMAR_PO', 'NORTHERN_SAMAR_PO', 'EASTERN_SAMAR_PO')">
+                                <tr sec:authorize="hasAnyRole('RTC_TTI', 'CNVS_TTI', 'PTC_LEYTE_TTI', 'CNSAT_TTI', 'PTC_BILIRAN_TTI', 'PTC_SO_LEYTE_TTI', 'PTC_SAMAR_TTI', 'PTC_E_SAMAR_TTI', 'SNSAT_TTI', 'BNAS_TTI', 'ANAS_TTI', 'PTC_N_SAMAR_TTI', 'BCAT_TTI', 'LNAIS_TTI')">
                                     <th></th>
                                     <th>Target</th>
                                     <th>Measure</th>
@@ -235,7 +263,7 @@
                                 <tbody>
                                 <th:block th:if="${papData.tesdrpData.isEmpty()}">
                                     <tr>
-                                        <td style="text-align:center" colspan="17">No Data Available</td>
+                                        <td style="text-align:center" colspan="31">No Data Available</td>
                                     </tr>
                                 </th:block>
                                 <th:block th:each="successIndicator, itemstat : ${papData.tesdrpData}">
@@ -248,23 +276,23 @@
                                             </th:block>
                                         </td>
                                         <td th:text="${successIndicator.measures}"></td>
-                                        <th:block th:each="operatingUnitData, itemstat2 : ${successIndicator.operatingUnitDataList}">
+                                        <th:block th:each="operatingUnitData, itemstat2 : ${successIndicator.ttiDataList}">
                                             <th:block th:if="${#authorization.expression('hasAnyRole('''+operatingUnitData.operatingUnitType+''', ''ADMIN'', ''PLANNING'')') and
                                                                         operatingUnitData.operatingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
                                                 <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
                                                     <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                                            type="number" onkeypress="return isNumberKey(event)"
                                                            th:field="*{tesdrpData[__${itemstat.index}__]
-                                                               .operatingUnitDataList[__${itemstat2.index}__]
+                                                               .ttiDataList[__${itemstat2.index}__]
                                                                .target}" required/></td>
                                                 <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
                                                     <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                                            type="number" onkeypress="return isNumberKey(event)"
                                                            th:field="*{tesdrpData[__${itemstat.index}__]
-                                                               .operatingUnitDataList[__${itemstat2.index}__]
+                                                               .ttiDataList[__${itemstat2.index}__]
                                                                .output}" required/></td>
                                                 <input type="hidden" th:field="*{tesdrpData[__${itemstat.index}__]
-                                                                        .operatingUnitDataList[__${itemstat2.index}__]
+                                                                        .ttiDataList[__${itemstat2.index}__]
                                                                         .id}" />
                                             </th:block>
                                         </th:block>
@@ -278,7 +306,7 @@
                 </form>
             </div>
             <div class="tab-pane fade" id="tesdp" role="tabpanel" aria-labelledby="tesdp-tab">
-                <form id="tesdpForm" th:action="@{/planning/opcr/TESDP/papGroup/save(updateType = 'PO')}"  th:object="${papData}" method="post">
+                <form id="tesdpForm" th:action="@{/planning/opcr/TESDP/papGroup/save(updateType = 'TTI')}"  th:object="${papData}" method="post">
                     <fieldset>
                         <th:block th:if="${!papData.tesdpData.isEmpty()}">
                             <div class="container mb-5">
@@ -297,7 +325,7 @@
                                             <th  colspan="2" th:text="${opratingUnitType.label}"></th>
                                         </th:block>
                                         <th:block  sec:authorize="hasAnyRole('ADMIN', 'PLANNING')"
-                                                   th:if="${opratingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL and opratingUnitType.successIndicatorType eq 'PO'}">
+                                                   th:if="${opratingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL and opratingUnitType.successIndicatorType eq 'TTI'}">
                                             <th  colspan="2" th:text="${opratingUnitType.label}"></th>
                                         </th:block>
                                     </th:block>
@@ -320,8 +348,22 @@
                                     <th>Output</th>
                                     <th>Target</th>
                                     <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
                                 </tr>
-                                <tr sec:authorize="hasAnyRole('LEYTE_PO', 'SOUTHERN_LEYTE_PO', 'BILIRAN_PO', 'SAMAR_PO', 'NORTHERN_SAMAR_PO', 'EASTERN_SAMAR_PO')">
+                                <tr sec:authorize="hasAnyRole('RTC_TTI', 'CNVS_TTI', 'PTC_LEYTE_TTI', 'CNSAT_TTI', 'PTC_BILIRAN_TTI', 'PTC_SO_LEYTE_TTI', 'PTC_SAMAR_TTI', 'PTC_E_SAMAR_TTI', 'SNSAT_TTI', 'BNAS_TTI', 'ANAS_TTI', 'PTC_N_SAMAR_TTI', 'BCAT_TTI', 'LNAIS_TTI')">
                                     <th></th>
                                     <th>Target</th>
                                     <th>Measure</th>
@@ -332,7 +374,7 @@
                                 <tbody>
                                 <th:block th:if="${papData.tesdpData.isEmpty()}">
                                     <tr>
-                                        <td style="text-align:center" colspan="17">No Data Available</td>
+                                        <td style="text-align:center" colspan="31">No Data Available</td>
                                     </tr>
                                 </th:block>
                                 <th:block th:each="successIndicator, itemstat : ${papData.tesdpData}">
@@ -345,23 +387,23 @@
                                             </th:block>
                                         </td>
                                         <td th:text="${successIndicator.measures}"></td>
-                                        <th:block th:each="operatingUnitData, itemstat2 : ${successIndicator.operatingUnitDataList}">
+                                        <th:block th:each="operatingUnitData, itemstat2 : ${successIndicator.ttiDataList}">
                                             <th:block th:if="${#authorization.expression('hasAnyRole('''+operatingUnitData.operatingUnitType+''', ''ADMIN'', ''PLANNING'')') and
                                                                         operatingUnitData.operatingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
                                                 <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
                                                     <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                                            type="number" onkeypress="return isNumberKey(event)"
                                                            th:field="*{tesdpData[__${itemstat.index}__]
-                                                               .operatingUnitDataList[__${itemstat2.index}__]
+                                                               .ttiDataList[__${itemstat2.index}__]
                                                                .target}" required/></td>
                                                 <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
                                                     <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                                            type="number" onkeypress="return isNumberKey(event)"
                                                            th:field="*{tesdpData[__${itemstat.index}__]
-                                                               .operatingUnitDataList[__${itemstat2.index}__]
+                                                               .ttiDataList[__${itemstat2.index}__]
                                                                .output}" required/></td>
                                                 <input type="hidden" th:field="*{tesdpData[__${itemstat.index}__]
-                                                                        .operatingUnitDataList[__${itemstat2.index}__]
+                                                                        .ttiDataList[__${itemstat2.index}__]
                                                                         .id}" />
                                             </th:block>
                                         </th:block>
@@ -375,7 +417,7 @@
                 </form>
             </div>
             <div class="tab-pane fade" id="sto" role="tabpanel" aria-labelledby="sto-tab">
-                <form id="stoForm" th:action="@{/planning/opcr/STO/papGroup/save(updateType = 'PO')}"  th:object="${papData}" method="post">
+                <form id="stoForm" th:action="@{/planning/opcr/STO/papGroup/save(updateType = 'TTI')}"  th:object="${papData}" method="post">
                     <fieldset>
                         <th:block th:if="${!papData.stoData.isEmpty()}">
                             <div class="container mb-5">
@@ -394,7 +436,7 @@
                                             <th  colspan="2" th:text="${opratingUnitType.label}"></th>
                                         </th:block>
                                         <th:block  sec:authorize="hasAnyRole('ADMIN', 'PLANNING')"
-                                                   th:if="${opratingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL and opratingUnitType.successIndicatorType eq 'PO'}">
+                                                   th:if="${opratingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL and opratingUnitType.successIndicatorType eq 'TTI'}">
                                             <th  colspan="2" th:text="${opratingUnitType.label}"></th>
                                         </th:block>
                                     </th:block>
@@ -417,8 +459,22 @@
                                     <th>Output</th>
                                     <th>Target</th>
                                     <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
                                 </tr>
-                                <tr sec:authorize="hasAnyRole('LEYTE_PO', 'SOUTHERN_LEYTE_PO', 'BILIRAN_PO', 'SAMAR_PO', 'NORTHERN_SAMAR_PO', 'EASTERN_SAMAR_PO')">
+                                <tr sec:authorize="hasAnyRole('RTC_TTI', 'CNVS_TTI', 'PTC_LEYTE_TTI', 'CNSAT_TTI', 'PTC_BILIRAN_TTI', 'PTC_SO_LEYTE_TTI', 'PTC_SAMAR_TTI', 'PTC_E_SAMAR_TTI', 'SNSAT_TTI', 'BNAS_TTI', 'ANAS_TTI', 'PTC_N_SAMAR_TTI', 'BCAT_TTI', 'LNAIS_TTI')">
                                     <th></th>
                                     <th>Target</th>
                                     <th>Measure</th>
@@ -429,7 +485,7 @@
                                 <tbody>
                                 <th:block th:if="${papData.stoData.isEmpty()}">
                                     <tr>
-                                        <td style="text-align:center" colspan="17">No Data Available</td>
+                                        <td style="text-align:center" colspan="31">No Data Available</td>
                                     </tr>
                                 </th:block>
                                 <th:block th:each="successIndicator, itemstat : ${papData.stoData}">
@@ -442,23 +498,23 @@
                                             </th:block>
                                         </td>
                                         <td th:text="${successIndicator.measures}"></td>
-                                        <th:block th:each="operatingUnitData, itemstat2 : ${successIndicator.operatingUnitDataList}">
+                                        <th:block th:each="operatingUnitData, itemstat2 : ${successIndicator.ttiDataList}">
                                             <th:block th:if="${#authorization.expression('hasAnyRole('''+operatingUnitData.operatingUnitType+''', ''ADMIN'', ''PLANNING'')') and
                                                                         operatingUnitData.operatingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
                                                 <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
                                                     <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                                            type="number" onkeypress="return isNumberKey(event)"
                                                            th:field="*{stoData[__${itemstat.index}__]
-                                                               .operatingUnitDataList[__${itemstat2.index}__]
+                                                               .ttiDataList[__${itemstat2.index}__]
                                                                .target}" required/></td>
                                                 <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
                                                     <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                                            type="number" onkeypress="return isNumberKey(event)"
                                                            th:field="*{stoData[__${itemstat.index}__]
-                                                               .operatingUnitDataList[__${itemstat2.index}__]
+                                                               .ttiDataList[__${itemstat2.index}__]
                                                                .output}" required/></td>
                                                 <input type="hidden" th:field="*{stoData[__${itemstat.index}__]
-                                                                        .operatingUnitDataList[__${itemstat2.index}__]
+                                                                        .ttiDataList[__${itemstat2.index}__]
                                                                         .id}" />
                                             </th:block>
                                         </th:block>
@@ -472,7 +528,7 @@
                 </form>
             </div>
             <div class="tab-pane fade" id="gass" role="tabpanel" aria-labelledby="gass-tab">
-                <form id="gassForm" th:action="@{/planning/opcr/GASS/papGroup/save(updateType = 'PO')}"  th:object="${papData}" method="post">
+                <form id="gassForm" th:action="@{/planning/opcr/GASS/papGroup/save(updateType = 'TTI')}"  th:object="${papData}" method="post">
                     <fieldset>
                         <th:block th:if="${!papData.gassData.isEmpty()}">
                             <div class="container mb-5">
@@ -491,7 +547,7 @@
                                             <th  colspan="2" th:text="${opratingUnitType.label}"></th>
                                         </th:block>
                                         <th:block  sec:authorize="hasAnyRole('ADMIN', 'PLANNING')"
-                                                   th:if="${opratingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL and opratingUnitType.successIndicatorType eq 'PO'}">
+                                                   th:if="${opratingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL and opratingUnitType.successIndicatorType eq 'TTI'}">
                                             <th  colspan="2" th:text="${opratingUnitType.label}"></th>
                                         </th:block>
                                     </th:block>
@@ -514,8 +570,22 @@
                                     <th>Output</th>
                                     <th>Target</th>
                                     <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
+                                    <th>Target</th>
+                                    <th>Output</th>
                                 </tr>
-                                <tr sec:authorize="hasAnyRole('LEYTE_PO', 'SOUTHERN_LEYTE_PO', 'BILIRAN_PO', 'SAMAR_PO', 'NORTHERN_SAMAR_PO', 'EASTERN_SAMAR_PO')">
+                                <tr sec:authorize="hasAnyRole('RTC_TTI', 'CNVS_TTI', 'PTC_LEYTE_TTI', 'CNSAT_TTI', 'PTC_BILIRAN_TTI', 'PTC_SO_LEYTE_TTI', 'PTC_SAMAR_TTI', 'PTC_E_SAMAR_TTI', 'SNSAT_TTI', 'BNAS_TTI', 'ANAS_TTI', 'PTC_N_SAMAR_TTI', 'BCAT_TTI', 'LNAIS_TTI')">
                                     <th></th>
                                     <th>Target</th>
                                     <th>Measure</th>
@@ -526,7 +596,7 @@
                                 <tbody>
                                 <th:block th:if="${papData.gassData.isEmpty()}">
                                     <tr>
-                                        <td style="text-align:center" colspan="17">No Data Available</td>
+                                        <td style="text-align:center" colspan="31">No Data Available</td>
                                     </tr>
                                 </th:block>
                                 <th:block th:each="successIndicator, itemstat : ${papData.gassData}">
@@ -539,23 +609,23 @@
                                             </th:block>
                                         </td>
                                         <td th:text="${successIndicator.measures}"></td>
-                                        <th:block th:each="operatingUnitData, itemstat2 : ${successIndicator.operatingUnitDataList}">
+                                        <th:block th:each="operatingUnitData, itemstat2 : ${successIndicator.ttiDataList}">
                                             <th:block th:if="${#authorization.expression('hasAnyRole('''+operatingUnitData.operatingUnitType+''', ''ADMIN'', ''PLANNING'')') and
                                                                         operatingUnitData.operatingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
                                                 <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
                                                     <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                                            type="number" onkeypress="return isNumberKey(event)"
                                                            th:field="*{gassData[__${itemstat.index}__]
-                                                               .operatingUnitDataList[__${itemstat2.index}__]
+                                                               .ttiDataList[__${itemstat2.index}__]
                                                                .target}" required/></td>
                                                 <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
                                                     <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                                            type="number" onkeypress="return isNumberKey(event)"
                                                            th:field="*{gassData[__${itemstat.index}__]
-                                                               .operatingUnitDataList[__${itemstat2.index}__]
+                                                               .ttiDataList[__${itemstat2.index}__]
                                                                .output}" required/></td>
                                                 <input type="hidden" th:field="*{gassData[__${itemstat.index}__]
-                                                                        .operatingUnitDataList[__${itemstat2.index}__]
+                                                                        .ttiDataList[__${itemstat2.index}__]
                                                                         .id}" />
                                             </th:block>
                                         </th:block>

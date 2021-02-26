@@ -15,14 +15,14 @@ public interface PapDataService {
 
     List<PapDataDto> getAllPapDataByPapGroupType(PapGroupType papGroupType);
 
-    PapDataWrapper getAllPapDataWrapperByFilter(String measureFilter, String papName, Long year);
+    PapDataWrapper getAllPapDataWrapperByFilter(String measureFilter, String papName, Long year, String role, String pageType);
 
     List<SuccessIndicatorDataDto> getAllSuccessIndicatorsByFilter(PapGroupType papGroupType, String measureFilter,
                                                                   String papName, Long year);
 
     SuccessIndicatorDataDto getSuccessIndicatorData(Long id);
 
-    void updatePapData(List<SuccessIndicatorDataDto> successIndicatorDataDtoList);
+    void updatePapData(List<SuccessIndicatorDataDto> successIndicatorDataDtoList, String updateType);
 
     void updateSuccessIndicators(List<SuccessIndicatorDataDto> successIndicatorDataDtoList);
 

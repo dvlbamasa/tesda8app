@@ -45,7 +45,7 @@ public class PapDataRestController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/update")
     public void updatePapData(@RequestBody  List<SuccessIndicatorDataDto> papDataDtoList) {
-        papDataService.updatePapData(papDataDtoList);
+        papDataService.updatePapData(papDataDtoList, "TTI" );
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/successIndicator/create")

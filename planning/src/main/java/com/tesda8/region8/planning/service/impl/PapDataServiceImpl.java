@@ -18,6 +18,8 @@ import com.tesda8.region8.planning.repository.SuccessIndicatorDataRepository;
 import com.tesda8.region8.planning.service.PapDataService;
 import com.tesda8.region8.util.enums.OperatingUnitPOType;
 import com.tesda8.region8.util.enums.PapGroupType;
+import com.tesda8.region8.util.enums.SuccessIndicatorType;
+import com.tesda8.region8.util.service.ApplicationUtil;
 import com.tesda8.region8.util.service.ReportUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,10 +28,8 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -37,6 +37,9 @@ import java.util.stream.Collectors;
 public class PapDataServiceImpl implements PapDataService {
 
     private static Logger logger = LoggerFactory.getLogger(PapDataServiceImpl.class);
+    private static final String PLANNING_ROLE = "PLANNING";
+    private static final String ADMIN_ROLE = "ADMIN";
+
 
     private PapDataRepository papDataRepository;
     private PlanningMapper planningMapper;
@@ -103,8 +106,11 @@ public class PapDataServiceImpl implements PapDataService {
     }
 
     @Override
-    public PapDataWrapper getAllPapDataWrapperByFilter(String measureFilter, String papNameFilter, Long year) {
+    public PapDataWrapper getAllPapDataWrapperByFilter(String measureFilter, String papNameFilter, Long year, String roleName, String pageType) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
+
+        SuccessIndicatorType successIndicatorTypeFilter = pageType.equals("PO") ?
+                SuccessIndicatorType.RO_PO : SuccessIndicatorType.TTI;
 
         booleanBuilder.and(QSuccessIndicatorData.successIndicatorData.papData.name.toLowerCase().trim()
                 .containsIgnoreCase(Optional.of(papNameFilter.trim()).orElse("")));
@@ -118,6 +124,12 @@ public class PapDataServiceImpl implements PapDataService {
         booleanBuilder.and(QSuccessIndicatorData.successIndicatorData.measures.containsIgnoreCase(
                 Optional.of(measureFilter.trim()).orElse("")));
 
+        BooleanBuilder successIndicatorTypePredicate = new BooleanBuilder();
+        successIndicatorTypePredicate.or(QSuccessIndicatorData.successIndicatorData.successIndicatorType.eq(SuccessIndicatorType.RO_PO_TTI));
+        successIndicatorTypePredicate.or(QSuccessIndicatorData.successIndicatorData.successIndicatorType.eq(successIndicatorTypeFilter));
+
+        booleanBuilder.and(successIndicatorTypePredicate);
+
         Predicate predicate = booleanBuilder.getValue();
 
         List<SuccessIndicatorData> successIndicatorDataList =
@@ -126,6 +138,7 @@ public class PapDataServiceImpl implements PapDataService {
         List<SuccessIndicatorDataDto> successIndicatorDataDtoList = successIndicatorDataList.stream()
                 .map(this::sortOperatingUnitData)
                 .map(successIndicatorData -> planningMapper.successIndicatorToDto(successIndicatorData))
+                .map(successIndicatorDataDto -> filterOperatingUnitData(successIndicatorDataDto, roleName))
                 .collect(Collectors.toList());
 
         PapDataWrapper papDataWrapper = new PapDataWrapper();
@@ -166,6 +179,41 @@ public class PapDataServiceImpl implements PapDataService {
         return successIndicatorData;
     }
 
+    private SuccessIndicatorDataDto filterOperatingUnitData(SuccessIndicatorDataDto successIndicatorDataDto, String role) {
+        String successIndicatorType = ApplicationUtil.getSuccessIndicatorType(role);
+
+        if (role.equals(PLANNING_ROLE) || role.equals(ADMIN_ROLE)) {
+            successIndicatorDataDto.setTtiDataList(
+                    successIndicatorDataDto.getOperatingUnitDataList().stream()
+                            .filter(operatingUnitDataDto -> operatingUnitDataDto.getOperatingUnitType().successIndicatorType.equals("TTI"))
+                            .collect(Collectors.toList())
+            );
+            successIndicatorDataDto.setOperatingUnitDataList(
+                    successIndicatorDataDto.getOperatingUnitDataList().stream()
+                            .filter(operatingUnitDataDto -> operatingUnitDataDto.getOperatingUnitType().successIndicatorType.equals("PO"))
+                            .collect(Collectors.toList())
+            );
+
+        } else {
+            if (successIndicatorType.equals("PO")) {
+                successIndicatorDataDto.setOperatingUnitDataList(
+                        successIndicatorDataDto.getOperatingUnitDataList().stream()
+                                .filter(operatingUnitDataDto -> operatingUnitDataDto.getOperatingUnitType().equals(OperatingUnitPOType.valueOf(role)))
+                                .collect(Collectors.toList())
+                );
+            } else {
+                successIndicatorDataDto.setTtiDataList(
+                        successIndicatorDataDto.getOperatingUnitDataList().stream()
+                                .filter(operatingUnitDataDto -> operatingUnitDataDto.getOperatingUnitType().equals(OperatingUnitPOType.valueOf(role)))
+                                .collect(Collectors.toList())
+                );
+            }
+
+        }
+
+        return successIndicatorDataDto;
+    }
+
     @Override
     public List<SuccessIndicatorDataDto> getAllSuccessIndicatorsByFilter(PapGroupType papGroupType, String measureFilter,
                                                                          String papName, Long year) {
@@ -204,70 +252,79 @@ public class PapDataServiceImpl implements PapDataService {
     }
 
     @Override
-    public void updatePapData(List<SuccessIndicatorDataDto> successIndicatorDataDtoList) {
+    public void updatePapData(List<SuccessIndicatorDataDto> successIndicatorDataDtoList, String updateType) {
         successIndicatorDataDtoList.forEach(
                 successIndicatorDataDto -> {
-                    // total initialize
-                    SuccessIndicatorData successIndicatorData = successIndicatorDataRepository.getOne(successIndicatorDataDto.getId());
 
+                    if (updateType.equals("PO")) {
+                        // total initialize
+                        SuccessIndicatorData successIndicatorData = successIndicatorDataRepository.getOne(successIndicatorDataDto.getId());
 
-                    OperatingUnitDataDto total = new OperatingUnitDataDto();
-                    total.setTarget(successIndicatorData.getTarget());
-                    total.setOutput(0);
+                        OperatingUnitDataDto total = new OperatingUnitDataDto();
+                        total.setTarget(successIndicatorData.getTarget());
+                        total.setOutput(0);
 
-                    OperatingUnitData oldTotal = successIndicatorData.getOperatingUnitDataList()
-                            .stream()
-                            .filter(operatingUnitData -> operatingUnitData.getOperatingUnitType().equals(OperatingUnitPOType.TOTAL))
-                            .findAny().get();
+                        OperatingUnitData oldTotal = successIndicatorData.getOperatingUnitDataList()
+                                .stream()
+                                .filter(operatingUnitData -> operatingUnitData.getOperatingUnitType().equals(OperatingUnitPOType.TOTAL))
+                                .findAny().get();
 
-                    /*
-                         Checks if the OPCR was updated by a PO or an Planning Admin
-                     */
+                        if (successIndicatorDataDto.getOperatingUnitDataList().size() == 1) {
+                            /*
+                            Checks if the OPCR was updated by a PO or a Planning Admin
+                            */
+                            OperatingUnitDataDto operatingUnitDataDto = successIndicatorDataDto.getOperatingUnitDataList().stream()
+                                    .filter(operatingUnitDataDto1 -> operatingUnitDataDto1.getId() != 0)
+                                    .findFirst().orElseThrow(EntityNotFoundException::new);
 
-                    // counts if there are empty OperatingUnitData during update
-                    long emptyPoDataCount = successIndicatorDataDto.getOperatingUnitDataList().stream()
-                            .filter(operatingUnitData -> operatingUnitData.getId() == 0)
-                            .count();
-                    // if count is gt 0, means that a PO updated the OPCR; other operatingUnitData are empty
-                    // if size eq 1, it's only from leyte_po
-                    if (emptyPoDataCount > 0 || successIndicatorDataDto.getOperatingUnitDataList().size() == 1) {
-                        OperatingUnitDataDto operatingUnitDataDto = successIndicatorDataDto.getOperatingUnitDataList().stream()
-                                .filter(operatingUnitDataDto1 -> operatingUnitDataDto1.getId() != 0)
-                                .findFirst().orElseThrow(EntityNotFoundException::new);
-                        OperatingUnitData operatingUnitData = operatingUnitDataRepository.getOne(operatingUnitDataDto.getId());
-                        planningMapper.updatedOperatingUnitData(operatingUnitDataDto, operatingUnitData);
-                        operatingUnitData.setRate(ReportUtil.calculateRate(operatingUnitData.getTarget(), operatingUnitData.getOutput()));
-                        operatingUnitDataRepository.save(operatingUnitData);
+                            OperatingUnitData operatingUnitData = operatingUnitDataRepository.getOne(operatingUnitDataDto.getId());
+                            planningMapper.updatedOperatingUnitData(operatingUnitDataDto, operatingUnitData);
+                            operatingUnitData.setRate(ReportUtil.calculateRate(operatingUnitData.getTarget(), operatingUnitData.getOutput()));
+                            operatingUnitDataRepository.save(operatingUnitData);
 
-                        SuccessIndicatorData successIndicator = successIndicatorDataRepository.getOne(successIndicatorDataDto.getId());
+                            SuccessIndicatorData successIndicator = successIndicatorDataRepository.getOne(successIndicatorDataDto.getId());
 
-                        successIndicator.getOperatingUnitDataList().forEach(
-                                operatingUnitData1 -> {
-                                    if (!operatingUnitData1.getOperatingUnitType().equals(OperatingUnitPOType.TOTAL)) {
-                                        calculateTotal(total, operatingUnitData1);
+                            successIndicator.getOperatingUnitDataList().forEach(
+                                    operatingUnitData1 -> {
+                                        if (!operatingUnitData1.getOperatingUnitType().equals(OperatingUnitPOType.TOTAL) &&
+                                            operatingUnitData1.getOperatingUnitType().successIndicatorType.equals("PO ")) {
+                                            calculateTotal(total, operatingUnitData1);
+                                        }
                                     }
-                                }
-                        );
+                            );
+                        } else {
+                            successIndicatorDataDto.getOperatingUnitDataList().forEach(
+                                    operatingUnitDataDtoInstance -> {
+                                        OperatingUnitData operatingUnitData1 =
+                                                operatingUnitDataRepository.getOne(operatingUnitDataDtoInstance.getId());
+                                        planningMapper.updatedOperatingUnitData(operatingUnitDataDtoInstance, operatingUnitData1);
+                                        operatingUnitData1.setRate(ReportUtil.calculateRate(operatingUnitData1.getTarget(), operatingUnitData1.getOutput()));
+                                        operatingUnitDataRepository.save(operatingUnitData1);
+                                        calculateTotal(total, operatingUnitDataDtoInstance);
+                                    }
+                            );
+                        }
+
+                        if (!successIndicatorData.getIsAccumulated()) {
+                            total.setOutput(total.getOutput()/7);
+                        }
+                        total.setRate(ReportUtil.calculateRate(total.getTarget(), total.getOutput()));
+                        planningMapper.updatedOperatingUnitData(total, oldTotal);
+                        oldTotal.setRate(ReportUtil.calculateRate(oldTotal.getTarget(), oldTotal.getOutput()));
+                        operatingUnitDataRepository.save(oldTotal);
+
                     } else {
-                        successIndicatorDataDto.getOperatingUnitDataList().forEach(
-                                operatingUnitDataDto -> {
+                        successIndicatorDataDto.getTtiDataList().forEach(
+                                operatingUnitDataDtoInstance -> {
                                     OperatingUnitData operatingUnitData1 =
-                                            operatingUnitDataRepository.getOne(operatingUnitDataDto.getId());
-                                    planningMapper.updatedOperatingUnitData(operatingUnitDataDto, operatingUnitData1);
+                                            operatingUnitDataRepository.getOne(operatingUnitDataDtoInstance.getId());
+                                    planningMapper.updatedOperatingUnitData(operatingUnitDataDtoInstance, operatingUnitData1);
                                     operatingUnitData1.setRate(ReportUtil.calculateRate(operatingUnitData1.getTarget(), operatingUnitData1.getOutput()));
                                     operatingUnitDataRepository.save(operatingUnitData1);
-                                    calculateTotal(total, operatingUnitDataDto);
                                 }
                         );
-                    }
 
-                    if (!successIndicatorData.getIsAccumulated()) {
-                        total.setOutput(total.getOutput()/7);
                     }
-                    total.setRate(ReportUtil.calculateRate(total.getTarget(), total.getOutput()));
-                    planningMapper.updatedOperatingUnitData(total, oldTotal);
-                    oldTotal.setRate(ReportUtil.calculateRate(oldTotal.getTarget(), oldTotal.getOutput()));
-                    operatingUnitDataRepository.save(oldTotal);
                  }
         );
     }
@@ -301,29 +358,45 @@ public class PapDataServiceImpl implements PapDataService {
         successIndicatorData.setOperatingUnitDataList(null);
         successIndicatorData.setIsDeleted(false);
 
-        //total initialize
-        OperatingUnitData oldTotal = new OperatingUnitData();
-        oldTotal.setTarget(Long.valueOf(successIndicatorData.getTarget()));
-        oldTotal.setOutput(0L);
-        oldTotal.setOperatingUnitType(OperatingUnitPOType.TOTAL);
-        oldTotal.setSuccessIndicatorData(successIndicatorData);
-
         List<OperatingUnitData> operatingUnitDataList = Lists.newArrayList();
 
-        successIndicatorDataDto.getOperatingUnitDataList().forEach(
-                operatingUnitDataDto -> {
-                    operatingUnitDataDto.setRate(ReportUtil.calculateRate(operatingUnitDataDto.getTarget(), operatingUnitDataDto.getOutput()));
-                    OperatingUnitData operatingUnitData = planningMapper.operatingUnitDataToEntity(operatingUnitDataDto);
-                    operatingUnitData.setSuccessIndicatorData(successIndicatorData);
-                    oldTotal.setOutput(operatingUnitDataDto.getOutput() + oldTotal.getOutput());
-                    operatingUnitDataList.add(operatingUnitData);
-                }
-        );
-        if (!successIndicatorData.getIsAccumulated()) {
-            oldTotal.setOutput(oldTotal.getOutput()/7);
+        if (!successIndicatorDataDto.getSuccessIndicatorType().equals(SuccessIndicatorType.RO_PO)) {
+            successIndicatorDataDto.getOperatingUnitDataList().forEach(
+                    operatingUnitDataDto -> {
+                        if (operatingUnitDataDto.getOperatingUnitType().successIndicatorType.equals("TTI")) {
+                            operatingUnitDataDto.setRate(ReportUtil.calculateRate(operatingUnitDataDto.getTarget(), operatingUnitDataDto.getOutput()));
+                            OperatingUnitData operatingUnitData = planningMapper.operatingUnitDataToEntity(operatingUnitDataDto);
+                            operatingUnitData.setSuccessIndicatorData(successIndicatorData);
+                            operatingUnitDataList.add(operatingUnitData);
+                        }
+                    }
+            );
         }
-        oldTotal.setRate(ReportUtil.calculateRate(oldTotal.getTarget(), oldTotal.getOutput()));
-        operatingUnitDataList.add(oldTotal);
+        if (!successIndicatorDataDto.getSuccessIndicatorType().equals(SuccessIndicatorType.TTI)) {
+            //total initialize
+            OperatingUnitData oldTotal = new OperatingUnitData();
+            oldTotal.setTarget(Long.valueOf(successIndicatorData.getTarget()));
+            oldTotal.setOutput(0L);
+            oldTotal.setOperatingUnitType(OperatingUnitPOType.TOTAL);
+            oldTotal.setSuccessIndicatorData(successIndicatorData);
+
+            successIndicatorDataDto.getOperatingUnitDataList().forEach(
+                    operatingUnitDataDto -> {
+                        if (operatingUnitDataDto.getOperatingUnitType().successIndicatorType.equals("PO")) {
+                            operatingUnitDataDto.setRate(ReportUtil.calculateRate(operatingUnitDataDto.getTarget(), operatingUnitDataDto.getOutput()));
+                            OperatingUnitData operatingUnitData = planningMapper.operatingUnitDataToEntity(operatingUnitDataDto);
+                            operatingUnitData.setSuccessIndicatorData(successIndicatorData);
+                            oldTotal.setOutput(operatingUnitDataDto.getOutput() + oldTotal.getOutput());
+                            operatingUnitDataList.add(operatingUnitData);
+                        }
+                    }
+            );
+            if (!successIndicatorData.getIsAccumulated()) {
+                oldTotal.setOutput(oldTotal.getOutput()/7);
+            }
+            oldTotal.setRate(ReportUtil.calculateRate(oldTotal.getTarget(), oldTotal.getOutput()));
+            operatingUnitDataList.add(oldTotal);
+        }
         successIndicatorData.setOperatingUnitDataList(operatingUnitDataList);
         successIndicatorDataRepository.save(successIndicatorData);
     }

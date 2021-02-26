@@ -14,6 +14,7 @@ import com.tesda8.region8.util.enums.PapGroupType;
 import com.tesda8.region8.util.service.ApplicationUtil;
 import com.tesda8.region8.web.controller.HeaderController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,6 +31,7 @@ import java.util.Optional;
 @Controller
 public class PlanningController extends HeaderController {
 
+
     private PapDataService papDataService;
     private final Long CURRENT_YEAR = ApplicationUtil.getCurrentYear();
 
@@ -41,20 +43,107 @@ public class PlanningController extends HeaderController {
     }
 
     @GetMapping("/planning")
-    public String showPlanning(Model model) {
-        setModelInitialAtributes(model);
-        return "planning/planning";
+    public String showPlanning(Model model, Authentication authentication) {
+        String roleName = ApplicationUtil.trimRoleName(authentication.getAuthorities().toString());
+        if (ApplicationUtil.getSuccessIndicatorType(roleName).equals("PO")) {
+            setModelInitialAtributes(model, roleName, "PO");
+            return "planning/planning";
+        } else {
+            setModelInitialAtributes(model, roleName, "TTI");
+            return "planning/planning_tti";
+        }
+    }
+
+    @GetMapping("/planning/tti")
+    public String showPlanningTTI(Model model, Authentication authentication) {
+        String roleName = ApplicationUtil.trimRoleName(authentication.getAuthorities().toString());
+        setModelInitialAtributes(model, roleName, "TTI");
+        return "planning/planning_tti";
+
     }
 
     @GetMapping("/planning/opcr/update")
-    public String updateOpcr(Model model) {
-        setModelInitialAtributes(model);
-        return "planning/update_opcr";
+    public String updateOpcr(Model model, Authentication authentication) {
+        String roleName = ApplicationUtil.trimRoleName(authentication.getAuthorities().toString());
+        if (ApplicationUtil.getSuccessIndicatorType(roleName).equals("PO")) {
+            setModelInitialAtributes(model, roleName, "PO");
+            return "planning/update_opcr";
+        } else {
+            setModelInitialAtributes(model, roleName, "TTI");
+            return "planning/update_opcr_tti";
+        }
+    }
+
+    @GetMapping("/planning/tti/opcr/update")
+    public String updateTTIOpcr(Model model, Authentication authentication) {
+        String roleName = ApplicationUtil.trimRoleName(authentication.getAuthorities().toString());
+        setModelInitialAtributes(model, roleName, "TTI");
+        return "planning/update_opcr_tti";
+    }
+
+
+    @RequestMapping(method = RequestMethod.POST, value = "/planning/opcr/filter",
+            consumes = "application/x-www-form-urlencoded")
+    public String filterOpcr(PapDataFilterRequest papDataFilterRequest,
+                             BindingResult bindingResult, Model model, Authentication authentication) {
+        String roleName = ApplicationUtil.trimRoleName(authentication.getAuthorities().toString());
+
+        if (ApplicationUtil.getSuccessIndicatorType(roleName).equals("PO")) {
+            setModelAttributesWithFilter(papDataFilterRequest, bindingResult, model, roleName, "PO");
+            return "planning/planning";
+        } else {
+            setModelAttributesWithFilter(papDataFilterRequest, bindingResult, model, roleName, "TTI");
+            return "planning/planning_tti";
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/planning/opcr/update/filter",
+            consumes = "application/x-www-form-urlencoded")
+    public String updateOpcrWithFilter(PapDataFilterRequest papDataFilterRequest,
+                                       BindingResult bindingResult, Model model, Authentication authentication) {
+        String roleName = ApplicationUtil.trimRoleName(authentication.getAuthorities().toString());
+        if (ApplicationUtil.getSuccessIndicatorType(roleName).equals("PO")) {
+            setModelAttributesWithFilter(papDataFilterRequest, bindingResult, model, roleName, "PO");
+            return "planning/update_opcr";
+        } else {
+            setModelAttributesWithFilter(papDataFilterRequest, bindingResult, model, roleName, "TTI");
+            return "planning/update_opcr_tti";
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/planning/tti/opcr/filter",
+            consumes = "application/x-www-form-urlencoded")
+    public String filterTTIOpcr(PapDataFilterRequest papDataFilterRequest,
+                             BindingResult bindingResult, Model model, Authentication authentication) {
+        String roleName = ApplicationUtil.trimRoleName(authentication.getAuthorities().toString());
+        setModelAttributesWithFilter(papDataFilterRequest, bindingResult, model, roleName, "TTI");
+        return "planning/planning_tti";
+
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/planning/tti/opcr/update/filter",
+            consumes = "application/x-www-form-urlencoded")
+    public String updateTTIOpcrWithFilter(PapDataFilterRequest papDataFilterRequest,
+                                       BindingResult bindingResult, Model model, Authentication authentication) {
+        String roleName = ApplicationUtil.trimRoleName(authentication.getAuthorities().toString());
+        setModelAttributesWithFilter(papDataFilterRequest, bindingResult, model, roleName, "TTI");
+        return "planning/update_opcr_tti";
     }
 
     @GetMapping("/planning/successIndicator/update")
-    public String updateSuccessIndicator(Model model) {
-        setModelInitialAtributes(model);
+    public String updateSuccessIndicator(@RequestParam("updateType") String updateType, Model model, Authentication authentication) {
+        String roleName = ApplicationUtil.trimRoleName(authentication.getAuthorities().toString());
+        setModelInitialAtributes(model, roleName, updateType);
+        return "planning/update_success_indicator";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/planning/successIndicator/update/filter",
+            consumes = "application/x-www-form-urlencoded")
+    public String updateSuccessIndicatorWithFilter(@RequestParam("updateType") String updateType,
+                                                   PapDataFilterRequest papDataFilterRequest,
+                                                   BindingResult bindingResult, Model model, Authentication authentication) {
+        String roleName = ApplicationUtil.trimRoleName(authentication.getAuthorities().toString());
+        setModelAttributesWithFilter(papDataFilterRequest, bindingResult, model, roleName, updateType);
         return "planning/update_success_indicator";
     }
 
@@ -74,30 +163,6 @@ public class PlanningController extends HeaderController {
         model.addAttribute("papFilter", new PapDataFilterRequest(Optional.ofNullable(year).orElse(CURRENT_YEAR)));
         addStatusCounterToModel(model);
         return "planning/manage_pap";
-    }
-
-    @RequestMapping(method = RequestMethod.POST, value = "/planning/opcr/update/filter",
-            consumes = "application/x-www-form-urlencoded")
-    public String updateOpcrWithFilter(PapDataFilterRequest papDataFilterRequest,
-                             BindingResult bindingResult, Model model) {
-        setModelAttributesWithFilter(papDataFilterRequest, bindingResult, model);
-        return "planning/update_opcr";
-    }
-
-    @RequestMapping(method = RequestMethod.POST, value = "/planning/successIndicator/update/filter",
-            consumes = "application/x-www-form-urlencoded")
-    public String updateSuccessIndicatorWithFilter(PapDataFilterRequest papDataFilterRequest,
-                                       BindingResult bindingResult, Model model) {
-        setModelAttributesWithFilter(papDataFilterRequest, bindingResult, model);
-        return "planning/update_success_indicator";
-    }
-
-    @RequestMapping(method = RequestMethod.POST, value = "/planning/opcr/filter",
-            consumes = "application/x-www-form-urlencoded")
-    public String filterOpcr(PapDataFilterRequest papDataFilterRequest,
-                             BindingResult bindingResult, Model model) {
-        setModelAttributesWithFilter(papDataFilterRequest, bindingResult, model);
-        return "planning/planning";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/planning/successIndicator/create/filter",
@@ -231,7 +296,8 @@ public class PlanningController extends HeaderController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/planning/opcr/{papGroup}/papGroup/save",
             consumes = "application/x-www-form-urlencoded")
-    public String saveOpcr(@PathVariable("papGroup") PapGroupType papGroupType,
+    public String saveOpcr(@RequestParam("updateType") String updateType,
+                            @PathVariable("papGroup") PapGroupType papGroupType,
                             PapDataWrapper papDataWrapper,
                            BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
@@ -239,19 +305,19 @@ public class PlanningController extends HeaderController {
         }
         switch (papGroupType) {
             case TESDPP:
-                papDataService.updatePapData(papDataWrapper.getTesdppData());
+                papDataService.updatePapData(papDataWrapper.getTesdppData(), updateType);
                 break;
             case TESDRP:
-                papDataService.updatePapData(papDataWrapper.getTesdrpData());
+                papDataService.updatePapData(papDataWrapper.getTesdrpData(), updateType);
                 break;
             case TESDP:
-                papDataService.updatePapData(papDataWrapper.getTesdpData());
+                papDataService.updatePapData(papDataWrapper.getTesdpData(), updateType);
                 break;
             case STO:
-                papDataService.updatePapData(papDataWrapper.getStoData());
+                papDataService.updatePapData(papDataWrapper.getStoData(), updateType);
                 break;
             case GASS:
-                papDataService.updatePapData(papDataWrapper.getGassData());
+                papDataService.updatePapData(papDataWrapper.getGassData(), updateType);
                 break;
             default:
                 break;
@@ -259,18 +325,18 @@ public class PlanningController extends HeaderController {
         return "redirect:/planning";
     }
 
-    private void setModelInitialAtributes(Model model) {
-        PapDataWrapper papDataWrapper = papDataService.getAllPapDataWrapperByFilter("", "", CURRENT_YEAR);
+    private void setModelInitialAtributes(Model model, String role, String pageType) {
+        PapDataWrapper papDataWrapper = papDataService.getAllPapDataWrapperByFilter("", "", CURRENT_YEAR, role, pageType);
         model.addAttribute("papFilter", new PapDataFilterRequest(CURRENT_YEAR));
         model.addAttribute("papData", papDataWrapper);
         addStatusCounterToModel(model);
     }
 
-    private void setModelAttributesWithFilter(PapDataFilterRequest papDataFilterRequest, BindingResult bindingResult, Model model) {
+    private void setModelAttributesWithFilter(PapDataFilterRequest papDataFilterRequest, BindingResult bindingResult, Model model, String role, String pageType) {
         if (bindingResult.hasErrors()) {
             //errors processing
         }
-        PapDataWrapper papDataWrapper = papDataService.getAllPapDataWrapperByFilter(papDataFilterRequest.getSuccessIndicatorMeasure(), papDataFilterRequest.getPapName(), papDataFilterRequest.getYear());
+        PapDataWrapper papDataWrapper = papDataService.getAllPapDataWrapperByFilter(papDataFilterRequest.getSuccessIndicatorMeasure(), papDataFilterRequest.getPapName(), papDataFilterRequest.getYear(), role, pageType);
         model.addAttribute("papFilter", papDataFilterRequest);
         model.addAttribute("papData", papDataWrapper);
         addStatusCounterToModel(model);

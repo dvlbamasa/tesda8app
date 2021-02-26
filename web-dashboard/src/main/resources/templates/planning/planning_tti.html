@@ -21,17 +21,17 @@
                         <h1 class="display-4 text-white mt-5 mb-2">Planning Unit</h1>
                         <p class="lead mb-5 text-white-50">OPCR summary in table format</p>
                         <div class="btn-group mr-2" role="group">
-                            <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/tti}" class="a-header btn btn-success btn-lg" role="button" aria-pressed="true">TTI OPCR</a>
+                            <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning}" class="a-header btn btn-success btn-lg" role="button" aria-pressed="true">PO OPCR</a>
                         </div>
                         <div class="btn-group mr-2 float-right" role="group">
-                            <a th:href="@{/planning/opcr/update}" class="a-header btn btn-success btn-lg" role="button" aria-pressed="true">Update OPCR</a>
-                            <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/successIndicator/update(updateType = 'PO')}" class="a-header btn btn-success btn-lg" role="button" aria-pressed="true">Update Success Indicators</a>
+                            <a th:href="@{/planning/tti/opcr/update}" class="a-header btn btn-success btn-lg" role="button" aria-pressed="true">Update OPCR</a>
+                            <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/successIndicator/update(updateType = 'TTI')}" class="a-header btn btn-success btn-lg" role="button" aria-pressed="true">Update Success Indicators</a>
                         </div>
                     </div>
                 </div>
             </div>
         </header>
-        <form th:object="${papFilter}" th:action="@{/planning/opcr/filter}" method="post">
+        <form th:object="${papFilter}" th:action="@{/planning/tti/opcr/filter}" method="post">
             <div class="container">
                 <h1 class="display-5 text-black-50 mb-5">Search Success Indicator</h1>
                 <div class="form-group row">
@@ -108,8 +108,8 @@
                                 </th:block>
 
                                 <th sec:authorize="hasAnyRole('ADMIN', 'PLANNING')"
-                                    th:if="${opratingUnitType.successIndicatorType eq 'PO'}"
-                                        colspan="3" th:text="${opratingUnitType.label}">
+                                    th:if="${opratingUnitType.successIndicatorType eq 'TTI'}"
+                                    colspan="3" th:text="${opratingUnitType.label}">
                                 </th>
                             </th:block>
                         </tr>
@@ -134,9 +134,21 @@
                             <th>Output</th>
                             <th>Acc.&#37;</th><th>Target</th>
                             <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
                             <th>Acc.&#37;</th>
                         </tr>
-                        <tr sec:authorize="hasAnyRole('LEYTE_PO', 'SOUTHERN_LEYTE_PO', 'BILIRAN_PO', 'SAMAR_PO', 'NORTHERN_SAMAR_PO', 'EASTERN_SAMAR_PO')">
+                        <tr sec:authorize="hasAnyRole('RTC_TTI', 'CNVS_TTI', 'PTC_LEYTE_TTI', 'CNSAT_TTI', 'PTC_BILIRAN_TTI', 'PTC_SO_LEYTE_TTI', 'PTC_SAMAR_TTI', 'PTC_E_SAMAR_TTI', 'SNSAT_TTI', 'BNAS_TTI', 'ANAS_TTI', 'PTC_N_SAMAR_TTI', 'BCAT_TTI', 'LNAIS_TTI')">
                             <th></th>
                             <th>Target</th>
                             <th>Measure</th>
@@ -148,41 +160,41 @@
                         <tbody>
                         <th:block th:if="${papData.tesdppData.isEmpty()}">
                             <tr>
-                                <td style="text-align:center" colspan="27">No Data Available</td>
+                                <td style="text-align:center" colspan="45">No Data Available</td>
                             </tr>
                         </th:block>
                         <th:block th:each="successIndicator, itemstat : *{tesdppData}">
-                                <tr>
-                                    <td th:text="${successIndicator.papName}"></td>
-                                    <td>
-                                        <span th:text="${successIndicator.target}"></span>
-                                        <th:block th:if="${successIndicator.isPercentage}">
-                                            <span>&#37;</span>
-                                        </th:block>
-                                    </td>
-                                    <td th:text="${successIndicator.measures}"></td>
-                                    <th:block th:each="operatingUnitData : ${successIndicator.operatingUnitDataList}">
-                                        <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                            <td class="total-col"><span th:text="${operatingUnitData.target}"></span>
-                                                <th:block th:if="${successIndicator.isPercentage}">
-                                                    <span>&#37;</span>
-                                                </th:block>
-                                            </td>
-                                            <td class="total-col"><span th:text="${operatingUnitData.output}"></span>
-                                                <th:block th:if="${successIndicator.isPercentage}">
-                                                    <span>&#37;</span>
-                                                </th:block>
-                                            </td>
-                                            <td class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                        </th:block>
-                                        <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
-                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
-                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                        </th:block>
+                            <tr>
+                                <td th:text="${successIndicator.papName}"></td>
+                                <td>
+                                    <span th:text="${successIndicator.target}"></span>
+                                    <th:block th:if="${successIndicator.isPercentage}">
+                                        <span>&#37;</span>
                                     </th:block>
-                                </tr>
-                            </th:block>
+                                </td>
+                                <td th:text="${successIndicator.measures}"></td>
+                                <th:block th:each="operatingUnitData : ${successIndicator.ttiDataList}">
+                                    <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
+                                        <td class="total-col"><span th:text="${operatingUnitData.target}"></span>
+                                            <th:block th:if="${successIndicator.isPercentage}">
+                                                <span>&#37;</span>
+                                            </th:block>
+                                        </td>
+                                        <td class="total-col"><span th:text="${operatingUnitData.output}"></span>
+                                            <th:block th:if="${successIndicator.isPercentage}">
+                                                <span>&#37;</span>
+                                            </th:block>
+                                        </td>
+                                        <td class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
+                                    </th:block>
+                                    <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
+                                        <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
+                                        <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
+                                        <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
+                                    </th:block>
+                                </th:block>
+                            </tr>
+                        </th:block>
                         </tbody>
                     </table>
                 </div>
@@ -207,7 +219,7 @@
                                 </th:block>
 
                                 <th sec:authorize="hasAnyRole('ADMIN', 'PLANNING')"
-                                    th:if="${opratingUnitType.successIndicatorType eq 'PO'}"
+                                    th:if="${opratingUnitType.successIndicatorType eq 'TTI'}"
                                     colspan="3" th:text="${opratingUnitType.label}">
                                 </th>
                             </th:block>
@@ -233,9 +245,21 @@
                             <th>Output</th>
                             <th>Acc.&#37;</th><th>Target</th>
                             <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
                             <th>Acc.&#37;</th>
                         </tr>
-                        <tr sec:authorize="hasAnyRole('LEYTE_PO', 'SOUTHERN_LEYTE_PO', 'BILIRAN_PO', 'SAMAR_PO', 'NORTHERN_SAMAR_PO', 'EASTERN_SAMAR_PO')">
+                        <tr sec:authorize="hasAnyRole('RTC_TTI', 'CNVS_TTI', 'PTC_LEYTE_TTI', 'CNSAT_TTI', 'PTC_BILIRAN_TTI', 'PTC_SO_LEYTE_TTI', 'PTC_SAMAR_TTI', 'PTC_E_SAMAR_TTI', 'SNSAT_TTI', 'BNAS_TTI', 'ANAS_TTI', 'PTC_N_SAMAR_TTI', 'BCAT_TTI', 'LNAIS_TTI')">
                             <th></th>
                             <th>Target</th>
                             <th>Measure</th>
@@ -245,43 +269,43 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <th:block th:if="${papData.tesdrpData.isEmpty()}">
-                                <tr>
-                                    <td style="text-align:center" colspan="27">No Data Available</td>
-                                </tr>
-                            </th:block>
-                            <th:block th:each="successIndicator, itemstat : *{tesdrpData}">
-                                <tr>
-                                    <td th:text="${successIndicator.papName}"></td>
-                                    <td>
-                                        <span th:text="${successIndicator.target}"></span>
-                                        <th:block th:if="${successIndicator.isPercentage}">
-                                            <span>&#37;</span>
-                                        </th:block>
-                                    </td>
-                                    <td th:text="${successIndicator.measures}"></td>
-                                    <th:block th:each="operatingUnitData : ${successIndicator.operatingUnitDataList}">
-                                        <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                            <td class="total-col"><span th:text="${operatingUnitData.target}"></span>
-                                                <th:block th:if="${successIndicator.isPercentage}">
-                                                    <span>&#37;</span>
-                                                </th:block>
-                                            </td>
-                                            <td class="total-col"><span th:text="${operatingUnitData.output}"></span>
-                                                <th:block th:if="${successIndicator.isPercentage}">
-                                                    <span>&#37;</span>
-                                                </th:block>
-                                            </td>
-                                            <td class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                        </th:block>
-                                        <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
-                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
-                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                        </th:block>
+                        <th:block th:if="${papData.tesdrpData.isEmpty()}">
+                            <tr>
+                                <td style="text-align:center" colspan="45">No Data Available</td>
+                            </tr>
+                        </th:block>
+                        <th:block th:each="successIndicator, itemstat : *{tesdrpData}">
+                            <tr>
+                                <td th:text="${successIndicator.papName}"></td>
+                                <td>
+                                    <span th:text="${successIndicator.target}"></span>
+                                    <th:block th:if="${successIndicator.isPercentage}">
+                                        <span>&#37;</span>
                                     </th:block>
-                                </tr>
-                            </th:block>
+                                </td>
+                                <td th:text="${successIndicator.measures}"></td>
+                                <th:block th:each="operatingUnitData : ${successIndicator.ttiDataList}">
+                                    <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
+                                        <td class="total-col"><span th:text="${operatingUnitData.target}"></span>
+                                            <th:block th:if="${successIndicator.isPercentage}">
+                                                <span>&#37;</span>
+                                            </th:block>
+                                        </td>
+                                        <td class="total-col"><span th:text="${operatingUnitData.output}"></span>
+                                            <th:block th:if="${successIndicator.isPercentage}">
+                                                <span>&#37;</span>
+                                            </th:block>
+                                        </td>
+                                        <td class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
+                                    </th:block>
+                                    <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
+                                        <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
+                                        <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
+                                        <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
+                                    </th:block>
+                                </th:block>
+                            </tr>
+                        </th:block>
                         </tbody>
                     </table>
                 </div>
@@ -306,7 +330,7 @@
                                 </th:block>
 
                                 <th sec:authorize="hasAnyRole('ADMIN', 'PLANNING')"
-                                    th:if="${opratingUnitType.successIndicatorType eq 'PO'}"
+                                    th:if="${opratingUnitType.successIndicatorType eq 'TTI'}"
                                     colspan="3" th:text="${opratingUnitType.label}">
                                 </th>
                             </th:block>
@@ -332,9 +356,21 @@
                             <th>Output</th>
                             <th>Acc.&#37;</th><th>Target</th>
                             <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
                             <th>Acc.&#37;</th>
                         </tr>
-                        <tr sec:authorize="hasAnyRole('LEYTE_PO', 'SOUTHERN_LEYTE_PO', 'BILIRAN_PO', 'SAMAR_PO', 'NORTHERN_SAMAR_PO', 'EASTERN_SAMAR_PO')">
+                        <tr sec:authorize="hasAnyRole('RTC_TTI', 'CNVS_TTI', 'PTC_LEYTE_TTI', 'CNSAT_TTI', 'PTC_BILIRAN_TTI', 'PTC_SO_LEYTE_TTI', 'PTC_SAMAR_TTI', 'PTC_E_SAMAR_TTI', 'SNSAT_TTI', 'BNAS_TTI', 'ANAS_TTI', 'PTC_N_SAMAR_TTI', 'BCAT_TTI', 'LNAIS_TTI')">
                             <th></th>
                             <th>Target</th>
                             <th>Measure</th>
@@ -344,43 +380,43 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <th:block th:if="${papData.tesdpData.isEmpty()}">
-                                <tr>
-                                    <td style="text-align:center" colspan="27">No Data Available</td>
-                                </tr>
-                            </th:block>
-                            <th:block th:each="successIndicator, itemstat : *{tesdpData}">
-                                <tr>
-                                    <td th:text="${successIndicator.papName}"></td>
-                                    <td>
-                                        <span th:text="${successIndicator.target}"></span>
-                                        <th:block th:if="${successIndicator.isPercentage}">
-                                            <span>&#37;</span>
-                                        </th:block>
-                                    </td>
-                                    <td th:text="${successIndicator.measures}"></td>
-                                    <th:block th:each="operatingUnitData : ${successIndicator.operatingUnitDataList}">
-                                        <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                            <td class="total-col"><span th:text="${operatingUnitData.target}"></span>
-                                                <th:block th:if="${successIndicator.isPercentage}">
-                                                    <span>&#37;</span>
-                                                </th:block>
-                                            </td>
-                                            <td class="total-col"><span th:text="${operatingUnitData.output}"></span>
-                                                <th:block th:if="${successIndicator.isPercentage}">
-                                                    <span>&#37;</span>
-                                                </th:block>
-                                            </td>
-                                            <td class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                        </th:block>
-                                        <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
-                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
-                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                        </th:block>
+                        <th:block th:if="${papData.tesdpData.isEmpty()}">
+                            <tr>
+                                <td style="text-align:center" colspan="45">No Data Available</td>
+                            </tr>
+                        </th:block>
+                        <th:block th:each="successIndicator, itemstat : *{tesdpData}">
+                            <tr>
+                                <td th:text="${successIndicator.papName}"></td>
+                                <td>
+                                    <span th:text="${successIndicator.target}"></span>
+                                    <th:block th:if="${successIndicator.isPercentage}">
+                                        <span>&#37;</span>
                                     </th:block>
-                                </tr>
-                            </th:block>
+                                </td>
+                                <td th:text="${successIndicator.measures}"></td>
+                                <th:block th:each="operatingUnitData : ${successIndicator.ttiDataList}">
+                                    <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
+                                        <td class="total-col"><span th:text="${operatingUnitData.target}"></span>
+                                            <th:block th:if="${successIndicator.isPercentage}">
+                                                <span>&#37;</span>
+                                            </th:block>
+                                        </td>
+                                        <td class="total-col"><span th:text="${operatingUnitData.output}"></span>
+                                            <th:block th:if="${successIndicator.isPercentage}">
+                                                <span>&#37;</span>
+                                            </th:block>
+                                        </td>
+                                        <td class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
+                                    </th:block>
+                                    <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
+                                        <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
+                                        <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
+                                        <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
+                                    </th:block>
+                                </th:block>
+                            </tr>
+                        </th:block>
                         </tbody>
                     </table>
                 </div>
@@ -405,7 +441,7 @@
                                 </th:block>
 
                                 <th sec:authorize="hasAnyRole('ADMIN', 'PLANNING')"
-                                    th:if="${opratingUnitType.successIndicatorType eq 'PO'}"
+                                    th:if="${opratingUnitType.successIndicatorType eq 'TTI'}"
                                     colspan="3" th:text="${opratingUnitType.label}">
                                 </th>
                             </th:block>
@@ -431,9 +467,21 @@
                             <th>Output</th>
                             <th>Acc.&#37;</th><th>Target</th>
                             <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
                             <th>Acc.&#37;</th>
                         </tr>
-                        <tr sec:authorize="hasAnyRole('LEYTE_PO', 'SOUTHERN_LEYTE_PO', 'BILIRAN_PO', 'SAMAR_PO', 'NORTHERN_SAMAR_PO', 'EASTERN_SAMAR_PO')">
+                        <tr sec:authorize="hasAnyRole('RTC_TTI', 'CNVS_TTI', 'PTC_LEYTE_TTI', 'CNSAT_TTI', 'PTC_BILIRAN_TTI', 'PTC_SO_LEYTE_TTI', 'PTC_SAMAR_TTI', 'PTC_E_SAMAR_TTI', 'SNSAT_TTI', 'BNAS_TTI', 'ANAS_TTI', 'PTC_N_SAMAR_TTI', 'BCAT_TTI', 'LNAIS_TTI')">
                             <th></th>
                             <th>Target</th>
                             <th>Measure</th>
@@ -443,43 +491,43 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <th:block th:if="${papData.stoData.isEmpty()}">
-                                <tr>
-                                    <td style="text-align:center" colspan="27">No Data Available</td>
-                                </tr>
-                            </th:block>
-                            <th:block th:each="successIndicator, itemstat : *{stoData}">
-                                <tr>
-                                    <td th:text="${successIndicator.papName}"></td>
-                                    <td>
-                                        <span th:text="${successIndicator.target}"></span>
-                                        <th:block th:if="${successIndicator.isPercentage}">
-                                            <span>&#37;</span>
-                                        </th:block>
-                                    </td>
-                                    <td th:text="${successIndicator.measures}"></td>
-                                    <th:block th:each="operatingUnitData : ${successIndicator.operatingUnitDataList}">
-                                        <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                            <td class="total-col"><span th:text="${operatingUnitData.target}"></span>
-                                                <th:block th:if="${successIndicator.isPercentage}">
-                                                    <span>&#37;</span>
-                                                </th:block>
-                                            </td>
-                                            <td class="total-col"><span th:text="${operatingUnitData.output}"></span>
-                                                <th:block th:if="${successIndicator.isPercentage}">
-                                                    <span>&#37;</span>
-                                                </th:block>
-                                            </td>
-                                            <td class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                        </th:block>
-                                        <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
-                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
-                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                        </th:block>
+                        <th:block th:if="${papData.stoData.isEmpty()}">
+                            <tr>
+                                <td style="text-align:center" colspan="45">No Data Available</td>
+                            </tr>
+                        </th:block>
+                        <th:block th:each="successIndicator, itemstat : *{stoData}">
+                            <tr>
+                                <td th:text="${successIndicator.papName}"></td>
+                                <td>
+                                    <span th:text="${successIndicator.target}"></span>
+                                    <th:block th:if="${successIndicator.isPercentage}">
+                                        <span>&#37;</span>
                                     </th:block>
-                                </tr>
-                            </th:block>
+                                </td>
+                                <td th:text="${successIndicator.measures}"></td>
+                                <th:block th:each="operatingUnitData : ${successIndicator.ttiDataList}">
+                                    <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
+                                        <td class="total-col"><span th:text="${operatingUnitData.target}"></span>
+                                            <th:block th:if="${successIndicator.isPercentage}">
+                                                <span>&#37;</span>
+                                            </th:block>
+                                        </td>
+                                        <td class="total-col"><span th:text="${operatingUnitData.output}"></span>
+                                            <th:block th:if="${successIndicator.isPercentage}">
+                                                <span>&#37;</span>
+                                            </th:block>
+                                        </td>
+                                        <td class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
+                                    </th:block>
+                                    <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
+                                        <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
+                                        <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
+                                        <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
+                                    </th:block>
+                                </th:block>
+                            </tr>
+                        </th:block>
                         </tbody>
                     </table>
                 </div>
@@ -504,7 +552,7 @@
                                 </th:block>
 
                                 <th sec:authorize="hasAnyRole('ADMIN', 'PLANNING')"
-                                    th:if="${opratingUnitType.successIndicatorType eq 'PO'}"
+                                    th:if="${opratingUnitType.successIndicatorType eq 'TTI'}"
                                     colspan="3" th:text="${opratingUnitType.label}">
                                 </th>
                             </th:block>
@@ -530,9 +578,21 @@
                             <th>Output</th>
                             <th>Acc.&#37;</th><th>Target</th>
                             <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
+                            <th>Acc.&#37;</th><th>Target</th>
+                            <th>Output</th>
                             <th>Acc.&#37;</th>
                         </tr>
-                        <tr sec:authorize="hasAnyRole('LEYTE_PO', 'SOUTHERN_LEYTE_PO', 'BILIRAN_PO', 'SAMAR_PO', 'NORTHERN_SAMAR_PO', 'EASTERN_SAMAR_PO')">
+                        <tr sec:authorize="hasAnyRole('RTC_TTI', 'CNVS_TTI', 'PTC_LEYTE_TTI', 'CNSAT_TTI', 'PTC_BILIRAN_TTI', 'PTC_SO_LEYTE_TTI', 'PTC_SAMAR_TTI', 'PTC_E_SAMAR_TTI', 'SNSAT_TTI', 'BNAS_TTI', 'ANAS_TTI', 'PTC_N_SAMAR_TTI', 'BCAT_TTI', 'LNAIS_TTI')">
                             <th></th>
                             <th>Target</th>
                             <th>Measure</th>
@@ -542,43 +602,43 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <th:block th:if="${papData.gassData.isEmpty()}">
-                                <tr>
-                                    <td style="text-align:center" colspan="27">No Data Available</td>
-                                </tr>
-                            </th:block>
-                            <th:block th:each="successIndicator, itemstat : *{gassData}">
-                                <tr>
-                                    <td th:text="${successIndicator.papName}"></td>
-                                    <td>
-                                        <span th:text="${successIndicator.target}"></span>
-                                        <th:block th:if="${successIndicator.isPercentage}">
-                                            <span>&#37;</span>
-                                        </th:block>
-                                    </td>
-                                    <td th:text="${successIndicator.measures}"></td>
-                                    <th:block th:each="operatingUnitData : ${successIndicator.operatingUnitDataList}">
-                                        <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                            <td class="total-col"><span th:text="${operatingUnitData.target}"></span>
-                                                <th:block th:if="${successIndicator.isPercentage}">
-                                                    <span>&#37;</span>
-                                                </th:block>
-                                            </td>
-                                            <td class="total-col"><span th:text="${operatingUnitData.output}"></span>
-                                                <th:block th:if="${successIndicator.isPercentage}">
-                                                    <span>&#37;</span>
-                                                </th:block>
-                                            </td>
-                                            <td class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                        </th:block>
-                                        <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
-                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
-                                            <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
-                                        </th:block>
+                        <th:block th:if="${papData.gassData.isEmpty()}">
+                            <tr>
+                                <td style="text-align:center" colspan="45">No Data Available</td>
+                            </tr>
+                        </th:block>
+                        <th:block th:each="successIndicator, itemstat : *{gassData}">
+                            <tr>
+                                <td th:text="${successIndicator.papName}"></td>
+                                <td>
+                                    <span th:text="${successIndicator.target}"></span>
+                                    <th:block th:if="${successIndicator.isPercentage}">
+                                        <span>&#37;</span>
                                     </th:block>
-                                </tr>
-                            </th:block>
+                                </td>
+                                <td th:text="${successIndicator.measures}"></td>
+                                <th:block th:each="operatingUnitData : ${successIndicator.ttiDataList}">
+                                    <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
+                                        <td class="total-col"><span th:text="${operatingUnitData.target}"></span>
+                                            <th:block th:if="${successIndicator.isPercentage}">
+                                                <span>&#37;</span>
+                                            </th:block>
+                                        </td>
+                                        <td class="total-col"><span th:text="${operatingUnitData.output}"></span>
+                                            <th:block th:if="${successIndicator.isPercentage}">
+                                                <span>&#37;</span>
+                                            </th:block>
+                                        </td>
+                                        <td class="total-col"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
+                                    </th:block>
+                                    <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
+                                        <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.target}"></span></td>
+                                        <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.output}"></span></td>
+                                        <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}"><span th:text="${operatingUnitData.rate}"></span><span>&#37;</span></td>
+                                    </th:block>
+                                </th:block>
+                            </tr>
+                        </th:block>
                         </tbody>
                     </table>
                 </div>

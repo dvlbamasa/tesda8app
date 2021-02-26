@@ -72,7 +72,18 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="target" class="col-sm-2 col-form-label">Target<span class="input-required">*</span></label>
+                    <label for="successIndicatorType" class="col-sm-2 col-form-label">Select Operating Unit<span class="input-required">*</span></label>
+                    <div class="col-sm-10">
+                        <select class="selectpicker" data-width="100%" id="successIndicatorType" name="successIndicatorType" required>
+                            <th:block th:each="successIndicatorType : ${T(com.tesda8.region8.util.enums.SuccessIndicatorType).values()}">
+                                <option th:text="${successIndicatorType.label}"
+                                        th:value="${successIndicatorType}">
+                            </th:block>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="target" class="col-sm-2 col-form-label">Total Target<span class="input-required">*</span></label>
                     <div class="col-sm-10">
                         <input id="target" type="number" onkeypress="return isNumberKey(event)" class="form-control"
                                th:field="*{target}" required/>
@@ -100,14 +111,16 @@
                     </div>
                 </div>
             </div>
-            <div class="container">
-                <div class="table-responsive  mt-5">
+            <div id="poTable" class="container">
+                <h3 class="display-5 text-black-50 mt-5 text-center">Provincial Offices/Regional Office</h3>
+                <div class="table-responsive  mt-2">
                     <table class="table table-striped table-hover table-bordered table-sm">
                         <thead class="thead-dark">
                             <tr>
-                                <th:block th:each="opratingUnitType : ${T(com.tesda8.region8.util.enums.OperatingUnitPOType).values()}">
-                                    <th:block th:if="${opratingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                        <th colspan="2" th:text="${opratingUnitType.label}"></th>
+                                <th:block th:each="operatingUnit : ${T(com.tesda8.region8.util.enums.OperatingUnitPOType).values()}">
+                                    <th:block th:if="${operatingUnit != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL and
+                                                        operatingUnit.successIndicatorType eq 'PO'}">
+                                        <th colspan="2" th:text="${operatingUnit.label}"></th>
                                     </th:block>
                                 </th:block>
                             </tr>
@@ -130,34 +143,94 @@
                         </thead>
                         <tbody>
                             <th:block th:each="operatingUnitData, itemstat : ${successIndicator.operatingUnitDataList}">
-                                <th:block th:if="${operatingUnitData.operatingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
-                                    <th:block th:unless="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).SOUTHERN_LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).EASTERN_SAMAR_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TESDA_RO} ">
-                                        <td class="col-striped"><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                       th:field="*{operatingUnitDataList[__${itemstat.index}__]
-                                                               .target}" required/></td>
-                                        <td class="col-striped"><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                       th:field="*{operatingUnitDataList[__${itemstat.index}__]
-                                                               .output}" required/></td>
-                                    </th:block>
-                                    <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).SOUTHERN_LEYTE_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).EASTERN_SAMAR_PO} or
-                                                                         ${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TESDA_RO} ">
-                                        <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                       th:field="*{operatingUnitDataList[__${itemstat.index}__]
-                                                               .target}" required/></td>
-                                        <td><input type="number" onkeypress="return isNumberKey(event)" class="form-control"
-                                                                       th:field="*{operatingUnitDataList[__${itemstat.index}__]
-                                                               .output}" required/></td>
-                                    </th:block>
+                                <th:block th:if="${operatingUnitData.operatingUnitType ne T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL and
+                                                    operatingUnitData.operatingUnitType.successIndicatorType eq 'PO'}">
+                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
+                                        <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
+                                                type="number" onkeypress="return isNumberKey(event)"
+                                                                   th:field="*{operatingUnitDataList[__${itemstat.index}__]
+                                                           .target}" required/>
+                                    </td>
+                                    <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
+                                        <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
+                                                type="number" onkeypress="return isNumberKey(event)"
+                                                                   th:field="*{operatingUnitDataList[__${itemstat.index}__]
+                                                           .output}" required/>
+                                    </td>
                                     <input type="hidden"
                                                th:field="*{operatingUnitDataList[__${itemstat.index}__]
                                                                .operatingUnitType}"/>
                                 </th:block>
                             </th:block>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="ttiTable">
+                <h3 class="display-5 text-black-50 mt-5 text-center">TESDA Training Institutions</h3>
+                <div class="table-responsive  mt-2">
+                    <table class="table table-striped table-hover table-bordered table-sm">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th:block th:each="operatingUnit : ${T(com.tesda8.region8.util.enums.OperatingUnitPOType).values()}">
+                                <th:block th:if="${operatingUnit != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL and
+                                                        operatingUnit.successIndicatorType eq 'TTI'}">
+                                    <th colspan="2" th:text="${operatingUnit.label}"></th>
+                                </th:block>
+                            </th:block>
+                        </tr>
+                        <tr>
+                            <th>Target</th>
+                            <th>Output</th>
+                            <th>Target</th>
+                            <th>Output</th>
+                            <th>Target</th>
+                            <th>Output</th>
+                            <th>Target</th>
+                            <th>Output</th>
+                            <th>Target</th>
+                            <th>Output</th>
+                            <th>Target</th>
+                            <th>Output</th>
+                            <th>Target</th>
+                            <th>Output</th>
+                            <th>Target</th>
+                            <th>Output</th>
+                            <th>Target</th>
+                            <th>Output</th>
+                            <th>Target</th>
+                            <th>Output</th>
+                            <th>Target</th>
+                            <th>Output</th>
+                            <th>Target</th>
+                            <th>Output</th>
+                            <th>Target</th>
+                            <th>Output</th>
+                            <th>Target</th>
+                            <th>Output</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="operatingUnitData, itemstat : ${successIndicator.operatingUnitDataList}">
+                            <th:block th:if="${operatingUnitData.operatingUnitType ne T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL and
+                                                    operatingUnitData.operatingUnitType.successIndicatorType eq 'TTI'}">
+                                <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
+                                    <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
+                                           type="number" onkeypress="return isNumberKey(event)"
+                                           th:field="*{operatingUnitDataList[__${itemstat.index}__]
+                                                           .target}" required/>
+                                </td>
+                                <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
+                                    <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
+                                           type="number" onkeypress="return isNumberKey(event)"
+                                           th:field="*{operatingUnitDataList[__${itemstat.index}__]
+                                                           .output}" required/>
+                                </td>
+                                <input type="hidden"
+                                       th:field="*{operatingUnitDataList[__${itemstat.index}__]
+                                                               .operatingUnitType}"/>
+                            </th:block>
+                        </th:block>
                         </tbody>
                     </table>
                 </div>

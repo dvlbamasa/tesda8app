@@ -1,3 +1,20 @@
+window.onload = function () {
+    document.getElementById("successIndicatorType").onchange = function() {
+        var selectValue = document.getElementById("successIndicatorType");
+        if (selectValue.value === "RO_PO_TTI") {
+            document.getElementById('poTable').style.display="";
+            document.getElementById('ttiTable').style.display="";
+        } else if (selectValue.value === "RO_PO") {
+            document.getElementById('poTable').style.display="";
+            document.getElementById('ttiTable').style.display="none";
+
+        } else if (selectValue.value === "TTI") {
+            document.getElementById('poTable').style.display="none";
+            document.getElementById('ttiTable').style.display="";
+        }
+    }
+}
+
 
 $("#submitButton").click(function(event) {
     if($('#addSuccessIndicatorForm').valid()) {

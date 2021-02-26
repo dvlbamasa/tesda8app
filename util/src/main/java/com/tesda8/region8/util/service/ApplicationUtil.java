@@ -1,6 +1,7 @@
 package com.tesda8.region8.util.service;
 
 import com.tesda8.region8.util.enums.Month;
+import com.tesda8.region8.util.enums.OperatingUnitPOType;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -54,4 +55,17 @@ public class ApplicationUtil {
     public static String formatLocalDateTimeToString(LocalDateTime dateToConvert) {
         return dateToConvert.format(stringFormatter);
     }
+
+    public static String trimRoleName(String role) {
+        return role.substring(6, role.length()-1);
+    }
+
+    public static String getSuccessIndicatorType(String roleName) {
+        if (roleName.equals("PLANNING") || roleName.equals("ADMIN")) {
+            return "PO";
+        }
+        OperatingUnitPOType operatingUnitPOType = OperatingUnitPOType.valueOf(roleName);
+        return operatingUnitPOType.successIndicatorType;
+    }
+
 }
