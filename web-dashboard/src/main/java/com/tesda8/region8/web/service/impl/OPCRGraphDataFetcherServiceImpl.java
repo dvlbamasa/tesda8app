@@ -33,13 +33,13 @@ public class OPCRGraphDataFetcherServiceImpl implements OPCRGraphDataFetcherServ
         SuccessIndicatorDataDto successIndicatorDataDto = papDataService.getSuccessIndicatorData(successIndicatorId, pageType);
 
         GraphDataList graphDataList = new GraphDataList().build();
-        graphDataList.getTargetData().setDataPoints(fetchDataPoints(DataPointType.TARGET, successIndicatorDataDto, pageType));
-        graphDataList.getOutputData().setDataPoints(fetchDataPoints(DataPointType.OUTPUT, successIndicatorDataDto, pageType));
-        graphDataList.getRateData().setDataPoints(fetchDataPoints(DataPointType.RATE, successIndicatorDataDto, pageType));
+        graphDataList.getTargetData().setDataPoints(fetchDataPoints(DataPointType.TARGET, successIndicatorDataDto));
+        graphDataList.getOutputData().setDataPoints(fetchDataPoints(DataPointType.OUTPUT, successIndicatorDataDto));
+        graphDataList.getRateData().setDataPoints(fetchDataPoints(DataPointType.RATE, successIndicatorDataDto));
         return graphDataList;
     }
 
-    private List<DataPoints> fetchDataPoints(DataPointType dataPointType, SuccessIndicatorDataDto successIndicatorDataDto, String pageType) {
+    private List<DataPoints> fetchDataPoints(DataPointType dataPointType, SuccessIndicatorDataDto successIndicatorDataDto) {
         List<DataPoints> dataPoints = Lists.newArrayList();
         successIndicatorDataDto.getOperatingUnitDataList().forEach(
                 operatingUnitDataDto -> {

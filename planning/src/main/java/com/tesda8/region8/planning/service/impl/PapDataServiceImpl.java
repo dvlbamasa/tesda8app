@@ -259,6 +259,7 @@ public class PapDataServiceImpl implements PapDataService {
         return successIndicatorDataList.stream()
                 .map(this::sortOperatingUnitData)
                 .map(successIndicatorData -> planningMapper.successIndicatorToDto(successIndicatorData))
+                .map(successIndicatorDataDto -> filterOperatingUnitDataDtoForGraph(successIndicatorDataDto, pageType))
                 .collect(Collectors.toList());
     }
 

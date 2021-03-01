@@ -16,9 +16,30 @@ window.onload = function () {
         function(data) {
             var data = data;
             for (var i = 0; i < data.length; i++) {
-                console.log(data[i]);
+                var operatingUnitDataList = data[i].operatingUnitDataList;
+                console.log(operatingUnitDataList);
                 var successIndicator = data[i];
-                generateGraph("/api/graph/successIndicator/" + successIndicator.id + "/dataPoints/" + pageType,
+                var dataPointsTarget = [];
+                var dataPointsOutput = [];
+                var dataPointsRate = [];
+                for (var j = 0; j < operatingUnitDataList.length; j++) {
+                    dataPointsTarget.push({
+                        label: checkLabel(operatingUnitDataList[j].operatingUnitType),
+                        y: operatingUnitDataList[j].target
+                    });
+
+                    dataPointsOutput.push({
+                        label: checkLabel(operatingUnitDataList[j].operatingUnitType),
+                        y: operatingUnitDataList[j].output
+                    });
+
+                    dataPointsRate.push({
+                        label: checkLabel(operatingUnitDataList[j].operatingUnitType),
+                        y: operatingUnitDataList[j].rate
+                    });
+
+                }
+                generateGraph(dataPointsTarget, dataPointsOutput, dataPointsRate,
                     "successIndicatorGraph" + successIndicator.id, successIndicator.papName + " - " + successIndicator.target + (successIndicator.isPercentage ?  '%' : "") + ' ' + successIndicator.measures, "Target", "Total");
 
             }
@@ -27,10 +48,7 @@ window.onload = function () {
 }
 
 
-function generateGraph(urlTarget, chartName, title, legend1, legend2) {
-    var dataPointsTarget = [];
-    var dataPointsOutput = [];
-    var dataPointsRate = [];
+function generateGraph(dataPointsTarget, dataPointsOutput, dataPointsRate,  chartName, title, legend1, legend2) {
     var chart = new CanvasJS.Chart(chartName, {
         animationEnabled: true,
         title:{
@@ -77,30 +95,57 @@ function generateGraph(urlTarget, chartName, title, legend1, legend2) {
             }
         ]
     });
-    $.getJSON(urlTarget, function(data) {
-        var targetData = data.targetData;
-        for (var i = 0; i < targetData.dataPoints.length; i++) {
-            dataPointsTarget.push({
-                label:targetData.dataPoints[i].label,
-                y:targetData.dataPoints[i].value
-            });
-        }
-        var outputData = data.outputData;
-        for (var i = 0; i < outputData.dataPoints.length; i++) {
-            dataPointsOutput.push({
-                label:outputData.dataPoints[i].label,
-                y:outputData.dataPoints[i].value
-            });
-        }
-        var rateData = data.rateData;
-        for (var i = 0; i < rateData.dataPoints.length; i++) {
-            dataPointsRate.push({
-                label:rateData.dataPoints[i].label,
-                y:rateData.dataPoints[i].value
-            });
-        }
-        chart.render();
-    });
+    chart.render();
+}
+
+function checkLabel(label) {
+    switch (label) {
+        case "LEYTE_PO":
+            return "Leyte PO";
+        case "BILIRAN_PO":
+            return "Biliran PO";
+        case "SAMAR_PO":
+            return "Samar PO";
+        case "EASTERN_SAMAR_PO":
+            return "Eastern Samar PO";
+        case "NORTHERN_SAMAR_PO":
+            return "Northern Samar PO";
+        case "SOUTHERN_LEYTE_PO":
+            return "Southern Leyte PO";
+        case "TESDA_RO":
+            return "TESDA RO";
+        case "TOTAL":
+            return "Total";
+        case "RTC_TTI":
+            return "RTC";
+        case "CNVS_TTI":
+            return "CNVS";
+        case "PTC_LEYTE_TTI":
+            return "PTC Leyte";
+        case "CNSAT_TTI":
+            return "CNSAT";
+        case "PTC_BILIRAN_TTI":
+            return "PTC Biliran";
+        case "PTC_SO_LEYTE_TTI":
+            return "PTC S. Leyte";
+        case "PTC_SAMAR_TTI":
+            return "PTC Samar";
+        case "PTC_E_SAMAR_TTI":
+            return "PTC E. Samar";
+        case "SNSAT_TTI":
+            return "SNSAT";
+        case "BNAS_TTI":
+            return "BNAS";
+        case "ANAS_TTI":
+            return "ANAS";
+        case "PTC_N_SAMAR_TTI":
+            return "PTC No. Samar";
+        case "BCAT_TTI":
+            return "BCAT";
+        case "LNAIS_TTI":
+            return "LNAIS";
+    }
+
 }
 
 
