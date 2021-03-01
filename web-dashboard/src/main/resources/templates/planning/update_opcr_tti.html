@@ -169,14 +169,16 @@
                                             <th:block th:if="${#authorization.expression('hasAnyRole('''+operatingUnitData.operatingUnitType+''', ''ADMIN'', ''PLANNING'')') and
                                                                         operatingUnitData.operatingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
                                                 <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
-                                                    <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
+                                                    <input style="width: 80px;" th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                                            type="number" onkeypress="return isNumberKey(event)"
+                                                           min="0"
                                                            th:field="*{tesdppData[__${itemstat.index}__]
                                                                .ttiDataList[__${itemstat2.index}__]
                                                                .target}" required/></td>
                                                 <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
-                                                    <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
+                                                    <input style="width: 80px;" th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                                            type="number" onkeypress="return isNumberKey(event)"
+                                                           min="0"
                                                            th:field="*{tesdppData[__${itemstat.index}__]
                                                                .ttiDataList[__${itemstat2.index}__]
                                                                .output}" required/></td>
@@ -280,14 +282,16 @@
                                             <th:block th:if="${#authorization.expression('hasAnyRole('''+operatingUnitData.operatingUnitType+''', ''ADMIN'', ''PLANNING'')') and
                                                                         operatingUnitData.operatingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
                                                 <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
-                                                    <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
+                                                    <input style="width: 80px;" th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                                            type="number" onkeypress="return isNumberKey(event)"
+                                                           min="0"
                                                            th:field="*{tesdrpData[__${itemstat.index}__]
                                                                .ttiDataList[__${itemstat2.index}__]
                                                                .target}" required/></td>
                                                 <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
-                                                    <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
+                                                    <input style="width: 80px;" th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                                            type="number" onkeypress="return isNumberKey(event)"
+                                                           min="0"
                                                            th:field="*{tesdrpData[__${itemstat.index}__]
                                                                .ttiDataList[__${itemstat2.index}__]
                                                                .output}" required/></td>
@@ -391,14 +395,16 @@
                                             <th:block th:if="${#authorization.expression('hasAnyRole('''+operatingUnitData.operatingUnitType+''', ''ADMIN'', ''PLANNING'')') and
                                                                         operatingUnitData.operatingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
                                                 <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
-                                                    <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
+                                                    <input style="width: 80px;" th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                                            type="number" onkeypress="return isNumberKey(event)"
+                                                           min="0"
                                                            th:field="*{tesdpData[__${itemstat.index}__]
                                                                .ttiDataList[__${itemstat2.index}__]
                                                                .target}" required/></td>
                                                 <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
-                                                    <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
+                                                    <input style="width: 80px;" th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                                            type="number" onkeypress="return isNumberKey(event)"
+                                                           min="0"
                                                            th:field="*{tesdpData[__${itemstat.index}__]
                                                                .ttiDataList[__${itemstat2.index}__]
                                                                .output}" required/></td>
@@ -502,14 +508,16 @@
                                             <th:block th:if="${#authorization.expression('hasAnyRole('''+operatingUnitData.operatingUnitType+''', ''ADMIN'', ''PLANNING'')') and
                                                                         operatingUnitData.operatingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
                                                 <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
-                                                    <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
+                                                    <input style="width: 80px;" th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                                            type="number" onkeypress="return isNumberKey(event)"
+                                                           min="0"
                                                            th:field="*{stoData[__${itemstat.index}__]
                                                                .ttiDataList[__${itemstat2.index}__]
                                                                .target}" required/></td>
                                                 <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
-                                                    <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
+                                                    <input style="width: 80px;" th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                                            type="number" onkeypress="return isNumberKey(event)"
+                                                           min="0"
                                                            th:field="*{stoData[__${itemstat.index}__]
                                                                .ttiDataList[__${itemstat2.index}__]
                                                                .output}" required/></td>
@@ -613,14 +621,16 @@
                                             <th:block th:if="${#authorization.expression('hasAnyRole('''+operatingUnitData.operatingUnitType+''', ''ADMIN'', ''PLANNING'')') and
                                                                         operatingUnitData.operatingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
                                                 <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
-                                                    <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
+                                                    <input style="width: 80px;" th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                                            type="number" onkeypress="return isNumberKey(event)"
+                                                           min="0"
                                                            th:field="*{gassData[__${itemstat.index}__]
                                                                .ttiDataList[__${itemstat2.index}__]
                                                                .target}" required/></td>
                                                 <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
-                                                    <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
+                                                    <input style="width: 80px;" th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                                            type="number" onkeypress="return isNumberKey(event)"
+                                                           min="0"
                                                            th:field="*{gassData[__${itemstat.index}__]
                                                                .ttiDataList[__${itemstat2.index}__]
                                                                .output}" required/></td>

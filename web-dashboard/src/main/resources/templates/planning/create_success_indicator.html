@@ -148,13 +148,15 @@
                                     <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
                                         <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                                 type="number" onkeypress="return isNumberKey(event)"
-                                                                   th:field="*{operatingUnitDataList[__${itemstat.index}__]
+                                               min="0"
+                                               th:field="*{operatingUnitDataList[__${itemstat.index}__]
                                                            .target}" required/>
                                     </td>
                                     <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
                                         <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                                 type="number" onkeypress="return isNumberKey(event)"
-                                                                   th:field="*{operatingUnitDataList[__${itemstat.index}__]
+                                               min="0"
+                                               th:field="*{operatingUnitDataList[__${itemstat.index}__]
                                                            .output}" required/>
                                     </td>
                                     <input type="hidden"
@@ -215,14 +217,16 @@
                             <th:block th:if="${operatingUnitData.operatingUnitType ne T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL and
                                                     operatingUnitData.operatingUnitType.successIndicatorType eq 'TTI'}">
                                 <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
-                                    <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
+                                    <input style="width: 80px;"  th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                            type="number" onkeypress="return isNumberKey(event)"
+                                           min="0"
                                            th:field="*{operatingUnitDataList[__${itemstat.index}__]
                                                            .target}" required/>
                                 </td>
                                 <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
-                                    <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
+                                    <input style="width: 80px;"  th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                            type="number" onkeypress="return isNumberKey(event)"
+                                           min="0"
                                            th:field="*{operatingUnitDataList[__${itemstat.index}__]
                                                            .output}" required/>
                                 </td>
