@@ -3,10 +3,13 @@ package com.tesda8.region8.web.service.impl;
 import com.google.common.collect.Lists;
 import com.tesda8.region8.planning.model.dto.SuccessIndicatorDataDto;
 import com.tesda8.region8.planning.service.PapDataService;
+import com.tesda8.region8.planning.service.impl.PapDataServiceImpl;
 import com.tesda8.region8.util.enums.DataPointType;
 import com.tesda8.region8.util.model.DataPoints;
 import com.tesda8.region8.web.model.dto.graph.GraphDataList;
 import com.tesda8.region8.web.service.OPCRGraphDataFetcherService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,9 @@ public class OPCRGraphDataFetcherServiceImpl implements OPCRGraphDataFetcherServ
 
     private PapDataService papDataService;
 
+    private static Logger logger = LoggerFactory.getLogger(OPCRGraphDataFetcherServiceImpl.class);
+
+
     @Autowired
     public OPCRGraphDataFetcherServiceImpl(PapDataService papDataService) {
         this.papDataService = papDataService;
@@ -24,15 +30,16 @@ public class OPCRGraphDataFetcherServiceImpl implements OPCRGraphDataFetcherServ
 
     @Override
     public GraphDataList fetchOPCRDataList(Long successIndicatorId, String pageType) {
+        SuccessIndicatorDataDto successIndicatorDataDto = papDataService.getSuccessIndicatorData(successIndicatorId, pageType);
+
         GraphDataList graphDataList = new GraphDataList().build();
-        graphDataList.getTargetData().setDataPoints(fetchDataPoints(DataPointType.TARGET, successIndicatorId, pageType));
-        graphDataList.getOutputData().setDataPoints(fetchDataPoints(DataPointType.OUTPUT, successIndicatorId, pageType));
-        graphDataList.getRateData().setDataPoints(fetchDataPoints(DataPointType.RATE, successIndicatorId, pageType));
+        graphDataList.getTargetData().setDataPoints(fetchDataPoints(DataPointType.TARGET, successIndicatorDataDto, pageType));
+        graphDataList.getOutputData().setDataPoints(fetchDataPoints(DataPointType.OUTPUT, successIndicatorDataDto, pageType));
+        graphDataList.getRateData().setDataPoints(fetchDataPoints(DataPointType.RATE, successIndicatorDataDto, pageType));
         return graphDataList;
     }
 
-    private List<DataPoints> fetchDataPoints(DataPointType dataPointType, Long successIndicatorId, String pageType) {
-        SuccessIndicatorDataDto successIndicatorDataDto = papDataService.getSuccessIndicatorData(successIndicatorId, pageType);
+    private List<DataPoints> fetchDataPoints(DataPointType dataPointType, SuccessIndicatorDataDto successIndicatorDataDto, String pageType) {
         List<DataPoints> dataPoints = Lists.newArrayList();
         successIndicatorDataDto.getOperatingUnitDataList().forEach(
                 operatingUnitDataDto -> {
@@ -54,6 +61,7 @@ public class OPCRGraphDataFetcherServiceImpl implements OPCRGraphDataFetcherServ
                     dataPoints.add(newDataPoints);
                 }
         );
+        logger.info("TAGAL BA");
         return dataPoints;
     }
 }

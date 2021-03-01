@@ -215,19 +215,11 @@ public class PapDataServiceImpl implements PapDataService {
     }
 
     private SuccessIndicatorDataDto filterOperatingUnitDataDtoForGraph(SuccessIndicatorDataDto successIndicatorDataDto, String pageType) {
-        if (pageType.equals("PO")) {
-            successIndicatorDataDto.setOperatingUnitDataList(
-                    successIndicatorDataDto.getOperatingUnitDataList().stream()
-                            .filter(operatingUnitDataDto -> operatingUnitDataDto.getOperatingUnitType().successIndicatorType.equals("PO"))
-                            .collect(Collectors.toList())
-            );
-        } else {
-            successIndicatorDataDto.setOperatingUnitDataList(
-                    successIndicatorDataDto.getOperatingUnitDataList().stream()
-                            .filter(operatingUnitDataDto -> operatingUnitDataDto.getOperatingUnitType().successIndicatorType.equals("TTI"))
-                            .collect(Collectors.toList())
-            );
-        }
+        successIndicatorDataDto.setOperatingUnitDataList(
+                successIndicatorDataDto.getOperatingUnitDataList().stream()
+                        .filter(operatingUnitDataDto -> operatingUnitDataDto.getOperatingUnitType().successIndicatorType.equals(pageType))
+                        .collect(Collectors.toList())
+        );
         return successIndicatorDataDto;
     }
 
@@ -235,8 +227,6 @@ public class PapDataServiceImpl implements PapDataService {
     public List<SuccessIndicatorDataDto> getAllSuccessIndicatorsByFilter(PapGroupType papGroupType, String measureFilter,
                                                                          String papName, Long year, String pageType) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
-
-        logger.info("PageType: {}", pageType);
 
         booleanBuilder.and(QSuccessIndicatorData.successIndicatorData.papData.name.toLowerCase().trim()
                 .containsIgnoreCase(Optional.of(papName.trim()).orElse("")));
