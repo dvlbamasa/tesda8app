@@ -481,3 +481,7 @@ div.tesda-logo2 {
 .container-dark {
     background-color: #353a3f;
 }
+
+.opcr-col {
+    min-width: 300px;
+}
