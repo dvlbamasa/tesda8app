@@ -23,16 +23,16 @@ public class OPCRGraphDataFetcherServiceImpl implements OPCRGraphDataFetcherServ
     }
 
     @Override
-    public GraphDataList fetchOPCRDataList(Long successIndicatorId) {
+    public GraphDataList fetchOPCRDataList(Long successIndicatorId, String pageType) {
         GraphDataList graphDataList = new GraphDataList().build();
-        graphDataList.getTargetData().setDataPoints(fetchDataPoints(DataPointType.TARGET, successIndicatorId));
-        graphDataList.getOutputData().setDataPoints(fetchDataPoints(DataPointType.OUTPUT, successIndicatorId));
-        graphDataList.getRateData().setDataPoints(fetchDataPoints(DataPointType.RATE, successIndicatorId));
+        graphDataList.getTargetData().setDataPoints(fetchDataPoints(DataPointType.TARGET, successIndicatorId, pageType));
+        graphDataList.getOutputData().setDataPoints(fetchDataPoints(DataPointType.OUTPUT, successIndicatorId, pageType));
+        graphDataList.getRateData().setDataPoints(fetchDataPoints(DataPointType.RATE, successIndicatorId, pageType));
         return graphDataList;
     }
 
-    private List<DataPoints> fetchDataPoints(DataPointType dataPointType, Long successIndicatorId) {
-        SuccessIndicatorDataDto successIndicatorDataDto = papDataService.getSuccessIndicatorData(successIndicatorId);
+    private List<DataPoints> fetchDataPoints(DataPointType dataPointType, Long successIndicatorId, String pageType) {
+        SuccessIndicatorDataDto successIndicatorDataDto = papDataService.getSuccessIndicatorData(successIndicatorId, pageType);
         List<DataPoints> dataPoints = Lists.newArrayList();
         successIndicatorDataDto.getOperatingUnitDataList().forEach(
                 operatingUnitDataDto -> {

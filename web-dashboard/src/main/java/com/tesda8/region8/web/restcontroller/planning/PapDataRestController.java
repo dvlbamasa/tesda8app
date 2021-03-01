@@ -39,8 +39,9 @@ public class PapDataRestController {
     public List<SuccessIndicatorDataDto> fetchAllSuccessIndicatorsByPapGroupTypeAndMeasure(@PathVariable("papGroupType")PapGroupType papGroupType,
                                                                     @RequestParam("measure") String measure,
                                                                     @RequestParam("papName") String papName,
-                                                                    @RequestParam("year") Long year) {
-        return papDataService.getAllSuccessIndicatorsByFilter(papGroupType, measure, papName, year);
+                                                                    @RequestParam("year") Long year,
+                                                                    @RequestParam("pageType") String pageType) {
+        return papDataService.getAllSuccessIndicatorsByFilter(papGroupType, measure, papName, year, pageType);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/update")

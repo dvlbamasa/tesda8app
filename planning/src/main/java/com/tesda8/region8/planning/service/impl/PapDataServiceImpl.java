@@ -214,13 +214,35 @@ public class PapDataServiceImpl implements PapDataService {
         return successIndicatorDataDto;
     }
 
+    private SuccessIndicatorDataDto filterOperatingUnitDataDtoForGraph(SuccessIndicatorDataDto successIndicatorDataDto, String pageType) {
+        if (pageType.equals("PO")) {
+            successIndicatorDataDto.setOperatingUnitDataList(
+                    successIndicatorDataDto.getOperatingUnitDataList().stream()
+                            .filter(operatingUnitDataDto -> operatingUnitDataDto.getOperatingUnitType().successIndicatorType.equals("PO"))
+                            .collect(Collectors.toList())
+            );
+        } else {
+            successIndicatorDataDto.setOperatingUnitDataList(
+                    successIndicatorDataDto.getOperatingUnitDataList().stream()
+                            .filter(operatingUnitDataDto -> operatingUnitDataDto.getOperatingUnitType().successIndicatorType.equals("TTI"))
+                            .collect(Collectors.toList())
+            );
+        }
+        return successIndicatorDataDto;
+    }
+
     @Override
     public List<SuccessIndicatorDataDto> getAllSuccessIndicatorsByFilter(PapGroupType papGroupType, String measureFilter,
-                                                                         String papName, Long year) {
+                                                                         String papName, Long year, String pageType) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
+
+        logger.info("PageType: {}", pageType);
 
         booleanBuilder.and(QSuccessIndicatorData.successIndicatorData.papData.name.toLowerCase().trim()
                 .containsIgnoreCase(Optional.of(papName.trim()).orElse("")));
+
+        SuccessIndicatorType successIndicatorTypeFilter = pageType.equals("PO") ?
+                SuccessIndicatorType.RO_PO : SuccessIndicatorType.TTI;
 
         booleanBuilder.and(QSuccessIndicatorData.successIndicatorData.papData.papGroupType.eq(papGroupType));
 
@@ -232,6 +254,12 @@ public class PapDataServiceImpl implements PapDataService {
 
         booleanBuilder.and(QSuccessIndicatorData.successIndicatorData.measures.containsIgnoreCase(
                 Optional.of(measureFilter.trim()).orElse("")));
+
+        BooleanBuilder successIndicatorTypePredicate = new BooleanBuilder();
+        successIndicatorTypePredicate.or(QSuccessIndicatorData.successIndicatorData.successIndicatorType.eq(SuccessIndicatorType.RO_PO_TTI));
+        successIndicatorTypePredicate.or(QSuccessIndicatorData.successIndicatorData.successIndicatorType.eq(successIndicatorTypeFilter));
+
+        booleanBuilder.and(successIndicatorTypePredicate);
 
         Predicate predicate = booleanBuilder.getValue();
 
@@ -245,10 +273,11 @@ public class PapDataServiceImpl implements PapDataService {
     }
 
     @Override
-    public SuccessIndicatorDataDto getSuccessIndicatorData(Long id) {
+    public SuccessIndicatorDataDto getSuccessIndicatorData(Long id, String pageType) {
         SuccessIndicatorData successIndicatorData = successIndicatorDataRepository.getOne(id);
         sortOperatingUnitData(successIndicatorData);
-        return planningMapper.successIndicatorToDto(successIndicatorData);
+        SuccessIndicatorDataDto successIndicatorDataDto = planningMapper.successIndicatorToDto(successIndicatorData);
+        return filterOperatingUnitDataDtoForGraph(successIndicatorDataDto, pageType);
     }
 
     @Override

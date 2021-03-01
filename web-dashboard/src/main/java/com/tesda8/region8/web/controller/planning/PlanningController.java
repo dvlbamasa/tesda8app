@@ -233,23 +233,24 @@ public class PlanningController extends HeaderController {
                                 @RequestParam("papName") String papName,
                                 @RequestParam("measure") String measure,
                                 @RequestParam("year") Long year,
+                                @RequestParam("pageType") String pageType,
                                 Model model) {
         List<SuccessIndicatorDataDto> successIndicatorDataDtoList = Lists.newArrayList();
         switch (papGroupType) {
             case TESDPP:
-                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.TESDPP, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR));
+                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.TESDPP, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR), pageType);
                 break;
             case TESDRP:
-                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.TESDRP, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR));
+                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.TESDRP, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR), pageType);
                 break;
             case TESDP:
-                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.TESDP, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR));
+                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.TESDP, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR), pageType);
                 break;
             case STO:
-                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.STO, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR));
+                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.STO, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR), pageType);
                 break;
             case GASS:
-                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.GASS, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR));
+                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.GASS, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR), pageType);
                 break;
             default:
                 break;
@@ -258,6 +259,7 @@ public class PlanningController extends HeaderController {
         model.addAttribute("measure", measure);
         model.addAttribute("papGroupType", papGroupType);
         model.addAttribute("year", year);
+        model.addAttribute("pageType", pageType);
         model.addAttribute("successIndicatorDataDtoList", successIndicatorDataDtoList);
         addStatusCounterToModel(model);
         return "planning/opcr_graph";

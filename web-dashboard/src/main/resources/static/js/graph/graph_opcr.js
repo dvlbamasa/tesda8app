@@ -3,19 +3,22 @@ window.onload = function () {
     var papName = $('#papName').val();
     var measure = $('#measure').val();
     var year = $('#year').val();
+    var pageType = $('#pageType').val();
+
 
     $.getJSON('/api/papData/' + papGroupType + '/papGroup/filter',
         {
             measure: measure,
             papName: papName,
-            year: year
+            year: year,
+            pageType : pageType
         },
         function(data) {
             var data = data;
             for (var i = 0; i < data.length; i++) {
                 console.log(data[i]);
                 var successIndicator = data[i];
-                generateGraph("/api/graph/successIndicator/" + successIndicator.id + "/dataPoints",
+                generateGraph("/api/graph/successIndicator/" + successIndicator.id + "/dataPoints/" + pageType,
                     "successIndicatorGraph" + successIndicator.id, successIndicator.papName + " - " + successIndicator.target + (successIndicator.isPercentage ?  '%' : "") + ' ' + successIndicator.measures, "Target", "Total");
 
             }

@@ -18,9 +18,9 @@ public interface PapDataService {
     PapDataWrapper getAllPapDataWrapperByFilter(String measureFilter, String papName, Long year, String role, String pageType);
 
     List<SuccessIndicatorDataDto> getAllSuccessIndicatorsByFilter(PapGroupType papGroupType, String measureFilter,
-                                                                  String papName, Long year);
+                                                                  String papName, Long year, String pageType);
 
-    SuccessIndicatorDataDto getSuccessIndicatorData(Long id);
+    SuccessIndicatorDataDto getSuccessIndicatorData(Long id, String pageType);
 
     void updatePapData(List<SuccessIndicatorDataDto> successIndicatorDataDtoList, String updateType);
 

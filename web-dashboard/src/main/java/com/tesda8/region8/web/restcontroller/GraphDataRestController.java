@@ -96,10 +96,10 @@ public class GraphDataRestController {
         return graphDataFetcherService.fetchMonthlyReportDataList(egacType, operatingUnitType, year);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/successIndicator/{id}/dataPoints")
+    @RequestMapping(method = RequestMethod.GET, value = "/successIndicator/{id}/dataPoints/{pageType}")
     @ResponseBody
-    public GraphDataList fetchOPCRDataList(@PathVariable("id") Long id) {
-        return opcrGraphDataFetcherService.fetchOPCRDataList(id);
+    public GraphDataList fetchOPCRDataList(@PathVariable("id") Long id, @PathVariable("pageType") String pageType) {
+        return opcrGraphDataFetcherService.fetchOPCRDataList(id, pageType);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/scholarship/graphData")

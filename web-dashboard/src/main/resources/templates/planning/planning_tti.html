@@ -92,7 +92,7 @@
                 <th:block th:if="${!papData.tesdppData.isEmpty()}">
                     <div class="container mb-5">
                         <button onclick="exportTableToExcel('tesdpp-table', 'OPCR - Technical Education and Skills Development Policy Program')" class="btn btn-success btn-lg" id="downloadTable2" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
-                        <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/graph/TESDPP/papGroup(papName=${papFilter.papName}, measure=${papFilter.successIndicatorMeasure}, year=${papFilter.year})}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
+                        <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/graph/TESDPP/papGroup(papName=${papFilter.papName}, measure=${papFilter.successIndicatorMeasure}, year=${papFilter.year}, pageType='TTI')}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                     </div>
                 </th:block>
                 <div class="table-responsive double-scroll">
@@ -203,7 +203,7 @@
                 <th:block th:if="${!papData.tesdrpData.isEmpty()}">
                     <div class="container mb-5">
                         <button onclick="exportTableToExcel('tesdrp-table', 'OPCR - Technical Education and Skills Development Regulatory Program')" class="btn btn-success btn-lg" id="downloadTable2" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
-                        <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/graph/TESDRP/papGroup(papName=${papFilter.papName}, measure=${papFilter.successIndicatorMeasure}, year=${papFilter.year})}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
+                        <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/graph/TESDRP/papGroup(papName=${papFilter.papName}, measure=${papFilter.successIndicatorMeasure}, year=${papFilter.year}, pageType='TTI')}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                     </div>
                 </th:block>
                 <div class="table-responsive double-scroll">
@@ -314,7 +314,7 @@
                 <th:block th:if="${!papData.tesdpData.isEmpty()}">
                     <div class="container mb-5">
                         <button onclick="exportTableToExcel('tesdp-table', 'OPCR - Technical Education and Skills Development Program')" class="btn btn-success btn-lg" id="downloadTable3" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
-                        <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/graph/TESDP/papGroup(papName=${papFilter.papName}, measure=${papFilter.successIndicatorMeasure}, year=${papFilter.year})}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
+                        <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/graph/TESDP/papGroup(papName=${papFilter.papName}, measure=${papFilter.successIndicatorMeasure}, year=${papFilter.year}, pageType='TTI')}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                     </div>
                 </th:block>
                 <div class="table-responsive double-scroll">
@@ -425,7 +425,7 @@
                 <th:block th:if="${!papData.stoData.isEmpty()}">
                     <div class="container mb-5">
                         <button onclick="exportTableToExcel('sto-table', 'OPCR - Support to Operations')" class="btn btn-success btn-lg" id="downloadTable4" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
-                        <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/graph/STO/papGroup(papName=${papFilter.papName}, measure=${papFilter.successIndicatorMeasure}, year=${papFilter.year})}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
+                        <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/graph/STO/papGroup(papName=${papFilter.papName}, measure=${papFilter.successIndicatorMeasure}, year=${papFilter.year}, pageType='TTI')}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                     </div>
                 </th:block>
                 <div class="table-responsive double-scroll">
@@ -536,7 +536,7 @@
                 <th:block th:if="${!papData.gassData.isEmpty()}">
                     <div class="container mb-5">
                         <button onclick="exportTableToExcel('gass-table', 'OPCR - General Administrative Support Servies')" class="btn btn-success btn-lg" id="downloadTable5" type="button"> <i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
-                        <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/graph/GASS/papGroup(papName=${papFilter.papName}, measure=${papFilter.successIndicatorMeasure}, year=${papFilter.year})}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
+                        <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/graph/GASS/papGroup(papName=${papFilter.papName}, measure=${papFilter.successIndicatorMeasure}, year=${papFilter.year}, pageType='TTI')}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                     </div>
                 </th:block>
                 <div class="table-responsive double-scroll">
