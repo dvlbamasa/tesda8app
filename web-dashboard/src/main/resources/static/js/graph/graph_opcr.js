@@ -3,6 +3,7 @@ window.onload = function () {
     var papName = $('#papName').val();
     var measure = $('#measure').val();
     var year = $('#year').val();
+    var month = $('#month').val();
     var pageType = $('#pageType').val();
 
 
@@ -11,6 +12,7 @@ window.onload = function () {
             measure: measure,
             papName: papName,
             year: year,
+            month: month,
             pageType : pageType
         },
         function(data) {

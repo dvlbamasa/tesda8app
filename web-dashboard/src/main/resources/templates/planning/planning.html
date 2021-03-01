@@ -46,6 +46,18 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="month" class="col-sm-2 col-form-label">Select Month</label>
+                    <div class="col-sm-10">
+                        <select class="form-control selectpicker" th:field="*{month}" id="month">
+                            <option th:each="month : ${T(com.tesda8.region8.util.enums.Month).values()}"
+                                    th:value="${month}"
+                                    th:text="${month.label}"
+                                    th:selected="${month == papFilter.month}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="papName" class="col-sm-2 col-form-label">P/A/P</label>
                     <div class="col-sm-10">
                         <input class="form-control" placeholder="Enter P/A/P" id="papName" name="papName" th:value="${papFilter.papName}" type="text" />
@@ -92,7 +104,7 @@
                 <th:block th:if="${!papData.tesdppData.isEmpty()}">
                     <div class="container mb-5">
                         <button onclick="exportTableToExcel('tesdpp-table', 'OPCR - Technical Education and Skills Development Policy Program')" class="btn btn-success btn-lg" id="downloadTable2" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
-                        <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/graph/TESDPP/papGroup(papName=${papFilter.papName}, measure=${papFilter.successIndicatorMeasure}, year=${papFilter.year}, pageType='PO')}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
+                        <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/graph/TESDPP/papGroup(papName=${papFilter.papName}, measure=${papFilter.successIndicatorMeasure}, year=${papFilter.year}, month=${papFilter.month},  pageType='PO')}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                     </div>
                 </th:block>
                 <div class="table-responsive double-scroll">
@@ -101,6 +113,7 @@
                         <tr>
                             <th scope="col" class="opcr-col"> P/A/P</th>
                             <th colspan="2" scope="col" class="opcr-col"> Success Indicators</th>
+                            <th sec:authorize="hasAnyRole('ADMIN', 'PLANNING')"  scope="col"> Type</th>
                             <th:block th:each="opratingUnitType : ${T(com.tesda8.region8.util.enums.OperatingUnitPOType).values()}">
                                 <th:block
                                         th:if="${#authorization.expression('hasRole('''+opratingUnitType+''')') and opratingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
@@ -117,6 +130,7 @@
                             <th></th>
                             <th>Target</th>
                             <th>Measure</th>
+                            <th></th>
                             <th>Target</th>
                             <th>Output</th>
                             <th>Acc.&#37;</th>
@@ -161,6 +175,9 @@
                                         </th:block>
                                     </td>
                                     <td th:text="${successIndicator.measures}"></td>
+                                    <td sec:authorize="hasAnyRole('ADMIN', 'PLANNING')">
+                                        <span th:text="${successIndicator.successIndicatorType.label}"></span>
+                                    </td>
                                     <th:block th:each="operatingUnitData : ${successIndicator.operatingUnitDataList}">
                                         <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
                                             <td class="total-col"><span th:text="${operatingUnitData.target}"></span>
@@ -191,7 +208,7 @@
                 <th:block th:if="${!papData.tesdrpData.isEmpty()}">
                     <div class="container mb-5">
                         <button onclick="exportTableToExcel('tesdrp-table', 'OPCR - Technical Education and Skills Development Regulatory Program')" class="btn btn-success btn-lg" id="downloadTable2" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
-                        <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/graph/TESDRP/papGroup(papName=${papFilter.papName}, measure=${papFilter.successIndicatorMeasure}, year=${papFilter.year}, pageType='PO')}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
+                        <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/graph/TESDRP/papGroup(papName=${papFilter.papName}, measure=${papFilter.successIndicatorMeasure}, year=${papFilter.year}, month=${papFilter.month}, pageType='PO')}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                     </div>
                 </th:block>
                 <div class="table-responsive double-scroll">
@@ -290,7 +307,7 @@
                 <th:block th:if="${!papData.tesdpData.isEmpty()}">
                     <div class="container mb-5">
                         <button onclick="exportTableToExcel('tesdp-table', 'OPCR - Technical Education and Skills Development Program')" class="btn btn-success btn-lg" id="downloadTable3" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
-                        <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/graph/TESDP/papGroup(papName=${papFilter.papName}, measure=${papFilter.successIndicatorMeasure}, year=${papFilter.year}, pageType='PO')}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
+                        <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/graph/TESDP/papGroup(papName=${papFilter.papName}, measure=${papFilter.successIndicatorMeasure}, year=${papFilter.year}, month=${papFilter.month},  pageType='PO')}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                     </div>
                 </th:block>
                 <div class="table-responsive double-scroll">
@@ -389,7 +406,7 @@
                 <th:block th:if="${!papData.stoData.isEmpty()}">
                     <div class="container mb-5">
                         <button onclick="exportTableToExcel('sto-table', 'OPCR - Support to Operations')" class="btn btn-success btn-lg" id="downloadTable4" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
-                        <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/graph/STO/papGroup(papName=${papFilter.papName}, measure=${papFilter.successIndicatorMeasure}, year=${papFilter.year}, pageType='PO')}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
+                        <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/graph/STO/papGroup(papName=${papFilter.papName}, measure=${papFilter.successIndicatorMeasure}, year=${papFilter.year}, month=${papFilter.month},  pageType='PO')}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                     </div>
                 </th:block>
                 <div class="table-responsive double-scroll">
@@ -488,7 +505,7 @@
                 <th:block th:if="${!papData.gassData.isEmpty()}">
                     <div class="container mb-5">
                         <button onclick="exportTableToExcel('gass-table', 'OPCR - General Administrative Support Servies')" class="btn btn-success btn-lg" id="downloadTable5" type="button"> <i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
-                        <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/graph/GASS/papGroup(papName=${papFilter.papName}, measure=${papFilter.successIndicatorMeasure}, year=${papFilter.year}, pageType='PO')}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
+                        <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/planning/graph/GASS/papGroup(papName=${papFilter.papName}, measure=${papFilter.successIndicatorMeasure}, year=${papFilter.year}, month=${papFilter.month},  pageType='PO')}"><button class="btn btn-info btn-lg"><i class="fa fa-bar-chart" aria-hidden="true"></i> Generate Graph</button></a>
                     </div>
                 </th:block>
                 <div class="table-responsive double-scroll">

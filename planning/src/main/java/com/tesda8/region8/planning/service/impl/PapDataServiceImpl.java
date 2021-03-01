@@ -16,6 +16,7 @@ import com.tesda8.region8.planning.repository.OperatingUnitDataRepository;
 import com.tesda8.region8.planning.repository.PapDataRepository;
 import com.tesda8.region8.planning.repository.SuccessIndicatorDataRepository;
 import com.tesda8.region8.planning.service.PapDataService;
+import com.tesda8.region8.util.enums.Month;
 import com.tesda8.region8.util.enums.OperatingUnitPOType;
 import com.tesda8.region8.util.enums.PapGroupType;
 import com.tesda8.region8.util.enums.SuccessIndicatorType;
@@ -28,6 +29,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -106,7 +108,7 @@ public class PapDataServiceImpl implements PapDataService {
     }
 
     @Override
-    public PapDataWrapper getAllPapDataWrapperByFilter(String measureFilter, String papNameFilter, Long year, String roleName, String pageType) {
+    public PapDataWrapper getAllPapDataWrapperByFilter(String measureFilter, String papNameFilter, Long year, Month month, String roleName, String pageType) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
         SuccessIndicatorType successIndicatorTypeFilter = pageType.equals("PO") ?
@@ -138,7 +140,7 @@ public class PapDataServiceImpl implements PapDataService {
         List<SuccessIndicatorDataDto> successIndicatorDataDtoList = successIndicatorDataList.stream()
                 .map(this::sortOperatingUnitData)
                 .map(successIndicatorData -> planningMapper.successIndicatorToDto(successIndicatorData))
-                .map(successIndicatorDataDto -> filterOperatingUnitData(successIndicatorDataDto, roleName))
+                .map(successIndicatorDataDto -> filterOperatingUnitData(successIndicatorDataDto, roleName, month))
                 .collect(Collectors.toList());
 
         PapDataWrapper papDataWrapper = new PapDataWrapper();
@@ -179,18 +181,20 @@ public class PapDataServiceImpl implements PapDataService {
         return successIndicatorData;
     }
 
-    private SuccessIndicatorDataDto filterOperatingUnitData(SuccessIndicatorDataDto successIndicatorDataDto, String role) {
+    private SuccessIndicatorDataDto filterOperatingUnitData(SuccessIndicatorDataDto successIndicatorDataDto, String role, Month month) {
         String successIndicatorType = ApplicationUtil.getSuccessIndicatorType(role);
 
         if (role.equals(PLANNING_ROLE) || role.equals(ADMIN_ROLE)) {
             successIndicatorDataDto.setTtiDataList(
                     successIndicatorDataDto.getOperatingUnitDataList().stream()
                             .filter(operatingUnitDataDto -> operatingUnitDataDto.getOperatingUnitType().successIndicatorType.equals("TTI"))
+                            .filter(operatingUnitDataDto -> operatingUnitDataDto.getMonth().equals(month))
                             .collect(Collectors.toList())
             );
             successIndicatorDataDto.setOperatingUnitDataList(
                     successIndicatorDataDto.getOperatingUnitDataList().stream()
                             .filter(operatingUnitDataDto -> operatingUnitDataDto.getOperatingUnitType().successIndicatorType.equals("PO"))
+                            .filter(operatingUnitDataDto -> operatingUnitDataDto.getMonth().equals(month))
                             .collect(Collectors.toList())
             );
 
@@ -199,12 +203,14 @@ public class PapDataServiceImpl implements PapDataService {
                 successIndicatorDataDto.setOperatingUnitDataList(
                         successIndicatorDataDto.getOperatingUnitDataList().stream()
                                 .filter(operatingUnitDataDto -> operatingUnitDataDto.getOperatingUnitType().equals(OperatingUnitPOType.valueOf(role)))
+                                .filter(operatingUnitDataDto -> operatingUnitDataDto.getMonth().equals(month))
                                 .collect(Collectors.toList())
                 );
             } else {
                 successIndicatorDataDto.setTtiDataList(
                         successIndicatorDataDto.getOperatingUnitDataList().stream()
                                 .filter(operatingUnitDataDto -> operatingUnitDataDto.getOperatingUnitType().equals(OperatingUnitPOType.valueOf(role)))
+                                .filter(operatingUnitDataDto -> operatingUnitDataDto.getMonth().equals(month))
                                 .collect(Collectors.toList())
                 );
             }
@@ -214,10 +220,11 @@ public class PapDataServiceImpl implements PapDataService {
         return successIndicatorDataDto;
     }
 
-    private SuccessIndicatorDataDto filterOperatingUnitDataDtoForGraph(SuccessIndicatorDataDto successIndicatorDataDto, String pageType) {
+    private SuccessIndicatorDataDto filterOperatingUnitDataDtoForGraph(SuccessIndicatorDataDto successIndicatorDataDto, String pageType, Month month) {
         successIndicatorDataDto.setOperatingUnitDataList(
                 successIndicatorDataDto.getOperatingUnitDataList().stream()
                         .filter(operatingUnitDataDto -> operatingUnitDataDto.getOperatingUnitType().successIndicatorType.equals(pageType))
+                        .filter(operatingUnitDataDto -> operatingUnitDataDto.getMonth().equals(month))
                         .collect(Collectors.toList())
         );
         return successIndicatorDataDto;
@@ -225,7 +232,7 @@ public class PapDataServiceImpl implements PapDataService {
 
     @Override
     public List<SuccessIndicatorDataDto> getAllSuccessIndicatorsByFilter(PapGroupType papGroupType, String measureFilter,
-                                                                         String papName, Long year, String pageType) {
+                                                                         String papName, Long year, Month month, String pageType) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
         booleanBuilder.and(QSuccessIndicatorData.successIndicatorData.papData.name.toLowerCase().trim()
@@ -259,7 +266,7 @@ public class PapDataServiceImpl implements PapDataService {
         return successIndicatorDataList.stream()
                 .map(this::sortOperatingUnitData)
                 .map(successIndicatorData -> planningMapper.successIndicatorToDto(successIndicatorData))
-                .map(successIndicatorDataDto -> filterOperatingUnitDataDtoForGraph(successIndicatorDataDto, pageType))
+                .map(successIndicatorDataDto -> filterOperatingUnitDataDtoForGraph(successIndicatorDataDto, pageType, month))
                 .collect(Collectors.toList());
     }
 
@@ -267,12 +274,11 @@ public class PapDataServiceImpl implements PapDataService {
     public SuccessIndicatorDataDto getSuccessIndicatorData(Long id, String pageType) {
         SuccessIndicatorData successIndicatorData = successIndicatorDataRepository.getOne(id);
         sortOperatingUnitData(successIndicatorData);
-        SuccessIndicatorDataDto successIndicatorDataDto = planningMapper.successIndicatorToDto(successIndicatorData);
-        return filterOperatingUnitDataDtoForGraph(successIndicatorDataDto, pageType);
+        return planningMapper.successIndicatorToDto(successIndicatorData);
     }
 
     @Override
-    public void updatePapData(List<SuccessIndicatorDataDto> successIndicatorDataDtoList, String updateType) {
+    public void updatePapData(List<SuccessIndicatorDataDto> successIndicatorDataDtoList, String updateType, Month month) {
         successIndicatorDataDtoList.forEach(
                 successIndicatorDataDto -> {
 
@@ -283,10 +289,12 @@ public class PapDataServiceImpl implements PapDataService {
                         OperatingUnitDataDto total = new OperatingUnitDataDto();
                         total.setTarget(successIndicatorData.getTarget());
                         total.setOutput(0);
+                        total.setMonth(month);
 
                         OperatingUnitData oldTotal = successIndicatorData.getOperatingUnitDataList()
                                 .stream()
                                 .filter(operatingUnitData -> operatingUnitData.getOperatingUnitType().equals(OperatingUnitPOType.TOTAL))
+                                .filter(operatingUnitData -> operatingUnitData.getMonth().equals(month))
                                 .findAny().get();
 
                         if (successIndicatorDataDto.getOperatingUnitDataList().size() == 1) {
@@ -307,7 +315,8 @@ public class PapDataServiceImpl implements PapDataService {
                             successIndicator.getOperatingUnitDataList().forEach(
                                     operatingUnitData1 -> {
                                         if (!operatingUnitData1.getOperatingUnitType().equals(OperatingUnitPOType.TOTAL) &&
-                                            operatingUnitData1.getOperatingUnitType().successIndicatorType.equals("PO ")) {
+                                            operatingUnitData1.getOperatingUnitType().successIndicatorType.equals("PO") &&
+                                            operatingUnitData1.getMonth().equals(month)) {
                                             calculateTotal(total, operatingUnitData1);
                                         }
                                     }
@@ -384,38 +393,51 @@ public class PapDataServiceImpl implements PapDataService {
             successIndicatorDataDto.getOperatingUnitDataList().forEach(
                     operatingUnitDataDto -> {
                         if (operatingUnitDataDto.getOperatingUnitType().successIndicatorType.equals("TTI")) {
-                            operatingUnitDataDto.setRate(ReportUtil.calculateRate(operatingUnitDataDto.getTarget(), operatingUnitDataDto.getOutput()));
-                            OperatingUnitData operatingUnitData = planningMapper.operatingUnitDataToEntity(operatingUnitDataDto);
-                            operatingUnitData.setSuccessIndicatorData(successIndicatorData);
-                            operatingUnitDataList.add(operatingUnitData);
+                            double rate = ReportUtil.calculateRate(operatingUnitDataDto.getTarget(), operatingUnitDataDto.getOutput());
+                            operatingUnitDataDto.setRate(rate);
+                            Arrays.asList(Month.values()).forEach(
+                                    month -> {
+                                        OperatingUnitData operatingUnitData = planningMapper.operatingUnitDataToEntity(operatingUnitDataDto);
+                                        operatingUnitData.setSuccessIndicatorData(successIndicatorData);
+                                        operatingUnitData.setMonth(month);
+                                        operatingUnitDataList.add(operatingUnitData);
+                                    }
+                            );
+
                         }
                     }
             );
         }
         if (!successIndicatorDataDto.getSuccessIndicatorType().equals(SuccessIndicatorType.TTI)) {
             //total initialize
-            OperatingUnitData oldTotal = new OperatingUnitData();
-            oldTotal.setTarget(Long.valueOf(successIndicatorData.getTarget()));
-            oldTotal.setOutput(0L);
-            oldTotal.setOperatingUnitType(OperatingUnitPOType.TOTAL);
-            oldTotal.setSuccessIndicatorData(successIndicatorData);
+            Arrays.asList(Month.values()).forEach(
+                    month -> {
+                        OperatingUnitData total = new OperatingUnitData();
+                        total.setTarget(Long.valueOf(successIndicatorData.getTarget()));
+                        total.setOutput(0L);
+                        total.setOperatingUnitType(OperatingUnitPOType.TOTAL);
+                        total.setSuccessIndicatorData(successIndicatorData);
+                        total.setMonth(month);
 
-            successIndicatorDataDto.getOperatingUnitDataList().forEach(
-                    operatingUnitDataDto -> {
-                        if (operatingUnitDataDto.getOperatingUnitType().successIndicatorType.equals("PO")) {
-                            operatingUnitDataDto.setRate(ReportUtil.calculateRate(operatingUnitDataDto.getTarget(), operatingUnitDataDto.getOutput()));
-                            OperatingUnitData operatingUnitData = planningMapper.operatingUnitDataToEntity(operatingUnitDataDto);
-                            operatingUnitData.setSuccessIndicatorData(successIndicatorData);
-                            oldTotal.setOutput(operatingUnitDataDto.getOutput() + oldTotal.getOutput());
-                            operatingUnitDataList.add(operatingUnitData);
+                        successIndicatorDataDto.getOperatingUnitDataList().forEach(
+                                operatingUnitDataDto -> {
+                                    if (operatingUnitDataDto.getOperatingUnitType().successIndicatorType.equals("PO")) {
+                                        operatingUnitDataDto.setRate(ReportUtil.calculateRate(operatingUnitDataDto.getTarget(), operatingUnitDataDto.getOutput()));
+                                        OperatingUnitData operatingUnitData = planningMapper.operatingUnitDataToEntity(operatingUnitDataDto);
+                                        operatingUnitData.setSuccessIndicatorData(successIndicatorData);
+                                        operatingUnitData.setMonth(month);
+                                        total.setOutput(operatingUnitDataDto.getOutput() + total.getOutput());
+                                        operatingUnitDataList.add(operatingUnitData);
+                                    }
+                                }
+                        );
+                        if (!successIndicatorData.getIsAccumulated()) {
+                            total.setOutput(total.getOutput()/7);
                         }
-                    }
-            );
-            if (!successIndicatorData.getIsAccumulated()) {
-                oldTotal.setOutput(oldTotal.getOutput()/7);
-            }
-            oldTotal.setRate(ReportUtil.calculateRate(oldTotal.getTarget(), oldTotal.getOutput()));
-            operatingUnitDataList.add(oldTotal);
+                        total.setRate(ReportUtil.calculateRate(total.getTarget(), total.getOutput()));
+                        operatingUnitDataList.add(total);
+            });
+
         }
         successIndicatorData.setOperatingUnitDataList(operatingUnitDataList);
         successIndicatorDataRepository.save(successIndicatorData);

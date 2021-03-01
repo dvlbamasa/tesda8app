@@ -9,6 +9,7 @@ import com.tesda8.region8.planning.model.wrapper.PapDataFilterRequest;
 import com.tesda8.region8.planning.model.wrapper.PapDataWrapper;
 import com.tesda8.region8.planning.service.PapDataService;
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
+import com.tesda8.region8.util.enums.Month;
 import com.tesda8.region8.util.enums.OperatingUnitPOType;
 import com.tesda8.region8.util.enums.PapGroupType;
 import com.tesda8.region8.util.service.ApplicationUtil;
@@ -34,6 +35,7 @@ public class PlanningController extends HeaderController {
 
     private PapDataService papDataService;
     private final Long CURRENT_YEAR = ApplicationUtil.getCurrentYear();
+    private final Month CURRENT_MONTH = ApplicationUtil.getCurrentMonth();
 
     @Autowired
     public PlanningController(PapDataService papDataService, RegisteredProgramStatusService registeredProgramStatusService,
@@ -233,24 +235,25 @@ public class PlanningController extends HeaderController {
                                 @RequestParam("papName") String papName,
                                 @RequestParam("measure") String measure,
                                 @RequestParam("year") Long year,
+                                @RequestParam("month") Month month,
                                 @RequestParam("pageType") String pageType,
                                 Model model) {
         List<SuccessIndicatorDataDto> successIndicatorDataDtoList = Lists.newArrayList();
         switch (papGroupType) {
             case TESDPP:
-                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.TESDPP, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR), pageType);
+                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.TESDPP, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR), month, pageType);
                 break;
             case TESDRP:
-                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.TESDRP, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR), pageType);
+                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.TESDRP, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR), month, pageType);
                 break;
             case TESDP:
-                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.TESDP, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR), pageType);
+                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.TESDP, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR), month, pageType);
                 break;
             case STO:
-                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.STO, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR), pageType);
+                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.STO, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR), month, pageType);
                 break;
             case GASS:
-                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.GASS, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR), pageType);
+                successIndicatorDataDtoList = papDataService.getAllSuccessIndicatorsByFilter(PapGroupType.GASS, measure, papName, Optional.ofNullable(year).orElse(CURRENT_YEAR), month, pageType);
                 break;
             default:
                 break;
@@ -259,6 +262,7 @@ public class PlanningController extends HeaderController {
         model.addAttribute("measure", measure);
         model.addAttribute("papGroupType", papGroupType);
         model.addAttribute("year", year);
+        model.addAttribute("month", month);
         model.addAttribute("pageType", pageType);
         model.addAttribute("successIndicatorDataDtoList", successIndicatorDataDtoList);
         addStatusCounterToModel(model);
@@ -299,6 +303,7 @@ public class PlanningController extends HeaderController {
     @RequestMapping(method = RequestMethod.POST, value = "/planning/opcr/{papGroup}/papGroup/save",
             consumes = "application/x-www-form-urlencoded")
     public String saveOpcr(@RequestParam("updateType") String updateType,
+                            @RequestParam("month") Month month,
                             @PathVariable("papGroup") PapGroupType papGroupType,
                             PapDataWrapper papDataWrapper,
                            BindingResult bindingResult, Model model) {
@@ -307,19 +312,19 @@ public class PlanningController extends HeaderController {
         }
         switch (papGroupType) {
             case TESDPP:
-                papDataService.updatePapData(papDataWrapper.getTesdppData(), updateType);
+                papDataService.updatePapData(papDataWrapper.getTesdppData(), updateType, month);
                 break;
             case TESDRP:
-                papDataService.updatePapData(papDataWrapper.getTesdrpData(), updateType);
+                papDataService.updatePapData(papDataWrapper.getTesdrpData(), updateType, month);
                 break;
             case TESDP:
-                papDataService.updatePapData(papDataWrapper.getTesdpData(), updateType);
+                papDataService.updatePapData(papDataWrapper.getTesdpData(), updateType, month);
                 break;
             case STO:
-                papDataService.updatePapData(papDataWrapper.getStoData(), updateType);
+                papDataService.updatePapData(papDataWrapper.getStoData(), updateType, month);
                 break;
             case GASS:
-                papDataService.updatePapData(papDataWrapper.getGassData(), updateType);
+                papDataService.updatePapData(papDataWrapper.getGassData(), updateType, month);
                 break;
             default:
                 break;
@@ -328,8 +333,8 @@ public class PlanningController extends HeaderController {
     }
 
     private void setModelInitialAtributes(Model model, String role, String pageType) {
-        PapDataWrapper papDataWrapper = papDataService.getAllPapDataWrapperByFilter("", "", CURRENT_YEAR, role, pageType);
-        model.addAttribute("papFilter", new PapDataFilterRequest(CURRENT_YEAR));
+        PapDataWrapper papDataWrapper = papDataService.getAllPapDataWrapperByFilter("", "", CURRENT_YEAR, CURRENT_MONTH, role, pageType);
+        model.addAttribute("papFilter", new PapDataFilterRequest(CURRENT_YEAR, CURRENT_MONTH));
         model.addAttribute("papData", papDataWrapper);
         addStatusCounterToModel(model);
     }
@@ -338,7 +343,7 @@ public class PlanningController extends HeaderController {
         if (bindingResult.hasErrors()) {
             //errors processing
         }
-        PapDataWrapper papDataWrapper = papDataService.getAllPapDataWrapperByFilter(papDataFilterRequest.getSuccessIndicatorMeasure(), papDataFilterRequest.getPapName(), papDataFilterRequest.getYear(), role, pageType);
+        PapDataWrapper papDataWrapper = papDataService.getAllPapDataWrapperByFilter(papDataFilterRequest.getSuccessIndicatorMeasure(), papDataFilterRequest.getPapName(), papDataFilterRequest.getYear(), papDataFilterRequest.getMonth(), role, pageType);
         model.addAttribute("papFilter", papDataFilterRequest);
         model.addAttribute("papData", papDataWrapper);
         addStatusCounterToModel(model);

@@ -3,6 +3,7 @@ package com.tesda8.region8.planning.model.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tesda8.region8.planning.service.audit.listener.OperatingUnitDataAuditListener;
+import com.tesda8.region8.util.enums.Month;
 import com.tesda8.region8.util.enums.OperatingUnitPOType;
 import com.tesda8.region8.util.model.Auditable;
 import lombok.Data;
@@ -29,6 +30,9 @@ public class OperatingUnitData extends Auditable<String> {
     private Long output;
 
     private Double rate;
+
+    @Enumerated(EnumType.STRING)
+    private Month month;
 
     @ManyToOne
     @JoinColumn(name = "success_indicator_data_id", nullable = false)

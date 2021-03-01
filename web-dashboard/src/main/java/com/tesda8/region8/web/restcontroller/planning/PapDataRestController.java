@@ -3,7 +3,9 @@ package com.tesda8.region8.web.restcontroller.planning;
 import com.tesda8.region8.planning.model.dto.PapDataDto;
 import com.tesda8.region8.planning.model.dto.SuccessIndicatorDataDto;
 import com.tesda8.region8.planning.service.PapDataService;
+import com.tesda8.region8.util.enums.Month;
 import com.tesda8.region8.util.enums.PapGroupType;
+import com.tesda8.region8.util.service.ApplicationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,13 +42,14 @@ public class PapDataRestController {
                                                                     @RequestParam("measure") String measure,
                                                                     @RequestParam("papName") String papName,
                                                                     @RequestParam("year") Long year,
+                                                                    @RequestParam("month") Month month,
                                                                     @RequestParam("pageType") String pageType) {
-        return papDataService.getAllSuccessIndicatorsByFilter(papGroupType, measure, papName, year, pageType);
+        return papDataService.getAllSuccessIndicatorsByFilter(papGroupType, measure, papName, year, month, pageType);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/update")
     public void updatePapData(@RequestBody  List<SuccessIndicatorDataDto> papDataDtoList) {
-        papDataService.updatePapData(papDataDtoList, "TTI" );
+        papDataService.updatePapData(papDataDtoList, "TTI", ApplicationUtil.getCurrentMonth());
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/successIndicator/create")

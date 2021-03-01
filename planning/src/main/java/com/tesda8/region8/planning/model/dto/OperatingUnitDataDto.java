@@ -1,5 +1,6 @@
 package com.tesda8.region8.planning.model.dto;
 
+import com.tesda8.region8.util.enums.Month;
 import com.tesda8.region8.util.enums.OperatingUnitPOType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ public class OperatingUnitDataDto {
     private long target;
     private long output;
     private double rate;
+    private Month month;
     private OperatingUnitPOType operatingUnitType;
 
 }

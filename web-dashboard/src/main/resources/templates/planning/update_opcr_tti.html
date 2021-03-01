@@ -84,7 +84,7 @@
         </div>
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="tesdpp" role="tabpanel" aria-labelledby="tesdpp-tab">
-                <form id="tesdppForm" th:action="@{/planning/opcr/TESDPP/papGroup/save(updateType = 'TTI')}"  th:object="${papData}" method="post">
+                <form id="tesdppForm" th:action="@{/planning/opcr/TESDPP/papGroup/save(updateType = 'TTI', month = ${papFilter.month})}"  th:object="${papData}" method="post">
                     <fieldset>
                         <th:block th:if="${!papData.tesdppData.isEmpty()}">
                             <div class="container mb-5">
@@ -185,6 +185,9 @@
                                                 <input type="hidden" th:field="*{tesdppData[__${itemstat.index}__]
                                                                         .ttiDataList[__${itemstat2.index}__]
                                                                         .id}" />
+                                                <input type="hidden" th:field="*{tesdppData[__${itemstat.index}__]
+                                                                        .ttiDataList[__${itemstat2.index}__]
+                                                                        .month}" />
                                             </th:block>
                                         </th:block>
                                     </tr>
@@ -197,7 +200,7 @@
                 </form>
             </div>
             <div class="tab-pane fade" id="tesdrp" role="tabpanel" aria-labelledby="tesdrp-tab">
-                <form id="tesdrpForm" th:action="@{/planning/opcr/TESDRP/papGroup/save(updateType = 'TTI')}"  th:object="${papData}" method="post">
+                <form id="tesdrpForm" th:action="@{/planning/opcr/TESDRP/papGroup/save(updateType = 'TTI', month = ${papFilter.month})}"  th:object="${papData}" method="post">
                     <fieldset>
                         <th:block th:if="${!papData.tesdrpData.isEmpty()}">
                             <div class="container mb-5">
@@ -298,6 +301,9 @@
                                                 <input type="hidden" th:field="*{tesdrpData[__${itemstat.index}__]
                                                                         .ttiDataList[__${itemstat2.index}__]
                                                                         .id}" />
+                                                <input type="hidden" th:field="*{tesdrpData[__${itemstat.index}__]
+                                                                        .ttiDataList[__${itemstat2.index}__]
+                                                                        .month}" />
                                             </th:block>
                                         </th:block>
                                     </tr>
@@ -310,7 +316,7 @@
                 </form>
             </div>
             <div class="tab-pane fade" id="tesdp" role="tabpanel" aria-labelledby="tesdp-tab">
-                <form id="tesdpForm" th:action="@{/planning/opcr/TESDP/papGroup/save(updateType = 'TTI')}"  th:object="${papData}" method="post">
+                <form id="tesdpForm" th:action="@{/planning/opcr/TESDP/papGroup/save(updateType = 'TTI', month = ${papFilter.month})}"  th:object="${papData}" method="post">
                     <fieldset>
                         <th:block th:if="${!papData.tesdpData.isEmpty()}">
                             <div class="container mb-5">
@@ -411,6 +417,9 @@
                                                 <input type="hidden" th:field="*{tesdpData[__${itemstat.index}__]
                                                                         .ttiDataList[__${itemstat2.index}__]
                                                                         .id}" />
+                                                <input type="hidden" th:field="*{tesdpData[__${itemstat.index}__]
+                                                                        .ttiDataList[__${itemstat2.index}__]
+                                                                        .month}" />
                                             </th:block>
                                         </th:block>
                                     </tr>
@@ -423,7 +432,7 @@
                 </form>
             </div>
             <div class="tab-pane fade" id="sto" role="tabpanel" aria-labelledby="sto-tab">
-                <form id="stoForm" th:action="@{/planning/opcr/STO/papGroup/save(updateType = 'TTI')}"  th:object="${papData}" method="post">
+                <form id="stoForm" th:action="@{/planning/opcr/STO/papGroup/save(updateType = 'TTI', month = ${papFilter.month})}"  th:object="${papData}" method="post">
                     <fieldset>
                         <th:block th:if="${!papData.stoData.isEmpty()}">
                             <div class="container mb-5">
@@ -524,6 +533,9 @@
                                                 <input type="hidden" th:field="*{stoData[__${itemstat.index}__]
                                                                         .ttiDataList[__${itemstat2.index}__]
                                                                         .id}" />
+                                                <input type="hidden" th:field="*{stoData[__${itemstat.index}__]
+                                                                        .ttiDataList[__${itemstat2.index}__]
+                                                                        .month}" />
                                             </th:block>
                                         </th:block>
                                     </tr>
@@ -536,7 +548,7 @@
                 </form>
             </div>
             <div class="tab-pane fade" id="gass" role="tabpanel" aria-labelledby="gass-tab">
-                <form id="gassForm" th:action="@{/planning/opcr/GASS/papGroup/save(updateType = 'TTI')}"  th:object="${papData}" method="post">
+                <form id="gassForm" th:action="@{/planning/opcr/GASS/papGroup/save(updateType = 'TTI', month = ${papFilter.month})}"  th:object="${papData}" method="post">
                     <fieldset>
                         <th:block th:if="${!papData.gassData.isEmpty()}">
                             <div class="container mb-5">
@@ -637,6 +649,9 @@
                                                 <input type="hidden" th:field="*{gassData[__${itemstat.index}__]
                                                                         .ttiDataList[__${itemstat2.index}__]
                                                                         .id}" />
+                                                <input type="hidden" th:field="*{gassData[__${itemstat.index}__]
+                                                                        .ttiDataList[__${itemstat2.index}__]
+                                                                        .month}" />
                                             </th:block>
                                         </th:block>
                                     </tr>
