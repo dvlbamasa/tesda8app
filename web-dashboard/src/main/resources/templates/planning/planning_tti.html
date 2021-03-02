@@ -113,6 +113,7 @@
                         <tr>
                             <th scope="col" class="opcr-col"> P/A/P</th>
                             <th colspan="2" scope="col" class="opcr-col"> Success Indicators</th>
+                            <th sec:authorize="hasAnyRole('ADMIN', 'PLANNING')"  scope="col"> Type</th>
                             <th:block th:each="opratingUnitType : ${T(com.tesda8.region8.util.enums.OperatingUnitPOType).values()}">
                                 <th:block
                                         th:if="${#authorization.expression('hasRole('''+opratingUnitType+''')') and opratingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
@@ -129,6 +130,7 @@
                             <th></th>
                             <th>Target</th>
                             <th>Measure</th>
+                            <th></th>
                             <th>Target</th>
                             <th>Output</th>
                             <th>Acc.&#37;</th>
@@ -185,6 +187,9 @@
                                     </th:block>
                                 </td>
                                 <td th:text="${successIndicator.measures}"></td>
+                                <td sec:authorize="hasAnyRole('ADMIN', 'PLANNING')">
+                                    <span th:text="${successIndicator.successIndicatorType.label}"></span>
+                                </td>
                                 <th:block th:each="operatingUnitData : ${successIndicator.ttiDataList}">
                                     <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
                                         <td class="total-col"><span th:text="${operatingUnitData.target}"></span>
@@ -224,6 +229,7 @@
                         <tr>
                             <th scope="col" class="opcr-col"> P/A/P</th>
                             <th colspan="2" scope="col" class="opcr-col"> Success Indicators</th>
+                            <th sec:authorize="hasAnyRole('ADMIN', 'PLANNING')"  scope="col"> Type</th>
                             <th:block th:each="opratingUnitType : ${T(com.tesda8.region8.util.enums.OperatingUnitPOType).values()}">
                                 <th:block
                                         th:if="${#authorization.expression('hasRole('''+opratingUnitType+''')') and opratingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
@@ -240,6 +246,7 @@
                             <th></th>
                             <th>Target</th>
                             <th>Measure</th>
+                            <th></th>
                             <th>Target</th>
                             <th>Output</th>
                             <th>Acc.&#37;</th>
@@ -296,6 +303,9 @@
                                     </th:block>
                                 </td>
                                 <td th:text="${successIndicator.measures}"></td>
+                                <td sec:authorize="hasAnyRole('ADMIN', 'PLANNING')">
+                                    <span th:text="${successIndicator.successIndicatorType.label}"></span>
+                                </td>
                                 <th:block th:each="operatingUnitData : ${successIndicator.ttiDataList}">
                                     <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
                                         <td class="total-col"><span th:text="${operatingUnitData.target}"></span>
@@ -335,6 +345,7 @@
                         <tr>
                             <th scope="col" class="opcr-col"> P/A/P</th>
                             <th colspan="2" scope="col" class="opcr-col"> Success Indicators</th>
+                            <th sec:authorize="hasAnyRole('ADMIN', 'PLANNING')"  scope="col"> Type</th>
                             <th:block th:each="opratingUnitType : ${T(com.tesda8.region8.util.enums.OperatingUnitPOType).values()}">
                                 <th:block
                                         th:if="${#authorization.expression('hasRole('''+opratingUnitType+''')') and opratingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
@@ -351,6 +362,7 @@
                             <th></th>
                             <th>Target</th>
                             <th>Measure</th>
+                            <th></th>
                             <th>Target</th>
                             <th>Output</th>
                             <th>Acc.&#37;</th>
@@ -407,6 +419,9 @@
                                     </th:block>
                                 </td>
                                 <td th:text="${successIndicator.measures}"></td>
+                                <td sec:authorize="hasAnyRole('ADMIN', 'PLANNING')">
+                                    <span th:text="${successIndicator.successIndicatorType.label}"></span>
+                                </td>
                                 <th:block th:each="operatingUnitData : ${successIndicator.ttiDataList}">
                                     <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
                                         <td class="total-col"><span th:text="${operatingUnitData.target}"></span>
@@ -446,6 +461,7 @@
                         <tr>
                             <th scope="col" class="opcr-col"> P/A/P</th>
                             <th colspan="2" scope="col" class="opcr-col"> Success Indicators</th>
+                            <th sec:authorize="hasAnyRole('ADMIN', 'PLANNING')"  scope="col"> Type</th>
                             <th:block th:each="opratingUnitType : ${T(com.tesda8.region8.util.enums.OperatingUnitPOType).values()}">
                                 <th:block
                                         th:if="${#authorization.expression('hasRole('''+opratingUnitType+''')') and opratingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
@@ -462,6 +478,7 @@
                             <th></th>
                             <th>Target</th>
                             <th>Measure</th>
+                            <th></th>
                             <th>Target</th>
                             <th>Output</th>
                             <th>Acc.&#37;</th>
@@ -518,6 +535,9 @@
                                     </th:block>
                                 </td>
                                 <td th:text="${successIndicator.measures}"></td>
+                                <td sec:authorize="hasAnyRole('ADMIN', 'PLANNING')">
+                                    <span th:text="${successIndicator.successIndicatorType.label}"></span>
+                                </td>
                                 <th:block th:each="operatingUnitData : ${successIndicator.ttiDataList}">
                                     <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
                                         <td class="total-col"><span th:text="${operatingUnitData.target}"></span>
@@ -557,6 +577,7 @@
                         <tr>
                             <th scope="col" class="opcr-col"> P/A/P</th>
                             <th colspan="2" scope="col" class="opcr-col"> Success Indicators</th>
+                            <th sec:authorize="hasAnyRole('ADMIN', 'PLANNING')"  scope="col"> Type</th>
                             <th:block th:each="opratingUnitType : ${T(com.tesda8.region8.util.enums.OperatingUnitPOType).values()}">
                                 <th:block
                                         th:if="${#authorization.expression('hasRole('''+opratingUnitType+''')') and opratingUnitType != T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
@@ -573,6 +594,7 @@
                             <th></th>
                             <th>Target</th>
                             <th>Measure</th>
+                            <th></th>
                             <th>Target</th>
                             <th>Output</th>
                             <th>Acc.&#37;</th>
@@ -629,6 +651,9 @@
                                     </th:block>
                                 </td>
                                 <td th:text="${successIndicator.measures}"></td>
+                                <td sec:authorize="hasAnyRole('ADMIN', 'PLANNING')">
+                                    <span th:text="${successIndicator.successIndicatorType.label}"></span>
+                                </td>
                                 <th:block th:each="operatingUnitData : ${successIndicator.ttiDataList}">
                                     <th:block th:if="${operatingUnitData.operatingUnitType == T(com.tesda8.region8.util.enums.OperatingUnitPOType).TOTAL}">
                                         <td class="total-col"><span th:text="${operatingUnitData.target}"></span>
