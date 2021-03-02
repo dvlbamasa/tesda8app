@@ -149,19 +149,16 @@
                                         <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                                 type="number" onkeypress="return isNumberKey(event)"
                                                min="0"
-                                               th:field="*{operatingUnitDataList[__${itemstat.index}__]
-                                                           .target}" required/>
+                                               th:field="*{operatingUnitDataList[__${itemstat.index}__].target}" required/>
                                     </td>
                                     <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
                                         <input th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                                 type="number" onkeypress="return isNumberKey(event)"
                                                min="0"
-                                               th:field="*{operatingUnitDataList[__${itemstat.index}__]
-                                                           .output}" required/>
+                                               th:field="*{operatingUnitDataList[__${itemstat.index}__].output}" required/>
                                     </td>
                                     <input type="hidden"
-                                               th:field="*{operatingUnitDataList[__${itemstat.index}__]
-                                                               .operatingUnitType}"/>
+                                               th:field="*{operatingUnitDataList[__${itemstat.index}__].operatingUnitType}"/>
                                 </th:block>
                             </th:block>
                         </tbody>
@@ -169,7 +166,7 @@
                 </div>
             </div>
             <div id="ttiTable">
-                <h3 class="display-5 text-black-50 mt-5 text-center">TESDA Training Institutions</h3>
+                <h3 class="display-5 text-black-50 mt-5 text-center">TESDA Technology Institutions</h3>
                 <div class="table-responsive  mt-2">
                     <table class="table table-striped table-hover table-bordered table-sm">
                         <thead class="thead-dark">
@@ -220,19 +217,16 @@
                                     <input style="width: 80px;"  th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                            type="number" onkeypress="return isNumberKey(event)"
                                            min="0"
-                                           th:field="*{operatingUnitDataList[__${itemstat.index}__]
-                                                           .target}" required/>
+                                           th:field="*{operatingUnitDataList[__${itemstat.index}__].target}" required/>
                                 </td>
                                 <td th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped' : ''}">
                                     <input style="width: 80px;"  th:class="${operatingUnitData.operatingUnitType.tableType == 'HIGHLIGHTED' ? 'col-striped form-control' : 'form-control'}"
                                            type="number" onkeypress="return isNumberKey(event)"
                                            min="0"
-                                           th:field="*{operatingUnitDataList[__${itemstat.index}__]
-                                                           .output}" required/>
+                                           th:field="*{operatingUnitDataList[__${itemstat.index}__].output}" required/>
                                 </td>
                                 <input type="hidden"
-                                       th:field="*{operatingUnitDataList[__${itemstat.index}__]
-                                                               .operatingUnitType}"/>
+                                       th:field="*{operatingUnitDataList[__${itemstat.index}__].operatingUnitType}"/>
                             </th:block>
                         </th:block>
                         </tbody>

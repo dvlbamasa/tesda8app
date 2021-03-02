@@ -13,6 +13,33 @@ window.onload = function () {
             document.getElementById('ttiTable').style.display="";
         }
     }
+
+    document.getElementById("isPercentage").onchange = function () {
+        var isPercentageElement = document.getElementById("isPercentage");
+        if (isPercentageElement.checked) {
+            var target = document.getElementById("target").value;
+            for (var i = 0; i < 21; i++) {
+                var element = document.getElementById("operatingUnitDataList" + i + ".target");
+                element.value = target;
+            }
+        } else {
+            for (var i = 0; i < 21; i++) {
+                var element = document.getElementById("operatingUnitDataList" + i + ".target");
+                element.value = '0';
+            }
+        }
+    }
+
+    document.getElementById("target").onchange = function () {
+        var isPercentageElement = document.getElementById("isPercentage");
+        if (isPercentageElement.checked) {
+            var target = document.getElementById("target").value;
+            for (var i = 0; i < 21; i++) {
+                var element = document.getElementById("operatingUnitDataList" + i + ".target");
+                element.value = target;
+            }
+        }
+    }
 }
 
 
