@@ -133,7 +133,7 @@ public class PlanningController extends HeaderController {
     }
 
     @GetMapping("/planning/successIndicator/update")
-    public String updateSuccessIndicator(@RequestParam("updateType") String updateType, Model model, Authentication authentication) {
+    public String updateSuccessIndicator(@RequestParam(value = "updateType", required = false) String updateType, Model model, Authentication authentication) {
         String roleName = ApplicationUtil.trimRoleName(authentication.getAuthorities().toString());
         setModelInitialAtributes(model, roleName, updateType);
         return "planning/update_success_indicator";
