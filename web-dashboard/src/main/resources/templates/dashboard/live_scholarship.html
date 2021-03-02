@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Scholarship - Live Scholarship Accomplishment Data</title>
 
@@ -21,7 +22,7 @@
                         <p class="lead mb-5 text-white-50">Real-time and updated scholarship accomplishment data, fetched from the <a class="a-header" href="https://drive.google.com/drive/folders/1eXlLl54NyxVBviTlx5SuoG3KmcE6YLt2">SPMOR Google Drive</a></p>
                         <p class="lead text-white mt-5">Live Data as of: <span class="text-black" th:text="${#temporals.format(dateTimeNow, 'dd/MM/yyyy hh:mm:ss a')}"></span></p>
                         <div class="btn-group mr-2 float-right" role="group">
-                            <a th:href="@{/scholarship/live/save}" class="a-header btn btn-info btn-lg" role="button" aria-pressed="true">Save Live Scholarship Data</a>
+                            <a sec:authorize="hasAnyRole('ADMIN', 'SCHOLARSHIP')" th:href="@{/scholarship/live/save}" class="a-header btn btn-info btn-lg" role="button" aria-pressed="true">Save Live Scholarship Data</a>
                         </div>
                     </div>
                 </div>

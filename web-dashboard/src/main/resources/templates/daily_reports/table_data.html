@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Dashboard - Table Data</title>
 
@@ -21,7 +22,7 @@
                         <p class="lead mb-5 text-white-50">View accomplishment reports in table format</p>
                         <div class="btn-group mr-2 float-right" role="group">
                             <a th:href="@{/dashboard/daily}" class="a-header btn btn-info btn-lg" role="button" aria-pressed="true">Back to Dashboard</a>
-                            <a th:href="@{/dailyReports/update}" class="a-header btn btn-success btn-lg" role="button" aria-pressed="true">Update Report</a>
+                            <a sec:authorize="hasAnyRole('ADMIN', 'PLANNING')" th:href="@{/dailyReports/update}" class="a-header btn btn-success btn-lg" role="button" aria-pressed="true">Update Report</a>
                         </div>
                     </div>
                 </div>
