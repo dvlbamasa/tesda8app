@@ -112,13 +112,13 @@
                         <thead class="thead-dark">
                         <tr>
                             <th scope="col"> Full Name</th>
-                            <th scope="col"> Birthdate</th>
+                            <th style="min-width: 110px" scope="col"> Birthdate</th>
                             <th scope="col"> Sex</th>
                             <th scope="col"> Address</th>
                             <th scope="col"> Email Address</th>
                             <th scope="col"> Contact Number</th>
                             <th scope="col"> Educational Attainment</th>
-                            <th scope="col"> Action</th>
+                            <th style="min-width: 110px" scope="col"> Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -134,7 +134,7 @@
                                 <td><span th:text="${trainer.emailAddress}"></span></td>
                                 <td><span th:text="${trainer.contactNumber}"></span></td>
                                 <td><span th:text="${trainer.educationalAttainment.label}"></span></td>
-                                <td><a th:href="@{/certification/trainer/{id}/details(id=${trainer.id})}"><button class="btn btn-primary"><i class="fa fa-info-circle" aria-hidden="true"></i> Trainer Details</button></a></td>
+                                <td class="text-center"><a th:href="@{/certification/trainer/{id}/details(id=${trainer.id})}"><button class="btn btn-primary"><i class="fa fa-info-circle" aria-hidden="true"></i> Details</button></a></td>
                             </tr>
                         </th:block>
                         </tbody>

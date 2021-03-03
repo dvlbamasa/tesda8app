@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-
 @Controller
 public class ProgramRegistrationDashboardController extends HeaderController {
 
@@ -55,7 +54,6 @@ public class ProgramRegistrationDashboardController extends HeaderController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/dashboard/registeredPrograms/{sectorType}/sector")
     public String getRegisteredProgramPerSector(@PathVariable("sectorType") Sector sector, Model model) {
-        logger.info("Sector : {}", sector);
         List<RegisteredProgramDto> registeredProgramDtoList = registeredProgramService.getAllRegisteredProgramsByCourseSectorAndInstitutionClassification(sector, InstitutionClassification.TESDA);
         List<InstitutionDto> ttiList = institutionService.getAllInstitutionByInstitutionTypeAndInstitutionClassification(InstitutionType.PUBLIC, InstitutionClassification.TESDA);
         model.addAttribute("sectorValue", sector);

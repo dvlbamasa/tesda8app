@@ -149,7 +149,7 @@
                                 <th scope="col"> Certificate Number</th>
                                 <th scope="col"> Date Issued</th>
                                 <th scope="col"> Expiration Date</th>
-                                <th colspan="2"> Action</th>
+                                <th style="width: 35%" colspan="3"> Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -164,8 +164,9 @@
                                     <td><span th:text="${certificate.certificateNumber}"></span></td>
                                     <td><span th:text="${#temporals.format(certificate.dateIssued, 'MMM. dd, yyyy')}"></span></td>
                                     <td><span th:text="${#temporals.format(certificate.expirationDate, 'MMM. dd, yyyy')}"></span></td>
-                                    <td><a th:href="@{/certification/{id}/certificate/update(id=${certificate.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
-                                    <td><a class="deleteCertificate" th:href="@{/certification/{trainerId}/trainer/{id}/certificate/delete(id=${certificate.id}, trainerId=${trainer.id})}"><button class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
+                                    <td class="text-center"><a th:href="@{/certification/{id}/certificate/update(id=${certificate.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
+                                    <td class="text-center"><a th:href="@{/certification/trainer/{trainerId}/certificate/{certificateId}(trainerId=${trainer.id}, certificateId=${certificate.id})}"><button class="btn btn-info"><i class="fa fa-print" aria-hidden="true"></i> Layout</button></a></td>
+                                    <td class="text-center"><a class="deleteCertificate" th:href="@{/certification/{trainerId}/trainer/{id}/certificate/delete(id=${certificate.id}, trainerId=${trainer.id})}"><button class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
                                 </tr>
                             </th:block>
                             </tbody>
@@ -186,7 +187,7 @@
                                 <th scope="col"> Certificate Number</th>
                                 <th scope="col"> Date Issued</th>
                                 <th scope="col"> Expiration Date</th>
-                                <th colspan="2"> Action</th>
+                                <th style="width: 30%" colspan="2"> Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -200,8 +201,8 @@
                                     <td><span th:text="${certificate.certificateNumber}"></span></td>
                                     <td><span th:text="${#temporals.format(certificate.dateIssued, 'MMM. dd, yyyy')}"></span></td>
                                     <td><span th:text="${#temporals.format(certificate.expirationDate, 'MMM. dd, yyyy')}"></span></td>
-                                    <td><a th:href="@{/certification/{id}/certificate/update(id=${certificate.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
-                                    <td><a class="deleteCertificate" th:href="@{/certification/{trainerId}/trainer/{id}/certificate/delete(id=${certificate.id}, trainerId=${trainer.id})}"><button class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
+                                    <td class="text-center"><a th:href="@{/certification/{id}/certificate/update(id=${certificate.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
+                                    <td class="text-center"><a class="deleteCertificate" th:href="@{/certification/{trainerId}/trainer/{id}/certificate/delete(id=${certificate.id}, trainerId=${trainer.id})}"><button class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
                                 </tr>
                             </th:block>
                             </tbody>
@@ -223,7 +224,7 @@
                                 <th scope="col"> Date Issued</th>
                                 <th scope="col"> Expiration Date</th>
                                 <th scope="col"> CLN-NTC No.</th>
-                                <th colspan="2"> Action</th>
+                                <th style="width: 30%" colspan="2"> Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -238,8 +239,8 @@
                                     <td><span th:text="${#temporals.format(certificate.dateIssued, 'MMM. dd, yyyy')}"></span></td>
                                     <td><span th:text="${#temporals.format(certificate.expirationDate, 'MMM. dd, yyyy')}"></span></td>
                                     <td><span th:text="${certificate.clnNtcNumber}"></span></td>
-                                    <td><a th:href="@{/certification/{id}/certificate/update(id=${certificate.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
-                                    <td><a class="deleteCertificate" th:href="@{/certification/{trainerId}/trainer/{id}/certificate/delete(id=${certificate.id}, trainerId=${trainer.id})}"><button class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
+                                    <td class="text-center"><a th:href="@{/certification/{id}/certificate/update(id=${certificate.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
+                                    <td class="text-center"><a class="deleteCertificate" th:href="@{/certification/{trainerId}/trainer/{id}/certificate/delete(id=${certificate.id}, trainerId=${trainer.id})}"><button class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
                                 </tr>
                             </th:block>
                             </tbody>

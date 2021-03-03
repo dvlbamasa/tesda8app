@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-
 public class CertificationController extends HeaderController {
 
     private TrainerService trainerService;
@@ -116,5 +115,14 @@ public class CertificationController extends HeaderController {
     public String deleteTrainer(@PathVariable("id") Long id, Model model) {
         registrationRequirementsCrudService.delete(id);
         return "redirect:/certification";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/certification/trainer/{trainerId}/certificate/{certificateId}")
+    public String fetchCertificateLayoutData(@PathVariable("trainerId") Long trainerId,
+                                             @PathVariable("certificateId") Long certificateId,
+                                             Model model) {
+        addStatusCounterToModel(model);
+        model.addAttribute("certificateData", trainerService.fetchCertificateLayout(trainerId, certificateId));
+        return "certification/certificate_layout";
     }
 }

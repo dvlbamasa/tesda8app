@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Certificate Layout</title>
+    <div th:replace="fragments/header :: header-css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header" th:with="statusCounter=(${statusCounter})"/>
+
+<div id="page-container">
+    <div id = "content-wrap">
+        <header class="bg-primary py-5 mb-5">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <div class="col-lg-12">
+                        <h1 class="display-4 text-white mt-5 mb-2">Certificate Layout</h1>
+                        <p class="lead mb-5 text-white-50">Formatted certificate layout for printing</p>
+                        <div class="btn-group mr-2 float-right" role="group">
+                            <a th:href="@{/certification}" class="a-header btn btn-info btn-lg" role="button" aria-pressed="true">Back to TVET Trainers Registry</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="container">
+            <button class="btn btn-danger btn-lg" id="downloadButton" type="button"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Export as PDF</button>
+        </div>
+        <div class="container">
+            <div class="certificateLayout">
+                <div th:if="${!certificateData.longName}">
+                    <div>
+                        <h3 class="display-4 text-black mt-5 mb-5 text-center" th:text="${certificateData.fullName}"></h3>
+                    </div>
+                    <div style="margin-top: 400px">
+                        <h2 class="text-black mt-5 mb-5 text-center"  th:text="${certificateData.qualification}"></h2>
+                    </div>
+                    <div style="margin-top: 280px; margin-left: 270px">
+                        <p class="strong text-black mt-5"  th:text="${certificateData.certificateNumber}"></p>
+                        <p class="strong text-black"  th:text="${certificateData.issuedOn}"></p>
+                        <p class="strong text-black"  th:text="${certificateData.expirationDate}"></p>
+                    </div>
+                    <div style="margin-top: 120px">
+                        <h5 class="mt-5 text-center text-black">SEC. ISIDRO S. LAPEÑA, PhD., CSEE</h5>
+                    </div>
+                </div>
+                <div th:if="${certificateData.longName}">
+                    <div>
+                        <h1 class="display-5 text-black mt-5 mb-5 text-center" th:text="${certificateData.fullName}"></h1>
+                    </div>
+                    <div style="margin-top: 420px">
+                        <h2 class="text-black mt-5 mb-5 text-center"  th:text="${certificateData.qualification}"></h2>
+                    </div>
+                    <div style="margin-top: 280px; margin-left: 270px">
+                        <p class="strong text-black mt-5"  th:text="${certificateData.certificateNumber}"></p>
+                        <p class="strong text-black"  th:text="${certificateData.issuedOn}"></p>
+                        <p class="strong text-black"  th:text="${certificateData.expirationDate}"></p>
+                    </div>
+                    <div style="margin-top: 120px">
+                        <h5 class="mt-5 text-center text-black">SEC. ISIDRO S. LAPEÑA, PhD., CSEE</h5>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"/>
+<script type='text/javascript' src="../../static/js/graph_daily.js" th:src="@{/js/certification/certificate_layout.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+
+
+</body>
+</html>

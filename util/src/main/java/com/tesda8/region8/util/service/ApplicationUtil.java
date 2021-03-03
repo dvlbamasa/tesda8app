@@ -12,6 +12,7 @@ public class ApplicationUtil {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
     private static final DateTimeFormatter stringFormatter = DateTimeFormatter.ofPattern("MMM. dd, yyyy");
+    private static final DateTimeFormatter stringFormatter2 = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
 
     private static final int DEFAULT_PAGE_NUMBER = 1;
     private static final int DEFAULT_PAGE_SIZE = 10;
@@ -56,6 +57,10 @@ public class ApplicationUtil {
         return dateToConvert.format(stringFormatter);
     }
 
+    public static String formatLocalDateTimeToString2(LocalDateTime dateToConvert) {
+        return dateToConvert.format(stringFormatter2);
+    }
+
     public static String trimRoleName(String role) {
         return role.substring(6, role.length()-1);
     }
@@ -66,6 +71,10 @@ public class ApplicationUtil {
         }
         OperatingUnitPOType operatingUnitPOType = OperatingUnitPOType.valueOf(roleName);
         return operatingUnitPOType.successIndicatorType;
+    }
+
+    public static boolean checkIfLongName(String name) {
+        return name.length() >= 26;
     }
 
 }

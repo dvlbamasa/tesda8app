@@ -3,8 +3,10 @@ package com.tesda8.region8.program.registration.service.impl;
 import com.google.common.base.Strings;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
+import com.tesda8.region8.program.registration.model.dto.CertificateLayoutData;
 import com.tesda8.region8.program.registration.model.dto.TrainerDto;
 import com.tesda8.region8.program.registration.model.dto.TrainerFilter;
+import com.tesda8.region8.program.registration.model.entities.Certificate;
 import com.tesda8.region8.program.registration.model.entities.QTrainer;
 import com.tesda8.region8.program.registration.model.entities.RegisteredProgram;
 import com.tesda8.region8.program.registration.model.entities.Trainer;
@@ -40,6 +42,7 @@ public class TrainerServiceImpl implements RegistrationRequirementsCrudService<T
     private TrainerRepository trainerRepository;
     private RegisteredProgramRepository registeredProgramRepository;
     private ProgramRegistrationMapper programRegistrationMapper;
+
 
     @Autowired
     public TrainerServiceImpl(TrainerRepository trainerRepository,
@@ -190,5 +193,21 @@ public class TrainerServiceImpl implements RegistrationRequirementsCrudService<T
         return trainers.stream()
                 .map(trainer -> programRegistrationMapper.trainerToDto(trainer))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public CertificateLayoutData fetchCertificateLayout(Long trainerId, Long certificateId) {
+        Trainer trainer = trainerRepository.getOne(trainerId);
+        Certificate certificate = trainer.getCertificates().stream()
+                .filter(certificate1 -> certificate1.getId().equals(certificateId))
+                .findAny().orElseThrow(EntityNotFoundException::new);
+        CertificateLayoutData certificateLayoutData = new CertificateLayoutData();
+        certificateLayoutData.setCertificateNumber(certificate.getCertificateNumber());
+        certificateLayoutData.setExpirationDate(ApplicationUtil.formatLocalDateTimeToString2(certificate.getExpirationDate()));
+        certificateLayoutData.setIssuedOn(ApplicationUtil.formatLocalDateTimeToString2(certificate.getDateIssued()));
+        certificateLayoutData.setFullName(trainer.getFullName());
+        certificateLayoutData.setQualification(certificate.getQualificationTitle());
+        certificateLayoutData.setLongName(ApplicationUtil.checkIfLongName(trainer.getFullName()));
+        return certificateLayoutData;
     }
 }

@@ -132,7 +132,7 @@
                             <th scope="col"> Classification of Institution</th>
                             <th scope="col"> Address</th>
                             <th scope="col"> Contact Number</th>
-                            <th scope="col"> Action</th>
+                            <th style="min-width: 110px" scope="col"> Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -145,7 +145,7 @@
                                 <td><span th:text="${institution.institutionClassification.label}"></span></td>
                                 <td><span th:text="${institution.address}"></span></td>
                                 <td><span th:text="${institution.contactNumber}"></span></td>
-                                <td><a th:href="@{/program_registration/institution/{id}/update(id=${institution.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
+                                <td class="text-center"><a th:href="@{/program_registration/institution/{id}/update(id=${institution.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
                             </tr>
                         </th:block>
                         </tbody>

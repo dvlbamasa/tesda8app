@@ -1,5 +1,6 @@
 package com.tesda8.region8.program.registration.service;
 
+import com.tesda8.region8.program.registration.model.dto.CertificateLayoutData;
 import com.tesda8.region8.program.registration.model.dto.TrainerDto;
 import com.tesda8.region8.program.registration.model.dto.TrainerFilter;
 
@@ -16,4 +17,6 @@ public interface TrainerService {
     List<TrainerDto> getAllTrainer();
 
     List<TrainerDto> getAllTrainerByFilter(TrainerFilter trainerFilter);
+
+    CertificateLayoutData fetchCertificateLayout(Long trainerId, Long certificateId);
 }
