@@ -309,17 +309,3 @@ function enableScroll() {
 var body = document.getElementsByTagName('body')[0];
 //if window dont scroll
 //if window scroll
-
-
-
-// inatasang humiling ng emceeng kikitilin,
-// hinayaang pumili ng bituing sisibakin,
-// self proclaimed alamat, nag-angat at higit sa lahat nagiisa
-//
-
-// BLKD mapanganib ayon sa hanuha ng iba
-// ngunit nag-iba na ang katha tila'y kumpyansa'y nagiba
-// Ano Ba, kaya pa? mukhang napasubo ka nga
-// kakatanong mo di mo tuloy masagot ng madla
-
-// Lam mo na, lamon lang sige 
