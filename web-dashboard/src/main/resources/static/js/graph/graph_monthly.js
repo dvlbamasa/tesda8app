@@ -208,6 +208,7 @@ function generateGraph(urlTarget, chartName, title, legend1, legend2) {
 
 $("#downloadGraphButton").click(function(){
     swal("Exporting Data as PDF.", "Your report is being downloaded in a moment.", "success");
+    window.scrollTo(0, 0);
     var HTML_Width = $(".canvas_div_pdf").width();
     var HTML_Height = $(".canvas_div_pdf").height();
     var top_left_margin = 15;

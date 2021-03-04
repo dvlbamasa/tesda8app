@@ -253,7 +253,9 @@ function generateGraph(urlTarget, requestParameters, chartName, title, legend1, 
 }
 
 $("#downloadGraphButton").click(function(){
+    disableScroll();
     swal("Exporting Data as PDF.", "Your report is being downloaded in a moment.", "success");
+    window.scrollTo(0, 0);
     var HTML_Width = $(".canvas_div_pdf").width();
     var HTML_Height = $(".canvas_div_pdf").height();
     var top_left_margin = 15;
@@ -291,4 +293,33 @@ $("#downloadGraphButton").click(function(){
             pdf.save("TESDA-Daily-Accomplishment-Reports.pdf");
         });
     }, 3000);
+    enableScroll();
 });
+
+// call this to Disable
+function disableScroll() {
+    body.classList.add("no-scroll");
+
+}
+// call this to Enable
+function enableScroll() {
+    body.classList.remove("no-scroll");
+}
+
+var body = document.getElementsByTagName('body')[0];
+//if window dont scroll
+//if window scroll
+
+
+
+// inatasang humiling ng emceeng kikitilin,
+// hinayaang pumili ng bituing sisibakin,
+// self proclaimed alamat, nag-angat at higit sa lahat nagiisa
+//
+
+// BLKD mapanganib ayon sa hanuha ng iba
+// ngunit nag-iba na ang katha tila'y kumpyansa'y nagiba
+// Ano Ba, kaya pa? mukhang napasubo ka nga
+// kakatanong mo di mo tuloy masagot ng madla
+
+// Lam mo na, lamon lang sige 

@@ -64,17 +64,17 @@
 
                             </div>
                             <div class="form-group row">
-                                <div class="col-4 form-check">
+                                <div class="col-4 custom-control custom-checkbox">
                                     <label class="col col-form-label"><p class="lead text-black-50">Assessment and Certification</p></label>
                                     <th:block th:each="service : ${T(com.tesda8.region8.util.enums.TesdaServiceRendered).values()}">
                                         <div class="col">
                                             <th:block th:if="${service.serviceType == 'Assessment and Certification'}">
                                                 <input type="checkbox"
-                                                       class="form-check-input"
+                                                       class="custom-control-input"
                                                        th:id="${service}"
                                                        th:value="${service}"
                                                        th:field="*{tesdaForm.serviceRenderedList}"/>
-                                                <label class="form-check-label"
+                                                <label class="custom-control-label"
                                                        th:text="${service.label}"
                                                        th:for="${service}"></label>
 
@@ -82,17 +82,17 @@
                                         </div>
                                     </th:block>
                                 </div>
-                                <div class="col-3 form-check">
+                                <div class="col-3 custom-control custom-checkbox">
                                     <label class="col col-form-label"><p class="lead text-black-50">Program Registration</p></label>
                                     <th:block th:each="service : ${T(com.tesda8.region8.util.enums.TesdaServiceRendered).values()}">
                                         <div class="col">
                                             <th:block th:if="${service.serviceType == 'Program Registration'}">
                                                 <input type="checkbox"
-                                                       class="form-check-input"
+                                                       class="custom-control-input"
                                                        th:id="${service}"
                                                        th:value="${service}"
                                                        th:field="*{tesdaForm.serviceRenderedList}"/>
-                                                <label class="form-check-label"
+                                                <label class="custom-control-label"
                                                        th:text="${service.label}"
                                                        th:for="${service}"></label>
 
@@ -100,17 +100,17 @@
                                         </div>
                                     </th:block>
                                 </div>
-                                <div class="col form-check">
+                                <div class="col custom-control custom-checkbox">
                                     <label class="col col-form-label"><p class="lead text-black-50">Training</p></label>
                                     <th:block th:each="service : ${T(com.tesda8.region8.util.enums.TesdaServiceRendered).values()}">
                                         <div class="col">
                                             <th:block th:if="${service.serviceType == 'Training'}">
                                                 <input type="checkbox"
-                                                       class="form-check-input"
+                                                       class="custom-control-input"
                                                        th:value="${service}"
                                                        th:id="${service}"
                                                        th:field="*{tesdaForm.serviceRenderedList}"/>
-                                                <label class="form-check-label"
+                                                <label class="custom-control-label"
                                                        th:text="${service.label}"
                                                        th:for="${service}"></label>
 
@@ -118,26 +118,26 @@
                                         </div>
                                     </th:block>
                                 </div>
-                                <div class="col form-check">
+                                <div class="col custom-control custom-checkbox">
                                     <label class="col col-form-label"><p class="lead text-black-50">Employment</p></label>
                                     <th:block th:each="service : ${T(com.tesda8.region8.util.enums.TesdaServiceRendered).values()}">
                                         <div class="col">
                                             <th:block th:if="${service.serviceType == 'Employment'}">
                                                 <input type="checkbox"
-                                                       class="form-check-input"
+                                                       class="custom-control-input"
                                                        th:if="${service == T(com.tesda8.region8.util.enums.TesdaServiceRendered).OTHERS_EMPLOYMENT}"
                                                        th:value="${service}"
                                                        th:id="${service}"
                                                        th:field="*{tesdaForm.serviceRenderedList}"
                                                        onclick="othersOnclick()"/>
                                                 <input type="checkbox"
-                                                       class="form-check-input"
+                                                       class="custom-control-input"
                                                        th:if="${service == T(com.tesda8.region8.util.enums.TesdaServiceRendered).ADMIN}"
                                                        th:value="${service}"
                                                        th:id="${service}"
                                                        th:field="*{tesdaForm.serviceRenderedList}"
                                                        onclick="adminOnclick()"/>
-                                                <label class="form-check-label"
+                                                <label class="custom-control-label"
                                                        th:text="${service.label}"
                                                        th:for="${service}"></label>
                                                 <input type="text"
@@ -196,11 +196,11 @@
                             <hr class="border"/>
                         </div>
                         <div class="container mb-3">
-                            <div class="form-check form-check-inline col d-flex justify-content-center">
+                            <div class="custom-control custom-checkbox form-check-inline col d-flex justify-content-center">
                                 <input type="checkbox"
                                        id="agreement2"
-                                       class="form-check-input" required/>
-                                <label class="form-check-label"
+                                       class="custom-control-input" required/>
+                                <label class="custom-control-label"
                                        for="agreement2"> I hereby confirm that all the above information are true and correct to the best of my knowledge and ability.</label>
                             </div>
                         </div>

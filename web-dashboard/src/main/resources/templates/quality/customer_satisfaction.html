@@ -166,11 +166,13 @@
                     <div class="form-group row">
                         <label for="isRecommended" class="col-8 col-form-label">Irerekomenda niyo po ba ang TESDA sa inyong kamag-anak o kaibigan?</label>
                         <div class="col mt-1">
-                            <div class="form-check form-check-inline">
-                                <input type="radio" th:field="*{isRecommended}" th:value="${true}" id="isRecommended" name="isRecommended" class="form-check-input">
-                                <label class="form-check-label mr-5" for="isRecommended">Oo (Yes)</label>
-                                <input type="radio" th:field="*{isRecommended}" th:value="${false}" id="isRecommended2" name="isRecommended2" class="form-check-input">
-                                <label class="form-check-label" for="isRecommended2">Hindi (No)</label>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" th:field="*{isRecommended}" th:value="${true}" id="isRecommended" name="isRecommended" class="custom-control-input">
+                                <label class="custom-control-label mr-5" for="isRecommended">Oo (Yes)</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" th:field="*{isRecommended}" th:value="${false}" id="isRecommended2" name="isRecommended2" class="custom-control-input">
+                                <label class="custom-control-label" for="isRecommended2">Hindi (No)</label>
                             </div>
                         </div>
                     </div>
@@ -190,11 +192,11 @@
                     <hr class="border"/>
                 </div>
                 <div class="container">
-                    <div class="form-check form-check-inline col d-flex justify-content-center">
+                    <div class="custom-control custom-checkbox form-check-inline col d-flex justify-content-center">
                         <input type="checkbox"
                                id="agreement"
-                               class="form-check-input col-sm-1" required/>
-                        <label class="form-check-label col-sm-11" for="agreement"> Ang mga impormasyon na aking inilahad sa form na ito ay tama at totoo. Boluntaryo kong pinagkaloob ang mga hinihinging impormasyon ng form na ito. Pinapayagan
+                               class="custom-control-input col-sm-1" required/>
+                        <label class="custom-control-label col-sm-11" for="agreement"> Ang mga impormasyon na aking inilahad sa form na ito ay tama at totoo. Boluntaryo kong pinagkaloob ang mga hinihinging impormasyon ng form na ito. Pinapayagan
                             ko ang TESDA na isama sa kanilang database bilang bahagi ng kanilang records at monitoring ang mga detalyeng ito.</label>
                     </div>
                 </div>
