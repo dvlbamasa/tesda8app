@@ -10,6 +10,7 @@ import com.tesda8.region8.program.registration.model.entities.QTrainer;
 import com.tesda8.region8.program.registration.model.entities.Trainer;
 import com.tesda8.region8.program.registration.repository.TrainerRepository;
 
+import com.tesda8.region8.util.enums.ExpiredCertificateType;
 import com.tesda8.region8.util.service.ApplicationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,12 +20,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ExpiredCertificateService {
@@ -41,25 +39,21 @@ public class ExpiredCertificateService {
     }
 
     @Cacheable("expiredCertificates")
-    public ExpiredCertificateWrapper getExpiredCertificates(int pageNumber, int pageSize, String trainerName) {
+    public ExpiredCertificateWrapper getExpiredCertificates(int pageNumber, int pageSize, String trainerName, ExpiredCertificateType expiredCertificateType) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
-
         booleanBuilder.and(QTrainer.trainer.fullName.containsIgnoreCase(Strings.isNullOrEmpty(trainerName) ? "" : trainerName));
-
         Predicate predicate = booleanBuilder.getValue();
 
         List<Trainer> trainerList = (List<Trainer>) trainerRepository.findAll(predicate);
 
-        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
-
-
         ExpiredCertificateWrapper expiredCertificateWrapper = new ExpiredCertificateWrapper();
         trainerList.forEach(
                 trainer -> {
-                    checkExpiredCertificates(expiredCertificateWrapper, trainer);
+                    checkExpiredCertificates(expiredCertificateWrapper, trainer, expiredCertificateType);
                 }
         );
 
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
         int start = (int) pageable.getOffset();
         int end = Math.min((start + pageable.getPageSize()), expiredCertificateWrapper.getExpiredTrainerCertificates().size());
 
@@ -75,10 +69,10 @@ public class ExpiredCertificateService {
 
     @Cacheable("expiredCertificatesCount")
     public long expiredCertificatesCount() {
-        return getExpiredCertificates(ApplicationUtil.getDefaultPageNumber(), ApplicationUtil.getDefaultPageSize(), "").getTotalCount();
+        return getExpiredCertificates(ApplicationUtil.getDefaultPageNumber(), ApplicationUtil.getDefaultPageSize(), "", ExpiredCertificateType.ALL).getTotalCount();
     }
 
-    private void checkExpiredCertificates(ExpiredCertificateWrapper expiredCertificateWrapper, Trainer trainer) {
+    private void checkExpiredCertificates(ExpiredCertificateWrapper expiredCertificateWrapper, Trainer trainer, ExpiredCertificateType expiredCertificateType) {
         ExpiredCertificateDetails expiredCertificateDetails = new ExpiredCertificateDetails();
         expiredCertificateDetails.setTrainerName(trainer.getFullName());
         expiredCertificateDetails.setId(trainer.getId());
@@ -105,10 +99,31 @@ public class ExpiredCertificateService {
                     }
                 }
         );
-        if (expiredCertificateDetails.getExpiredNC() ||
-                expiredCertificateDetails.getExpiredNTTC() ||
-                expiredCertificateDetails.getExpiredTMC()) {
-            expiredCertificateWrapper.getExpiredTrainerCertificates().add(expiredCertificateDetails);
+        switch (expiredCertificateType) {
+            case NC:
+                if (expiredCertificateDetails.getExpiredNC()) {
+                    expiredCertificateWrapper.getExpiredTrainerCertificates().add(expiredCertificateDetails);
+                }
+                break;
+            case NTTC:
+                if (expiredCertificateDetails.getExpiredNTTC()) {
+                    expiredCertificateWrapper.getExpiredTrainerCertificates().add(expiredCertificateDetails);
+                }
+                break;
+            case TMC:
+                if (expiredCertificateDetails.getExpiredTMC()) {
+                    expiredCertificateWrapper.getExpiredTrainerCertificates().add(expiredCertificateDetails);
+                }
+                break;
+            case ALL:
+                if (expiredCertificateDetails.getExpiredNC() ||
+                    expiredCertificateDetails.getExpiredNTTC() ||
+                    expiredCertificateDetails.getExpiredTMC()) {
+                    expiredCertificateWrapper.getExpiredTrainerCertificates().add(expiredCertificateDetails);
+                }
+                break;
+            default:
+                break;
         }
     }
 }

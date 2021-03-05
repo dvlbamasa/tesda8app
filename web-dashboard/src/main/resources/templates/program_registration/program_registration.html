@@ -11,8 +11,7 @@
 
 <div th:replace="fragments/header :: header" th:with="statusCounter=(${statusCounter})"/>
 <div id="page-container">
-    <input type="hidden" id="expiredDocumentSize" th:value="${expiredDocuments.getTotalCount()}"/>
-    <div id="myToast" class="toast" style="position: absolute; top: 0; right: 0;">
+    <!--div id="myToast" class="toast" style="position: absolute; top: 0; right: 0;">
         <div class="toast-header">
             <strong class="mr-auto"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Document Expired</strong>
             <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
@@ -45,7 +44,7 @@
                 </th:block>
             </th:block>
         </div>
-    </div>
+    </div -->
     <div id = "content-wrap">
         <header class="bg-primary py-5 mb-5">
             <div class="container h-100">
@@ -54,6 +53,12 @@
                         <h1 class="display-4 text-white mt-5 mb-2">Program Registration Unit</h1>
                         <p class="lead text-white-50">Compendium of Registered Programs</p>
                         <div class="btn-group mr-2 float-right" role="group">
+                            <a th:href="@{/program_registration/documents/expired}" class="a-header btn btn-info btn-lg" role="button" aria-pressed="true">
+                                Expired Documents
+                                <th:block th:if="${expiredDocumentsWrapper.getTotalCount() > 0}">
+                                    <span class="badge badge-danger" th:text="${expiredDocumentsWrapper.getTotalCount()}"></span>
+                                </th:block>
+                            </a>
                             <a th:href="@{/program_registration/institutions}" class="a-header btn btn-info btn-lg" role="button" aria-pressed="true">View Institution List</a>
                             <a th:href="@{/program_registration/registeredProgram/create}" class="a-header btn btn-success btn-lg" role="button" aria-pressed="true">Add Registered Program</a>
                         </div>

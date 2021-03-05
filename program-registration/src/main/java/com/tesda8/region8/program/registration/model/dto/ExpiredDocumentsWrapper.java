@@ -3,6 +3,7 @@ package com.tesda8.region8.program.registration.model.dto;
 import com.google.common.collect.Lists;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -10,11 +11,11 @@ import java.util.List;
 @NoArgsConstructor
 public class ExpiredDocumentsWrapper {
 
-    private List<ExpiredRegisteredProgramDocument> expiredBuildingOwnership = Lists.newArrayList();
-    private List<ExpiredRegisteredProgramDocument> expiredFireSafety = Lists.newArrayList();
-    private List<ExpiredRegisteredProgramDocument> expiredMoaValidity = Lists.newArrayList();
+    private List<ExpiredRegisteredProgramDocument> expiredRegisteredProgramDocuments = Lists.newArrayList();
+
+    private Page<ExpiredRegisteredProgramDocument> expiredRegisteredProgramDocumentPage;
 
     public int getTotalCount() {
-        return expiredBuildingOwnership.size() + expiredFireSafety.size() + expiredMoaValidity.size();
+        return expiredRegisteredProgramDocuments.size();
     }
 }

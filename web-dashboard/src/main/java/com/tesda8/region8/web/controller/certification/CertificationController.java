@@ -7,6 +7,7 @@ import com.tesda8.region8.program.registration.model.dto.TrainerFilter;
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.program.registration.service.RegistrationRequirementsCrudService;
 import com.tesda8.region8.program.registration.service.TrainerService;
+import com.tesda8.region8.util.enums.ExpiredCertificateType;
 import com.tesda8.region8.util.service.ApplicationUtil;
 import com.tesda8.region8.web.controller.HeaderController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,10 +57,11 @@ public class CertificationController extends HeaderController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/certification/expired")
-    public String getExpiredCertificates(@RequestParam(value = "trainerName", required = false) String trainerName, Model model){
+    public String getExpiredCertificates(@RequestParam(value = "trainerName", required = false) String trainerName,
+                                         Model model){
         addStatusCounterToModel(model);
-        addExpiredCertificateListToModel(model, ApplicationUtil.getDefaultPageNumber(), ApplicationUtil.getDefaultPageSize(), trainerName);
-        model.addAttribute("expiredCertificateFilter", new ExpiredCertificateFilter());
+        addExpiredCertificateListToModel(model, ApplicationUtil.getDefaultPageNumber(), ApplicationUtil.getDefaultPageSize(), trainerName, ExpiredCertificateType.ALL);
+        model.addAttribute("expiredCertificateFilter", new ExpiredCertificateFilter(trainerName, ExpiredCertificateType.ALL));
         return "certification/expired_certificates";
     }
 
@@ -68,17 +70,19 @@ public class CertificationController extends HeaderController {
                                             BindingResult bindingResult,
                                             Model model) {
         addStatusCounterToModel(model);
-        addExpiredCertificateListToModel(model, ApplicationUtil.getDefaultPageNumber(), ApplicationUtil.getDefaultPageSize(), expiredCertificateFilter.getTrainerName());
+        addExpiredCertificateListToModel(model, ApplicationUtil.getDefaultPageNumber(), ApplicationUtil.getDefaultPageSize(), expiredCertificateFilter.getTrainerName(), expiredCertificateFilter.getExpiredCertificateType());
         model.addAttribute("expiredCertificateFilter", expiredCertificateFilter);
         return "certification/expired_certificates";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/certification/expired/pagination")
-    public String expiredCertificatesPagination(Model model, @RequestParam("trainerName") String trainerName,
+    public String expiredCertificatesPagination(Model model,
+                                                @RequestParam("trainerName") String trainerName,
+                                                @RequestParam("expiredCertificateType") ExpiredCertificateType expiredCertificateType,
                                                 @RequestParam("pageNumber") int pageNumber) {
-        ExpiredCertificateFilter expiredCertificateFilter = new ExpiredCertificateFilter(trainerName);
+        ExpiredCertificateFilter expiredCertificateFilter = new ExpiredCertificateFilter(trainerName, expiredCertificateType);
         addStatusCounterToModel(model);
-        addExpiredCertificateListToModel(model, pageNumber, ApplicationUtil.getDefaultPageSize(), trainerName);
+        addExpiredCertificateListToModel(model, pageNumber, ApplicationUtil.getDefaultPageSize(), trainerName, expiredCertificateType);
         model.addAttribute("expiredCertificateFilter", expiredCertificateFilter);
         return "certification/expired_certificates";
     }

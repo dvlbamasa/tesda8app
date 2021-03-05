@@ -2,6 +2,7 @@ package com.tesda8.region8.web.controller.program.registration;
 
 import com.google.common.collect.Lists;
 import com.tesda8.region8.certification.service.ExpiredCertificateService;
+import com.tesda8.region8.program.registration.model.dto.ExpiredDocumentFilter;
 import com.tesda8.region8.program.registration.model.dto.InstitutionDto;
 import com.tesda8.region8.program.registration.model.dto.NonTeachingStaffDto;
 import com.tesda8.region8.program.registration.model.dto.OfficialDto;
@@ -14,10 +15,12 @@ import com.tesda8.region8.program.registration.service.InstitutionService;
 import com.tesda8.region8.program.registration.service.RegisteredProgramService;
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.util.enums.CourseStatus;
+import com.tesda8.region8.util.enums.ExpiredDocumentType;
 import com.tesda8.region8.util.enums.InstitutionClassification;
 import com.tesda8.region8.util.enums.OperatingUnitType;
 import com.tesda8.region8.util.enums.Sector;
 import com.tesda8.region8.util.enums.SortOrder;
+import com.tesda8.region8.util.service.ApplicationUtil;
 import com.tesda8.region8.web.controller.HeaderController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +33,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -70,7 +74,7 @@ public class ProgramRegistrationController extends HeaderController {
         model.addAttribute("registeredPrograms", registeredProgramDtoList);
         model.addAttribute("ttiList", institutionDtoList);
         model.addAttribute("total", registeredProgramDtoList.size());
-        addExpiredDocumentsListToModel(model);
+        addExpiredDocumentsListToModel(ApplicationUtil.getDefaultPageNumber(), ApplicationUtil.getDefaultPageSize(), ExpiredDocumentType.ALL, model);
         return "program_registration/program_registration";
     }
 
@@ -144,6 +148,32 @@ public class ProgramRegistrationController extends HeaderController {
 
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/program_registration/documents/expired")
+    public String expiredDocuments(Model model) {
+        addExpiredDocumentsListToModel(ApplicationUtil.getDefaultPageNumber(), ApplicationUtil.getDefaultPageSize(), ExpiredDocumentType.ALL, model);
+        model.addAttribute("filter", new ExpiredDocumentFilter(ExpiredDocumentType.ALL));
+        addStatusCounterToModel(model);
+        return "program_registration/documents_expired";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/program_registration/documents/expired/search")
+    public String expiredDocumentsSearch(@ModelAttribute ExpiredDocumentFilter expiredDocumentFilter, Model model) {
+        addExpiredDocumentsListToModel(ApplicationUtil.getDefaultPageNumber(), ApplicationUtil.getDefaultPageSize(), expiredDocumentFilter.getExpiredDocumentType(), model);
+        model.addAttribute("filter", expiredDocumentFilter);
+        addStatusCounterToModel(model);
+        return "program_registration/documents_expired";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/program_registration/documents/expired/pagination")
+    public String expiredDocumentsPagination(Model model,
+                                             @RequestParam("expiredDocumentType") ExpiredDocumentType expiredDocumentType,
+                                             @RequestParam("pageNumber") int pageNumber) {
+        addStatusCounterToModel(model);
+        model.addAttribute("filter", new ExpiredDocumentFilter(expiredDocumentType));
+        addExpiredDocumentsListToModel(pageNumber, ApplicationUtil.getDefaultPageSize(), expiredDocumentType, model);
+        return "program_registration/documents_expired";
+    }
+
     private void initializeModel(Model model) {
         RegisteredProgramFilter registeredProgramFilter = new RegisteredProgramFilter();
         registeredProgramFilter.setOperatingUnitType(new OperatingUnitType[]{OperatingUnitType.TOTAL});
@@ -163,6 +193,6 @@ public class ProgramRegistrationController extends HeaderController {
         model.addAttribute("ttiList", institutionDtoList);
         model.addAttribute("total", registeredProgramDtoList.size());
         addStatusCounterToModel(model);
-        addExpiredDocumentsListToModel(model);
+        addExpiredDocumentsListToModel(ApplicationUtil.getDefaultPageNumber(), ApplicationUtil.getDefaultPageSize(), ExpiredDocumentType.ALL, model);
     }
 }

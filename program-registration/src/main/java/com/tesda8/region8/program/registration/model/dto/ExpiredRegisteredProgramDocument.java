@@ -10,5 +10,12 @@ import lombok.NoArgsConstructor;
 public class ExpiredRegisteredProgramDocument {
 
     private String programRegistrationNumber;
+    private String qualification;
+    private String institutionName;
     private Long id;
+    private boolean expiredBuildingOwnership;
+    private boolean expiredFireSafety;
+    private boolean expiredMoaValidity;
+
+
 }

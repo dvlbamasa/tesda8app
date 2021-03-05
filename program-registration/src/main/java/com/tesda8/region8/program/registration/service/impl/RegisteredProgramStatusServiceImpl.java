@@ -5,9 +5,15 @@ import com.tesda8.region8.program.registration.model.dto.ExpiredRegisteredProgra
 import com.tesda8.region8.program.registration.model.entities.RegisteredProgram;
 import com.tesda8.region8.program.registration.repository.RegisteredProgramRepository;
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
+import com.tesda8.region8.util.enums.ExpiredDocumentType;
 import com.tesda8.region8.util.enums.MoaValidityType;
+import com.tesda8.region8.util.service.ApplicationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -32,54 +38,91 @@ public class RegisteredProgramStatusServiceImpl implements RegisteredProgramStat
     @Override
     @Cacheable("expiredDocumentsCount")
     public long getExpiredDocumentsCount() {
-        return getExpiredDocuments().getTotalCount();
+        return getExpiredDocuments(ApplicationUtil.getDefaultPageNumber(), ApplicationUtil.getDefaultPageSize(), ExpiredDocumentType.ALL).getTotalCount();
     }
 
     @Override
     @Cacheable("expiredDocuments")
-    public ExpiredDocumentsWrapper getExpiredDocuments() {
+    public ExpiredDocumentsWrapper getExpiredDocuments(int pageNumber, int pageSize, ExpiredDocumentType expiredDocumentType) {
         List<RegisteredProgram> registeredProgramList = registeredProgramRepository.findAll();
         ExpiredDocumentsWrapper expiredDocumentsWrapper = new ExpiredDocumentsWrapper();
         registeredProgramList.forEach(
                 registeredProgram -> {
+                    ExpiredRegisteredProgramDocument expiredRegisteredProgramDocument = new ExpiredRegisteredProgramDocument();
+                    expiredRegisteredProgramDocument.setProgramRegistrationNumber(registeredProgram.getProgramRegistrationNumber());
+                    expiredRegisteredProgramDocument.setId(registeredProgram.getId());
+                    expiredRegisteredProgramDocument.setQualification(registeredProgram.getName());
+                    expiredRegisteredProgramDocument.setInstitutionName(registeredProgram.getInstitution().getName());
                     if (registeredProgram.getRegistrationRequirement() != null) {
                         if (registeredProgram.getRegistrationRequirement().getBuildingOwnershipDateIssued() != null) {
-                            checkIfBuildingOwnershipIsExpired(expiredDocumentsWrapper, registeredProgram);
+                            expiredRegisteredProgramDocument.setExpiredBuildingOwnership(checkIfBuildingOwnershipIsExpired(registeredProgram));
                         }
                         if (registeredProgram.getRegistrationRequirement().getFireSafetyDateIssued() != null) {
-                            checkIfFireSafetyIsExpired(expiredDocumentsWrapper, registeredProgram);
+                            expiredRegisteredProgramDocument.setExpiredFireSafety(checkIfFireSafetyIsExpired(registeredProgram));
                         }
                         if (registeredProgram.getRegistrationRequirement().getMoaValidity() != null) {
-                            checkIfMoaValidityIsExpired(expiredDocumentsWrapper, registeredProgram);
+                            expiredRegisteredProgramDocument.setExpiredMoaValidity(checkIfMoaValidityIsExpired(registeredProgram));
                         }
+                    }
+                    switch (expiredDocumentType) {
+                        case FIRE_SAFETY:
+                            if (expiredRegisteredProgramDocument.isExpiredFireSafety()) {
+                                expiredDocumentsWrapper.getExpiredRegisteredProgramDocuments().add(expiredRegisteredProgramDocument);
+                            }
+                            break;
+                        case BUILDING_OWNERSHIP:
+                            if (expiredRegisteredProgramDocument.isExpiredBuildingOwnership()) {
+                                expiredDocumentsWrapper.getExpiredRegisteredProgramDocuments().add(expiredRegisteredProgramDocument);
+                            }
+                            break;
+                        case MOA_VALIDITY:
+                            if (expiredRegisteredProgramDocument.isExpiredMoaValidity()) {
+                                expiredDocumentsWrapper.getExpiredRegisteredProgramDocuments().add(expiredRegisteredProgramDocument);
+                            }
+                            break;
+                        case ALL:
+                            if (expiredRegisteredProgramDocument.isExpiredBuildingOwnership() ||
+                                    expiredRegisteredProgramDocument.isExpiredFireSafety() ||
+                                    expiredRegisteredProgramDocument.isExpiredMoaValidity()) {
+                                expiredDocumentsWrapper.getExpiredRegisteredProgramDocuments().add(expiredRegisteredProgramDocument);
+                            }
+                            break;
+                        default:
+                            break;
                     }
                 }
         );
+
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), expiredDocumentsWrapper.getExpiredRegisteredProgramDocuments().size());
+
+        Page<ExpiredRegisteredProgramDocument> expiredRegisteredProgramDocumentPage =
+                new PageImpl<>(
+                        expiredDocumentsWrapper.getExpiredRegisteredProgramDocuments().subList(start, end), pageable,
+                        expiredDocumentsWrapper.getTotalCount()
+                );
+        expiredDocumentsWrapper.setExpiredRegisteredProgramDocumentPage(expiredRegisteredProgramDocumentPage);
         return expiredDocumentsWrapper;
     }
 
-    private void checkIfBuildingOwnershipIsExpired(ExpiredDocumentsWrapper expiredDocumentsWrapper, RegisteredProgram registeredProgram) {
+    private boolean checkIfBuildingOwnershipIsExpired(RegisteredProgram registeredProgram) {
         LocalDateTime expirationDate = convertToLocalDateTimeViaSqlTimestamp(registeredProgram.getRegistrationRequirement().getBuildingOwnershipDateIssued()).plusYears(BUILDING_OWNERSHIP_EXPIRATION_YEARS);
-        if (Date.valueOf(LocalDate.now()).after(convertToDateViaInstant(expirationDate))) {
-            expiredDocumentsWrapper.getExpiredBuildingOwnership().add(new ExpiredRegisteredProgramDocument(registeredProgram.getProgramRegistrationNumber(), registeredProgram.getId()));
-        }
+        return Date.valueOf(LocalDate.now()).after(convertToDateViaInstant(expirationDate));
     }
 
-    private void checkIfFireSafetyIsExpired(ExpiredDocumentsWrapper expiredDocumentsWrapper, RegisteredProgram registeredProgram) {
+    private boolean checkIfFireSafetyIsExpired(RegisteredProgram registeredProgram) {
         LocalDateTime expirationDate = convertToLocalDateTimeViaSqlTimestamp(registeredProgram.getRegistrationRequirement().getFireSafetyDateIssued()).plusYears(FIRE_SAFETY_EXPIRATION_YEARS);
-        if (Date.valueOf(LocalDate.now()).after(convertToDateViaInstant(expirationDate))) {
-            expiredDocumentsWrapper.getExpiredFireSafety().add(new ExpiredRegisteredProgramDocument(registeredProgram.getProgramRegistrationNumber(), registeredProgram.getId()));
-        }
+        return Date.valueOf(LocalDate.now()).after(convertToDateViaInstant(expirationDate));
     }
 
-    private void checkIfMoaValidityIsExpired(ExpiredDocumentsWrapper expiredDocumentsWrapper, RegisteredProgram registeredProgram) {
+    private boolean checkIfMoaValidityIsExpired(RegisteredProgram registeredProgram) {
         if (!registeredProgram.getRegistrationRequirement().getMoaValidityType().equals(MoaValidityType.OPEN)) {
             LocalDateTime expirationDate = convertToLocalDateTimeViaSqlTimestamp(registeredProgram.getRegistrationRequirement().getMoaValidity())
                     .plusYears(Integer.parseInt(registeredProgram.getRegistrationRequirement().getMoaValidityType().label));
-            if (Date.valueOf(LocalDate.now()).after(convertToDateViaInstant(expirationDate))) {
-                expiredDocumentsWrapper.getExpiredMoaValidity().add(new ExpiredRegisteredProgramDocument(registeredProgram.getProgramRegistrationNumber(), registeredProgram.getId()));
-            }
+            return Date.valueOf(LocalDate.now()).after(convertToDateViaInstant(expirationDate));
         }
+        return false;
     }
 
     private LocalDateTime convertToLocalDateTimeViaSqlTimestamp(java.util.Date dateToConvert) {

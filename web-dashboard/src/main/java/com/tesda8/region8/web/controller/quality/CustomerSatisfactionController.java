@@ -40,7 +40,6 @@ public class CustomerSatisfactionController extends HeaderController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/customer_satisfaction")
     public String customerSatisfaction(Model model) {
-        addExpiredDocumentsListToModel(model);
         model.addAttribute("feedbackForm", FeedbackDto.build(feedbackService.generateControlNumber(ApplicationUtil.getLocalDateTimeNow())));
         return "quality/customer_satisfaction";
     }
@@ -48,7 +47,6 @@ public class CustomerSatisfactionController extends HeaderController {
     @RequestMapping(method = RequestMethod.POST, value = "/customer_satisfaction/tesdaForm")
     public String customerSatisfaction(@ModelAttribute FeedbackDto feedbackDto, BindingResult bindingResult,
                                        Model model) {
-        addExpiredDocumentsListToModel(model);
         model.addAttribute("feedbackForm", feedbackDto);
         return "quality/customer_satisfaction_tesda_form";
     }
@@ -61,7 +59,6 @@ public class CustomerSatisfactionController extends HeaderController {
         if(!isValidCaptcha){
             throw new Exception("Captcha is not valid");
         }
-        addExpiredDocumentsListToModel(model);
         model.addAttribute("feedbackForm", feedbackDto);
         feedbackService.createFeedback(feedbackDto);
         return "quality/customer_satisfaction_success";
