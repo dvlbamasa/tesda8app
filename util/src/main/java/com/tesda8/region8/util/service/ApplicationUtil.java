@@ -2,6 +2,9 @@ package com.tesda8.region8.util.service;
 
 import com.tesda8.region8.util.enums.Month;
 import com.tesda8.region8.util.enums.OperatingUnitPOType;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -75,6 +78,15 @@ public class ApplicationUtil {
 
     public static boolean checkIfLongName(String name) {
         return name.length() >= 26;
+    }
+
+    public static boolean isAuthenticated() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || AnonymousAuthenticationToken.class.
+                isAssignableFrom(authentication.getClass())) {
+            return false;
+        }
+        return authentication.isAuthenticated();
     }
 
 }
