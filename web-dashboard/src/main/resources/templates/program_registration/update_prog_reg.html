@@ -207,7 +207,7 @@
                                 <th scope="col"> Email</th>
                                 <th scope="col"> Nature of Appointment</th>
                                 <th scope="col"> Educational Attainment</th>
-                                <th scope="col" colspan="2"> Action</th>
+                                <th style="min-width: 200px" scope="col" colspan="2"> Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -225,8 +225,8 @@
                                     <td><span th:text="${official.email}"></span></td>
                                     <td><span th:text="${official.natureOfAppointment}"></span></td>
                                     <td><span th:text="${official.educationalAttainment.label}"></span></td>
-                                    <td><a th:href="@{/program_registration/official/{id}/update(id=${official.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
-                                    <td><a class="deleteOfficial" th:href="@{/program_registration/{registeredProgramId}/official/{id}/delete(id=${official.id}, registeredProgramId=${registeredProgram.id})}"><button class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
+                                    <td class="text-center"><a th:href="@{/program_registration/official/{id}/update(id=${official.id})}"><button class="btn btn-sm btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
+                                    <td class="text-center"><a class="deleteOfficial" th:href="@{/program_registration/{registeredProgramId}/official/{id}/delete(id=${official.id}, registeredProgramId=${registeredProgram.id})}"><button class="btn btn-sm btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
                                 </tr>
                             </th:block>
                             </tbody>
@@ -249,7 +249,7 @@
                                 <th scope="col"> Nature of Appointment</th>
                                 <th scope="col"> Educational Attainment</th>
                                 <th scope="col"> Remarks</th>
-                                <th scope="col" colspan="2"> Action</th>
+                                <th style="min-width: 200px" scope="col" colspan="2"> Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -264,8 +264,8 @@
                                     <td><span th:text="${trainer.natureOfAppointmentDetails.natureOfAppointmentType.label}"></span></td>
                                     <td><span th:text="${trainer.educationalAttainment.label}"></span></td>
                                     <td><span th:text="${trainer.remarkDetails.remarkType.label}"></span></td>
-                                    <td><a th:href="@{/program_registration/trainer/{id}/update(id=${trainer.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
-                                    <td><a class="deleteTrainer" th:href="@{/program_registration/{registeredProgramId}/trainer/{id}/delete(id=${trainer.id}, registeredProgramId=${registeredProgram.id})}"><button class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Unlink</button></a></td>
+                                    <td class="text-center"><a th:href="@{/program_registration/trainer/{id}/update(id=${trainer.id})}"><button class="btn btn-sm btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
+                                    <td class="text-center"><a class="deleteTrainer" th:href="@{/program_registration/{registeredProgramId}/trainer/{id}/delete(id=${trainer.id}, registeredProgramId=${registeredProgram.id})}"><button class="btn btn-sm btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Unlink</button></a></td>
                                 </tr>
                             </th:block>
                             </tbody>
@@ -289,7 +289,7 @@
                                 <th scope="col"> Nature of Appointment</th>
                                 <th scope="col"> Educational Attainment</th>
                                 <th scope="col"> Experience relative to position</th>
-                                <th scope="col" colspan="2"> Action</th>
+                                <th style="min-width: 200px" scope="col" colspan="2"> Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -305,8 +305,8 @@
                                     <td><span th:text="${staff.natureOfAppointment}"></span></td>
                                     <td><span th:text="${staff.educationalAttainment.label}"></span></td>
                                     <td><span th:text="${staff.positionExperience}"></span></td>
-                                    <td><a th:href="@{/program_registration/staff/{id}/update(id=${staff.id})}"><button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
-                                    <td><a class="deleteStaff" th:href="@{/program_registration/{registeredProgramId}/staff/{id}/delete(id=${staff.id}, registeredProgramId=${registeredProgram.id})}"><button id="deleteStaff" class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
+                                    <td class="text-center"><a th:href="@{/program_registration/staff/{id}/update(id=${staff.id})}"><button class="btn btn-sm btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Update</button></a></td>
+                                    <td class="text-center"><a class="deleteStaff" th:href="@{/program_registration/{registeredProgramId}/staff/{id}/delete(id=${staff.id}, registeredProgramId=${registeredProgram.id})}"><button id="deleteStaff" class="btn btn-sm btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i> Delete</button></a></td>
                                 </tr>
                             </th:block>
                             </tbody>

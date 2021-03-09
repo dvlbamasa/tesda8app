@@ -142,6 +142,7 @@ public class PapDataServiceImpl implements PapDataService {
         List<SuccessIndicatorDataDto> successIndicatorDataDtoList = successIndicatorDataList.stream()
                 .map(this::sortOperatingUnitData)
                 .map(successIndicatorData -> planningMapper.successIndicatorToDto(successIndicatorData))
+                .filter(successIndicatorDataDto -> filterSuccessIndicator(successIndicatorDataDto, roleName, month))
                 .map(successIndicatorDataDto -> filterOperatingUnitData(successIndicatorDataDto, roleName, month))
                 .collect(Collectors.toList());
 
@@ -219,17 +220,30 @@ public class PapDataServiceImpl implements PapDataService {
 
         }
 
-        return successIndicatorDataDto;
+         return successIndicatorDataDto;
     }
 
+    private boolean filterSuccessIndicator(SuccessIndicatorDataDto successIndicatorDataDto, String role, Month month) {
+        if (!role.equals(PLANNING_ROLE) && !role.equals(ADMIN_ROLE)) {
+            long count = successIndicatorDataDto.getOperatingUnitDataList().stream()
+                    .filter(operatingUnitDataDto -> operatingUnitDataDto.getOperatingUnitType().equals(OperatingUnitPOType.valueOf(role)))
+                    .filter(operatingUnitDataDto -> operatingUnitDataDto.getMonth().equals(month))
+                    .filter(operatingUnitDataDto -> operatingUnitDataDto.getTarget() == 0)
+                    .count();
+            if (count > 0) {
+                return false;
+            }
+        }
+        return true;
+    }
     private SuccessIndicatorDataDto filterOperatingUnitDataDtoForGraph(SuccessIndicatorDataDto successIndicatorDataDto, String pageType, Month month) {
-        successIndicatorDataDto.setOperatingUnitDataList(
-                successIndicatorDataDto.getOperatingUnitDataList().stream()
-                        .filter(operatingUnitDataDto -> operatingUnitDataDto.getOperatingUnitType().successIndicatorType.equals(pageType))
-                        .filter(operatingUnitDataDto -> operatingUnitDataDto.getMonth().equals(month))
-                        .collect(Collectors.toList())
-        );
-        return successIndicatorDataDto;
+    successIndicatorDataDto.setOperatingUnitDataList(
+            successIndicatorDataDto.getOperatingUnitDataList().stream()
+                    .filter(operatingUnitDataDto -> operatingUnitDataDto.getOperatingUnitType().successIndicatorType.equals(pageType))
+                    .filter(operatingUnitDataDto -> operatingUnitDataDto.getMonth().equals(month))
+                    .collect(Collectors.toList())
+    );
+    return successIndicatorDataDto;
     }
 
     @Override

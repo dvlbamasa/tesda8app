@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.List;
 
 @Service
@@ -33,7 +32,6 @@ public class RegisteredProgramStatusServiceImpl implements RegisteredProgramStat
     public RegisteredProgramStatusServiceImpl(RegisteredProgramRepository registeredProgramRepository) {
         this.registeredProgramRepository = registeredProgramRepository;
     }
-
 
     @Override
     @Cacheable("expiredDocumentsCount")
@@ -107,32 +105,21 @@ public class RegisteredProgramStatusServiceImpl implements RegisteredProgramStat
     }
 
     private boolean checkIfBuildingOwnershipIsExpired(RegisteredProgram registeredProgram) {
-        LocalDateTime expirationDate = convertToLocalDateTimeViaSqlTimestamp(registeredProgram.getRegistrationRequirement().getBuildingOwnershipDateIssued()).plusYears(BUILDING_OWNERSHIP_EXPIRATION_YEARS);
-        return Date.valueOf(LocalDate.now()).after(convertToDateViaInstant(expirationDate));
+        LocalDateTime expirationDate = ApplicationUtil.convertToLocalDateTimeViaInstant(registeredProgram.getRegistrationRequirement().getBuildingOwnershipDateIssued()).plusYears(BUILDING_OWNERSHIP_EXPIRATION_YEARS);
+        return Date.valueOf(LocalDate.now()).after(ApplicationUtil.convertToDateViaInstant(expirationDate));
     }
 
     private boolean checkIfFireSafetyIsExpired(RegisteredProgram registeredProgram) {
-        LocalDateTime expirationDate = convertToLocalDateTimeViaSqlTimestamp(registeredProgram.getRegistrationRequirement().getFireSafetyDateIssued()).plusYears(FIRE_SAFETY_EXPIRATION_YEARS);
-        return Date.valueOf(LocalDate.now()).after(convertToDateViaInstant(expirationDate));
+        LocalDateTime expirationDate = ApplicationUtil.convertToLocalDateTimeViaInstant(registeredProgram.getRegistrationRequirement().getFireSafetyDateIssued()).plusYears(FIRE_SAFETY_EXPIRATION_YEARS);
+        return Date.valueOf(LocalDate.now()).after(ApplicationUtil.convertToDateViaInstant(expirationDate));
     }
 
     private boolean checkIfMoaValidityIsExpired(RegisteredProgram registeredProgram) {
         if (!registeredProgram.getRegistrationRequirement().getMoaValidityType().equals(MoaValidityType.OPEN)) {
-            LocalDateTime expirationDate = convertToLocalDateTimeViaSqlTimestamp(registeredProgram.getRegistrationRequirement().getMoaValidity())
+            LocalDateTime expirationDate = ApplicationUtil.convertToLocalDateTimeViaInstant(registeredProgram.getRegistrationRequirement().getMoaValidity())
                     .plusYears(Integer.parseInt(registeredProgram.getRegistrationRequirement().getMoaValidityType().label));
-            return Date.valueOf(LocalDate.now()).after(convertToDateViaInstant(expirationDate));
+            return Date.valueOf(LocalDate.now()).after(ApplicationUtil.convertToDateViaInstant(expirationDate));
         }
         return false;
-    }
-
-    private LocalDateTime convertToLocalDateTimeViaSqlTimestamp(java.util.Date dateToConvert) {
-        return new java.sql.Timestamp(
-                dateToConvert.getTime()).toLocalDateTime();
-    }
-
-    public java.util.Date convertToDateViaInstant(LocalDateTime dateToConvert) {
-        return java.util.Date
-                .from(dateToConvert.atZone(ZoneId.systemDefault())
-                        .toInstant());
     }
 }
