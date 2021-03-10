@@ -30,6 +30,10 @@ public interface ProgramRegistrationMapper {
     @Mapping(source = "registeredProgram.institution.institutionClassification", target = "institutionClassification")
     @Mapping(source = "registeredProgram.institution.operatingUnitType", target = "operatingUnit")
     @Mapping(source = "registeredProgram.institution.shortName", target = "institutionShortName")
+    @Mapping(source = "registeredProgram.institution.institutionType", target = "institutionType")
+    @Mapping(source = "registeredProgram.institution.congressionalDistrict", target = "congressionalDistrict")
+    @Mapping(source = "registeredProgram.institution.address", target = "address")
+    @Mapping(source = "registeredProgram.institution.contactNumber", target = "contactNumber")
     RegisteredProgramDto registeredProgramToDto(RegisteredProgram registeredProgram);
 
     @Mapping(source = "registeredProgram.trainerList", target = "trainerDtoList")

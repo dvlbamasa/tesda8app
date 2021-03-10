@@ -11,6 +11,7 @@ import com.tesda8.region8.program.registration.model.dto.RegisteredProgramFilter
 import com.tesda8.region8.program.registration.model.dto.RegisteredProgramRequestDto;
 import com.tesda8.region8.program.registration.model.dto.TrainerDto;
 import com.tesda8.region8.program.registration.model.entities.RegisteredProgram;
+import com.tesda8.region8.program.registration.service.CompendiumExcelService;
 import com.tesda8.region8.program.registration.service.InstitutionService;
 import com.tesda8.region8.program.registration.service.RegisteredProgramService;
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
@@ -35,6 +36,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -42,16 +49,20 @@ public class ProgramRegistrationController extends HeaderController {
 
     private InstitutionService institutionService;
     private RegisteredProgramService registeredProgramService;
+    private CompendiumExcelService compendiumExcelService;
     private static Logger logger = LoggerFactory.getLogger(ProgramRegistrationController.class);
+    private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy");
 
     @Autowired
     public ProgramRegistrationController(InstitutionService institutionService,
                                          RegisteredProgramService registeredProgramService,
                                          RegisteredProgramStatusService registeredProgramStatusService,
+                                         CompendiumExcelService compendiumExcelService,
                                          ExpiredCertificateService expiredCertificateService) {
         super(registeredProgramStatusService, expiredCertificateService);
         this.institutionService = institutionService;
         this.registeredProgramService = registeredProgramService;
+        this.compendiumExcelService = compendiumExcelService;
     }
 
     @GetMapping("/program_registration")
@@ -63,8 +74,8 @@ public class ProgramRegistrationController extends HeaderController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/program_registration/registeredProgram/search")
     public String registeredProgramsWithFilter(@ModelAttribute RegisteredProgramFilter registeredProgramFilter,
-                                  BindingResult bindingResult,
-                                  Model model) {
+                                               BindingResult bindingResult,
+                                               Model model) throws IOException {
         if (bindingResult.hasErrors()) {
             //errors processing
         }
@@ -74,6 +85,7 @@ public class ProgramRegistrationController extends HeaderController {
         model.addAttribute("registeredPrograms", registeredProgramDtoList);
         model.addAttribute("ttiList", institutionDtoList);
         model.addAttribute("total", registeredProgramDtoList.size());
+        addStatusCounterToModel(model);
         addExpiredDocumentsListToModel(ApplicationUtil.getDefaultPageNumber(), ApplicationUtil.getDefaultPageSize(), ExpiredDocumentType.ALL, model);
         return "program_registration/program_registration";
     }
@@ -194,5 +206,29 @@ public class ProgramRegistrationController extends HeaderController {
         model.addAttribute("total", registeredProgramDtoList.size());
         addStatusCounterToModel(model);
         addExpiredDocumentsListToModel(ApplicationUtil.getDefaultPageNumber(), ApplicationUtil.getDefaultPageSize(), ExpiredDocumentType.ALL, model);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/program_registration/compendium/download")
+    public void downloadCompendium(HttpServletResponse httpServletResponse,
+                                   @RequestParam("institutionIds") Long [] institutionIds,
+                                   @RequestParam("sector") Sector sector,
+                                   @RequestParam("courseName") String courseName,
+                                   @RequestParam("operatingUnitType") OperatingUnitType [] operatingUnitType,
+                                   @RequestParam("institutionClassification") InstitutionClassification [] institutionClassification,
+                                   @RequestParam("registeredProgramNumber") String registeredProgramNumber,
+                                   @RequestParam("dateIssuedFrom") String dateIssuedFrom,
+                                   @RequestParam("dateIssuedTo") String dateIssuedTo,
+                                   @RequestParam("courseStatus") CourseStatus courseStatus,
+                                   @RequestParam("isClosed") Boolean isClosed,
+                                   @RequestParam("sortOrder") SortOrder sortOrder) throws IOException, ParseException {
+        Date from = dateIssuedFrom.equals("") ? null : SIMPLE_DATE_FORMAT.parse(dateIssuedFrom);
+        Date to = dateIssuedTo.equals("") ? null : SIMPLE_DATE_FORMAT.parse(dateIssuedTo);
+        httpServletResponse.setContentType("application/octet-stream");
+        String headerKey = "Content-Disposition";
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        String dateNow = dateFormatter.format(ApplicationUtil.convertToDateViaInstant(ApplicationUtil.getLocalDateTimeNow()));
+        String headerValue = "attachment; filename=Compendium as of " + dateNow + ".xlsx";
+        httpServletResponse.setHeader(headerKey, headerValue);
+        compendiumExcelService.parseCompendium(httpServletResponse, new RegisteredProgramFilter(institutionIds, sector, courseName,operatingUnitType, institutionClassification, registeredProgramNumber,from, to,courseStatus, isClosed, sortOrder));
     }
 }

@@ -234,7 +234,18 @@
                         <div class="container mt-5">
                             <div class="btn-group" role="group">
                                 <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton" th:value="Update"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
-                                <button onclick="exportTableToExcel('prog-reg-table', 'Registered Programs')"  class="btn btn-success btn-lg" id="downloadTable" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
+                                <a th:href="@{/program_registration/compendium/download(institutionIds = ${registeredProgramFilter.institutionIds},
+                                                                                        sector = ${registeredProgramFilter.sector},
+                                                                                        courseName = ${registeredProgramFilter.courseName},
+                                                                                        operatingUnitType = ${registeredProgramFilter.operatingUnitType},
+                                                                                        institutionClassification = ${registeredProgramFilter.institutionClassification},
+                                                                                        registeredProgramNumber = ${registeredProgramFilter.registeredProgramNumber},
+                                                                                        dateIssuedFrom = ${registeredProgramFilter.dateIssuedFrom},
+                                                                                        dateIssuedTo = ${registeredProgramFilter.dateIssuedTo},
+                                                                                        courseStatus = ${registeredProgramFilter.courseStatus},
+                                                                                        isClosed = ${registeredProgramFilter.isClosed},
+                                                                                        sortOrder = ${registeredProgramFilter.sortOrder})}" class="btn btn-success btn-lg" role="button" >
+                                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> Export Compendium</a>
                             </div>
                         </div>
                     </div>
