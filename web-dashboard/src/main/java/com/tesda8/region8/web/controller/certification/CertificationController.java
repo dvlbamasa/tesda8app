@@ -2,12 +2,15 @@ package com.tesda8.region8.web.controller.certification;
 
 import com.tesda8.region8.certification.model.dto.ExpiredCertificateFilter;
 import com.tesda8.region8.certification.service.ExpiredCertificateService;
+import com.tesda8.region8.certification.service.RegistryTrainerExcelService;
 import com.tesda8.region8.program.registration.model.dto.TrainerDto;
 import com.tesda8.region8.program.registration.model.dto.TrainerFilter;
 import com.tesda8.region8.program.registration.service.RegisteredProgramStatusService;
 import com.tesda8.region8.program.registration.service.RegistrationRequirementsCrudService;
 import com.tesda8.region8.program.registration.service.TrainerService;
+import com.tesda8.region8.util.enums.EducationalAttainment;
 import com.tesda8.region8.util.enums.ExpiredCertificateType;
+import com.tesda8.region8.util.enums.Sex;
 import com.tesda8.region8.util.service.ApplicationUtil;
 import com.tesda8.region8.web.controller.HeaderController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,20 +25,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 @Controller
 public class CertificationController extends HeaderController {
 
     private TrainerService trainerService;
     private RegistrationRequirementsCrudService registrationRequirementsCrudService;
+    private RegistryTrainerExcelService registryTrainerExcelService;
 
     @Autowired
     public CertificationController(TrainerService trainerService,
                                    @Qualifier("trainer") RegistrationRequirementsCrudService registrationRequirementsCrudService,
                                    RegisteredProgramStatusService registeredProgramStatusService,
+                                   RegistryTrainerExcelService registryTrainerExcelService,
                                    ExpiredCertificateService expiredCertificateService) {
         super(registeredProgramStatusService, expiredCertificateService);
         this.registrationRequirementsCrudService = registrationRequirementsCrudService;
         this.trainerService = trainerService;
+        this.registryTrainerExcelService = registryTrainerExcelService;
     }
 
 
@@ -54,6 +65,23 @@ public class CertificationController extends HeaderController {
         model.addAttribute("trainerFilter", trainerFilter);
         addStatusCounterToModel(model);
         return "certification/certification";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/certification/registry/download")
+    public void downloadRegistry(HttpServletResponse httpServletResponse,
+                                 @RequestParam("fullName") String fullName,
+                                 @RequestParam("sex") Sex sex,
+                                 @RequestParam("address") String address,
+                                 @RequestParam("contactNumber") String contactNumber,
+                                 @RequestParam("emailAddress") String emailAddress,
+                                 @RequestParam("educationalAttainment")EducationalAttainment educationalAttainment) throws IOException {
+        httpServletResponse.setContentType("application/octet-stream");
+        String headerKey = "Content-Disposition";
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        String dateNow = dateFormatter.format(ApplicationUtil.convertToDateViaInstant(ApplicationUtil.getLocalDateTimeNow()));
+        String headerValue = "attachment; filename=Registry of TVET Trainers as of " + dateNow + ".xlsx";
+        httpServletResponse.setHeader(headerKey, headerValue);
+        registryTrainerExcelService.parseRegistryReport(httpServletResponse, new TrainerFilter(fullName, sex, address, contactNumber, emailAddress, educationalAttainment));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/certification/expired")

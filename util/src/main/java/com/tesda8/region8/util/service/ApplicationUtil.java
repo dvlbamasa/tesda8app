@@ -2,6 +2,8 @@ package com.tesda8.region8.util.service;
 
 import com.tesda8.region8.util.enums.Month;
 import com.tesda8.region8.util.enums.OperatingUnitPOType;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -47,6 +49,9 @@ public class ApplicationUtil {
     }
 
     public static Date convertToDateViaInstant(LocalDateTime dateToConvert) {
+        if (dateToConvert == null) {
+            return null;
+        }
         return java.util.Date
                 .from(dateToConvert.atZone(ZoneId.systemDefault())
                         .toInstant());
@@ -61,6 +66,9 @@ public class ApplicationUtil {
     }
 
     public static String formatLocalDateTimeToString2(LocalDateTime dateToConvert) {
+        if (dateToConvert == null) {
+            return null;
+        }
         return dateToConvert.format(stringFormatter2);
     }
 
@@ -87,6 +95,19 @@ public class ApplicationUtil {
             return false;
         }
         return authentication.isAuthenticated();
+    }
+
+    public static void createCell(Row row, int columnCount, Object value) {
+        Cell cell = row.createCell(columnCount);
+        if (value instanceof Integer) {
+            cell.setCellValue((Integer) value);
+        } else if (value instanceof Boolean) {
+            cell.setCellValue((Boolean) value);
+        } else if (value instanceof Long) {
+            cell.setCellValue((Long) value);
+        } else {
+            cell.setCellValue((String) value);
+        }
     }
 
 }

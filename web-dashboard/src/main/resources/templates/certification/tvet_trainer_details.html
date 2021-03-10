@@ -36,9 +36,27 @@
                                 <input type="hidden" th:field="*{id}"/>
                                 <input type="hidden" th:field="*{isDeleted}"/>
                                 <div class="form-group row">
-                                    <label for="fullName" class="col-sm-2 col-form-label">Full Name<span class="input-required">*</span></label>
+                                    <label for="firstName" class="col-sm-2 col-form-label">First Name<span class="input-required">*</span></label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" placeholder="Enter Full Name" id="fullName" name="fullName" th:field="*{fullName}" th:value="${trainer.fullName}" required/>
+                                        <input type="text" class="form-control" placeholder="Enter First Name" id="firstName" name="firstName" th:field="*{firstName}" th:value="${trainer.firstName}" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="middleInitial" class="col-sm-2 col-form-label">Middle Initial<span class="input-required">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="Enter Middle Initial" id="middleInitial" name="middleInitial" th:field="*{middleInitial}" th:value="${trainer.middleInitial}" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="lastName" class="col-sm-2 col-form-label">Last Name<span class="input-required">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="Enter Last Name" id="lastName" name="lastName" th:field="*{lastName}" th:value="${trainer.lastName}" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="nameExt" class="col-sm-2 col-form-label">Name Extension</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="Enter Name Extension" id="nameExt" name="nameExt" th:field="*{nameExt}" th:value="${trainer.nameExt}"/>
                                     </div>
                                 </div>
                                 <div class="form-group row">

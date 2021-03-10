@@ -92,7 +92,12 @@
                         <div class="container mt-5">
                             <div class="btn-group" role="group">
                                 <button class="btn btn-primary btn-lg float-right" type="submit" id="submitButton" th:value="Update"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
-                                <button onclick="exportTableToExcel('prog-reg-table', 'Registered Programs')"  class="btn btn-success btn-lg" id="downloadTable" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export as Excel</button>
+                                <a th:href="@{/certification/registry/download(fullName = ${trainerFilter.fullName},
+                                                                               sex = ${trainerFilter.sex},
+                                                                               address = ${trainerFilter.address},
+                                                                               contactNumber = ${trainerFilter.contactNumber},
+                                                                               emailAddress = ${trainerFilter.emailAddress},
+                                                                               educationalAttainment = ${trainerFilter.educationalAttainment})}" class="btn btn-success btn-lg" id="downloadTable" role="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export Registry</a>
                             </div>
                         </div>
                     </fieldset>

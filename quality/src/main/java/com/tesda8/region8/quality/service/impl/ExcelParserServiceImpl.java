@@ -306,47 +306,34 @@ public class ExcelParserServiceImpl implements ExcelParserService {
         for (FeedbackDto feedbackDto : feedbackDtoList) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
-            createCell(row, columnCount++, dataCount++);
-            createCell(row, columnCount++, ApplicationUtil.formatLocalDateTimeToString(feedbackDto.getDate()));
-            createCell(row, columnCount++, feedbackDto.getControlNumber());
-            createCell(row, columnCount++, feedbackDto.getCustomer().getContactDetails());
-            createCell(row, columnCount++, feedbackDto.getCustomer().getAge());
-            createCell(row, columnCount++, feedbackDto.getCustomer().getGender().label);
-            createCell(row, columnCount++, feedbackDto.getCustomer().getEmailAddress());
-            createCell(row, columnCount++, feedbackDto.getTesdaForm().getTesdaOffice().label);
-            createCell(row, columnCount++, feedbackDto.getTesdaForm().getServiceRequested());
-            createCell(row, columnCount++, feedbackDto.getTesdaForm().getActionTaken().label);
+            ApplicationUtil.createCell(row, columnCount++, dataCount++);
+            ApplicationUtil.createCell(row, columnCount++, ApplicationUtil.formatLocalDateTimeToString(feedbackDto.getDate()));
+            ApplicationUtil.createCell(row, columnCount++, feedbackDto.getControlNumber());
+            ApplicationUtil.createCell(row, columnCount++, feedbackDto.getCustomer().getContactDetails());
+            ApplicationUtil.createCell(row, columnCount++, feedbackDto.getCustomer().getAge());
+            ApplicationUtil.createCell(row, columnCount++, feedbackDto.getCustomer().getGender().label);
+            ApplicationUtil.createCell(row, columnCount++, feedbackDto.getCustomer().getEmailAddress());
+            ApplicationUtil.createCell(row, columnCount++, feedbackDto.getTesdaForm().getTesdaOffice().label);
+            ApplicationUtil.createCell(row, columnCount++, feedbackDto.getTesdaForm().getServiceRequested());
+            ApplicationUtil.createCell(row, columnCount++, feedbackDto.getTesdaForm().getActionTaken().label);
             switch (feedbackDto.getTotalRating()) {
                 case VERY_SATISFACTORY:
-                    createCell(row, columnCount++, "✓");
+                    ApplicationUtil.createCell(row, columnCount++, "✓");
                     columnCount+=2;
                     break;
                 case SATISFACTORY:
-                    createCell(row, ++columnCount, "✓");
+                    ApplicationUtil.createCell(row, ++columnCount, "✓");
                     columnCount+=2;
                     break;
                 case POOR:
                     columnCount+=2;
-                    createCell(row, columnCount++, "✓");
+                    ApplicationUtil.createCell(row, columnCount++, "✓");
                     break;
                 default:
                     break;
             }
-            createCell(row, columnCount++, feedbackDto.getSuggestion());
-            createCell(row, columnCount, "");
-        }
-    }
-
-    private void createCell(Row row, int columnCount, Object value) {
-        Cell cell = row.createCell(columnCount);
-        if (value instanceof Integer) {
-            cell.setCellValue((Integer) value);
-        } else if (value instanceof Boolean) {
-            cell.setCellValue((Boolean) value);
-        } else if (value instanceof Long) {
-            cell.setCellValue((Long) value);
-        } else {
-            cell.setCellValue((String) value);
+            ApplicationUtil.createCell(row, columnCount++, feedbackDto.getSuggestion());
+            ApplicationUtil.createCell(row, columnCount, "");
         }
     }
 }

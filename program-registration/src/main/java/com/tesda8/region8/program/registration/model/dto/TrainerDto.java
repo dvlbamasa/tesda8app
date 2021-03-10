@@ -56,4 +56,8 @@ public class TrainerDto {
     public TrainerDto(Boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
+
+    public String fetchFullName() {
+        return firstName + " " + middleInitial + " " + lastName + " " + nameExt;
+    }
 }

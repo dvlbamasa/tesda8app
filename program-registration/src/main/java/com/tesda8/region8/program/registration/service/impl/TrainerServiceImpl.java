@@ -130,6 +130,7 @@ public class TrainerServiceImpl implements RegistrationRequirementsCrudService<T
     public TrainerDto createTrainer(TrainerDto trainerDto) {
         Trainer trainer = programRegistrationMapper.trainerToEntity(trainerDto);
         trainer.setBirthdate(ApplicationUtil.convertToLocalDateTimeViaInstant(trainerDto.getBirthdateRequest()));
+        trainer.setFullName(trainerDto.fetchFullName());
         trainer.setIsDeleted(false);
         return programRegistrationMapper.trainerToDto(trainerRepository.save(trainer));
     }
