@@ -305,6 +305,7 @@ public class ExcelParserServiceImpl implements ExcelParserService {
         System.out.println(feedbackDtoList.size());
         for (FeedbackDto feedbackDto : feedbackDtoList) {
             Row row = sheet.createRow(rowCount++);
+            row.setHeight((short) 700);
             int columnCount = 0;
             ApplicationUtil.createCell(row, columnCount++, dataCount++);
             ApplicationUtil.createCell(row, columnCount++, ApplicationUtil.formatLocalDateTimeToString(feedbackDto.getDate()));

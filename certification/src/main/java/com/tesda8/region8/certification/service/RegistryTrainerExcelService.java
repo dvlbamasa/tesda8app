@@ -74,6 +74,7 @@ public class RegistryTrainerExcelService {
             for (int i = 0; i < ncCertificateDtoList.size(); i++) {
                 Row row = sheet.createRow(rowCount++);
                 row.setRowStyle(cellStyle);
+                row.setHeight((short) 800);
                 ApplicationUtil.createCell(row, 0, dataCount++);
                 ApplicationUtil.createCell(row, 4, trainerDto.getLastName());
                 ApplicationUtil.createCell(row, 5, trainerDto.getFirstName());

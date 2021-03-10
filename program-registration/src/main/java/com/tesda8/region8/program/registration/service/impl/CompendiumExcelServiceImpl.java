@@ -70,6 +70,7 @@ public class CompendiumExcelServiceImpl implements CompendiumExcelService {
         for (RegisteredProgramDto registeredProgramDto : registeredProgramDtoList) {
             Row row = sheet.createRow(rowCount++);
             row.setRowStyle(hssfCellStyle);
+            row.setHeight((short) 700);
             ApplicationUtil.createCell(row, 1, registeredProgramDto.getOperatingUnit().label);
             ApplicationUtil.createCell(row, 2, registeredProgramDto.getCongressionalDistrict().label);
             ApplicationUtil.createCell(row, 3, registeredProgramDto.getInstitutionName());

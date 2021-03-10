@@ -35,8 +35,7 @@ function exportTableToExcel(tableID, filename = ''){
 }
 
 function exportScholarshipTableToExcel(tableID, filename = ''){
-    $('table').stickyTableHeaders('destroy');
-
+    swal("Downloading Report.", "Your report is being downloaded in a moment.", "success");
     var downloadLink;
     var dataType = 'application/vnd.ms-excel';
     var tableSelect = document.getElementById(tableID);
@@ -69,8 +68,6 @@ function exportScholarshipTableToExcel(tableID, filename = ''){
         //triggering the function
         downloadLink.click();
     }
-
-    $('table').stickyTableHeaders({fixedOffset: $('.page-header')});
 }
 
 /*
@@ -176,7 +173,7 @@ var scholarshipTablesToExcel = (function() {
         const year = document.getElementById('yearValue').value;
         const reportDate = " (" + month + ", " + year + ")";
         var wbname = 'Scholarship Monthly Accomplishment ' + reportDate + '.xls';
-        $('table').stickyTableHeaders('destroy');
+        swal("Downloading Report.", "Your report is being downloaded in a moment.", "success");
 
         var workbook = XLSX.utils.book_new();
 
@@ -189,7 +186,6 @@ var scholarshipTablesToExcel = (function() {
             XLSX.utils.book_append_sheet(workbook, ws1, wsnames[i]);
         }
         XLSX.writeFile(workbook, wbname);
-        $('table').stickyTableHeaders({fixedOffset: $('.page-header')});
     }
 })()
 

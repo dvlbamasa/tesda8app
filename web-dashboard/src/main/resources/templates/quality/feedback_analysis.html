@@ -92,7 +92,7 @@
                 <div class="tab-pane fade show active" id="monitoring" role="tabpanel" aria-labelledby="monitoring-tab">
                     <div class="canvas_div_pdf">
                         <div class="mb-5 mt-5 container">
-                            <a class="btn btn-lg btn-success" th:href="@{/quality/monitoring-report/download(dateFrom = ${summaryFilter.dateFrom}, dateTo = ${summaryFilter.dateTo})}"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Download Excel</a>
+                            <a onclick="downloadReport()" class="btn btn-lg btn-success" th:href="@{/quality/monitoring-report/download(dateFrom = ${summaryFilter.dateFrom}, dateTo = ${summaryFilter.dateTo})}"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Download Excel</a>
                         </div>
                         <div class="container">
                             <div class="text-center">
@@ -187,7 +187,7 @@
                 </div>
                 <div class="tab-pane fade show" id="summary" role="tabpanel" aria-labelledby="summary-tab">
                     <div class="mb-5 mt-5 container">
-                        <a class="btn btn-lg btn-success" th:href="@{/quality/summary-report/download(dateFrom = ${summaryFilter.dateFrom}, dateTo = ${summaryFilter.dateTo})}"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Download Excel</a>
+                        <a onclick="downloadReport()" class="btn btn-lg btn-success" th:href="@{/quality/summary-report/download(dateFrom = ${summaryFilter.dateFrom}, dateTo = ${summaryFilter.dateTo})}"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Download Excel</a>
                     </div>
                     <div class="container">
                         <div class="text-center">
@@ -369,11 +369,12 @@
 
 <div th:replace="fragments/footer :: footer"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-2JBCbWoMJPH+Uj7Wq5OLub8E5edWHlTM4ar/YJkZh3plwB2INhhOC3eDoqHm1Za/ZOSksrLlURLoyXVdfQXqwg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
 <script type='text/javascript' th:src="@{/js/sticky_table_header.js}"></script>
 <script  type='text/javascript' src="../../static/js/doubleScroll/jquery.doubleScroll.js" th:src="@{/js/doubleScroll/jquery.doubleScroll.js}"></script>
 <script type='text/javascript' src="../../static/js/table_event_handlers.js" th:src="@{/js/table_event_handlers.js}"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script type='text/javascript' src="../../static/js/table_to_excel.js" th:src="@{/js/table_to_excel.js}"></script>
 
 <script type='text/javascript' th:src="@{/js/quality/summary_report.js}"></script>
