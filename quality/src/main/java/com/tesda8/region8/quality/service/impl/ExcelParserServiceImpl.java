@@ -51,8 +51,8 @@ public class ExcelParserServiceImpl implements ExcelParserService {
                 Cell currentCell = cellIterator.next();
                 if (j == 5 && i == 1) {
                     currentCell.setCellValue(
-                            ApplicationUtil.formatLocalDateTimeToString(ApplicationUtil.convertToLocalDateTimeViaInstant(summaryReportFilter.getDateFrom())) + " - " +
-                            ApplicationUtil.formatLocalDateTimeToString(ApplicationUtil.convertToLocalDateTimeViaInstant(summaryReportFilter.getDateTo())));
+                            ApplicationUtil.formatLocalDateTimeToString2(ApplicationUtil.convertToLocalDateTimeViaInstant(summaryReportFilter.getDateFrom())) + " - " +
+                            ApplicationUtil.formatLocalDateTimeToString2(ApplicationUtil.convertToLocalDateTimeViaInstant(summaryReportFilter.getDateTo())));
                 }
             }
         }
@@ -84,8 +84,8 @@ public class ExcelParserServiceImpl implements ExcelParserService {
                 Cell currentCell = cellIterator.next();
                 if (j == 5 && i == 0) {
                     currentCell.setCellValue("For " +
-                            ApplicationUtil.formatLocalDateTimeToString(ApplicationUtil.convertToLocalDateTimeViaInstant(summaryReportFilter.getDateFrom())) + " - " +
-                                    ApplicationUtil.formatLocalDateTimeToString(ApplicationUtil.convertToLocalDateTimeViaInstant(summaryReportFilter.getDateTo())));
+                            ApplicationUtil.formatLocalDateTimeToString2(ApplicationUtil.convertToLocalDateTimeViaInstant(summaryReportFilter.getDateFrom())) + " - " +
+                                    ApplicationUtil.formatLocalDateTimeToString2(ApplicationUtil.convertToLocalDateTimeViaInstant(summaryReportFilter.getDateTo())));
                 }
                 if (j >= 8 && j <= 10 && genderCounter < 3) {
                     if (i == 5) {
@@ -141,7 +141,7 @@ public class ExcelParserServiceImpl implements ExcelParserService {
             for (int i = 0; cellIterator.hasNext(); i++) {
                 Cell currentCell = cellIterator.next();
                 if (j == 3 && i == 3) {
-                    currentCell.setCellValue(ApplicationUtil.formatLocalDateTimeToString(feedbackDto.getDate()));
+                    currentCell.setCellValue(ApplicationUtil.formatLocalDateTimeToString2(feedbackDto.getDate()));
                 } else if (j == 5 && i == 2) {
                     currentCell.setCellValue(feedbackDto.getCustomer().fetchFullName());
                 } else if (j == 5 && i == 6) {
@@ -302,7 +302,6 @@ public class ExcelParserServiceImpl implements ExcelParserService {
     private void addRowsToMonitoringReport(Sheet sheet, List<FeedbackDto> feedbackDtoList) {
         int rowCount = 12;
         int dataCount = 1;
-        System.out.println(feedbackDtoList.size());
         for (FeedbackDto feedbackDto : feedbackDtoList) {
             Row row = sheet.createRow(rowCount++);
             row.setHeight((short) 700);

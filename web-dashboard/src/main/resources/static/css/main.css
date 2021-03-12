@@ -472,6 +472,12 @@ div.tesda-logo2 {
     color: #0c7ff7;
 }
 
+.fa-3 {
+    font-size: 4em;
+    color: #767676;
+
+}
+
 .fa-1 {
     font-size: 1.4em;
 }
@@ -491,4 +497,21 @@ div.tesda-logo2 {
 
 h1 {
     font-family: 'Raleway', sans-serif;
+}
+
+.scrollToTop{
+    display:none;
+    position:fixed;
+    bottom: 50px; /* Place the button at the bottom of the page */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background: none; /* Set a background color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    right: 80px;
+}
+.scrollToTop:hover, .scrollToTop:active, .scrollToTop:visited{
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background: none; /* Set a background color */
 }

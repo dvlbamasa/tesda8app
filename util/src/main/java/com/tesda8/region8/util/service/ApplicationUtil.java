@@ -31,11 +31,11 @@ public class ApplicationUtil {
     }
 
     public static Month getCurrentMonth() {
-        return Month.valueOf(LocalDateTime.now().getMonth().name());
+        return Month.valueOf(getLocalDateTimeNow().getMonth().name());
     }
 
     public static Long getCurrentYear() {
-        return (long) LocalDateTime.now().getYear();
+        return (long) getLocalDateTimeNow().getYear();
     }
 
     public static LocalDateTime getLocalDateTimeNow() {

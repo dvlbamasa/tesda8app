@@ -109,9 +109,9 @@
                                 </div>
                                 <div class="">
                                     <p class="ml-3 text-black align-left">Period Covered:
-                                        <span th:text="${#dates.format(summaryFilter.dateFrom, 'MMM. dd, yyyy')}"></span>
+                                        <span th:text="${#dates.format(summaryFilter.dateFrom, 'MMMM dd, yyyy')}"></span>
                                         <span> - </span>
-                                        <span th:text="${#dates.format(summaryFilter.dateTo, 'MMM. dd, yyyy')}"></span>
+                                        <span th:text="${#dates.format(summaryFilter.dateTo, 'MMMM dd, yyyy')}"></span>
                                     </p>
                                     <p class="mr-3 text-black align-right">Rev. No. 01-10/01/20</p>
                                     <div style="clear: both;"></div>
@@ -194,9 +194,9 @@
                             <h3 class="text-black-50 mb-4">SUMMARY REPORT FOR FACE TO FACE TRANSACTION</h3>
                             <p class="text-black">(Customer Feedback Form TESDA-OP-AS-03-F01)</p>
                             <p class="text-black">For
-                                <span th:text="${#dates.format(summaryFilter.dateFrom, 'MMM. dd, yyyy')}"></span>
+                                <span th:text="${#dates.format(summaryFilter.dateFrom, 'MMMM dd, yyyy')}"></span>
                                 <span> - </span>
-                                <span th:text="${#dates.format(summaryFilter.dateTo, 'MMM. dd, yyyy')}"></span>
+                                <span th:text="${#dates.format(summaryFilter.dateTo, 'MMMM dd, yyyy')}"></span>
                             </p>
                         </div>
                     </div>
@@ -363,6 +363,7 @@
             </div>
         </div>
     </div>
+    <a href="#" class="scrollToTop"><i class="fa fa-3 fa-chevron-circle-up" aria-hidden="true"></i></a>
 </div>
 <!-- /.container -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
@@ -372,6 +373,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
 <script type='text/javascript' th:src="@{/js/sticky_table_header.js}"></script>
+<script type='text/javascript' th:src="@{/js/scroll_top.js}"></script>
 <script  type='text/javascript' src="../../static/js/doubleScroll/jquery.doubleScroll.js" th:src="@{/js/doubleScroll/jquery.doubleScroll.js}"></script>
 <script type='text/javascript' src="../../static/js/table_event_handlers.js" th:src="@{/js/table_event_handlers.js}"></script>
 

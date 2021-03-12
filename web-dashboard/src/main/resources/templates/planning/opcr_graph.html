@@ -53,10 +53,12 @@
         <input id="pageType" type="hidden" th:value="${pageType}"/>
         <input id="papGroupTypeLabel" type="hidden" th:value="${papGroupType.label}"/>
     </div>
+    <a href="#" class="scrollToTop"><i class="fa fa-3 fa-chevron-circle-up" aria-hidden="true"></i></a>
 </div>
 
 
 <div th:replace="fragments/footer :: footer"/>
+<script type='text/javascript' th:src="@{/js/scroll_top.js}"></script>
 
 <script type='text/javascript' th:src="@{/js/graph/graph_opcr.js}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
